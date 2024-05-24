@@ -8,7 +8,50 @@ datasource db {
   url      = env("MYSQL_URL")
 }
 
-model action_log {
+enum MODEL_NAME {
+  actionlog
+  actionProcessStep
+  actionStepType
+  additionProcess
+  agency
+  agent
+  agentType
+  airport
+  answer
+  api
+  apiExample
+  apiGroup
+  apiHasField
+  apiHasGroup
+  apiMethod
+  apiStatus
+  bank
+  bankBranch
+  bankHasCountry
+  bankHasFileTemplate
+  bankHasKeyword
+  bankingProcess
+  billing
+  businessActivity
+  businessActivityIndustry
+  businessActivityIndustryClass
+  businessActivityLabel
+  campaign
+  campaignHasVoucherType
+  campaignType
+  carSeat
+  carType
+  changeRequest
+  changeRequestItem
+  changeRequestStatus
+  click
+  company
+  companyEvent
+  companyEventType
+
+}
+
+model actionLog {
   id           Int       @default(autoincrement())
   user_id      Int?
   description  String?   @db.VarChar(255)
@@ -22,7 +65,7 @@ model action_log {
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model action_process_step {
+model actionProcessStep {
   process_step_id                                                     Int
   next_process_step_id                                                Int
   country_id                                                          Int?
@@ -35,7 +78,7 @@ model action_process_step {
   is_deleted                                                          Int?             @default(0) @db.TinyInt
   id                                                                  Int              @id @default(autoincrement())
   country                                                             country?         @relation(fields: [country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "action_process_step_ibfk_1")
-  action_step_type                                                    action_step_type @relation(fields: [action_step_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_act_action_step_type_id_act_id_cogw")
+  action_step_type                                                    actionStepType @relation(fields: [action_step_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_act_action_step_type_id_act_id_cogw")
   bank                                                                bank?            @relation(fields: [bank_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_act_bank_id_ban_id_1ne")
   process_step_action_process_step_next_process_step_idToprocess_step process_step     @relation("action_process_step_next_process_step_idToprocess_step", fields: [next_process_step_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_act_next_process_step_id_pro_id_3b6i")
   process_step_action_process_step_process_step_idToprocess_step      process_step     @relation("action_process_step_process_step_idToprocess_step", fields: [process_step_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_act_process_step_id_pro_id_nxu")
@@ -50,19 +93,19 @@ model action_process_step {
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model action_step_type {
+model actionStepType {
   id                    Int                     @id @default(autoincrement())
   name                  String                  @db.VarChar(45)
   created_time          DateTime?               @default(now()) @db.DateTime(0)
   updated_time          DateTime?               @default(now()) @db.DateTime(0)
   is_deleted            Int                     @default(0) @db.TinyInt
-  action_process_step   action_process_step[]
+  action_process_step   actionProcessStep[]
   history_log_cdc       history_log_cdc[]
   notification_template notification_template[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model addition_process {
+model additionProcess {
   id               Int              @id @default(autoincrement())
   task_id          Int
   tracking_link    String?          @db.VarChar(200)
@@ -105,7 +148,7 @@ model agent {
   agency         agency           @relation(fields: [agency_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_agency_id")
   bank           bank?            @relation(fields: [bank_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_agent_bank_id")
   country        country?         @relation(fields: [country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_agent_country_id")
-  agent_type     agent_type       @relation(fields: [agent_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_agent_type_id")
+  agent_type     agentType       @relation(fields: [agent_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_agent_type_id")
   emails          email[]
   process_log    process_log[]
   task_has_agent task_has_agent[]
@@ -117,8 +160,9 @@ model agent {
   @@index([agent_type_id], map: "fk_agent_type_id")
 }
 
+// TODO: xóa model agentType
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model agent_type {
+model agentType {
   id         Int      @id @default(autoincrement())
   name       String   @db.VarChar(100)
   is_deleted Boolean? @default(false)
@@ -132,7 +176,7 @@ model airport {
   is_deleted Int          @default(0) @db.TinyInt
   customer   customer[]
   service    service[]
-  visa_order visa_order[]
+  visaOrder  visaOrder[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -177,10 +221,10 @@ model api {
   created_time     DateTime?       @default(now()) @db.DateTime(0)
   updated_time     DateTime?       @default(now()) @db.DateTime(0)
   is_deleted       Boolean         @default(false)
-  api_method       api_method      @relation(fields: [api_method_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_api_method")
-  api_example      api_example[]
-  api_has_field    api_has_field[]
-  api_has_group    api_has_group[]
+  apiMethod       apiMethod      @relation(fields: [api_method_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_api_method")
+  apiExamples      apiExample[]
+  apiHasFields    apiHasField[]
+  apiHasGroups    apiHasGroup[]
 
   @@index([api_method_id], map: "fk_api_api_method")
 }
@@ -194,7 +238,7 @@ model api_attribute {
   is_deleted   Boolean?  @default(false)
 }
 
-model api_example {
+model apiExample {
   id            Int        @id @default(autoincrement())
   api_id        Int
   body          Json?
@@ -207,8 +251,8 @@ model api_example {
   created_time  DateTime?  @default(now()) @db.DateTime(0)
   updated_time  DateTime?  @default(now()) @db.DateTime(0)
   is_deleted    Boolean    @default(false)
-  api_status    api_status @relation(fields: [api_status_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_api_status_id_api_id_5l43")
-  api_group     api_group? @relation(fields: [api_group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_example_group")
+  apiStatus    apiStatus @relation(fields: [api_status_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_api_status_id_api_id_5l43")
+  apiGroup     apiGroup? @relation(fields: [api_group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_example_group")
   api           api        @relation(fields: [api_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_response_api")
   file          file[]
 
@@ -217,18 +261,18 @@ model api_example {
   @@index([api_status_id], map: "fk_api_response_status")
 }
 
-model api_group {
+model apiGroup {
   id            Int             @id @default(autoincrement())
   name          String          @db.VarChar(255)
   description   String?         @db.Text
   created_time  DateTime?       @default(now()) @db.DateTime(0)
   updated_time  DateTime?       @default(now()) @db.DateTime(0)
   is_deleted    Boolean         @default(false)
-  api_example   api_example[]
-  api_has_group api_has_group[]
+  apiExamples   apiExample[]
+  apiHasGroups apiHasGroup[]
 }
 
-model api_has_field {
+model apiHasField {
   id           Int       @id @default(autoincrement())
   api_id       Int
   field_id     Int
@@ -248,7 +292,7 @@ model api_has_field {
   @@index([field_id], map: "fk_api_has_field_field_id_idx")
 }
 
-model api_has_group {
+model apiHasGroup {
   id           Int       @id @default(autoincrement())
   api_id       Int
   api_group_id Int
@@ -256,14 +300,14 @@ model api_has_group {
   created_time DateTime? @default(now()) @db.DateTime(0)
   updated_time DateTime? @default(now()) @db.DateTime(0)
   is_deleted   Boolean   @default(false)
-  api_group    api_group @relation(fields: [api_group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_api_group_id_api_id_i0p")
+  apiGroup     apiGroup @relation(fields: [api_group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_api_group_id_api_id_i0p")
   api          api       @relation(fields: [api_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_has_group_api")
 
   @@index([api_group_id], map: "fk_api_has_group_api_group_idx")
   @@index([api_id], map: "fk_api_has_group_api_idx")
 }
 
-model api_method {
+model apiMethod {
   id           Int       @id @default(autoincrement())
   name         String    @db.VarChar(45)
   description  String?   @db.Text
@@ -274,14 +318,14 @@ model api_method {
   syslog       syslog[]
 }
 
-model api_status {
+model apiStatus {
   id           Int           @id @default(autoincrement())
   code         String        @db.VarChar(45)
   description  String?       @db.Text
   created_time DateTime?     @default(now()) @db.DateTime(0)
   updated_time DateTime?     @default(now()) @db.DateTime(0)
   is_deleted   Boolean       @default(false)
-  api_example  api_example[]
+  apiExample  apiExample[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -293,14 +337,14 @@ model bank {
   initial_deposit        Int?
   is_virtual             Boolean?                 @default(false)
   is_deleted             Boolean?                 @default(false)
-  action_process_step    action_process_step[]
+  actionProcessStep    actionProcessStep[]
   agent                  agent[]
   country                country?                 @relation(fields: [country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bank_country1")
-  bank_branch            bank_branch[]
-  bank_has_country       bank_has_country[]
-  bank_has_file_template bank_has_file_template[]
-  bank_has_keyword       bank_has_keyword[]
-  banking_process        banking_process[]
+  bank_branch            bankBranch[]
+  bank_has_country       bankHasCountry[]
+  bank_has_file_template bankHasFileTemplate[]
+  bank_has_keyword       bankHasKeyword[]
+  banking_process        bankingProcess[]
   customer_has_bank      customer_has_bank[]
   order_has_bank         order_has_bank[]
 
@@ -308,20 +352,20 @@ model bank {
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model bank_branch {
+model bankBranch {
   id              Int               @id @default(autoincrement())
   name            String?           @db.VarChar(200)
   address         String?           @db.VarChar(200)
   bank_id         Int?
   is_deleted      Int?              @default(0) @db.TinyInt
   bank            bank?             @relation(fields: [bank_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_branch_bank_id")
-  banking_process banking_process[]
+  banking_process bankingProcess[]
 
   @@index([bank_id], map: "fk_branch_bank_id_idx")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model bank_has_country {
+model bankHasCountry {
   id                       Int      @id @default(autoincrement())
   bank_id                  Int?
   country_id               Int?
@@ -339,7 +383,7 @@ model bank_has_country {
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model bank_has_file_template {
+model bankHasFileTemplate {
   bank_id          Int
   file_template_id Int
   bank             bank          @relation(fields: [bank_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ban_bank_id_ban_id_ftar")
@@ -350,7 +394,7 @@ model bank_has_file_template {
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model bank_has_keyword {
+model bankHasKeyword {
   id      Int     @id @default(autoincrement())
   bank_id Int?
   keyword String? @db.Text
@@ -360,7 +404,7 @@ model bank_has_keyword {
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model banking_process {
+model bankingProcess {
   id                             Int             @id @default(autoincrement())
   task_id                        Int?
   bank_id                        Int?
@@ -380,7 +424,7 @@ model banking_process {
   phone_country_id               Int?
   phone_number                   String?         @db.VarChar(45)
   bank_address                   String?         @db.Text
-  bank_branch                    bank_branch?    @relation(fields: [bank_branch_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ban_bank_branch_id_ban_id_iwfs")
+  bank_branch                    bankBranch?    @relation(fields: [bank_branch_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ban_bank_branch_id_ban_id_iwfs")
   bank                           bank?           @relation(fields: [bank_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ban_bank_id_ban_id_4zbr")
   country                        country?        @relation(fields: [phone_country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ban_phone_country_id_cou_id_b07m")
   task                           task?           @relation(fields: [task_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ban_task_id_tas_id_k2c2")
@@ -416,7 +460,7 @@ model billing {
   city                                      String?           @db.VarChar(225)
   created_time                              DateTime?         @default(now()) @db.DateTime(0)
   updated_time                              DateTime?         @default(now()) @db.DateTime(0)
-  addition_process                          addition_process? @relation(fields: [addition_process_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bil_addition_process_id_add_id_jsfm")
+  addition_process                          additionProcess? @relation(fields: [addition_process_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bil_addition_process_id_add_id_jsfm")
   country_billing_country_idTocountry       country?          @relation("billing_country_idTocountry", fields: [country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bil_country_id_cou_id_fnr3")
   customer                                  customer?         @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bil_customer_id_cus_id_lb8c")
   country_billing_phone_country_idTocountry country?          @relation("billing_phone_country_idTocountry", fields: [phone_country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bil_phone_country_id_cou_id_2epb")
@@ -432,7 +476,7 @@ model billing {
   @@index([user_id], map: "fk_billing_user1")
 }
 
-model business_activity {
+model businessActivity {
   id                                   Int                                    @id @default(autoincrement())
   name                                 String?                                @db.Text
   country_id                           Int?
@@ -442,7 +486,7 @@ model business_activity {
   label_ids                            Json?
   is_common                            Int                                    @default(0) @db.TinyInt
   is_deleted                           Boolean?                               @default(false)
-  business_activity_industry           business_activity_industry?            @relation(fields: [business_activity_industry_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "business_activity_bussiness_activity_industry_fk1")
+  business_activity_industry           businessActivityIndustry?            @relation(fields: [business_activity_industry_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "business_activity_bussiness_activity_industry_fk1")
   country                              country?                               @relation(fields: [country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "business_activity_ibfk_1")
   company_has_business_activity        company_has_business_activity[]
   company_member_has_business_activity company_member_has_business_activity[]
@@ -451,7 +495,7 @@ model business_activity {
   @@index([country_id], map: "fk_business_activity_country")
 }
 
-model business_activity_industry {
+model businessActivityIndustry {
   id                                  Int                               @id @default(autoincrement())
   name                                String?                           @db.Text
   country_id                          Int?
@@ -460,23 +504,24 @@ model business_activity_industry {
   business_activity_industry_class_id Int?
   is_deleted                          Boolean?                          @default(false)
   sic_code                            String?                           @db.VarChar(10)
-  business_activity                   business_activity[]
-  business_activity_industry_class    business_activity_industry_class? @relation(fields: [business_activity_industry_class_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_business_activity_industry_business_activity_industry_class1")
+  business_activity                   businessActivity[]
+  business_activity_industry_class    businessActivityIndustryClass? @relation(fields: [business_activity_industry_class_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_business_activity_industry_business_activity_industry_class1")
   customer                            customer[]
 
   @@index([business_activity_industry_class_id], map: "fk_business_activity_industry_business_activity_industry_cl_idx")
 }
 
+// TODO: delete model businessActivityIndustryClass
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model business_activity_industry_class {
+model businessActivityIndustryClass {
   id                         Int                          @id @default(autoincrement())
   name                       String                       @db.VarChar(45)
   is_deleted                 Boolean                      @default(false)
-  business_activity_industry business_activity_industry[]
+  business_activity_industry businessActivityIndustry[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model business_activity_label {
+model businessActivityLabel {
   id         Int     @id @default(autoincrement())
   name       String  @db.Text
   is_deleted Boolean @default(false)
@@ -489,8 +534,8 @@ model campaign {
   description               String?                     @db.Text
   is_deleted                Int                         @default(0) @db.TinyInt
   campaign_type_id          Int?
-  campaign_type             campaign_type?              @relation(fields: [campaign_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_campaign_type")
-  campaign_has_voucher_type campaign_has_voucher_type[]
+  campaign_type             campaignType?              @relation(fields: [campaign_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_campaign_type")
+  campaign_has_voucher_type campaignHasVoucherType[]
   customer                  customer[]
 
   @@index([campaign_type_id], map: "fk_campaign__type_idx")
@@ -498,7 +543,7 @@ model campaign {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model campaign_has_voucher_type {
+model campaignHasVoucherType {
   campaign_id        Int
   voucher_type_id    Int
   total_quantity     Int?
@@ -512,8 +557,9 @@ model campaign_has_voucher_type {
   @@index([voucher_type_id], map: "fk_campaign_voucher_type_2_idx")
 }
 
+// TODO: delete model campaignType
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model campaign_type {
+model campaignType {
   id         Int        @id @default(autoincrement())
   name       String?    @db.VarChar(225)
   is_deleted Int?       @default(0) @db.TinyInt
@@ -521,7 +567,7 @@ model campaign_type {
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model car_seat {
+model carSeat {
   id         Int       @id @default(autoincrement())
   name       String?   @db.Text
   is_deleted Int       @default(0) @db.TinyInt
@@ -531,14 +577,14 @@ model car_seat {
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model car_type {
+model carType {
   id         Int       @id @default(autoincrement())
   name       String?   @db.Text
   is_deleted Int       @default(0) @db.TinyInt
   service    service[]
 }
 
-model change_request {
+model changeRequest {
   id                        Int                   @id @default(autoincrement())
   task_id                   Int?
   company_id                Int?
@@ -555,9 +601,9 @@ model change_request {
   company                   company?              @relation(fields: [company_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_change_request_company_id")
   company_member            company_member?       @relation(fields: [company_member_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_change_request_company_member_id")
   company_position          company_position?     @relation(fields: [company_position_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_change_request_company_position_id")
-  change_request_status     change_request_status @relation(fields: [change_request_status_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_change_request_status_id")
+  change_request_status     changeRequestStatus @relation(fields: [change_request_status_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_change_request_status_id")
   task                      task?                 @relation(fields: [task_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_change_request_task_id")
-  change_request_item       change_request_item[]
+  change_request_item       changeRequestItem[]
   file                      file[]
 
   @@index([company_id], map: "fk_change_request_company_id_idx")
@@ -567,7 +613,7 @@ model change_request {
   @@index([task_id], map: "fk_change_request_task_idx")
 }
 
-model change_request_item {
+model changeRequestItem {
   id                Int            @id @default(autoincrement())
   change_request_id Int
   model             String         @db.VarChar(100)
@@ -579,18 +625,18 @@ model change_request_item {
   is_deleted        Boolean?       @default(false)
   created_time      DateTime?      @default(now()) @db.DateTime(0)
   updated_time      DateTime?      @default(now()) @db.DateTime(0)
-  change_request    change_request @relation(fields: [change_request_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_change_request_item")
+  changeRequest    changeRequest @relation(fields: [change_request_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_change_request_item")
 
   @@index([change_request_id], map: "fk_change_request_item_idx")
 }
 
-model change_request_status {
+model changeRequestStatus {
   id                     Int                      @id @default(autoincrement())
   name                   String                   @db.VarChar(45)
   is_deleted             Boolean?                 @default(false)
   created_time           DateTime?                @default(now()) @db.DateTime(0)
   updated_time           DateTime?                @default(now()) @db.DateTime(0)
-  change_request         change_request[]
+  change_request         changeRequest[]
   service_change_officer service_change_officer[]
 }
 
@@ -673,7 +719,7 @@ model company {
   business_activity_detail                      String?                         @db.VarChar(255)
   version                                       Int?                            @default(0)
   answer                                        answer[]
-  change_request                                change_request[]
+  change_request                                changeRequest[]
   country_company_business_country_idTocountry  country?                        @relation("company_business_country_idTocountry", fields: [business_country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_business_country_idx")
   billing                                       billing?                        @relation(fields: [billing_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_com_billing_id_bil_id_54hy")
   company_status                                company_status?                 @relation(fields: [company_status_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_com_company_status_id_com_id_k8i8")
@@ -681,7 +727,7 @@ model company {
   country_company_country_idTocountry           country?                        @relation("company_country_idTocountry", fields: [country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_com_country_id_cou_id_3zlp")
   entity_type                                   entity_type?                    @relation(fields: [entity_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_com_entity_type_id_ent_id_ac66")
   country_company_operating_country_idTocountry country?                        @relation("company_operating_country_idTocountry", fields: [operating_country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_com_operating_country_id_cou_id_7wn5")
-  company_event                                 company_event[]
+  company_event                                 companyEvent[]
   company_has_business_activity                 company_has_business_activity[]
   company_has_currency                          company_has_currency[]
   company_has_operation_country                 company_has_operation_country[]
@@ -692,7 +738,7 @@ model company {
   email                                         email[]
   file                                          file[]
   history_log_cdc                               history_log_cdc[]
-  note                                          note[]
+  notes                                          note[]
   order                                         order[]
   proposed_name                                 proposed_name[]
   task                                          task[]
@@ -706,7 +752,7 @@ model company {
   @@index([entity_type_id], map: "fk_company_entity_type1")
 }
 
-model company_event {
+model companyEvent {
   id                    Int                 @id @default(autoincrement())
   company_id            Int
   service_id            Int
@@ -722,7 +768,7 @@ model company_event {
   is_not_show           Int?                @default(0) @db.TinyInt
   company_event_type_id Int?
   is_notify_due_renewal Int?                @default(0) @db.TinyInt
-  company_event_type    company_event_type? @relation(fields: [company_event_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_company_event_company_event_type_id")
+  company_event_type    companyEventType? @relation(fields: [company_event_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_company_event_company_event_type_id")
   company               company             @relation(fields: [company_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_company_event_company_id")
   order                 order?              @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_company_event_order_id")
   service               service             @relation(fields: [service_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_company_event_service_id")
@@ -734,21 +780,21 @@ model company_event {
   @@index([service_id], map: "fk_company_event_service_id_idx")
 }
 
-model company_event_type {
+model companyEventType {
   id            Int             @id @default(autoincrement())
   name          String?         @db.Text
   description   String?         @db.Text
   created_time  DateTime?       @default(now()) @db.DateTime(0)
   updated_time  DateTime?       @default(now()) @db.DateTime(0)
   is_deleted    Int?            @default(0) @db.TinyInt
-  company_event company_event[]
+  company_event companyEvent[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model company_has_business_activity {
   company_id           Int
   business_activity_id Int
-  business_activity    business_activity @relation(fields: [business_activity_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_com_business_activity_id_bus_id_ilau")
+  business_activity    businessActivity @relation(fields: [business_activity_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_com_business_activity_id_bus_id_ilau")
   company              company           @relation(fields: [company_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_com_company_id_com_id_6dx6")
 
   @@id([company_id, business_activity_id])
@@ -862,7 +908,7 @@ model company_member {
   full_name                                                                         String?                                @db.VarChar(255)
   deleted_time                                                                      DateTime?                              @db.DateTime(0)
   answer                                                                            answer[]
-  change_request                                                                    change_request[]
+  change_request                                                                    changeRequest[]
   company_interest_company_interest_company_member_idTocompany_member               company_interest[]                     @relation("company_interest_company_member_idTocompany_member")
   company_interest_company_interest_corporation_company_member_idTocompany_member   company_interest[]                     @relation("company_interest_corporation_company_member_idTocompany_member")
   country_company_member_birth_country_idTocountry                                  country?                               @relation("company_member_birth_country_idTocountry", fields: [birth_country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "company_member_ibfk_1")
@@ -882,7 +928,7 @@ model company_member {
   company_position_company_position_corporation_company_member_idTocompany_member   company_position[]                     @relation("company_position_corporation_company_member_idTocompany_member")
   company_share_company_share_company_member_idTocompany_member                     company_share[]                        @relation("company_share_company_member_idTocompany_member")
   company_share_company_share_corporation_company_member_idTocompany_member         company_share[]                        @relation("company_share_corporation_company_member_idTocompany_member")
-  email                                                                             email[]
+  emails                                                                             email[]
   fatca                                                                             fatca[]
   file_file_company_member_idTocompany_member                                       file[]                                 @relation("file_company_member_idTocompany_member")
   file_file_filled_by_company_member_idTocompany_member                             file[]                                 @relation("file_filled_by_company_member_idTocompany_member")
@@ -911,7 +957,7 @@ model company_member_has_business_activity {
   company_member_id    Int
   business_activity_id Int
   company_member       company_member    @relation(fields: [company_member_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_company_member_has_business_activity_1")
-  business_activity    business_activity @relation(fields: [business_activity_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_company_member_has_business_activity_2")
+  business_activity    businessActivity @relation(fields: [business_activity_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_company_member_has_business_activity_2")
 
   @@id([company_member_id, business_activity_id])
   @@index([business_activity_id], map: "fk_company_member_has_business_activity_2")
@@ -1043,7 +1089,7 @@ model company_position {
   is_handle_relationship_contact_person                                         Boolean?
   position_detail                                                               String?             @db.VarChar(255)
   deleted_time                                                                  DateTime?           @db.DateTime(0)
-  change_request                                                                change_request[]
+  change_request                                                                changeRequest[]
   company_interest                                                              company_interest[]
   company_ownership                                                             company_ownership[]
   company_member_company_position_company_member_idTocompany_member             company_member      @relation("company_position_company_member_idTocompany_member", fields: [company_member_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_com_company_member_id_com_id_4m4n")
@@ -1172,15 +1218,15 @@ model country {
   left                                                                      Int?
   right                                                                     Int?
   continent_id                                                              Int?
-  action_process_step                                                       action_process_step[]
+  action_process_step                                                       actionProcessStep[]
   agent                                                                     agent[]
   answer                                                                    answer[]
   bank                                                                      bank[]
-  bank_has_country                                                          bank_has_country[]
-  banking_process                                                           banking_process[]
+  bank_has_country                                                          bankHasCountry[]
+  banking_process                                                           bankingProcess[]
   billing_billing_country_idTocountry                                       billing[]                              @relation("billing_country_idTocountry")
   billing_billing_phone_country_idTocountry                                 billing[]                              @relation("billing_phone_country_idTocountry")
-  business_activity                                                         business_activity[]
+  business_activity                                                         businessActivity[]
   company_company_business_country_idTocountry                              company[]                              @relation("company_business_country_idTocountry")
   company_company_country_idTocountry                                       company[]                              @relation("company_country_idTocountry")
   company_company_operating_country_idTocountry                             company[]                              @relation("company_operating_country_idTocountry")
@@ -1400,7 +1446,7 @@ model customer {
   person                                            person?                      @relation(fields: [person_id], references: [id], map: "customer_ibfk_11")
   campaign                                          campaign?                    @relation(fields: [campaign_ads_id], references: [id], map: "customer_ibfk_12")
   ga_channel                                        ga_channel?                  @relation(fields: [ga_channel_id], references: [id], map: "customer_ibfk_13")
-  contact_from                                      contact_from?                @relation(fields: [contact_from_id], references: [id], map: "customer_ibfk_14")
+  contact_froms                                      contact_from?                @relation(fields: [contact_from_id], references: [id], map: "customer_ibfk_14")
   entity_type                                       entity_type?                 @relation(fields: [entity_type_id], references: [id], map: "customer_ibfk_15")
   company_suffix                                    company_suffix?              @relation(fields: [company_suffix_id], references: [id], map: "customer_ibfk_16")
   country_customer_company_country_idTocountry      country?                     @relation("customer_company_country_idTocountry", fields: [company_country_id], references: [id], map: "customer_ibfk_17")
@@ -1412,8 +1458,8 @@ model customer {
   country_customer_phone_country_idTocountry        country?                     @relation("customer_phone_country_idTocountry", fields: [phone_country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_cus_phone_country_id_cou_id_donu")
   website                                           website                      @relation(fields: [website_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_cus_website_id_web_id_c683")
   airport                                           airport?                     @relation(fields: [airport_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customer_airport1")
-  business_activity_industry                        business_activity_industry?  @relation(fields: [business_activity_industry_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customer_business_activity_industry1")
-  customer_type                                     customer_type?               @relation(fields: [customer_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customer_customer_type1")
+  business_activity_industry                        businessActivityIndustry?  @relation(fields: [business_activity_industry_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customer_business_activity_industry1")
+  customerType                                     customer_type?              @relation(fields: [customer_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customer_customer_type1")
   gender                                            gender?                      @relation(fields: [gender_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customer_gender")
   order_customer_order_idToorder                    order?                       @relation("customer_order_idToorder", fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customer_order1")
   Renamedpackage                                    Renamedpackage?              @relation(fields: [package_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customer_package")
@@ -1499,14 +1545,14 @@ model customer_status {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model customer_type {
-  id           Int
+  id           Int      
   name         String?    @db.VarChar(45)
   description  String?    @db.VarChar(45)
   created_time DateTime?  @default(now()) @db.DateTime(0)
   is_deleted   Int        @default(0) @db.TinyInt
-  customer     customer[]
+  customers     customer[]
 
-  @@id([id, is_deleted])
+  @@id([id])
 }
 
 model declaration_tax {
@@ -1615,7 +1661,7 @@ model email_template_has_receiver {
   updated_time      DateTime?      @default(now()) @db.DateTime(0)
   email_template    email_template @relation(fields: [email_template_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ema_email_template_id_ema_id_dsqg")
   team_group        team_group?    @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ema_group_id_tea_id_kb0w")
-  email             email          @relation(fields: [email_template_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_email_template_id")
+  emails             email          @relation(fields: [email_template_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_email_template_id")
   role              role?          @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_group_id_1")
   user              user?          @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_id_2")
 
@@ -1769,7 +1815,7 @@ model field {
   created_time    DateTime?       @default(now()) @db.DateTime(0)
   updated_time    DateTime?       @default(now()) @db.DateTime(0)
   is_deleted      Boolean         @default(false)
-  api_has_field   api_has_field[]
+  api_has_field   apiHasField[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -1806,7 +1852,7 @@ model file {
   status                                                          Int?             @default(1)
   company_event_id                                                Int?
   company_share                                                   company_share[]
-  change_request                                                  change_request?  @relation(fields: [change_request_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_change_request_file_id")
+  change_request                                                  changeRequest?  @relation(fields: [change_request_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_change_request_file_id")
   company                                                         company?         @relation(fields: [company_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_fil_company_id_com_id_e3qa")
   company_member_file_company_member_idTocompany_member           company_member?  @relation("file_company_member_idTocompany_member", fields: [company_member_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_fil_company_member_id_com_id_jiat")
   file_template                                                   file_template?   @relation(fields: [file_template_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_fil_file_template_id_fil_id_ev0d")
@@ -1819,8 +1865,8 @@ model file {
   ranking_partner                                                 ranking_partner? @relation(fields: [ranking_partner_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_fil_ranking_partner_id_ran_id_fly1")
   task                                                            task?            @relation(fields: [task_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_fil_task_id_tas_id_hjct")
   user                                                            user?            @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_fil_user_id_use_id_6ag1")
-  api_example                                                     api_example?     @relation(fields: [api_example_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_file_api_example")
-  company_event                                                   company_event?   @relation(fields: [company_event_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_file_company_event_id")
+  api_example                                                     apiExample?     @relation(fields: [api_example_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_file_api_example")
+  company_event                                                   companyEvent?   @relation(fields: [company_event_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_file_company_event_id")
   history_file                                                    history_file[]
 
   @@index([change_request_id], map: "fk_change_request_file_id_idx")
@@ -1857,7 +1903,7 @@ model file_template {
   collect_same_id                                                  Int?
   is_inactive                                                      Int?                                        @db.TinyInt
   is_approved_date_appointment                                     Int?                                        @default(0)
-  bank_has_file_template                                           bank_has_file_template[]
+  bank_has_file_template                                           bankHasFileTemplate[]
   country_has_entity_type_has_file_template                        country_has_entity_type_has_file_template[]
   file                                                             file[]
   file_template_file_template_collect_same_idTofile_template       file_template?                              @relation("file_template_collect_same_idTofile_template", fields: [collect_same_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_collect_same_id")
@@ -2259,7 +2305,7 @@ model history_log_cdc {
   action_step_type_id Int?
   company_id          Int?
   history_file        history_file[]
-  action_step_type    action_step_type? @relation(fields: [action_step_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "history_log_cdc_action_step_type")
+  action_step_type    actionStepType? @relation(fields: [action_step_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "history_log_cdc_action_step_type")
   company             company?          @relation(fields: [company_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "history_log_cdc_company")
   task                task              @relation(fields: [task_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "history_log_cdc_task")
   user                user              @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "history_log_cdc_user")
@@ -2502,7 +2548,7 @@ model notification_template {
   is_deleted                     Boolean?                         @default(false)
   created_time                   DateTime?                        @default(now()) @db.DateTime(0)
   updated_time                   DateTime?                        @default(now()) @db.DateTime(0)
-  action_step_type               action_step_type?                @relation(fields: [action_step_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_not_action_step_type_id_act_id_hhlp1")
+  action_step_type               actionStepType?                @relation(fields: [action_step_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_not_action_step_type_id_act_id_hhlp1")
   notification_status            notification_status?             @relation(fields: [notification_status_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_not_notification_status_id_not_id_kcna1")
   notification_type              notification_type?               @relation(fields: [notification_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_not_notification_type_id_not_id_1m6s1")
   process_step                   process_step?                    @relation(fields: [process_step_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_not_process_step_id_pro_id_5fmh1")
@@ -2582,7 +2628,7 @@ model order {
   billing_id                                       Int?
   order_from_id                                    Int?
   country_card_id                                  Int?
-  company_event                                    company_event[]
+  company_event                                    companyEvent[]
   customer_customer_order_idToorder                customer[]               @relation("customer_order_idToorder")
   file                                             file[]
   billing                                          billing?                 @relation(fields: [billing_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ord_billing_id_bil_id_7408")
@@ -2600,7 +2646,7 @@ model order {
   support_case_has_order                           support_case_has_order[]
   task_task_order_idToorder                        task[]                   @relation("task_order_idToorder")
   task_task_upgrade_order_idToorder                task[]                   @relation("task_upgrade_order_idToorder")
-  visa_order                                       visa_order[]
+  visaOrder                                       visaOrder[]
   voucher                                          voucher[]
 
   @@index([billing_id], map: "fk_ord_billing_id_bil_id_7408")
@@ -2676,7 +2722,7 @@ model order_status {
   name       String? @db.Text
   is_deleted Int     @default(0) @db.TinyInt
   order      Int?
-  order      order[]
+  orders      order[]
 }
 
 /// This model has been renamed to 'Renamedpackage' during introspection, because the original name 'package' is reserved.
@@ -2965,8 +3011,8 @@ model process {
   extra_value                                                                      Json?
   email                                                                            email[]
   email_trigger_has_process                                                        email_trigger_has_process[]
-  addition_process                                                                 addition_process?           @relation(fields: [addition_process_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pro_addition_process_id_add_id_9meh")
-  banking_process                                                                  banking_process?            @relation(fields: [banking_process_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pro_banking_process_id_ban_id_1ta5")
+  addition_process                                                                 additionProcess?           @relation(fields: [addition_process_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pro_addition_process_id_add_id_9meh")
+  banking_process                                                                  bankingProcess?            @relation(fields: [banking_process_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pro_banking_process_id_ban_id_1ta5")
   person                                                                           person?                     @relation(fields: [person_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pro_person_id_per_id_4mwi")
   process_step                                                                     process_step                @relation(fields: [process_step_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pro_process_step_id_pro_id_jv5i")
   task                                                                             task                        @relation(fields: [task_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pro_task_id_tas_id_egl0")
@@ -3047,8 +3093,8 @@ model process_step {
   is_send_link_signed                                                        Boolean?                         @default(false)
   order                                                                      Int?
   process_step_type_id                                                       Int?
-  action_process_step_action_process_step_next_process_step_idToprocess_step action_process_step[]            @relation("action_process_step_next_process_step_idToprocess_step")
-  action_process_step_action_process_step_process_step_idToprocess_step      action_process_step[]            @relation("action_process_step_process_step_idToprocess_step")
+  action_process_step_action_process_step_next_process_step_idToprocess_step actionProcessStep[]            @relation("action_process_step_next_process_step_idToprocess_step")
+  action_process_step_action_process_step_process_step_idToprocess_step      actionProcessStep[]            @relation("action_process_step_process_step_idToprocess_step")
   email_template                                                             email_template[]
   email_trigger                                                              email_trigger[]
   note                                                                       note[]
@@ -3141,7 +3187,7 @@ model proposed_time {
   created_time       DateTime?       @default(now()) @db.DateTime(0)
   updated_time       DateTime?       @default(now()) @db.DateTime(0)
   is_deleted         Int?            @default(0)
-  banking_process    banking_process @relation(fields: [banking_process_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pro_banking_process_id_ban_id_24j5")
+  banking_process    bankingProcess @relation(fields: [banking_process_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pro_banking_process_id_ban_id_24j5")
 
   @@index([banking_process_id], map: "fk_pro_banking_process_id_ban_id_24j5")
 }
@@ -3321,7 +3367,7 @@ model service {
   quantity                                           Int?
   upgrade_service_id                                 Int?
   discount_service_id                                Int?
-  company_event                                      company_event[]
+  company_event                                      companyEvent[]
   country_has_service                                country_has_service[]
   fee                                                fee[]
   order_item                                         order_item[]
@@ -3329,8 +3375,8 @@ model service {
   service_service_discount_service_idToservice       service?                          @relation("service_discount_service_idToservice", fields: [discount_service_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_discount_service_id")
   other_service_service_discount_service_idToservice service[]                         @relation("service_discount_service_idToservice")
   airport                                            airport?                          @relation(fields: [airport_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_airport1")
-  car_seat                                           car_seat?                         @relation(fields: [car_seat_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_car_seat1")
-  car_type                                           car_type?                         @relation(fields: [car_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_car_type1")
+  car_seat                                           carSeat?                         @relation(fields: [car_seat_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_car_seat1")
+  car_type                                           carType?                         @relation(fields: [car_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_car_type1")
   service_type                                       service_type                      @relation(fields: [service_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_service_type1")
   service_unit                                       service_unit?                     @relation(fields: [service_unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_service_unit1")
   visa_purpose                                       visa_purpose?                     @relation(fields: [visa_purpose_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_visa_purpose1")
@@ -3367,7 +3413,7 @@ model service_change_officer {
   created_time                             DateTime?                                  @default(now()) @db.DateTime(0)
   updated_time                             DateTime?                                  @default(now()) @db.DateTime(0)
   is_deleted                               Int                                        @default(0) @db.TinyInt
-  change_request_status                    change_request_status?                     @relation(fields: [change_request_status_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_change_officer_change_request_status_id")
+  change_request_status                    changeRequestStatus?                     @relation(fields: [change_request_status_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_change_officer_change_request_status_id")
   company_member_type                      company_member_type?                       @relation(fields: [company_member_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_change_officer_company_member_type_id")
   service_change_officer_has_file_template service_change_officer_has_file_template[]
 
@@ -3436,7 +3482,7 @@ model service_type {
   created_time                DateTime?                     @default(now()) @db.DateTime(0)
   updated_time                DateTime?                     @default(now()) @db.DateTime(0)
   order                       Int?
-  action_process_step         action_process_step[]
+  action_process_step         actionProcessStep[]
   Renamedpackage              Renamedpackage[]
   service                     service[]
   website                     website?                      @relation(fields: [website_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ser_website_id_web_id_41gc")
@@ -3592,7 +3638,7 @@ model syslog {
   is_un_expected_error Int?         @default(0) @db.TinyInt
   err_message          String?      @db.Text
   err_stack_trace      String?      @db.Text
-  api_method           api_method?  @relation(fields: [api_method_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_sys_api_method_id_api_id_8yj3")
+  api_method           apiMethod?  @relation(fields: [api_method_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_sys_api_method_id_api_id_8yj3")
   country              country?     @relation(fields: [country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_sys_country_id_cou_id_17il")
   syslog_type          syslog_type? @relation(fields: [syslog_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_sys_syslog_type_id_sys_id_cbyy")
   user                 user?        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_sys_user_id_use_id_iwew")
@@ -3682,10 +3728,10 @@ model task {
   internal_bookeeping_member_id                                               Int?
   tester_leader_id                                                            Int?
   time_unassigned_tester                                                      BigInt?
-  addition_process                                                            addition_process[]
+  addition_process                                                            additionProcess[]
   answer                                                                      answer[]
-  banking_process                                                             banking_process[]
-  change_request                                                              change_request[]
+  banking_process                                                             bankingProcess[]
+  change_request                                                              changeRequest[]
   company_interest                                                            company_interest[]
   company_ownership                                                           company_ownership[]
   company_share                                                               company_share[]
@@ -3754,7 +3800,7 @@ model task_has_agent {
   agent_id            Int
   addition_process_id Int?
   created_time        DateTime?         @default(now()) @db.DateTime(0)
-  addition_process    addition_process? @relation(fields: [addition_process_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_tas_addition_process_id_add_id_59ol")
+  addition_process    additionProcess? @relation(fields: [addition_process_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_tas_addition_process_id_add_id_59ol")
   agent               agent             @relation(fields: [agent_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_tas_agent_id_age_id_3dc4")
   task                task              @relation(fields: [task_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_tas_task_id_tas_id_aia4")
 
@@ -3895,7 +3941,7 @@ model user {
   subscription_id                                       Int?
   facebook_id                                           Int?
   is_deleted                                            Int?                          @default(0) @db.TinyInt
-  action_log                                            action_log[]
+  action_log                                            actionLog[]
   billing                                               billing[]
   customer_customer_accountant_leader_idTouser          customer[]                    @relation("customer_accountant_leader_idTouser")
   customer_customer_accountant_member_idTouser          customer[]                    @relation("customer_accountant_member_idTouser")
@@ -3964,7 +4010,7 @@ model user_has_role {
   @@index([user_id], map: "fk_user_has_role_user1_idx")
 }
 
-model visa_order {
+model visaOrder {
   id              Int           @id @default(autoincrement())
   order_id        Int
   airport_id      Int?
@@ -3995,7 +4041,7 @@ model visa_purpose {
   is_deleted Int          @default(0) @db.TinyInt
   customer   customer[]
   service    service[]
-  visa_order visa_order[]
+  visaOrder visaOrder[]
 }
 
 model visa_type {
@@ -4004,7 +4050,7 @@ model visa_type {
   is_deleted Int          @default(0) @db.TinyInt
   customer   customer[]
   service    service[]
-  visa_order visa_order[]
+  visaOrder visaOrder[]
 }
 
 model visa_vietnam_arrival {
@@ -4054,7 +4100,7 @@ model voucher_type {
   is_deleted                Int?                        @default(0) @db.TinyInt
   created_time              DateTime?                   @default(now()) @db.DateTime(0)
   updated_time              DateTime?                   @default(now()) @db.DateTime(0)
-  campaign_has_voucher_type campaign_has_voucher_type[]
+  campaign_has_voucher_type campaignHasVoucherType[]
   click                     click[]
   voucher                   voucher[]
 }
