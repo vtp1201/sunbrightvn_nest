@@ -4,6 +4,7 @@
 /build
 
 # Logs
+*package-lock.json
 logs
 *.log
 npm-debug.log*
@@ -55,4 +56,3 @@ pids
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-*package-lock.json
