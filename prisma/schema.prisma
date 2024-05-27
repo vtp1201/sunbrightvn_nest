@@ -1,6 +1,5 @@
 generator client {
   provider     = "prisma-client-js"
-  inaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
 datasource db {
@@ -48,7 +47,6 @@ enum MODEL_NAME {
   company
   companyEvent
   companyEventType
-
 }
 
 model actionLog {
