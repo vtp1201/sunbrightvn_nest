@@ -8,9 +8,11 @@ generator client {
 }
 
 model actionLog {
-  id          Int    @map("id") @id @default(autoincrement())
-  userId      Int    @map("user_id")
-  description String @map("description") @database.VarChar(255)
+  id          Int      @map("id") @id @default(autoincrement())
+  userId      Int?     @map("user_id")
+  description String?  @map("description") @database.VarChar(255)
+  type        Int      @map("type")
+  createdTime DateTime @default(now()) @map("created_time")
 
-  @@map("actionLog")
+  @@map("action_log")
 }

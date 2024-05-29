@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/actionLog';
-import DateTimeMixin from '../mixins/DateTime.mixin';
+import { createdTime } from '../mixins';
 
 export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
   ActionLogModel.int(ATTRIBUTE.id, {
@@ -24,6 +24,6 @@ export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
     .int(ATTRIBUTE.type, {
       map: COLUMN.type,
     })
-    .mixin(DateTimeMixin)
+    .mixin(createdTime)
     .map(TABLE_NAME.ACTION_LOG);
 });

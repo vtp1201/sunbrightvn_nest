@@ -1,9 +1,11 @@
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+
 export enum ATTRIBUTE {
   id = 'id',
   userId = 'userId',
   description = 'description',
   type = 'type',
-  createdTime = 'createdTime',
+  createdTime = ATTRIBUTE_DEFAULT.createdTime,
   isDeleted = 'isDeleted',
 }
 
@@ -12,7 +14,7 @@ export enum COLUMN {
   userId = 'user_id',
   description = 'description',
   type = 'type',
-  createdTime = 'created_time',
+  createdTime = COLUMN_DEFAULT.isDeleted,
   isDeleted = 'is_deleted',
 }
 

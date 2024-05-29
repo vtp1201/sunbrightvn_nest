@@ -203,7 +203,7 @@ export const MODEL_NAME = {
 };
 
 export const TABLE_NAME = {
-  ACTION_LOG: 'actionLog',
+  ACTION_LOG: 'action_log',
   ACTION_PROCESS_STEP: 'actionProcessStep',
   ACTION_STEP_TYPE: 'actionStepType',
   ADDITION_PROCESS: 'additionProcess',
