@@ -1,3 +1,14 @@
 {
-  "cSpell.words": ["ACRA", "datasource", "Fatca", "schemix"]
+  "cSpell.words": ["ACRA", "datasource", "Fatca", "schemix"],
+  "[javascript]": {
+    "editor.autoIndent": "keep"
+  },
+  "[yaml]": {
+    "editor.autoIndent": "advanced"
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "editor.formatOnSave": true,
+  "typescript.referencesCodeLens.enabled": true
 }

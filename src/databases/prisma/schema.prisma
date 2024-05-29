@@ -8,11 +8,14 @@ generator client {
 }
 
 model actionLog {
-  id          Int      @map("id") @id @default(autoincrement())
-  userId      Int?     @map("user_id")
-  description String?  @map("description") @database.VarChar(255)
-  type        Int      @map("type")
-  createdTime DateTime @default(now()) @map("created_time")
+  id          Int       @map("id") @default(autoincrement())
+  userId      Int?      @map("user_id")
+  description String?   @map("description") @database.VarChar(255)
+  type        Int       @map("type")
+  createdTime DateTime  @default(now()) @map("created_time")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_ime")
 
+  @@id([id, type])
   @@map("action_log")
 }

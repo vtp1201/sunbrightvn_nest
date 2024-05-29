@@ -1,4 +1,5 @@
 export enum ATTRIBUTE_DEFAULT {
+  id = 'id',
   createdTime = 'createdTime',
   updatedTime = 'updatedTime',
   deletedTime = 'deletedTime',
@@ -6,6 +7,7 @@ export enum ATTRIBUTE_DEFAULT {
 }
 
 export enum COLUMN_DEFAULT {
+  id = 'id',
   createdTime = 'created_time',
   updatedTime = 'updated_time',
   deletedTime = 'deleted_ime',

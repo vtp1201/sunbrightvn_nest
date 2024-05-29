@@ -6,7 +6,7 @@ export enum ATTRIBUTE {
   description = 'description',
   type = 'type',
   createdTime = ATTRIBUTE_DEFAULT.createdTime,
-  isDeleted = 'isDeleted',
+  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
 
 export enum COLUMN {
@@ -14,8 +14,8 @@ export enum COLUMN {
   userId = 'user_id',
   description = 'description',
   type = 'type',
-  createdTime = COLUMN_DEFAULT.isDeleted,
-  isDeleted = 'is_deleted',
+  createdTime = COLUMN_DEFAULT.createdTime,
+  isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
 export enum RELATION {
