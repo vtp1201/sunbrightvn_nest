@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "start:schemix": "ts-node ./src/databases/prisma",
     "generate": "npx prisma generate",
     "deploy": "npx prisma migrate deploy",
     "build": "nest build",
@@ -31,8 +32,7 @@
     "@nestjs/swagger": "7.3.1",
     "@prisma/client": "5.14.0",
     "ioredis": "5.4.1",
-    "module-alias": "2.2.3",
-    "reflect-metadata": "0.2.0",
+    "reflect-metadata": "0.1.12",
     "rxjs": "7.8.1"
   },
   "devDependencies": {
@@ -76,10 +76,5 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  },
-  "_moduleAliases": {
-    "@config": "dist/config",
-    "@types": "dist/types",
-    "@utilities": "dist/utilities"
   }
 }

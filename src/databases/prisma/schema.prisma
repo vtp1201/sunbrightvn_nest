@@ -1,0 +1,16 @@
+datasource database {
+  provider = "mysql"
+  url      = env("MYSQL_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model actionLog {
+  id          Int    @map("id") @id @default(autoincrement())
+  userId      Int    @map("user_id")
+  description String @map("description") @database.VarChar(255)
+
+  @@map("actionLog")
+}

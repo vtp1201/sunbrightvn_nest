@@ -7,48 +7,6 @@ datasource db {
   url      = env("MYSQL_URL")
 }
 
-enum MODEL_NAME {
-  actionlog
-  actionProcessStep
-  actionStepType
-  additionProcess
-  agency
-  agent
-  agentType
-  airport
-  answer
-  api
-  apiExample
-  apiGroup
-  apiHasField
-  apiHasGroup
-  apiMethod
-  apiStatus
-  bank
-  bankBranch
-  bankHasCountry
-  bankHasFileTemplate
-  bankHasKeyword
-  bankingProcess
-  billing
-  businessActivity
-  businessActivityIndustry
-  businessActivityIndustryClass
-  businessActivityLabel
-  campaign
-  campaignHasVoucherType
-  campaignType
-  carSeat
-  carType
-  changeRequest
-  changeRequestItem
-  changeRequestStatus
-  click
-  company
-  companyEvent
-  companyEventType
-}
-
 model actionLog {
   id           Int       @default(autoincrement())
   user_id      Int?
