@@ -17,8 +17,12 @@ export default createModel(MODEL_NAME.AGENCY, (AgencyModel) => {
       raw: RAW_STRING.LENGTH_100,
       optional: true,
     })
+
+    // dateTime marks
     .mixin(createdTime)
     .mixin(updatedTime)
     .mixin(deleted)
+
+    // table name
     .map(TABLE_NAME.AGENCY);
 });

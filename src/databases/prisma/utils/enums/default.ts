@@ -25,7 +25,6 @@ export enum RELATION_DEFAULT {
   emails = 'emails',
   processLogs = 'processLogs',
   taskHasAgents = 'taskHasAgents',
-
   tokens = 'tokens',
   billings = 'billings',
   processes = 'processes',

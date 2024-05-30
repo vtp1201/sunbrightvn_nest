@@ -26,7 +26,11 @@ export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
     .id({
       fields: [ATTRIBUTE.id, ATTRIBUTE.type],
     })
+
+    // dateTime marks
     .mixin(createdTime)
     .mixin(deleted)
+
+    // table name
     .map(TABLE_NAME.ACTION_LOG);
 });

@@ -41,9 +41,13 @@ export default createModel(
       .int(ATTRIBUTE.actionStepTypeId, {
         map: COLUMN.actionStepTypeId,
       })
+
+      // dateTime marks
       .mixin(createdTime)
       .mixin(updatedTime)
       .mixin(deleted)
+
+      // table name
       .map(TABLE_NAME.ACTION_PROCESS_STEP);
   },
 );

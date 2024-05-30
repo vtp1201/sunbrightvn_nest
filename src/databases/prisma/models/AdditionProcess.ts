@@ -31,9 +31,13 @@ export default createModel(
         map: COLUMN.serviceTypeIds,
         optional: true,
       })
+
+      // dateTime marks
       .mixin(createdTime)
       .mixin(updatedTime)
       .mixin(deleted)
+
+      // table name
       .map(TABLE_NAME.ADDITION_PROCESS);
   },
 );

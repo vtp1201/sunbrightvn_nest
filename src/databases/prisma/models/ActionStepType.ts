@@ -19,9 +19,13 @@ export default createModel(
         raw: RAW_STRING.LENGTH_255,
         optional: true,
       })
+
+      // dateTime marks
       .mixin(createdTime)
       .mixin(updatedTime)
       .mixin(deleted)
+
+      // table name
       .map(TABLE_NAME.ACTION_STEP_TYPE);
   },
 );
