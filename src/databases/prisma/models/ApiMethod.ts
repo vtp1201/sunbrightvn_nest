@@ -6,6 +6,7 @@ import { createdTime, deleted, updatedTime } from '../mixins';
 
 export default createModel(MODEL_NAME.API_METHOD, (ApiMethodModel) => {
   ApiMethodModel.int(ATTRIBUTE.id, {
+    id: true,
     map: COLUMN.id,
     default: {
       autoincrement: true,

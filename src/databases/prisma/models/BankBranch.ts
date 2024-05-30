@@ -6,6 +6,7 @@ import { deleted } from '../mixins';
 
 export default createModel(MODEL_NAME.BANK_BRANCH, (BankBranchModel) => {
   BankBranchModel.int(ATTRIBUTE.id, {
+    id: true,
     map: COLUMN.id,
     default: {
       autoincrement: true,
