@@ -219,26 +219,6 @@ model apiGroup {
   apiHasGroups apiHasGroup[]
 }
 
-model apiHasField {
-  id           Int       @id @default(autoincrement())
-  api_id       Int
-  field_id     Int
-  parent_id    Int?
-  comment      String?   @db.Text
-  is_required  Boolean?  @default(false)
-  is_query     Boolean?
-  is_param     Boolean?
-  is_body      Boolean?
-  created_time DateTime? @default(now()) @db.DateTime(0)
-  updated_time DateTime? @default(now()) @db.DateTime(0)
-  is_deleted   Boolean?  @default(false)
-  api          api       @relation(fields: [api_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_has_field_api_id")
-  field        field     @relation(fields: [field_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_has_field_field_id")
-
-  @@index([api_id], map: "fk_api_has_field_api_id_idx")
-  @@index([field_id], map: "fk_api_has_field_field_id_idx")
-}
-
 model apiHasGroup {
   id           Int       @id @default(autoincrement())
   api_id       Int
