@@ -179,7 +179,6 @@ model api {
   is_deleted       Boolean       @default(false)
   apiMethod        apiMethod     @relation(fields: [api_method_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_api_api_method")
   apiExamples      apiExample[]
-  apiHasFields     apiHasField[]
   apiHasGroups     apiHasGroup[]
 
   @@index([api_method_id], map: "fk_api_api_method")
@@ -1732,17 +1731,16 @@ model fee_type {
 }
 
 model field {
-  id              Int           @id @default(autoincrement())
-  name            String        @db.VarChar(100)
-  datatype        String        @db.VarChar(100)
-  is_response     Boolean?      @default(false)
-  is_array_object Boolean?      @default(false)
-  table_name      String?       @db.VarChar(45)
-  comment         String?       @db.Text
-  created_time    DateTime?     @default(now()) @db.DateTime(0)
-  updated_time    DateTime?     @default(now()) @db.DateTime(0)
-  is_deleted      Boolean       @default(false)
-  api_has_field   apiHasField[]
+  id              Int       @id @default(autoincrement())
+  name            String    @db.VarChar(100)
+  datatype        String    @db.VarChar(100)
+  is_response     Boolean?  @default(false)
+  is_array_object Boolean?  @default(false)
+  table_name      String?   @db.VarChar(45)
+  comment         String?   @db.Text
+  created_time    DateTime? @default(now()) @db.DateTime(0)
+  updated_time    DateTime? @default(now()) @db.DateTime(0)
+  is_deleted      Boolean   @default(false)
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments

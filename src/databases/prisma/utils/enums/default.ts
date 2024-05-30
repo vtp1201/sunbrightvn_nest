@@ -15,6 +15,8 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  syslogs = 'syslogs',
+  apis = 'apis',
   user = 'user',
   task = 'task',
   agents = 'agents',
