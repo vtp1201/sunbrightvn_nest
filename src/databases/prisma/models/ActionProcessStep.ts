@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME, TABLE_NAME, RAW_INT } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/ActionProcessStep';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
@@ -8,6 +8,7 @@ export default createModel(
   MODEL_NAME.ACTION_PROCESS_STEP,
   (ActionProcessStepModel) => {
     ActionProcessStepModel.int(ATTRIBUTE.id, {
+      id: true,
       map: COLUMN.id,
       default: {
         autoincrement: true,
@@ -30,6 +31,8 @@ export default createModel(
       .int(ATTRIBUTE.priority, {
         map: COLUMN.priority,
         optional: true,
+        default: 1,
+        raw: RAW_INT.TINY_INT,
       })
       .int(ATTRIBUTE.serviceTypeId, {
         map: COLUMN.serviceTypeId,

@@ -3,3 +3,7 @@ export const RAW_STRING = {
   LENGTH_200: '@database.VarChar(200)',
   LENGTH_100: '@database.VarChar(100)',
 };
+
+export const RAW_INT = {
+  TINY_INT: '@database.TinyInt',
+};

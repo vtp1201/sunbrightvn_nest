@@ -8,14 +8,83 @@ generator client {
 }
 
 model actionLog {
-  id          Int       @default(autoincrement()) @map("id")
+  id          Int       @map("id") @default(autoincrement())
   userId      Int?      @map("user_id")
   description String?   @map("description") @database.VarChar(255)
   type        Int       @map("type")
   createdTime DateTime  @default(now()) @map("created_time")
   isDeleted   Boolean   @default(false) @map("is_deleted")
-  deletedTime DateTime? @map("deleted_ime")
+  deletedTime DateTime? @map("deleted_time")
 
   @@id([id, type])
   @@map("action_log")
+}
+
+model actionProcessStep {
+  id                Int       @id @map("id") @default(autoincrement())
+  processStepId     Int       @map("process_step_id")
+  nextProcessStepId Int       @map("next_process_step_id")
+  countryId         Int?      @map("country_id")
+  bankId            Int?      @map("bank_id")
+  priority          Int?      @map("priority") @default(1) @database.TinyInt
+  serviceTypeId     Int?      @map("service_type_id")
+  actionStepTypeId  Int       @map("action_step_type_id")
+  createdTime       DateTime  @default(now()) @map("created_time")
+  updatedTime       DateTime  @updatedAt @map("updated_time")
+  isDeleted         Boolean   @default(false) @map("is_deleted")
+  deletedTime       DateTime? @map("deleted_time")
+
+  @@map("actionProcessStep")
+}
+
+model actionStepType {
+  id          Int       @map("id") @id @default(autoincrement())
+  name        String?   @map("name") @database.VarChar(255)
+  createdTime DateTime  @default(now()) @map("created_time")
+  updatedTime DateTime  @updatedAt @map("updated_time")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("actionStepType")
+}
+
+model additionProcess {
+  id             Int       @map("id") @id @default(autoincrement())
+  taskId         Int       @map("task_id")
+  trackingLink   String?   @map("tracking_link") @database.VarChar(200)
+  serviceTypeIds Json?     @map("service_type_ids")
+  createdTime    DateTime  @default(now()) @map("created_time")
+  updatedTime    DateTime  @updatedAt @map("updated_time")
+  isDeleted      Boolean   @default(false) @map("is_deleted")
+  deletedTime    DateTime? @map("deleted_time")
+
+  @@map("additionProcess")
+}
+
+model agency {
+  id          Int       @map("id") @id @default(autoincrement())
+  name        String?   @map("name") @database.VarChar(100)
+  createdTime DateTime  @default(now()) @map("created_time")
+  updatedTime DateTime  @updatedAt @map("updated_time")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("agency")
+}
+
+model agent {
+  id           Int       @map("id") @id @default(autoincrement())
+  name         String?   @map("name") @database.VarChar(200)
+  email        String?   @map("email") @database.VarChar(200)
+  countryId    Int?      @map("country_id")
+  agencyId     Int       @map("agency_id")
+  agentTypeId  Int       @map("agent_type_id")
+  bankId       Int?      @map("bank_id")
+  isHasNominee Boolean?  @map("is_has_nominee") @default(false)
+  createdTime  DateTime  @default(now()) @map("created_time")
+  updatedTime  DateTime  @updatedAt @map("updated_time")
+  isDeleted    Boolean   @default(false) @map("is_deleted")
+  deletedTime  DateTime? @map("deleted_time")
+
+  @@map("agent")
 }

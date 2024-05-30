@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "start:schemix": "ts-node ./src/databases/prisma",
+    "schemix": "ts-node ./src/databases/prisma",
     "generate": "npx prisma generate",
     "deploy": "npx prisma migrate deploy",
     "build": "nest build",
