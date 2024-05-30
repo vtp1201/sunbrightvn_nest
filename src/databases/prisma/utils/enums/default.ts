@@ -42,4 +42,8 @@ export enum RELATION_DEFAULT {
   apiExamples = 'apiExamples',
   apiHasFields = 'apiHasFields',
   apiHasGroups = 'apiHasGroups',
+  apiStatus = 'apiStatus',
+  apiGroup = 'apiGroup',
+  api = 'api',
+  files = 'files',
 }

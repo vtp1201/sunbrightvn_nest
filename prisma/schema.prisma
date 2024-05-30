@@ -66,9 +66,9 @@ model additionProcess {
   task_id          Int
   tracking_link    String?          @db.VarChar(200)
   tracking_code    String?          @db.VarChar(100)
-  created_time     DateTime?        @default(now()) @db.DateTime(0)
-  updated_time     DateTime?        @default(now()) @db.DateTime(0)
-  is_deleted       Boolean?         @default(false)
+  // created_time     DateTime?        @default(now()) @db.DateTime(0)
+  // updated_time     DateTime?        @default(now()) @db.DateTime(0)
+  // is_deleted       Boolean?         @default(false)
   service_type_ids Json?
   task             task             @relation(fields: [task_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_add_task_id_tas_id_ayud")
   billing          billing[]
@@ -183,15 +183,6 @@ model api {
   apiHasGroups     apiHasGroup[]
 
   @@index([api_method_id], map: "fk_api_api_method")
-}
-
-model api_attribute {
-  id           Int       @id @default(autoincrement())
-  name         String    @db.VarChar(255)
-  description  String?   @db.VarChar(255)
-  created_time DateTime? @default(now()) @db.DateTime(0)
-  updated_time DateTime? @default(now()) @db.DateTime(0)
-  is_deleted   Boolean?  @default(false)
 }
 
 model apiExample {
