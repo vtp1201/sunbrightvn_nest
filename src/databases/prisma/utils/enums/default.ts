@@ -48,4 +48,11 @@ export enum RELATION_DEFAULT {
   apiGroup = 'apiGroup',
   api = 'api',
   files = 'files',
+  bankBranches = 'bankBranches',
+  bankHasCountries = 'bankHasCountries',
+  bankHasFileTemplates = 'bankHasFileTemplates',
+  bankHasKeywords = 'bankHasKeywords',
+  bankingProcesses = 'bankingProcesses',
+  customerHasBanks = 'customerHasBanks',
+  orderHasBanks = 'orderHasBanks',
 }
