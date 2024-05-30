@@ -8,7 +8,7 @@ generator client {
 }
 
 model actionLog {
-  id          Int       @map("id") @default(autoincrement())
+  id          Int       @default(autoincrement()) @map("id")
   userId      Int?      @map("user_id")
   description String?   @map("description") @database.VarChar(255)
   type        Int       @map("type")
