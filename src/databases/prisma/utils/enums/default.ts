@@ -38,4 +38,8 @@ export enum RELATION_DEFAULT {
   option = 'option',
   question = 'question',
   company = 'company',
+  apiMethod = 'apiMethod',
+  apiExamples = 'apiExamples',
+  apiHasFields = 'apiHasFields',
+  apiHasGroups = 'apiHasGroups',
 }
