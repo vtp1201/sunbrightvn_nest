@@ -37,6 +37,9 @@ export default createModel(
         optional: true,
         default: 0,
       })
+      .id({
+        fields: [ATTRIBUTE.bankId, ATTRIBUTE.countryId],
+      })
 
       // table name
       .map(TABLE_NAME.BANK_HAS_COUNTRY);
