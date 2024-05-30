@@ -34,4 +34,8 @@ export enum RELATION_DEFAULT {
   actionProcessSteps = 'actionProcessSteps',
   historyLogCDCs = 'historyLogCDCs',
   notificationTemplates = 'notificationTemplates',
+  companyMember = 'companyMember',
+  option = 'option',
+  question = 'question',
+  company = 'company',
 }
