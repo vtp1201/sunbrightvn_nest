@@ -70,4 +70,6 @@ export enum RELATION_DEFAULT {
   businessActivityIndustryClass = 'businessActivityIndustryClass',
   businessActivities = 'businessActivities',
   businessActivityIndustries = 'businessActivityIndustries',
+  campaignType = 'campaignType',
+  campaignHasVoucherTypes = 'campaignHasVoucherTypes',
 }
