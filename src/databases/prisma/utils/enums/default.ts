@@ -75,4 +75,7 @@ export enum RELATION_DEFAULT {
   campaign = 'campaign',
   voucherType = 'voucherType',
   campaigns = 'campaigns',
+  companyPosition = 'companyPosition',
+  changeRequestStatus = 'changeRequestStatus',
+  changeRequestItems = 'changeRequestItems',
 }

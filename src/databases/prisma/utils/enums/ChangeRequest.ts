@@ -36,6 +36,13 @@ export enum COLUMN {
 
 export enum RELATION {
   services = RELATION_DEFAULT.services,
+  company = RELATION_DEFAULT.company,
+  companyMember = RELATION_DEFAULT.companyMember,
+  companyPosition = RELATION_DEFAULT.companyPosition,
+  changeRequestStatus = RELATION_DEFAULT.changeRequestStatus,
+  task = RELATION_DEFAULT.task,
+  changeRequestItems = RELATION_DEFAULT.changeRequestItems,
+  files = RELATION_DEFAULT.files,
 }
 
 export default {
