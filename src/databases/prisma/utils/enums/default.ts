@@ -15,6 +15,8 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  changeRequests = 'changeRequests',
+  serviceChangeOfficers = 'serviceChangeOfficers',
   changeRequest = 'changeRequest',
   syslogs = 'syslogs',
   apis = 'apis',
