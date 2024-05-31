@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/BusinessActivity';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { deleted } from '../mixins';
 
 export default createModel(
   MODEL_NAME.BUSINESS_ACTIVITY,
@@ -47,8 +47,6 @@ export default createModel(
       })
 
       // dateTime marks
-      .mixin(createdTime)
-      .mixin(updatedTime)
       .mixin(deleted)
 
       // table name
