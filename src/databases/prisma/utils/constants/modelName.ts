@@ -43,7 +43,7 @@ export const MODEL_NAME = {
   COMPANY_MEMBER_HAS_OPERATION_COUNTRIES: 'CompanyMemberOperationCountries',
   COMPANY_INTEREST: 'CompanyInterest',
   COMPANY_MEMBER_HAS_TYPE: 'CompanyMemberHasType',
-  COMPANY_MEMBER_ISSUE_REFERENCE: 'companyMemberIssueReference',
+  COMPANY_MEMBER_ISSUE_REFERENCE: 'CompanyMemberIssueReference',
   COMPANY_MEMBER_REFERENCES: 'CompanyMemberReferences',
   COMPANY_MEMBER_TYPE: 'CompanyMemberType',
   COMPANY_MEMBER: 'CompanyMember',
