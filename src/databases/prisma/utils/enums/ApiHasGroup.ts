@@ -1,7 +1,6 @@
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
-  id = 'id',
   apiId = 'apiId',
   apiGroupId = 'apiGroupId',
   description = 'description',
@@ -12,7 +11,6 @@ export enum ATTRIBUTE {
 }
 
 export enum COLUMN {
-  id = 'id',
   apiId = 'api_id',
   apiGroupId = 'api_group_id',
   description = 'description',

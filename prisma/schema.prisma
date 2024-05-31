@@ -387,7 +387,7 @@ model billing {
   created_time                              DateTime?         @default(now()) @db.DateTime(0)
   updated_time                              DateTime?         @default(now()) @db.DateTime(0)
   addition_process                          additionProcess?  @relation(fields: [addition_process_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bil_addition_process_id_add_id_jsfm")
-  country_billing_country_idTocountry       country?          @relation("billing_country_idTocountry", fields: [country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bil_country_id_cou_id_fnr3")
+  country                                   country?          @relation("billing_country_idTocountry", fields: [country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bil_country_id_cou_id_fnr3")
   customer                                  customer?         @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bil_customer_id_cus_id_lb8c")
   country_billing_phone_country_idTocountry country?          @relation("billing_phone_country_idTocountry", fields: [phone_country_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bil_phone_country_id_cou_id_2epb")
   user                                      user?             @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bil_user_id_use_id_9qkj")

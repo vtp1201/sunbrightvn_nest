@@ -59,4 +59,9 @@ export enum RELATION_DEFAULT {
   bankBranch = 'bankBranch',
   process = 'process',
   proposedTime = 'proposedTime',
+  additionProcess = 'additionProcess',
+  customer = 'customer',
+  phoneCountry = 'phoneCountry',
+  historyCompanies = 'historyCompanies',
+  orders = 'orders',
 }

@@ -88,3 +88,227 @@ model agent {
 
   @@map("agent")
 }
+
+model agentType {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String    @map("name") @database.VarChar(100)
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("agentType")
+}
+
+model airport {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String?   @map("name") @database.VarChar(100)
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("airport")
+}
+
+model answer {
+  id              Int       @id @map("id") @default(autoincrement())
+  valueInt        Int?      @map("value_int")
+  valueText       String?   @map("value_text") @database.Text
+  optionId        Int       @map("option_id")
+  taskId          Int?      @map("task_id")
+  fatcaId         Int?      @map("fatca_id")
+  selectCountryId Int?      @map("select_country_id")
+  companyMemberId Int?      @map("company_member_id")
+  questionId      Int?      @map("question_id")
+  companyId       Int?      @map("company_id")
+  createdTime     DateTime  @default(now()) @map("created_time")
+  updatedTime     DateTime  @updatedAt @map("updated_time")
+  isDeleted       Boolean   @default(false) @map("is_deleted")
+  deletedTime     DateTime? @map("deleted_time")
+
+  @@map("answer")
+}
+
+model Api {
+  id              Int       @map("id") @id @default(autoincrement())
+  url             String    @map("url") @database.VarChar(255)
+  apiMethodId     Int       @map("api_method_id")
+  note            Json?     @map("note")
+  isRecaptcha     Boolean?  @map("is_recaptcha") @default(false)
+  isAuthorization Boolean?  @map("is_authorization") @default(false)
+  description     String?   @map("description") @database.Text
+  createdTime     DateTime  @default(now()) @map("created_time")
+  updatedTime     DateTime  @updatedAt @map("updated_time")
+  isDeleted       Boolean   @default(false) @map("is_deleted")
+  deletedTime     DateTime? @map("deleted_time")
+
+  @@map("Api")
+}
+
+model apiExample {
+  id          Int       @id @map("id") @default(autoincrement())
+  apiId       Int       @map("api_id")
+  apiStatusId Int       @map("api_status_id")
+  apiGroupId  Int?      @map("api_group_id")
+  body        Json?     @map("body")
+  param       Json?     @map("param")
+  query       Json?     @map("query")
+  response    Json?     @map("response")
+  description String?   @map("description") @database.Text
+  createdTime DateTime  @default(now()) @map("created_time")
+  updatedTime DateTime  @updatedAt @map("updated_time")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("apiExample")
+}
+
+model apiGroup {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String    @map("name") @database.VarChar(255)
+  description String?   @map("description") @database.Text
+  createdTime DateTime  @default(now()) @map("created_time")
+  updatedTime DateTime  @updatedAt @map("updated_time")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("apiGroup")
+}
+
+model ApiHasGroup {
+  apiId       Int       @map("api_id")
+  apiGroupId  Int       @map("api_group_id")
+  description String?   @map("description") @database.Text
+  createdTime DateTime  @default(now()) @map("created_time")
+  updatedTime DateTime  @updatedAt @map("updated_time")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@id([apiGroupId, apiId])
+  @@map("ApiHasGroup")
+}
+
+model ApiMethod {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String    @map("name") @database.VarChar(45)
+  description String?   @map("description") @database.Text
+  createdTime DateTime  @default(now()) @map("created_time")
+  updatedTime DateTime  @updatedAt @map("updated_time")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("ApiMethod")
+}
+
+model ApiStatus {
+  id          Int       @id @map("id") @default(autoincrement())
+  code        String    @map("code") @database.VarChar(45)
+  description String?   @map("description") @database.Text
+  createdTime DateTime  @default(now()) @map("created_time")
+  updatedTime DateTime  @updatedAt @map("updated_time")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("ApiStatus")
+}
+
+model Bank {
+  id             Int       @id @map("id") @default(autoincrement())
+  name           String    @map("name") @database.VarChar(100)
+  image          String?   @map("image") @database.VarChar(200)
+  countryId      Int?      @map("country_id")
+  initialDeposit Int?      @map("initial_deposit")
+  isVirtual      Boolean?  @map("is_virtual") @default(false)
+  isDeleted      Boolean   @default(false) @map("is_deleted")
+  deletedTime    DateTime? @map("deleted_time")
+
+  @@map("Bank")
+}
+
+model BankBranch {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String?   @map("name") @database.VarChar(200)
+  address     String?   @map("address") @database.VarChar(200)
+  bankId      Int?      @map("bank_id")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("BankBranch")
+}
+
+model BankHasCountry {
+  bankId           Int      @map("bank_id")
+  countryId        Int      @map("country_id")
+  isMemberCountry  Boolean? @map("is_member_country") @default(false)
+  isPartnerCountry Boolean? @map("is_partner_country") @default(false)
+  isOwnerCountry   Boolean? @map("is_owner_country") @default(false)
+  isRemoteOpening  Boolean? @map("is_remote_opening") @default(false)
+  score            Int?     @map("score") @default(0)
+
+  @@id([bankId, countryId])
+  @@map("BankHasCountry")
+}
+
+model BankHasFileTemplate {
+  bankId         Int @map("bank_id")
+  fileTemplateId Int @map("file_template_id")
+
+  @@id([bankId, fileTemplateId])
+  @@map("BankHasFileTemplate")
+}
+
+model BankHasKeyword {
+  id      Int     @id @default(autoincrement()) @map("id")
+  bankId  Int     @map("bank_id")
+  keyword String? @map("keyword") @database.Text
+
+  @@map("BankHasKeyword")
+}
+
+model BankingProcess {
+  id                          Int       @id @map("id") @default(autoincrement())
+  taskId                      Int?      @map("task_id")
+  bankId                      Int?      @map("bank_id")
+  status                      Int?      @map("status") @default(0)
+  clientTime                  BigInt?   @map("client_time")
+  content                     String    @map("content") @database.VarChar(200)
+  bankBranchId                Int?      @map("bank_branch_id")
+  contactPerson               String?   @map("contact_person") @database.Text
+  titleJob                    String?   @map("title_job") @database.VarChar(100)
+  phone                       String?   @map("phone") @database.VarChar(45)
+  applicationSetTrackingCode  String?   @map("application_set_tracking_code") @database.VarChar(100)
+  applicationFormTrackingCode String?   @map("application_form_tracking_code") @database.VarChar(100)
+  urlVideo                    String?   @map("url_video") @database.VarChar(100)
+  phoneCountryId              Int?      @map("phone_country_id")
+  bankAddress                 String?   @map("bank_address") @database.VarChar(45)
+  createdTime                 DateTime  @default(now()) @map("created_time")
+  updatedTime                 DateTime  @updatedAt @map("updated_time")
+  isDeleted                   Boolean   @default(false) @map("is_deleted")
+  deletedTime                 DateTime? @map("deleted_time")
+
+  @@map("BankingProcess")
+}
+
+model Billing {
+  id                Int       @id @map("id") @default(autoincrement())
+  countryId         Int?      @map("country_id")
+  userId            Int?      @map("user_id")
+  customerId        Int?      @map("customer_id")
+  name              String?   @map("name") @database.Text
+  postalCode        String?   @map("postal_code") @database.VarChar(45)
+  phone             String?   @map("phone") @database.VarChar(45)
+  address           String?   @map("address") @database.Text
+  address1          String?   @map("address_1") @database.Text
+  state             String?   @map("state") @database.VarChar(225)
+  city              String?   @map("city") @database.VarChar(225)
+  firstName         String?   @map("first_name") @database.VarChar(200)
+  lastName          String?   @map("last_name") @database.VarChar(200)
+  phoneNumber       String?   @map("phone_number") @database.VarChar(255)
+  phoneCountryId    Int?      @map("phone_country_id")
+  taxId             String?   @map("tax_id") @database.VarChar(50)
+  xeroContactId     String?   @unique @map("xero_contact_id") @database.VarChar(255)
+  additionProcessId Int?      @map("addition_process_id")
+  createdTime       DateTime  @default(now()) @map("created_time")
+  updatedTime       DateTime  @updatedAt @map("updated_time")
+  isDeleted         Boolean   @default(false) @map("is_deleted")
+  deletedTime       DateTime? @map("deleted_time")
+
+  @@map("Billing")
+}

@@ -5,15 +5,9 @@ import { ATTRIBUTE, COLUMN } from '../utils/enums/ApiHasGroup';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
 export default createModel(MODEL_NAME.API_HAS_GROUP, (ApiHasGroupModel) => {
-  ApiHasGroupModel.int(ATTRIBUTE.id, {
-    map: COLUMN.id,
-    default: {
-      autoincrement: true,
-    },
+  ApiHasGroupModel.int(ATTRIBUTE.apiId, {
+    map: COLUMN.apiId,
   })
-    .int(ATTRIBUTE.apiId, {
-      map: COLUMN.apiId,
-    })
     .int(ATTRIBUTE.apiGroupId, {
       map: COLUMN.apiGroupId,
     })
@@ -21,6 +15,10 @@ export default createModel(MODEL_NAME.API_HAS_GROUP, (ApiHasGroupModel) => {
       map: COLUMN.description,
       raw: RAW_STRING.TEXT,
       optional: true,
+    })
+
+    .id({
+      fields: [ATTRIBUTE.apiGroupId, ATTRIBUTE.apiId],
     })
 
     // dateTime marks

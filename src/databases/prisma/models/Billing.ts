@@ -1,0 +1,104 @@
+import { createModel } from 'schemix';
+
+import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/Billing';
+import { createdTime, deleted, updatedTime } from '../mixins';
+
+export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
+  BillingModel.int(ATTRIBUTE.id, {
+    id: true,
+    map: COLUMN.id,
+    default: {
+      autoincrement: true,
+    },
+  })
+    .int(ATTRIBUTE.countryId, {
+      map: COLUMN.countryId,
+      optional: true,
+    })
+    .int(ATTRIBUTE.userId, {
+      map: COLUMN.userId,
+      optional: true,
+    })
+    .int(ATTRIBUTE.customerId, {
+      map: COLUMN.customerId,
+      optional: true,
+    })
+    .string(ATTRIBUTE.name, {
+      map: COLUMN.name,
+      raw: RAW_STRING.TEXT,
+      optional: true,
+    })
+    .string(ATTRIBUTE.postalCode, {
+      map: COLUMN.postalCode,
+      raw: RAW_STRING.LENGTH_45,
+      optional: true,
+    })
+    .string(ATTRIBUTE.phone, {
+      map: COLUMN.phone,
+      raw: RAW_STRING.LENGTH_45,
+      optional: true,
+    })
+    .string(ATTRIBUTE.address, {
+      map: COLUMN.address,
+      raw: RAW_STRING.TEXT,
+      optional: true,
+    })
+    .string(ATTRIBUTE.address1, {
+      map: COLUMN.address1,
+      raw: RAW_STRING.TEXT,
+      optional: true,
+    })
+    .string(ATTRIBUTE.state, {
+      map: COLUMN.state,
+      raw: RAW_STRING.LENGTH_225,
+      optional: true,
+    })
+    .string(ATTRIBUTE.city, {
+      map: COLUMN.city,
+      raw: RAW_STRING.LENGTH_225,
+      optional: true,
+    })
+    .string(ATTRIBUTE.firstName, {
+      map: COLUMN.firstName,
+      raw: RAW_STRING.LENGTH_200,
+      optional: true,
+    })
+    .string(ATTRIBUTE.lastName, {
+      map: COLUMN.lastName,
+      raw: RAW_STRING.LENGTH_200,
+      optional: true,
+    })
+    .string(ATTRIBUTE.phoneNumber, {
+      map: COLUMN.phoneNumber,
+      raw: RAW_STRING.LENGTH_255,
+      optional: true,
+    })
+    .int(ATTRIBUTE.phoneCountryId, {
+      map: COLUMN.phoneCountryId,
+      optional: true,
+    })
+    .string(ATTRIBUTE.taxId, {
+      raw: RAW_STRING.LENGTH_50,
+      map: COLUMN.taxId,
+      optional: true,
+    })
+    .string(ATTRIBUTE.xeroContactId, {
+      raw: RAW_STRING.LENGTH_255,
+      unique: true,
+      map: COLUMN.xeroContactId,
+      optional: true,
+    })
+    .int(ATTRIBUTE.additionProcessId, {
+      map: COLUMN.additionProcessId,
+      optional: true,
+    })
+
+    // dateTime marks
+    .mixin(createdTime)
+    .mixin(updatedTime)
+    .mixin(deleted)
+
+    // table name
+    .map(TABLE_NAME.BILLING);
+});
