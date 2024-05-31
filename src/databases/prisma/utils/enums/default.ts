@@ -67,4 +67,7 @@ export enum RELATION_DEFAULT {
   businessActivityIndustry = 'businessActivityIndustry',
   companyHasBusinessActivities = 'companyHasBusinessActivities',
   companyMemberHasBusinessActivities = 'companyMemberHasBusinessActivities',
+  businessActivityIndustryClass = 'businessActivityIndustryClass',
+  businessActivities = 'businessActivities',
+  businessActivityIndustries = 'businessActivityIndustries',
 }

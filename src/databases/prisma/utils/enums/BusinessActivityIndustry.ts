@@ -25,10 +25,9 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  businessActivityIndustry = RELATION_DEFAULT.businessActivityIndustry,
-  country = RELATION_DEFAULT.country,
-  companyHasBusinessActivities = RELATION_DEFAULT.companyHasBusinessActivities,
-  companyMemberHasBusinessActivities = RELATION_DEFAULT.companyMemberHasBusinessActivities,
+  customers = RELATION_DEFAULT.customers,
+  businessActivityIndustryClass = RELATION_DEFAULT.businessActivityIndustryClass,
+  businessActivities = RELATION_DEFAULT.businessActivities,
 }
 
 export default {
