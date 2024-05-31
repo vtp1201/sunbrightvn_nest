@@ -74,4 +74,5 @@ export enum RELATION_DEFAULT {
   campaignHasVoucherTypes = 'campaignHasVoucherTypes',
   campaign = 'campaign',
   voucherType = 'voucherType',
+  campaigns = 'campaigns',
 }
