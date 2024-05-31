@@ -5,6 +5,7 @@ export const RAW_STRING = {
   LENGTH_100: '@database.VarChar(100)',
   LENGTH_50: '@database.VarChar(50)',
   LENGTH_45: '@database.VarChar(45)',
+  LENGTH_10: '@database.VarChar(10)',
   TEXT: '@database.Text',
 };
 

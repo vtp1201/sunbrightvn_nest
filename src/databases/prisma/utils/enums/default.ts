@@ -64,4 +64,7 @@ export enum RELATION_DEFAULT {
   phoneCountry = 'phoneCountry',
   historyCompanies = 'historyCompanies',
   orders = 'orders',
+  businessActivityIndustry = 'businessActivityIndustry',
+  companyHasBusinessActivities = 'companyHasBusinessActivities',
+  companyMemberHasBusinessActivities = 'companyMemberHasBusinessActivities',
 }
