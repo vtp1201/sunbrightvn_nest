@@ -56,4 +56,7 @@ export enum RELATION_DEFAULT {
   customerHasBanks = 'customerHasBanks',
   orderHasBanks = 'orderHasBanks',
   fileTemplate = 'fileTemplate',
+  bankBranch = 'bankBranch',
+  process = 'process',
+  proposedTime = 'proposedTime',
 }
