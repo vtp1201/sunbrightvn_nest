@@ -15,6 +15,9 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  companyEventType = 'companyEventType',
+  order = 'order',
+  service = 'service',
   changeRequests = 'changeRequests',
   serviceChangeOfficers = 'serviceChangeOfficers',
   changeRequest = 'changeRequest',
