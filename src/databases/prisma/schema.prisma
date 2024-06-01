@@ -312,3 +312,221 @@ model Billing {
 
   @@map("Billing")
 }
+
+model BusinessActivity {
+  id                         Int       @id @map("id") @default(autoincrement())
+  name                       String    @map("name") @database.Text
+  countryId                  Int?      @map("country_id")
+  sicCode                    String?   @map("sic_code") @database.VarChar(10)
+  description                String?   @map("description") @database.Text
+  businessActivityIndustryId Int?      @map("business_activity_industry_id")
+  labelIds                   Json?     @map("label_ids")
+  isCommon                   Boolean?  @map("is_common") @default(false)
+  isDeleted                  Boolean   @default(false) @map("is_deleted")
+  deletedTime                DateTime? @map("deleted_time")
+
+  @@map("BusinessActivity")
+}
+
+model BusinessActivityIndustry {
+  id                              Int       @id @map("id") @default(autoincrement())
+  name                            String    @map("name") @database.Text
+  country_id                      Int?      @map("country_id")
+  parentId                        Int?      @map("parent_id")
+  parentIds                       Json?     @map("parent_ids")
+  businessActivityIndustryClassId Int?      @map("business_activity_industry_class_id")
+  sicCode                         String?   @map("sic_code") @database.VarChar(10)
+  isDeleted                       Boolean   @default(false) @map("is_deleted")
+  deletedTime                     DateTime? @map("deleted_time")
+
+  @@map("BusinessActivityIndustry")
+}
+
+model BusinessActivityIndustryClass {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String    @map("name") @database.VarChar(45)
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("BusinessActivityIndustryClass")
+}
+
+model BusinessActivityLabel {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String    @map("name") @database.Text
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("BusinessActivityLabel")
+}
+
+model Campaign {
+  id             Int       @id @map("id") @default(autoincrement())
+  name           String?   @map("name") @database.VarChar(100)
+  description    String?   @map("description") @database.Text
+  campaignTypeId Int?      @map("campaign_type_id")
+  isDeleted      Boolean   @default(false) @map("is_deleted")
+  deletedTime    DateTime? @map("deleted_time")
+
+  @@map("Campaign")
+}
+
+model CampaignHasVoucherType {
+  campaignId        Int   @map("campaign_id")
+  voucherTypeId     Int   @map("voucher_type_id")
+  totalQuantity     Int?  @map("total_quantity")
+  remainingQuantity Int?  @map("remaining_quantity")
+  percent           Int?  @map("percent")
+  config            Json? @map("config")
+
+  @@id([campaignId, voucherTypeId])
+  @@map("CampaignHasVoucherType")
+}
+
+model CampaignType {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String?   @map("name") @database.VarChar(225)
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("CampaignType")
+}
+
+model CarSeat {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String?   @map("name") @database.Text
+  babyMax     Int?      @map("baby_max") @default(0)
+  value       Int?      @map("value") @default(0)
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("CarSeat")
+}
+
+model ChangeRequest {
+  id                     Int       @id @map("id") @default(autoincrement())
+  taskId                 Int       @map("task_id")
+  companyId              Int       @map("company_id")
+  changeRequestStatusId  Int       @map("change_request_status_id")
+  companyMemberId        Int?      @map("company_member_id")
+  companyPositionId      Int?      @map("company_position_id")
+  toCompanyMemberId      Int?      @map("to_company_member_id")
+  toCompanyPositionId    Int?      @map("to_company_position_id")
+  changeRequestRelatedId Int?      @map("change_request_related_id")
+  isApproved             Boolean   @map("is_approved") @default(false)
+  createdTime            DateTime  @default(now()) @map("created_time")
+  updatedTime            DateTime  @updatedAt @map("updated_time")
+  isDeleted              Boolean   @default(false) @map("is_deleted")
+  deletedTime            DateTime? @map("deleted_time")
+
+  @@map("ChangeRequest")
+}
+
+model ChangeRequestItem {
+  id              Int       @id @map("id") @default(autoincrement())
+  changeRequestId Int       @map("change_request_id")
+  model           String    @map("model") @database.VarChar(100)
+  fieldName       String    @map("field_name") @database.VarChar(100)
+  value           String    @map("value") @database.Text
+  isFee           Boolean   @map("is_fee") @default(true)
+  dataType        String    @map("data_type") @database.VarChar(45)
+  targetId        Int?      @map("target_id")
+  createdTime     DateTime  @default(now()) @map("created_time")
+  updatedTime     DateTime  @updatedAt @map("updated_time")
+  isDeleted       Boolean   @default(false) @map("is_deleted")
+  deletedTime     DateTime? @map("deleted_time")
+
+  @@map("ChangeRequestItem")
+}
+
+model ChangeRequestStatus {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String    @map("name") @database.VarChar(45)
+  createdTime DateTime  @default(now()) @map("created_time")
+  updatedTime DateTime  @updatedAt @map("updated_time")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("ChangeRequestStatus")
+}
+
+model Click {
+  id             Int       @id @map("id") @default(autoincrement())
+  googleClientId String?   @map("google_client_id") @database.VarChar(225)
+  ipAddress      String?   @map("ip_address") @database.VarChar(45)
+  voucherTypeId  Int?      @map("voucher_type_id")
+  createdTime    DateTime  @default(now()) @map("created_time")
+  updatedTime    DateTime  @updatedAt @map("updated_time")
+  isDeleted      Boolean   @default(false) @map("is_deleted")
+  deletedTime    DateTime? @map("deleted_time")
+
+  @@map("Click")
+}
+
+model Company {
+  id                       Int       @id @map("id") @default(autoincrement())
+  version                  Int       @map("version") @default(0)
+  companyCode              String?   @map("company_code") @database.VarChar(255)
+  countryId                Int?      @map("country_id")
+  companyRegNo             String?   @map("company_reg_no") @database.VarChar(255)
+  name                     String?   @map("name") @database.VarChar(255)
+  companyStatusId          Int?      @map("company_status_id")
+  entityTypeId             Int?      @map("entity_type_id")
+  companySuffixId          Int?      @map("company_suffix_id")
+  preventiveName           String?   @map("preventive_name") @database.VarChar(255)
+  address                  String?   @map("address") @database.VarChar(255)
+  tax                      String?   @map("tax") @database.VarChar(255)
+  tin                      String?   @map("tin") @database.VarChar(45)
+  description              String?   @map("description") @database.VarChar(255)
+  note                     String?   @map("note") @database.VarChar(255)
+  incorporationDate        DateTime? @map("incorporation_date") @database.Date
+  xeroContactId            String?   @map("xero_contact_id") @database.VarChar(255)
+  businessActivity         String?   @map("business_activity") @database.VarChar(255)
+  isOutsideCompany         Boolean   @map("is_outside_company") @default(false)
+  renewalDate              DateTime? @map("renewal_date") @database.Date
+  billingId                Int?      @map("billing_id")
+  contactFullName          String?   @map("contact_full_name") @database.VarChar(255)
+  contactPhone             String?   @map("contact_phone") @database.VarChar(255)
+  contactEmail             String?   @map("contact_email") @database.VarChar(255)
+  contactAddress           String?   @map("contact_address") @database.VarChar(255)
+  tinCode                  String?   @map("tin_code") @database.VarChar(255)
+  pinCode                  String?   @map("pin_code") @database.VarChar(255)
+  contactPhoneCountryId    Int?      @map("contact_phone_country_id")
+  contactPhoneNumber       String?   @map("contact_phone_number") @database.VarChar(255)
+  contactState             String?   @map("contact_state") @database.VarChar(255)
+  contactCity              String?   @map("contact_city") @database.VarChar(255)
+  contactPostalCode        String?   @map("contact_postal_code") @database.VarChar(255)
+  operatingCountryId       Int?      @map("operating_country_id")
+  operatingCity            String?   @map("operating_city") @database.VarChar(200)
+  operatingState           String?   @map("operating_state") @database.VarChar(200)
+  operatingPostalCode      String?   @map("operating_postal_code") @database.VarChar(20)
+  sourceFund               String?   @map("source_fund") @database.VarChar(255)
+  businessFullName         String?   @map("business_full_name") @database.VarChar(200)
+  businessAddress          String?   @map("business_address") @database.VarChar(200)
+  businessCountryId        Int?      @map("business_country_id")
+  businessCity             String?   @map("business_city") @database.VarChar(200)
+  businessState            String?   @map("business_state") @database.VarChar(200)
+  businessPostalCode       String?   @map("business_postal_code") @database.VarChar(20)
+  businessDayEnd           Int?      @map("business_day_end")
+  businessMonthEnd         Int?      @map("business_month_end")
+  shareCapitalParValue     Int?      @map("share_capital_par_value")
+  shareCapitalTypeOfShare  Int?      @map("share_capital_type_of_share")
+  shareCapitalNumberShare  Int?      @map("share_capital_number_share")
+  shareCapital             Int?      @map("share_capital")
+  shareCapitalClassOfShare String?   @map("share_capital_class_of_share") @database.VarChar(255)
+  issuedNumberShare        Int?      @map("issued_number_shared")
+  remainingNumberShare     Int?      @map("remaining_number_share")
+  articlesOfOrganization   Int?      @map("articles_of_organization")
+  recordNumber             String?   @map("record_number") @database.VarChar(255)
+  numOfCheckingBank        Int?      @map("num_of_checking_bank")
+  businessAnnualReport     String?   @map("business_annual_report") @database.VarChar(255)
+  sealImage                String?   @map("seal_image") @database.VarChar(255)
+  leftCheckingBank         Int?      @map("left_checking_bank")
+  businessActivityDetail   Int?      @map("business_activity_detail")
+  createdTime              DateTime  @default(now()) @map("created_time")
+  updatedTime              DateTime  @updatedAt @map("updated_time")
+  isDeleted                Boolean   @default(false) @map("is_deleted")
+  deletedTime              DateTime? @map("deleted_time")
+
+  @@map("Company")
+}

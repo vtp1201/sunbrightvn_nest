@@ -5,10 +5,15 @@ export const RAW_STRING = {
   LENGTH_100: '@database.VarChar(100)',
   LENGTH_50: '@database.VarChar(50)',
   LENGTH_45: '@database.VarChar(45)',
+  LENGTH_20: '@database.VarChar(20)',
   LENGTH_10: '@database.VarChar(10)',
   TEXT: '@database.Text',
 };
 
 export const RAW_INT = {
   TINY_INT: '@database.TinyInt',
+};
+
+export const RAW_DATE_TIME = {
+  DATE_ONLY: '@database.Date',
 };
