@@ -15,6 +15,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  businessActivity = 'businessActivity',
   companyEventType = 'companyEventType',
   order = 'order',
   service = 'service',
