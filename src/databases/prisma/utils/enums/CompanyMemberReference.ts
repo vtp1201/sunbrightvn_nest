@@ -2,14 +2,14 @@ import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
+  companyMemberId = 'companyMemberId',
+  companyMemberIssueReferenceId = 'companyMemberIssueReferenceId',
   name = 'name',
   phoneNumber = 'phoneNumber',
   phoneCountryId = 'phoneCountryId',
   fax = 'fax',
   email = 'email',
   address = 'address',
-  companyMemberIssueReferenceId = 'companyMemberIssueReferenceId',
-  companyMemberId = 'companyMemberId',
   createdTime = ATTRIBUTE_DEFAULT.createdTime,
   updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
   isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
