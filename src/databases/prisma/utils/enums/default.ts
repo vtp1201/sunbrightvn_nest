@@ -15,6 +15,16 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  countryHasEntityType = 'countryHasEntityType',
+  countries = 'countries',
+  contactFrom = 'contactFrom',
+  contactFromHistories = 'contactFromHistories',
+  mailchimpTags = 'mailchimpTags',
+  countryHasCompanySuffixes = 'countryHasCompanySuffixes',
+  entityTypeHasCompanySuffixes = 'entityTypeHasCompanySuffixes',
+  serviceHasCompanySuffixes = 'serviceHasCompanySuffixes',
+
+  companies = 'companies',
   file = 'file',
   otherCompanyMemberTypes = 'otherCompanyMemberTypes',
   companyPositions = 'companyPositions',
