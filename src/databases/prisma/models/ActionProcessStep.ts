@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_INT } from '../utils';
+import { MODEL_NAME, TABLE_NAME, RAW_NUMBER } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/ActionProcessStep';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
@@ -32,7 +32,7 @@ export default createModel(
         map: COLUMN.priority,
         optional: true,
         default: 1,
-        raw: RAW_INT.TINY_INT,
+        raw: RAW_NUMBER.TINY_INT,
       })
       .int(ATTRIBUTE.serviceTypeId, {
         map: COLUMN.serviceTypeId,

@@ -10,8 +10,9 @@ export const RAW_STRING = {
   TEXT: '@database.Text',
 };
 
-export const RAW_INT = {
+export const RAW_NUMBER = {
   TINY_INT: '@database.TinyInt',
+  FLOAT: '@database.Float',
 };
 
 export const RAW_DATE_TIME = {
