@@ -15,6 +15,8 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  typeMember = 'typeMember',
+  gender = 'gender',
   countryHasEntityType = 'countryHasEntityType',
   countries = 'countries',
   contactFrom = 'contactFrom',
