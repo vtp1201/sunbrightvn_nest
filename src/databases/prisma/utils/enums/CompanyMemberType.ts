@@ -1,0 +1,34 @@
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
+
+export enum ATTRIBUTE {
+  id = 'id',
+  name = 'name',
+  description = 'description',
+  parentId = 'parentId',
+  isRequired = 'isRequired',
+  deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
+  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
+}
+
+export enum COLUMN {
+  id = 'id',
+  name = 'name',
+  description = 'description',
+  parentId = 'parent_id',
+  isRequired = 'is_required',
+  deletedTime = COLUMN_DEFAULT.deletedTime,
+  isDeleted = COLUMN_DEFAULT.isDeleted,
+}
+
+export enum RELATION {
+  companyMemberType = RELATION_DEFAULT.companyMemberType,
+  otherCompanyMemberTypes = RELATION_DEFAULT.otherCompanyMemberTypes,
+  companyPositions = RELATION_DEFAULT.companyPositions,
+  fileTemplateHasCompanyMemberTypes = RELATION_DEFAULT.fileTemplateHasCompanyMemberTypes,
+  serviceChangeOfficers = RELATION_DEFAULT.serviceChangeOfficers,
+}
+
+export default {
+  ATTRIBUTE,
+  RELATION,
+};

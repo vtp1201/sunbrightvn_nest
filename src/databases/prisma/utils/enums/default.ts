@@ -15,6 +15,12 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  file = 'file',
+  otherCompanyMemberTypes = 'otherCompanyMemberTypes',
+  companyPositions = 'companyPositions',
+  fileTemplateHasCompanyMemberTypes = 'fileTemplateHasCompanyMemberTypes',
+  companyMemberIssueReference = 'companyMemberIssueReference',
+  companyMemberReferences = 'companyMemberReferences',
   companyMemberType = 'companyMemberType',
   corporationCompanyMember = 'corporationCompanyMember',
   currency = 'currency',

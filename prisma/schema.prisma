@@ -846,7 +846,6 @@ model company_member {
   type_member                                                                       type_member?                           @relation(fields: [type_member_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_com_type_member_id_typ_id_exr8")
   company_member_has_business_activity                                              company_member_has_business_activity[]
   company_member_has_operation_country                                              company_member_has_operation_country[]
-  company_member_has_type                                                           company_member_has_type[]
   company_member_reference                                                          company_member_reference[]
   company_ownership_company_ownership_company_member_idTocompany_member             company_ownership[]                    @relation("company_ownership_company_member_idTocompany_member")
   company_ownership_company_ownership_corporation_company_member_idTocompany_member company_ownership[]                    @relation("company_ownership_corporation_company_member_idTocompany_member")
@@ -941,7 +940,6 @@ model company_member_type {
   parent_id                             Int?
   is_deleted                            Int                                     @default(0) @db.TinyInt
   is_required                           Boolean?
-  company_member_has_type               company_member_has_type[]
   company_member_type                   company_member_type?                    @relation("company_member_typeTocompany_member_type", fields: [parent_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_parent_member_type_id")
   other_company_member_type             company_member_type[]                   @relation("company_member_typeTocompany_member_type")
   company_position                      company_position[]
