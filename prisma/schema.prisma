@@ -901,16 +901,6 @@ model company_member_has_operation_country {
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model company_member_has_type {
-  company_member_id      Int
-  company_member_type_id Int
-  other_value            String?             @db.VarChar(255)
-  company_member         company_member      @relation(fields: [company_member_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_com_company_member_id_com_id_k51a")
-  company_member_type    company_member_type @relation(fields: [company_member_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_com_company_member_type_id_com_id_8myj")
-
-  @@id([company_member_id, company_member_type_id])
-  @@index([company_member_type_id], map: "fk_com_company_member_type_id_com_id_f4va")
-}
 
 model company_member_issuse_reference {
   id                       Int                        @id @default(autoincrement())
