@@ -19,8 +19,7 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  companies = RELATION_DEFAULT.companies,
-  historyCompanies = RELATION_DEFAULT.historyCompanies,
+  countries = RELATION_DEFAULT.countries,
 }
 
 export default {
