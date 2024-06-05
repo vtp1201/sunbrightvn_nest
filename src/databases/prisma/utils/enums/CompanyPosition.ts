@@ -12,7 +12,6 @@ export enum ATTRIBUTE {
   dateOfResign = 'dateOfResign',
   isAppointed = 'isAppointed',
   isApproved = 'isApproved',
-  isDeleted = 'isDeleted',
   isContactPerson = 'isContactPerson',
   relationshipWithCompany = 'relationshipWithCompany',
   isHandleRelationshipContactPerson = 'isHandleRelationshipContactPerson',
@@ -20,6 +19,7 @@ export enum ATTRIBUTE {
   createdTime = ATTRIBUTE_DEFAULT.createdTime,
   updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
+  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
 
 export enum COLUMN {
@@ -35,7 +35,6 @@ export enum COLUMN {
 
   isAppointed = 'is_appointed',
   isApproved = 'is_approved',
-  isDeleted = 'is_deleted',
   isContactPerson = 'is_contact_person',
   relationshipWithCompany = 'relationship_with_company',
   isHandleRelationshipContactPerson = 'is_handle_relationship_contact_person',
@@ -43,6 +42,7 @@ export enum COLUMN {
   createdTime = COLUMN_DEFAULT.createdTime,
   updatedTime = COLUMN_DEFAULT.updatedTime,
   deletedTime = COLUMN_DEFAULT.deletedTime,
+  isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
 export enum RELATION {
