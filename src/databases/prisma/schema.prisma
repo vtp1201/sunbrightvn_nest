@@ -530,3 +530,234 @@ model Company {
 
   @@map("Company")
 }
+
+model CompanyEvent {
+  id                 Int       @id @map("id") @default(autoincrement())
+  companyId          Int       @map("company_id")
+  serviceId          Int       @map("service_id")
+  orderId            Int?      @map("order_id")
+  name               String    @map("name") @database.VarChar(255)
+  description        String?   @map("description") @database.Text
+  dateCompleted      DateTime? @map("date_completed") @database.Date
+  dueDate            DateTime? @map("due_date") @database.Date
+  dateRemind         DateTime? @map("date_remind") @database.Date
+  isNotShow          Boolean   @map("is_not_show") @default(false)
+  companyEventTypeId Int?      @map("company_event_type_id")
+  isNotifyDueRenewal Boolean   @map("is_notify_due_renewal") @default(false)
+  createdTime        DateTime  @default(now()) @map("created_time")
+  updatedTime        DateTime  @updatedAt @map("updated_time")
+  isDeleted          Boolean   @default(false) @map("is_deleted")
+  deletedTime        DateTime? @map("deleted_time")
+
+  @@map("CompanyEvent")
+}
+
+model CompanyEventType {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String    @map("name") @database.Text
+  description String?   @map("description") @database.Text
+  createdTime DateTime  @default(now()) @map("created_time")
+  updatedTime DateTime  @updatedAt @map("updated_time")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("CompanyEventType")
+}
+
+model CompanyHasBusinessActivity {
+  companyId          Int @map("company_id")
+  businessActivityId Int @map("business_activity_id")
+
+  @@id([companyId, businessActivityId])
+  @@map("CompanyHasBusinessActivity")
+}
+
+model CompanyHasCurrency {
+  companyId  Int @map("company_id")
+  currencyId Int @map("currency_id")
+
+  @@id([companyId, currencyId])
+  @@map("CompanyHasCurrency")
+}
+
+model CompanyHasOperationCountry {
+  companyId Int @map("company_id")
+  countryId Int @map("country_id")
+
+  @@id([companyId, countryId])
+  @@map("CompanyHasOperationCountry")
+}
+
+model CompanyInterest {
+  id                         Int       @id @map("id") @default(autoincrement())
+  taskId                     Int       @map("task_id")
+  no                         Int?      @map("no")
+  companyId                  Int       @map("company_id")
+  companyMemberId            Int       @map("company_member_id")
+  companyPositionId          Int?      @map("company_position_id")
+  corporationCompanyMemberId Int?      @map("corporation_company_member_id")
+  startNumber                Int?      @map("start_number")
+  endNumber                  Int?      @map("end_number")
+  value                      Float     @map("value") @database.Float
+  isValid                    Boolean   @map("is_valid") @default(false)
+  isApproved                 Boolean   @map("is_approved") @default(false)
+  issuedFileId               Int?      @map("issued_file_id")
+  issuedDated                DateTime? @map("issued_dated") @database.Date
+  expiredDated               DateTime? @map("expired_dated") @database.Date
+  createdTime                DateTime  @default(now()) @map("created_time")
+  updatedTime                DateTime  @updatedAt @map("updated_time")
+  isDeleted                  Boolean   @default(false) @map("is_deleted")
+  deletedTime                DateTime? @map("deleted_time")
+
+  @@map("CompanyInterest")
+}
+
+model CompanyMember {
+  id                           Int       @id @map("id") @default(autoincrement())
+  companyId                    Int       @map("company_id")
+  countryId                    Int?      @map("country_id")
+  typeMemberId                 Int?      @map("type_member_id")
+  isNominee                    Boolean   @map("is_nominee") @default(false)
+  isApproved                   Boolean   @map("is_approved") @default(false)
+  firstName                    String?   @map("first_name") @database.VarChar(255)
+  middleName                   String?   @map("middle_name") @database.VarChar(255)
+  lastName                     String?   @map("last_name") @database.VarChar(255)
+  fullName                     String?   @map("full_name") @database.VarChar(255)
+  corporationName              String?   @map("corporation_name") @database.VarChar(255)
+  corporationNumber            String?   @map("corporation_number") @database.VarChar(255)
+  corporationDate              DateTime? @map("corporation_date") @database.Date
+  genderId                     Int?      @map("gender_id")
+  major                        String?   @map("major") @database.VarChar(255)
+  phone                        String?   @map("phone") @database.VarChar(255)
+  email                        String?   @map("email") @database.VarChar(255)
+  birthday                     DateTime? @map("birthday") @database.Date
+  birthCountryId               Int?      @map("birth_country_id")
+  address                      String?   @map("address") @database.VarChar(255)
+  passport                     String?   @map("passport") @database.VarChar(255)
+  passportIssueDate            DateTime? @map("passport_issue_date") @database.Date
+  passportExpireDate           DateTime? @map("passport_expire_date") @database.Date
+  ssn                          String?   @map("ssn") @database.VarChar(255)
+  description                  String?   @map("description") @database.VarChar(255)
+  phoneCountryId               Int?      @map("phone_country_id")
+  phoneNumber                  String?   @map("phone_number") @database.VarChar(255)
+  assetSourceFundCastInBank    Int?      @map("asset_source_fund_cast_in_bank")
+  assetSourceFundRealEstate    Int?      @map("asset_source_fund_real_estate")
+  assetSourceFundOtherDetail   String?   @map("asset_source_fund_other_detail") @database.VarChar(255)
+  assetSourceFundOtherMoney    Int?      @map("asset_source_fund_other_money")
+  incomeSourceFundInvestment   Int?      @map("income_source_fund_investment")
+  incomeSourceFundSelfEmployed Int?      @map("income_source_fund_self_employed")
+  incomeSourceFundOtherDetail  String?   @map("income_source_fund_other_detail") @database.VarChar(255)
+  incomeSourceFundOtherMoney   Int?      @map("income_source_fund_other_money")
+  businessActivityDetail       String?   @map("business_activity_detail") @database.Text
+  serviceAddress               String?   @map("service_address") @database.VarChar(255)
+  operationAddress             String?   @map("operation_address") @database.VarChar(255)
+  natureBusiness               String?   @map("nature_business") @database.VarChar(255)
+  relationshipIntendedCompany  String?   @map("relationship_intended_company") @database.VarChar(255)
+  city                         String?   @map("city") @database.VarChar(255)
+  state                        String?   @map("state") @database.VarChar(255)
+  postalCode                   String?   @map("postal_code") @database.VarChar(255)
+  addressCountryId             Int?      @map("address_country_id")
+  createdTime                  DateTime  @default(now()) @map("created_time")
+  updatedTime                  DateTime  @updatedAt @map("updated_time")
+  isDeleted                    Boolean   @default(false) @map("is_deleted")
+  deletedTime                  DateTime? @map("deleted_time")
+
+  @@map("CompanyMember")
+}
+
+model CompanyMemberOperationCountries {
+  companyMemberId Int @map("company_member_id")
+  countryId       Int @map("country_id")
+
+  @@id([companyMemberId, countryId])
+  @@map("CompanyMemberOperationCountries")
+}
+
+model CompanyMemberIssueReference {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String    @map("name") @database.VarChar(100)
+  createdTime DateTime  @default(now()) @map("created_time")
+  updatedTime DateTime  @updatedAt @map("updated_time")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("companyMemberIssueReference")
+}
+
+model CompanyMemberReferences {
+  id                            Int       @id @map("id") @default(autoincrement())
+  companyMemberId               Int       @map("company_member_id")
+  companyMemberIssueReferenceId Int?      @map("company_member_issuse_reference_id")
+  name                          String?   @map("name") @database.VarChar(255)
+  phoneNumber                   String?   @map("phone_number") @database.VarChar(255)
+  phoneCountryId                Int?      @map("phone_country_id")
+  fax                           String?   @map("fax") @database.VarChar(255)
+  email                         String?   @map("email") @database.VarChar(255)
+  address                       String?   @map("address") @database.VarChar(255)
+  createdTime                   DateTime  @default(now()) @map("created_time")
+  updatedTime                   DateTime  @updatedAt @map("updated_time")
+  isDeleted                     Boolean   @default(false) @map("is_deleted")
+  deletedTime                   DateTime? @map("deleted_time")
+
+  @@map("CompanyMemberReferences")
+}
+
+model CompanyMemberType {
+  id          Int       @id @map("id") @default(autoincrement())
+  name        String    @map("name") @database.VarChar(45)
+  description String?   @map("description") @database.Text
+  parentId    Int?      @map("parent_id")
+  isRequired  Boolean   @map("is_required") @default(false)
+  createdTime DateTime  @default(now()) @map("created_time")
+  updatedTime DateTime  @updatedAt @map("updated_time")
+  isDeleted   Boolean   @default(false) @map("is_deleted")
+  deletedTime DateTime? @map("deleted_time")
+
+  @@map("CompanyMemberType")
+}
+
+model CompanyOwnership {
+  id                         Int       @id @map("id") @default(autoincrement())
+  taskId                     Int       @map("task_id")
+  no                         Int?      @map("no")
+  companyId                  Int       @map("company_id")
+  companyMemberId            Int       @map("company_member_id")
+  companyPositionId          Int?      @map("company_position_id")
+  corporationCompanyMemberId Int?      @map("corporation_company_member_id")
+  value                      Float     @map("value") @database.Float
+  isValid                    Boolean   @map("is_valid") @default(false)
+  isApproved                 Boolean   @map("is_approved") @default(false)
+  issuedFileId               Int?      @map("issued_file_id")
+  issuedDated                DateTime? @map("issued_dated") @database.Date
+  expiredDated               DateTime? @map("expired_dated") @database.Date
+  createdTime                DateTime  @default(now()) @map("created_time")
+  updatedTime                DateTime  @updatedAt @map("updated_time")
+  isDeleted                  Boolean   @default(false) @map("is_deleted")
+  deletedTime                DateTime? @map("deleted_time")
+
+  @@map("CompanyOwnership")
+}
+
+model CompanyPosition {
+  id                                Int       @id @map("id") @default(autoincrement())
+  companyMemberId                   Int       @map("company_member_id")
+  companyMemberTypeId               Int       @map("company_member_type_id")
+  corporationCompanyMemberId        Int?      @map("corporation_company_member_id")
+  numberAllotted                    Int       @map("number_allotted") @default(0)
+  percentOfInterest                 Float     @map("percent_of_interest") @default(0) @database.Float
+  ownPercent                        Float     @map("own_percent") @default(0) @database.Float
+  dateOfAppointment                 DateTime? @map("date_of_appointment") @database.Date
+  dateOfResign                      DateTime? @map("date_of_resign") @database.Date
+  isAppointed                       Boolean   @map("is_appointed") @default(false)
+  isApproved                        Boolean   @map("is_approved") @default(false)
+  isContactPerson                   Boolean   @map("is_contact_person") @default(false)
+  isHandleRelationshipContactPerson Boolean   @map("is_handle_relationship_contact_person") @default(false)
+  positionDetail                    String?   @map("position_detail") @database.VarChar(255)
+  relationshipWithCompany           Json?     @map("relationship_with_company")
+  createdTime                       DateTime  @default(now()) @map("created_time")
+  updatedTime                       DateTime  @updatedAt @map("updated_time")
+  isDeleted                         Boolean   @default(false) @map("is_deleted")
+  deletedTime                       DateTime? @map("deleted_time")
+
+  @@map("CompanyPosition")
+}
