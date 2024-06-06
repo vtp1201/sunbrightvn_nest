@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/CustomerType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { createdTime, deleted } from '../mixins';
 
 export default createModel(MODEL_NAME.CUSTOMER_TYPE, (CustomerTypeModel) => {
   CustomerTypeModel.int(ATTRIBUTE.id, {
@@ -22,8 +22,7 @@ export default createModel(MODEL_NAME.CUSTOMER_TYPE, (CustomerTypeModel) => {
     })
 
     // dateTime marks
-    .mixin(createdTime)
-    .mixin(updatedTime)
+    .mixin(createdTime(ATTRIBUTE.createdTime, COLUMN.createdTime))
     .mixin(deleted)
 
     // table name
