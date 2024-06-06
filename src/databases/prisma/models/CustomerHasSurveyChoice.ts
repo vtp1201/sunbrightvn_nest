@@ -28,6 +28,7 @@ export default createModel(
         fields: [ATTRIBUTE.customerId, ATTRIBUTE.surveyChoiceId],
       })
 
+      .raw('@@index([customerId], map: "fk_cus_customer_id_cus_id_5h8l")')
       // table name
       .map(TABLE_NAME.CUSTOMER_HAS_SURVEY_CHOICE);
   },
