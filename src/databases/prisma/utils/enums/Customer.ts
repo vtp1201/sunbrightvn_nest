@@ -32,8 +32,6 @@ export enum ATTRIBUTE {
   description = 'description',
   image = 'image',
   signature = 'signature',
-  updatedTime = 'updatedTime',
-  createdTime = 'createdTime',
   otherType = 'otherType',
   businessDescription = 'businessDescription',
   subject = 'subject',
@@ -51,7 +49,6 @@ export enum ATTRIBUTE {
   mailchimpId = 'mailchimpId',
   surveyContent = 'surveyContent',
   xeroContactId = 'xeroContactId',
-  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
   logs = 'logs',
   customerStatusId = 'customerStatusId',
   city = 'city',
@@ -79,6 +76,10 @@ export enum ATTRIBUTE {
   testerLeaderId = 'testerLeaderId',
   timeUnassignedTester = 'timeUnassignedTester',
   middleName = 'middleName',
+  createdTime = ATTRIBUTE_DEFAULT.createdTime,
+  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
+  deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
+  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
 
 export enum COLUMN {
@@ -114,8 +115,6 @@ export enum COLUMN {
   description = 'description',
   image = 'image',
   signature = 'signature',
-  updatedTime = 'updated_time',
-  createdTime = 'created_time',
   otherType = 'other_type',
   businessDescription = 'business_description',
   subject = 'subject',
@@ -133,7 +132,6 @@ export enum COLUMN {
   mailchimpId = 'mailchimp_id',
   surveyContent = 'survey_content',
   xeroContactId = 'xero_contact_id',
-  isDeleted = 'is_deleted',
   logs = 'logs',
   customerStatusId = 'customer_status_id',
   city = 'city',
@@ -161,4 +159,12 @@ export enum COLUMN {
   testerLeaderId = 'tester_leader_id',
   timeUnassignedTester = 'time_unassigned_tester',
   middleName = 'middle_name',
+  createdTime = COLUMN_DEFAULT.createdTime,
+  updatedTime = COLUMN_DEFAULT.updatedTime,
+  deletedTime = COLUMN_DEFAULT.deletedTime,
+  isDeleted = COLUMN_DEFAULT.isDeleted,
+}
+
+export enum RELATION {
+  customerStatus,
 }
