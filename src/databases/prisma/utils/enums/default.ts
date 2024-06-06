@@ -15,6 +15,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  surveyChoice = 'surveyChoice',
   typeMember = 'typeMember',
   gender = 'gender',
   countryHasEntityType = 'countryHasEntityType',
