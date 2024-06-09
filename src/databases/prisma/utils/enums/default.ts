@@ -15,6 +15,8 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  serviceTypeHasDepartments = 'serviceTypeHasDepartments',
+  fatca = 'fatca',
   surveyChoice = 'surveyChoice',
   typeMember = 'typeMember',
   gender = 'gender',
@@ -26,7 +28,6 @@ export enum RELATION_DEFAULT {
   countryHasCompanySuffixes = 'countryHasCompanySuffixes',
   entityTypeHasCompanySuffixes = 'entityTypeHasCompanySuffixes',
   serviceHasCompanySuffixes = 'serviceHasCompanySuffixes',
-
   companies = 'companies',
   file = 'file',
   otherCompanyMemberTypes = 'otherCompanyMemberTypes',
