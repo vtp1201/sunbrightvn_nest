@@ -116,6 +116,11 @@ create_model() {
   echo -e "$(cat "$pathenumsdb/index.ts")\n$info" >"$pathenumsdb/index.ts"
 }
 
+insert_if_not_existed() {
+  local file_name = "$1"
+  local content = "$2"
+
+}
 print() {
   local filename="$1"
   echo "File $filename has been created with the following content"
