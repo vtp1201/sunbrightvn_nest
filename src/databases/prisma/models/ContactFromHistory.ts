@@ -7,31 +7,53 @@ import { createdTime, deleted, updatedTime } from '../mixins';
 export default createModel(
   MODEL_NAME.CONTACT_FROM_HISTORY,
   (ContactFromHistoryModel) => {
-    ContactFromHistoryModel.int(ATTRIBUTE.id, {
-      id: true,
-      map: COLUMN.id,
-      default: {
-        autoincrement: true,
+    const initCreatedTime = createdTime({
+      attribute: ATTRIBUTE.createdTime,
+      column: COLUMN.createdTime,
+    });
+    const initUpdatedTime = updatedTime({
+      attribute: ATTRIBUTE.updatedTime,
+      column: COLUMN.updatedTime,
+    });
+    const initDeleted = deleted(
+      {
+        attribute: ATTRIBUTE.deletedTime,
+        column: COLUMN.deletedTime,
       },
-    })
-      .int(ATTRIBUTE.customerId, {
-        map: COLUMN.customerId,
-      })
-      .int(ATTRIBUTE.contactFromId, {
-        map: COLUMN.contactFromId,
-      })
-      .string(ATTRIBUTE.tagName, {
-        map: COLUMN.tagName,
-        raw: RAW_STRING.LENGTH_255,
-        optional: true,
-      })
+      {
+        attribute: ATTRIBUTE.isDeleted,
+        column: COLUMN.isDeleted,
+      },
+    );
 
-      // dateTime marks
-      .mixin(createdTime)
-      .mixin(updatedTime)
-      .mixin(deleted)
+    // defined Model
+    process.nextTick(() => {
+      ContactFromHistoryModel.int(ATTRIBUTE.id, {
+        id: true,
+        map: COLUMN.id,
+        default: {
+          autoincrement: true,
+        },
+      })
+        .int(ATTRIBUTE.customerId, {
+          map: COLUMN.customerId,
+        })
+        .int(ATTRIBUTE.contactFromId, {
+          map: COLUMN.contactFromId,
+        })
+        .string(ATTRIBUTE.tagName, {
+          map: COLUMN.tagName,
+          raw: RAW_STRING.LENGTH_255,
+          optional: true,
+        })
 
-      // table name
-      .map(TABLE_NAME.CONTACT_FROM_HISTORY);
+        // dateTime marks
+        .mixin(initCreatedTime)
+        .mixin(initUpdatedTime)
+        .mixin(initDeleted)
+
+        // table name
+        .map(TABLE_NAME.CONTACT_FROM_HISTORY);
+    });
   },
 );

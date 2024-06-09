@@ -7,25 +7,47 @@ import { createdTime, deleted, updatedTime } from '../mixins';
 export default createModel(
   MODEL_NAME.ACTION_STEP_TYPE,
   (ActionStepTypeModel) => {
-    ActionStepTypeModel.int(ATTRIBUTE.id, {
-      map: COLUMN.id,
-      id: true,
-      default: {
-        autoincrement: true,
+    const initCreatedTime = createdTime({
+      attribute: ATTRIBUTE.createdTime,
+      column: COLUMN.createdTime,
+    });
+    const initUpdatedTime = updatedTime({
+      attribute: ATTRIBUTE.updatedTime,
+      column: COLUMN.updatedTime,
+    });
+    const initDeleted = deleted(
+      {
+        attribute: ATTRIBUTE.deletedTime,
+        column: COLUMN.deletedTime,
       },
-    })
-      .string(ATTRIBUTE.name, {
-        map: COLUMN.name,
-        raw: RAW_STRING.LENGTH_255,
-        optional: true,
+      {
+        attribute: ATTRIBUTE.isDeleted,
+        column: COLUMN.isDeleted,
+      },
+    );
+
+    // defined Model
+    process.nextTick(() => {
+      ActionStepTypeModel.int(ATTRIBUTE.id, {
+        map: COLUMN.id,
+        id: true,
+        default: {
+          autoincrement: true,
+        },
       })
+        .string(ATTRIBUTE.name, {
+          map: COLUMN.name,
+          raw: RAW_STRING.LENGTH_255,
+          optional: true,
+        })
 
-      // dateTime marks
-      .mixin(createdTime)
-      .mixin(updatedTime)
-      .mixin(deleted)
+        // dateTime marks
+        .mixin(initCreatedTime)
+        .mixin(initUpdatedTime)
+        .mixin(initDeleted)
 
-      // table name
-      .map(TABLE_NAME.ACTION_STEP_TYPE);
+        // table name
+        .map(TABLE_NAME.ACTION_STEP_TYPE);
+    });
   },
 );

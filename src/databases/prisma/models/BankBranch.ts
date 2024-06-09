@@ -5,31 +5,45 @@ import { ATTRIBUTE, COLUMN } from '../utils/enums/BankBranch';
 import { deleted } from '../mixins';
 
 export default createModel(MODEL_NAME.BANK_BRANCH, (BankBranchModel) => {
-  BankBranchModel.int(ATTRIBUTE.id, {
-    id: true,
-    map: COLUMN.id,
-    default: {
-      autoincrement: true,
+  const initDeleted = deleted(
+    {
+      attribute: ATTRIBUTE.deletedTime,
+      column: COLUMN.deletedTime,
     },
-  })
-    .string(ATTRIBUTE.name, {
-      map: COLUMN.name,
-      optional: true,
-      raw: RAW_STRING.LENGTH_200,
-    })
-    .string(ATTRIBUTE.address, {
-      map: COLUMN.address,
-      raw: RAW_STRING.LENGTH_200,
-      optional: true,
-    })
-    .int(ATTRIBUTE.bankId, {
-      map: COLUMN.bankId,
-      optional: true,
-    })
+    {
+      attribute: ATTRIBUTE.isDeleted,
+      column: COLUMN.isDeleted,
+    },
+  );
 
-    // dateTime marks
-    .mixin(deleted)
+  // defined Model
+  process.nextTick(() => {
+    BankBranchModel.int(ATTRIBUTE.id, {
+      id: true,
+      map: COLUMN.id,
+      default: {
+        autoincrement: true,
+      },
+    })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        optional: true,
+        raw: RAW_STRING.LENGTH_200,
+      })
+      .string(ATTRIBUTE.address, {
+        map: COLUMN.address,
+        raw: RAW_STRING.LENGTH_200,
+        optional: true,
+      })
+      .int(ATTRIBUTE.bankId, {
+        map: COLUMN.bankId,
+        optional: true,
+      })
 
-    // table name
-    .map(TABLE_NAME.BANK_BRANCH);
+      // dateTime marks
+      .mixin(initDeleted)
+
+      // table name
+      .map(TABLE_NAME.BANK_BRANCH);
+  });
 });

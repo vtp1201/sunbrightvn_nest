@@ -10,22 +10,36 @@ import { deleted } from '../mixins';
 export default createModel(
   MODEL_NAME.BUSINESS_ACTIVITY_LABEL,
   (BusinessActivityIndustryClassModel) => {
-    BusinessActivityIndustryClassModel.int(ATTRIBUTE.id, {
-      id: true,
-      map: COLUMN.id,
-      default: {
-        autoincrement: true,
+    const initDeleted = deleted(
+      {
+        attribute: ATTRIBUTE.deletedTime,
+        column: COLUMN.deletedTime,
       },
-    })
-      .string(ATTRIBUTE.name, {
-        map: COLUMN.name,
-        raw: RAW_STRING.TEXT,
+      {
+        attribute: ATTRIBUTE.isDeleted,
+        column: COLUMN.isDeleted,
+      },
+    );
+
+    // defined Model
+    process.nextTick(() => {
+      BusinessActivityIndustryClassModel.int(ATTRIBUTE.id, {
+        id: true,
+        map: COLUMN.id,
+        default: {
+          autoincrement: true,
+        },
       })
+        .string(ATTRIBUTE.name, {
+          map: COLUMN.name,
+          raw: RAW_STRING.TEXT,
+        })
 
-      // dateTime marks
-      .mixin(deleted)
+        // dateTime marks
+        .mixin(initDeleted)
 
-      // table name
-      .map(TABLE_NAME.BUSINESS_ACTIVITY_LABEL);
+        // table name
+        .map(TABLE_NAME.BUSINESS_ACTIVITY_LABEL);
+    });
   },
 );

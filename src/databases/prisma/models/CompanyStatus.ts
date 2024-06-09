@@ -5,23 +5,45 @@ import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyStatus';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
 export default createModel(MODEL_NAME.COMPANY_STATUS, (CompanyStatusModel) => {
-  CompanyStatusModel.int(ATTRIBUTE.id, {
-    id: true,
-    map: COLUMN.id,
-    default: {
-      autoincrement: true,
+  const initCreatedTime = createdTime({
+    attribute: ATTRIBUTE.createdTime,
+    column: COLUMN.createdTime,
+  });
+  const initUpdatedTime = updatedTime({
+    attribute: ATTRIBUTE.updatedTime,
+    column: COLUMN.updatedTime,
+  });
+  const initDeleted = deleted(
+    {
+      attribute: ATTRIBUTE.deletedTime,
+      column: COLUMN.deletedTime,
     },
-  })
-    .string(ATTRIBUTE.name, {
-      map: COLUMN.name,
-      raw: RAW_STRING.LENGTH_45,
+    {
+      attribute: ATTRIBUTE.isDeleted,
+      column: COLUMN.isDeleted,
+    },
+  );
+
+  // defined Model
+  process.nextTick(() => {
+    CompanyStatusModel.int(ATTRIBUTE.id, {
+      id: true,
+      map: COLUMN.id,
+      default: {
+        autoincrement: true,
+      },
     })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        raw: RAW_STRING.LENGTH_45,
+      })
 
-    // dateTime marks
-    .mixin(createdTime)
-    .mixin(updatedTime)
-    .mixin(deleted)
+      // dateTime marks
+      .mixin(initCreatedTime)
+      .mixin(initUpdatedTime)
+      .mixin(initDeleted)
 
-    // table name
-    .map(TABLE_NAME.COMPANY_STATUS);
+      // table name
+      .map(TABLE_NAME.COMPANY_STATUS);
+  });
 });

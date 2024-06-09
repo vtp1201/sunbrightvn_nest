@@ -5,32 +5,46 @@ import { ATTRIBUTE, COLUMN } from '../utils/enums/CarSeat';
 import { deleted } from '../mixins';
 
 export default createModel(MODEL_NAME.CAR_SEAT, (CarSeatModel) => {
-  CarSeatModel.int(ATTRIBUTE.id, {
-    id: true,
-    map: COLUMN.id,
-    default: {
-      autoincrement: true,
+  const initDeleted = deleted(
+    {
+      attribute: ATTRIBUTE.deletedTime,
+      column: COLUMN.deletedTime,
     },
-  })
-    .string(ATTRIBUTE.name, {
-      map: COLUMN.name,
-      raw: RAW_STRING.TEXT,
-      optional: true,
-    })
-    .int(ATTRIBUTE.babyMax, {
-      map: COLUMN.babyMax,
-      optional: true,
-      default: 0,
-    })
-    .int(ATTRIBUTE.value, {
-      map: COLUMN.value,
-      optional: true,
-      default: 0,
-    })
+    {
+      attribute: ATTRIBUTE.isDeleted,
+      column: COLUMN.isDeleted,
+    },
+  );
 
-    // dateTime marks
-    .mixin(deleted)
+  // defined Model
+  process.nextTick(() => {
+    CarSeatModel.int(ATTRIBUTE.id, {
+      id: true,
+      map: COLUMN.id,
+      default: {
+        autoincrement: true,
+      },
+    })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        raw: RAW_STRING.TEXT,
+        optional: true,
+      })
+      .int(ATTRIBUTE.babyMax, {
+        map: COLUMN.babyMax,
+        optional: true,
+        default: 0,
+      })
+      .int(ATTRIBUTE.value, {
+        map: COLUMN.value,
+        optional: true,
+        default: 0,
+      })
 
-    // table name
-    .map(TABLE_NAME.CAR_SEAT);
+      // dateTime marks
+      .mixin(initDeleted)
+
+      // table name
+      .map(TABLE_NAME.CAR_SEAT);
+  });
 });

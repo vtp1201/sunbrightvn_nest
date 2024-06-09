@@ -5,22 +5,36 @@ import { ATTRIBUTE, COLUMN } from '../utils/enums/Airport';
 import { deleted } from '../mixins';
 
 export default createModel(MODEL_NAME.AIRPORT, (AirportModel) => {
-  AirportModel.int(ATTRIBUTE.id, {
-    id: true,
-    map: COLUMN.id,
-    default: {
-      autoincrement: true,
+  const initDeleted = deleted(
+    {
+      attribute: ATTRIBUTE.deletedTime,
+      column: COLUMN.deletedTime,
     },
-  })
-    .string(ATTRIBUTE.name, {
-      map: COLUMN.name,
-      raw: RAW_STRING.LENGTH_100,
-      optional: true,
+    {
+      attribute: ATTRIBUTE.isDeleted,
+      column: COLUMN.isDeleted,
+    },
+  );
+
+  // defined Model
+  process.nextTick(() => {
+    AirportModel.int(ATTRIBUTE.id, {
+      id: true,
+      map: COLUMN.id,
+      default: {
+        autoincrement: true,
+      },
     })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        raw: RAW_STRING.LENGTH_100,
+        optional: true,
+      })
 
-    // dateTime marks
-    .mixin(deleted)
+      // dateTime marks
+      .mixin(initDeleted)
 
-    // table name
-    .map(TABLE_NAME.AIRPORT);
+      // table name
+      .map(TABLE_NAME.AIRPORT);
+  });
 });

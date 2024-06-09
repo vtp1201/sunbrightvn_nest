@@ -7,29 +7,54 @@ import { createdTime, deleted, updatedTime } from '../mixins';
 export default createModel(
   MODEL_NAME.CUSTOMER_HAS_SURVEY_CHOICE,
   (CustomerHasSurveyChoiceModel) => {
-    CustomerHasSurveyChoiceModel.int(ATTRIBUTE.customerId, {
-      map: COLUMN.customerId,
-    })
-      .int(ATTRIBUTE.surveyChoiceId, {
-        map: COLUMN.surveyChoiceId,
-      })
-      .string(ATTRIBUTE.surveyContent, {
-        map: COLUMN.surveyContent,
-        raw: RAW_STRING.LENGTH_255,
-        optional: true,
-      })
+    const initCreatedTime = createdTime({
+      attribute: ATTRIBUTE.createdTime,
+      column: COLUMN.createdTime,
+    });
+    const initUpdatedTime = updatedTime({
+      attribute: ATTRIBUTE.updatedTime,
+      column: COLUMN.updatedTime,
+    });
+    const initDeleted = deleted(
+      {
+        attribute: ATTRIBUTE.deletedTime,
+        column: COLUMN.deletedTime,
+      },
+      {
+        attribute: ATTRIBUTE.isDeleted,
+        column: COLUMN.isDeleted,
+      },
+    );
 
-      // dateTime marks
-      .mixin(createdTime)
-      .mixin(updatedTime)
-      .mixin(deleted)
-
-      .id({
-        fields: [ATTRIBUTE.customerId, ATTRIBUTE.surveyChoiceId],
+    // defined Model
+    process.nextTick(() => {
+      CustomerHasSurveyChoiceModel.int(ATTRIBUTE.customerId, {
+        map: COLUMN.customerId,
       })
+        .int(ATTRIBUTE.surveyChoiceId, {
+          map: COLUMN.surveyChoiceId,
+        })
+        .string(ATTRIBUTE.surveyContent, {
+          map: COLUMN.surveyContent,
+          raw: RAW_STRING.LENGTH_255,
+          optional: true,
+        })
 
-      .raw('@@index([customerId], map: "fk_cus_customer_id_cus_id_5h8l")')
-      // table name
-      .map(TABLE_NAME.CUSTOMER_HAS_SURVEY_CHOICE);
+        // dateTime marks
+        .mixin(initCreatedTime)
+        .mixin(initUpdatedTime)
+        .mixin(initDeleted)
+
+        // ids
+        .id({
+          fields: [ATTRIBUTE.customerId, ATTRIBUTE.surveyChoiceId],
+        })
+
+        // indexes
+        .raw('@@index([customerId])')
+
+        // table name
+        .map(TABLE_NAME.CUSTOMER_HAS_SURVEY_CHOICE);
+    });
   },
 );

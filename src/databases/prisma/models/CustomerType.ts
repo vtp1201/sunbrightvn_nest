@@ -5,26 +5,44 @@ import { ATTRIBUTE, COLUMN } from '../utils/enums/CustomerType';
 import { createdTime, deleted } from '../mixins';
 
 export default createModel(MODEL_NAME.CUSTOMER_TYPE, (CustomerTypeModel) => {
-  CustomerTypeModel.int(ATTRIBUTE.id, {
-    id: true,
-    map: COLUMN.id,
-    default: {
-      autoincrement: true,
+  const initCreatedTime = createdTime({
+    attribute: ATTRIBUTE.createdTime,
+    column: COLUMN.createdTime,
+  });
+  const initDeleted = deleted(
+    {
+      attribute: ATTRIBUTE.deletedTime,
+      column: COLUMN.deletedTime,
     },
-  })
-    .string(ATTRIBUTE.name, {
-      map: COLUMN.name,
-      raw: RAW_STRING.LENGTH_45,
-    })
-    .string(ATTRIBUTE.description, {
-      map: COLUMN.description,
-      raw: RAW_STRING.LENGTH_100,
-    })
+    {
+      attribute: ATTRIBUTE.isDeleted,
+      column: COLUMN.isDeleted,
+    },
+  );
 
-    // dateTime marks
-    .mixin(createdTime(ATTRIBUTE.createdTime, COLUMN.createdTime))
-    .mixin(deleted)
+  // defined Model
+  process.nextTick(() => {
+    CustomerTypeModel.int(ATTRIBUTE.id, {
+      id: true,
+      map: COLUMN.id,
+      default: {
+        autoincrement: true,
+      },
+    })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        raw: RAW_STRING.LENGTH_45,
+      })
+      .string(ATTRIBUTE.description, {
+        map: COLUMN.description,
+        raw: RAW_STRING.LENGTH_100,
+      })
 
-    // table name
-    .map(TABLE_NAME.CUSTOMER_TYPE);
+      // dateTime marks
+      .mixin(initCreatedTime)
+      .mixin(initDeleted)
+
+      // table name
+      .map(TABLE_NAME.CUSTOMER_TYPE);
+  });
 });

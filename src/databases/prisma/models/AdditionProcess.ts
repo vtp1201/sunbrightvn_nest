@@ -7,37 +7,59 @@ import { createdTime, deleted, updatedTime } from '../mixins';
 export default createModel(
   MODEL_NAME.ADDITION_PROCESS,
   (AdditionProcessModel) => {
-    AdditionProcessModel.int(ATTRIBUTE.id, {
-      map: COLUMN.id,
-      id: true,
-      default: {
-        autoincrement: true,
+    const initCreatedTime = createdTime({
+      attribute: ATTRIBUTE.createdTime,
+      column: COLUMN.createdTime,
+    });
+    const initUpdatedTime = updatedTime({
+      attribute: ATTRIBUTE.updatedTime,
+      column: COLUMN.updatedTime,
+    });
+    const initDeleted = deleted(
+      {
+        attribute: ATTRIBUTE.deletedTime,
+        column: COLUMN.deletedTime,
       },
-    })
-      .int(ATTRIBUTE.taskId, {
-        map: COLUMN.taskId,
-      })
-      .string(ATTRIBUTE.trackingLink, {
-        map: COLUMN.trackingLink,
-        raw: RAW_STRING.LENGTH_200,
-        optional: true,
-      })
-      .string(ATTRIBUTE.trackingLink, {
-        map: COLUMN.trackingLink,
-        raw: RAW_STRING.LENGTH_200,
-        optional: true,
-      })
-      .json(ATTRIBUTE.serviceTypeIds, {
-        map: COLUMN.serviceTypeIds,
-        optional: true,
-      })
+      {
+        attribute: ATTRIBUTE.isDeleted,
+        column: COLUMN.isDeleted,
+      },
+    );
 
-      // dateTime marks
-      .mixin(createdTime)
-      .mixin(updatedTime)
-      .mixin(deleted)
+    // defined Model
+    process.nextTick(() => {
+      AdditionProcessModel.int(ATTRIBUTE.id, {
+        map: COLUMN.id,
+        id: true,
+        default: {
+          autoincrement: true,
+        },
+      })
+        .int(ATTRIBUTE.taskId, {
+          map: COLUMN.taskId,
+        })
+        .string(ATTRIBUTE.trackingLink, {
+          map: COLUMN.trackingLink,
+          raw: RAW_STRING.LENGTH_200,
+          optional: true,
+        })
+        .string(ATTRIBUTE.trackingLink, {
+          map: COLUMN.trackingLink,
+          raw: RAW_STRING.LENGTH_200,
+          optional: true,
+        })
+        .json(ATTRIBUTE.serviceTypeIds, {
+          map: COLUMN.serviceTypeIds,
+          optional: true,
+        })
 
-      // table name
-      .map(TABLE_NAME.ADDITION_PROCESS);
+        // dateTime marks
+        .mixin(initCreatedTime)
+        .mixin(initUpdatedTime)
+        .mixin(initDeleted)
+
+        // table name
+        .map(TABLE_NAME.ADDITION_PROCESS);
+    });
   },
 );

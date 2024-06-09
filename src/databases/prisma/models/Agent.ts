@@ -5,48 +5,70 @@ import { ATTRIBUTE, COLUMN } from '../utils/enums/Agent';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
 export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
-  AgentModel.int(ATTRIBUTE.id, {
-    map: COLUMN.id,
-    id: true,
-    default: {
-      autoincrement: true,
+  const initCreatedTime = createdTime({
+    attribute: ATTRIBUTE.createdTime,
+    column: COLUMN.createdTime,
+  });
+  const initUpdatedTime = updatedTime({
+    attribute: ATTRIBUTE.updatedTime,
+    column: COLUMN.updatedTime,
+  });
+  const initDeleted = deleted(
+    {
+      attribute: ATTRIBUTE.deletedTime,
+      column: COLUMN.deletedTime,
     },
-  })
-    .string(ATTRIBUTE.name, {
-      map: COLUMN.name,
-      raw: RAW_STRING.LENGTH_200,
-      optional: true,
-    })
-    .string(ATTRIBUTE.email, {
-      map: COLUMN.email,
-      raw: RAW_STRING.LENGTH_200,
-      optional: true,
-    })
-    .int(ATTRIBUTE.countryId, {
-      map: COLUMN.countryId,
-      optional: true,
-    })
-    .int(ATTRIBUTE.agencyId, {
-      map: COLUMN.agencyId,
-    })
-    .int(ATTRIBUTE.agentTypeId, {
-      map: COLUMN.agentTypeId,
-    })
-    .int(ATTRIBUTE.bankId, {
-      map: COLUMN.bankId,
-      optional: true,
-    })
-    .boolean(ATTRIBUTE.isHasNominee, {
-      map: COLUMN.isHasNominee,
-      default: false,
-      optional: true,
-    })
+    {
+      attribute: ATTRIBUTE.isDeleted,
+      column: COLUMN.isDeleted,
+    },
+  );
 
-    // dateTime marks
-    .mixin(createdTime)
-    .mixin(updatedTime)
-    .mixin(deleted)
+  // defined Model
+  process.nextTick(() => {
+    AgentModel.int(ATTRIBUTE.id, {
+      map: COLUMN.id,
+      id: true,
+      default: {
+        autoincrement: true,
+      },
+    })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        raw: RAW_STRING.LENGTH_200,
+        optional: true,
+      })
+      .string(ATTRIBUTE.email, {
+        map: COLUMN.email,
+        raw: RAW_STRING.LENGTH_200,
+        optional: true,
+      })
+      .int(ATTRIBUTE.countryId, {
+        map: COLUMN.countryId,
+        optional: true,
+      })
+      .int(ATTRIBUTE.agencyId, {
+        map: COLUMN.agencyId,
+      })
+      .int(ATTRIBUTE.agentTypeId, {
+        map: COLUMN.agentTypeId,
+      })
+      .int(ATTRIBUTE.bankId, {
+        map: COLUMN.bankId,
+        optional: true,
+      })
+      .boolean(ATTRIBUTE.isHasNominee, {
+        map: COLUMN.isHasNominee,
+        default: false,
+        optional: true,
+      })
 
-    // table name
-    .map(TABLE_NAME.AGENT);
+      // dateTime marks
+      .mixin(initCreatedTime)
+      .mixin(initUpdatedTime)
+      .mixin(initDeleted)
+
+      // table name
+      .map(TABLE_NAME.AGENT);
+  });
 });
