@@ -2,12 +2,12 @@ path="$(
   cd "$(dirname "$0")"
   pwd -P
 )"
-pathmodels="$path/src/models"
+pathmodels="$path/src/databases/prisma/models"
 pathservices="$path/src/services"
 pathcontrollers="$path/src/controllers"
-pathutils="$path/src/utils"
+pathutils="$path/src/databases/prisma/utils"
 
-pathenumsdb="$pathutils/enums/database"
+pathenumsdb="$pathutils/enums"
 
 camelcase_to_snakecase() {
   local input="$1"
@@ -21,30 +21,32 @@ to_uppercase() {
   echo "$result"
 }
 
-enumdatabase="
+enumdatabase="import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
 
-    export enum ATTRIBUTE {
-      id = 'id',
-      createdTime = 'createdTime',
-      updatedTime = 'updatedTime',
-      isDeleted = 'isDeleted',
-    };
+export enum ATTRIBUTE {
+  id = 'id',
+  createdTime = ATTRIBUTE_DEFAULT.createdTime,
+  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
+  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
+  deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
+}
 
-    export enum COLUMN {
-      id = 'id',
-      createdTime = 'created_time',
-      updatedTime = 'updated_time',
-      isDeleted = 'is_deleted',
-    };
+export enum COLUMN {
+  id = 'id',
+  createdTime = COLUMN_DEFAULT.createdTime,
+  updatedTime = COLUMN_DEFAULT.updatedTime,
+  isDeleted = COLUMN_DEFAULT.isDeleted,
+  deletedTime = COLUMN_DEFAULT.deletedTime,
+}
 
-    export enum RELATION {
-      company = 'Company',
-    };
-    
-    export default {
-      ATTRIBUTE,
-      RELATION,
-    };
+export enum RELATION {
+
+}
+
+export default {
+  ATTRIBUTE,
+  RELATION,
+};
 "
 
 create_model() {
@@ -53,64 +55,64 @@ create_model() {
   local keyEnum=$(camelcase_to_snakecase "$input")
   keyEnum=$(to_uppercase "$keyEnum")
   local modelName="$(echo $input | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2);}1')"
+  local fucModelName="${modelName}Model"
   echo "$enumdatabase" >"$pathenumsdb/$modelName.ts"
-  $(print "$pathenumsdb/$modelName.ts")
-  echo "import {
-    CreationOptional,
-    DataTypes,
-    InferAttributes,
-    InferCreationAttributes,
-    Model,
-    } from '@sequelize/core'
-    import {
-      Attribute,
-      BelongsTo,
-      AutoIncrement,
-      ColumnName,
-      CreatedAt,
-      Default,
-      PrimaryKey,
-      Table,
-      UpdatedAt,
-    } from '@sequelize/core/types/decorators/legacy'
-    import { MODEL_NAME, TABLE_NAME } from 'utils'
-    import { ATTRIBUTE, COLUMN_NAME } from 'utils/enums/database/$modelName'
+  print "$pathenumsdb/$modelName.ts"
 
-    @Table({
-      tableName: TABLE_NAME."$keyEnum",
-      modelName: MODEL_NAME."$keyEnum",
-    })
-    export default class $modelName extends Model<
-      InferAttributes<"$modelName">,
-      InferCreationAttributes<"$modelName">
-    > {
-      @Attribute(DataTypes.INTEGER)
-      @PrimaryKey
-      @AutoIncrement
-      @ColumnName(COLUMN_NAME.id)
-      declare [ATTRIBUTE.id]: CreationOptional<number>;
+  echo "
+    import { createModel } from 'schemix';
 
-      @Attribute(DataTypes.DATE)
-      @CreatedAt
-      @ColumnName(COLUMN_NAME.createdTime)
-      declare [ATTRIBUTE.createdTime]: CreationOptional<Date>;
+    import { MODEL_NAME, TABLE_NAME, RAW_NUMBER } from '../utils';
+    import { ATTRIBUTE, COLUMN } from '../utils/enums/$modelName';
+    import { createdTime, deleted, updatedTime } from '../mixins';
 
-      @Attribute(DataTypes.DATE)
-      @ColumnName(COLUMN_NAME.updatedTime)
-      @UpdatedAt
-      declare [ATTRIBUTE.updatedTime]: CreationOptional<Date>;
+    export default createModel(
+      MODEL_NAME."$keyEnum",
+      ($fucModelName) => {
+        const initCreatedTime = createdTime({
+          attribute: ATTRIBUTE.createdTime,
+          column: COLUMN.createdTime,
+        });
+        const initUpdatedTime = updatedTime({
+          attribute: ATTRIBUTE.updatedTime,
+          column: COLUMN.updatedTime,
+        });
+        const initDeleted = deleted(
+          {
+            attribute: ATTRIBUTE.deletedTime,
+            column: COLUMN.deletedTime,
+          },
+          {
+            attribute: ATTRIBUTE.isDeleted,
+            column: COLUMN.isDeleted,
+          },
+        );
 
-      @Attribute(DataTypes.TINYINT(1))
-      @Default(0)
-      @ColumnName(COLUMN_NAME.isDeleted)
-      declare [ATTRIBUTE.isDeleted]: number;
+        // defined Model
+        process.nextTick(() => {
+          $fucModelName.int(ATTRIBUTE.id, {
+            id: true,
+            map: COLUMN.id,
+            default: {
+              autoincrement: true,
+            },
+          })
 
-      // Associations
-    }" >"$pathmodels/$modelName.ts"
+            // dateTime marks
+            .mixin(initCreatedTime)
+            .mixin(initUpdatedTime)
+            .mixin(initDeleted)
+
+            // table name
+            .map(TABLE_NAME."$keyEnum");
+        });
+      },
+    );
+    " >"$pathmodels/$modelName.ts"
 
   # export enum
-  echo "File $pathmodels/$modelName.ts has been created with the following content"
-  local info="export { ATTRIBUTE as E$modelName } from './$modelName'"
+  print "$pathmodels/$modelName.ts"
+  local info="export { default as E_$keyEnum } from './$modelName';"
   echo -e "$(cat "$pathenumsdb/index.ts")\n$info" >"$pathenumsdb/index.ts"
 }
 
@@ -123,6 +125,6 @@ input="$1"
 if [ $# -eq 0 ]; then
   echo "Không có tham số dòng lệnh được truyền vào."
 else
-  echo "Tham số dòng lệnh \$1 là: $1"
-  $(create_model "$input")
+  echo "Tham số dòng lệnh \$1 là: $input"
+  create_model "$input"
 fi

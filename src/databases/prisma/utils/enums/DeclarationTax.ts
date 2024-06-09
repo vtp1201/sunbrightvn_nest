@@ -2,8 +2,10 @@ import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
-  name = 'name',
-  description = 'description',
+  countryId = 'countryId',
+  fatcaId = 'fatcaId',
+  taxReferenceType = 'taxReferenceType',
+  taxReferenceNumber = 'taxReferenceNumber',
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
   isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
