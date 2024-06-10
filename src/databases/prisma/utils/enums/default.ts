@@ -15,6 +15,9 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  emailTemplateHasReceivers = 'emailTemplateHasReceivers',
+  emailTemplate = 'emailTemplate',
+  agent = 'agent',
   serviceTypeHasDepartments = 'serviceTypeHasDepartments',
   fatca = 'fatca',
   surveyChoice = 'surveyChoice',
