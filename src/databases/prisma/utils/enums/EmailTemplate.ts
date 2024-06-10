@@ -1,22 +1,58 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
+  name = 'name',
+  description = 'description',
+  previewText = 'previewText',
+  path = 'path',
+  preTime = 'preTime',
+  nextEmailTemplateId = 'nextEmailTemplateId',
+  processStepId = 'processStepId',
+  isEmailRemind = 'isEmailRemind',
+  maxTimeSend = 'maxTimeSend',
+  emailTypeId = 'emailTypeId',
+  dataViewTables = 'dataViewTables',
   createdTime = ATTRIBUTE_DEFAULT.createdTime,
   updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
-  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
+  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
 
 export enum COLUMN {
   id = 'id',
+  name = 'name',
+  description = 'description',
+  previewText = 'preview_text',
+  path = 'path',
+  preTime = 'pre_time',
+  nextEmailTemplateId = 'next_email_template_id',
+  processStepId = 'process_step_id',
+  isEmailRemind = 'is_email_remind',
+  maxTimeSend = 'max_time_send',
+  emailTypeId = 'email_type_id',
+  dataViewTables = 'data_view_tables',
   createdTime = COLUMN_DEFAULT.createdTime,
   updatedTime = COLUMN_DEFAULT.updatedTime,
-  isDeleted = COLUMN_DEFAULT.isDeleted,
   deletedTime = COLUMN_DEFAULT.deletedTime,
+  isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
-export enum RELATION {}
+export enum RELATION {
+  emails = RELATION_DEFAULT.emails,
+  emailType = RELATION_DEFAULT.emailType,
+  emailTemplate = RELATION_DEFAULT.emailTemplate,
+  otherEmailTemplates = RELATION_DEFAULT.otherEmailTemplates,
+  processStep = RELATION_DEFAULT.processStep,
+  emailTemplateHasReceiver = RELATION_DEFAULT.emailTemplateHasReceivers,
+  emailTriggerHasProcess = RELATION_DEFAULT.emailTriggerHasProcesses,
+}
+
+export enum INDEX {
+  emailTypeId = '@@index([email_type_id], map: "fk_email_type_id_idx")',
+  nextEmailTemplateId = '@@index([next_email_template_id], map: "fk_next_email_template_id")',
+  processStepId = '@@index([process_step_id], map: "fk_process_step_id")',
+}
 
 export default {
   ATTRIBUTE,

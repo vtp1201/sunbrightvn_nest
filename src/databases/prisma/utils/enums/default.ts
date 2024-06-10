@@ -15,6 +15,12 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  teamGroup = 'teamGroup',
+  role = 'role',
+  emailType = 'emailType',
+  otherEmailTemplates = 'otherEmailTemplates',
+  processStep = 'processStep',
+  emailTriggerHasProcesses = 'emailTriggerHasProcesses',
   emailTemplateHasReceivers = 'emailTemplateHasReceivers',
   emailTemplate = 'emailTemplate',
   agent = 'agent',
