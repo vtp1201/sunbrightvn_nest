@@ -936,12 +936,166 @@ model CustomerType {
   @@map("CustomerType")
 }
 
-model EmailTemplate {
+model DeclarationTax {
+  countryId          Int     @map("country_id")
+  fatcaId            Int     @map("fatca_id")
+  taxReferenceType   String? @map("tax_reference_type") @database.VarChar(255)
+  taxReferenceNumber String? @map("tax_reference_number") @database.VarChar(255)
+  deletedTime        Boolean @default(false) @map("deleted_time")
+
+  @@id([countryId, fatcaId])
+  @@map("DeclarationTax")
+}
+
+model Department {
   id          Int      @id @map("id") @default(autoincrement())
+  name        String   @map("name") @default("") @database.VarChar(45)
+  config      Json?    @map("config")
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
+  @@map("Department")
+}
+
+model Email {
+  id              Int      @id @map("id") @default(autoincrement())
+  emailTemplateId Int?     @map("email_template_id")
+  subject         String?  @map("subject") @database.VarChar(255)
+  agentId         Int?     @map("agent_id")
+  processId       Int?     @map("process_id")
+  companyMemberId Int?     @map("company_member_id")
+  companyId       Int?     @map("company_id")
+  order           Int?     @map("order")
+  timeToSend      BigInt?  @map("time_to_send")
+  isCompleted     Boolean  @map("is_completed") @default(false)
+  isError         Boolean  @map("is_error") @default(false)
+  isRunning       Boolean  @map("is_running") @default(false)
+  description     String?  @map("description") @database.Text
+  emailFrom       String?  @map("email_from") @database.VarChar(200)
+  emailTo         String?  @map("email_to") @database.VarChar(225)
+  emailCc         String?  @map("email_cc") @database.VarChar(255)
+  attachments     String?  @map("attachments") @database.LongText
+  createdTime     DateTime @default(now()) @map("created_time")
+  updatedTime     DateTime @updatedAt @map("updated_time")
+  deletedTime     DateTime @default(now()) @map("deleted_time")
+  isDeleted       Boolean  @default(false) @map("is_deleted")
+
+  @@index([agentId], map: "fk_ema_agent_id_age_id_hpr1")
+  @@index([companyMemberId], map: "fk_ema_company_member_id_com_id_erjh")
+  @@index([emailTemplateId], map: "fk_ema_email_template_id_ema_id_5exl")
+  @@index([processId], map: "fk_ema_process_id_pro_id_gmvr")
+  @@index([companyId], map: "fk_email_company_id_1_idx")
+  @@map("Email")
+}
+
+model EmailTemplate {
+  id                  Int      @id @map("id") @default(autoincrement())
+  name                String?  @map("name") @database.VarChar(255)
+  description         String?  @map("description") @database.VarChar(255)
+  previewText         String?  @map("preview_text") @database.VarChar(255)
+  path                String?  @map("path") @database.VarChar(200)
+  preTime             Int?     @map("pre_time")
+  nextEmailTemplateId Int?     @map("next_email_template_id")
+  processStepId       Int?     @map("process_step_id")
+  emailTypeId         Int?     @map("email_type_id")
+  maxTimeSend         Int?     @map("max_time_send")
+  isEmailRemind       Boolean  @map("is_email_remind") @default(false)
+  dataViewTables      Json?    @map("data_view_tables")
+  createdTime         DateTime @default(now()) @map("created_time")
+  updatedTime         DateTime @updatedAt @map("updated_time")
+  deletedTime         DateTime @default(now()) @map("deleted_time")
+  isDeleted           Boolean  @default(false) @map("is_deleted")
+
+  @@index([emailTypeId], map: "fk_email_type_id_idx")
+  @@index([nextEmailTemplateId], map: "fk_next_email_template_id")
+  @@index([processStepId], map: "fk_process_step_id")
   @@map("EmailTemplate")
+}
+
+model EmailTemplateHasReceiver {
+  id              Int      @id @map("id") @default(autoincrement())
+  emailTemplateId Int      @map("email_template_id")
+  email           String?  @map("email") @database.VarChar(100)
+  userId          Int?     @map("user_id")
+  roleId          Int?     @map("role_id")
+  groupId         Int?     @map("group_id")
+  isMainReceiver  Boolean  @map("is_main_receiver") @default(false)
+  isCcReceiver    Boolean  @map("is_cc_receiver") @default(false)
+  isBccReceiver   Boolean  @map("is_bcc_receiver") @default(false)
+  isExcluded      Boolean  @map("is_excluded") @default(false)
+  createdTime     DateTime @default(now()) @map("created_time")
+  updatedTime     DateTime @updatedAt @map("updated_time")
+  deletedTime     DateTime @default(now()) @map("deleted_time")
+  isDeleted       Boolean  @default(false) @map("is_deleted")
+
+  @@index([emailTemplateId], map: "fk_email_template_id_idx")
+  @@index([groupId], map: "fk_group_id_idx")
+  @@index([roleId], map: "fk_role_id_idx")
+  @@index([userId], map: "fk_user_id_idx")
+  @@map("EmailTemplateHasReceiver")
+}
+
+model EmailTrigger {
+  id             Int      @id @map("id") @default(autoincrement())
+  name           String?  @map("name") @database.VarChar(255)
+  type           Int?     @map("type")
+  serviceTypeIds Json?    @map("service_type_ids")
+  processStepId  Int?     @map("process_step_id")
+  isRemindAgent  Boolean  @map("is_remind_agent") @default(false)
+  createdTime    DateTime @default(now()) @map("created_time")
+  updatedTime    DateTime @updatedAt @map("updated_time")
+  deletedTime    DateTime @default(now()) @map("deleted_time")
+  isDeleted      Boolean  @default(false) @map("is_deleted")
+
+  @@index([processStepId], map: "fk_ema_process_step_id_pro_id_c9l8")
+  @@map("EmailTrigger")
+}
+
+model EmailTriggerHasProcess {
+  emailTriggerId  Int      @map("email_trigger_id")
+  processId       Int      @map("process_id")
+  emailTemplateId Int      @map("email_template_id")
+  isRemind        Int      @map("is_remind")
+  createdTime     DateTime @default(now()) @map("created_time")
+  updatedTime     DateTime @updatedAt @map("updated_time")
+
+  @@id([emailTemplateId, emailTriggerId, processId])
+  @@index([emailTriggerId])
+  @@index([emailTemplateId], map: "fk_ema_email_template_id_ema_id_jsfc")
+  @@index([processId], map: "fk_ema_process_id_pro_id_5hgb")
+  @@map("EmailTriggerHasProcess")
+}
+
+model EmailType {
+  id          Int      @id @map("id") @default(autoincrement())
+  name        String?  @map("name") @database.VarChar(45)
+  createdTime DateTime @default(now()) @map("created_time")
+  updatedTime DateTime @updatedAt @map("updated_time")
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("EmailType")
+}
+
+model EntityType {
+  id          Int      @id @map("id") @default(autoincrement())
+  name        String?  @map("name") @database.Text
+  guid        String?  @map("guid") @database.Text
+  country     String?  @map("country") @database.Text
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("EntityType")
+}
+
+model EntityTypeHasCompanySuffix {
+  entityTypeId    Int @map("entity_type_id")
+  companySuffixId Int @map("company_suffix_id")
+
+  @@id([entityTypeId, companySuffixId])
+  @@index([companySuffixId], map: "fk_entity_type_has_company_suffix_company_suffix1_idx")
+  @@index([entityTypeId])
+  @@map("EntityTypeHasCompanySuffix")
 }

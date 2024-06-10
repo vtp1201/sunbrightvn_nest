@@ -58,11 +58,11 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  agentId = '@@index([agent_id], map: "fk_ema_agent_id_age_id_hpr1")',
-  companyMemberId = '@@index([company_member_id], map: "fk_ema_company_member_id_com_id_erjh")',
-  emailTemplateId = '@@index([email_template_id], map: "fk_ema_email_template_id_ema_id_5exl")',
-  processId = '@@index([process_id], map: "fk_ema_process_id_pro_id_gmvr")',
-  companyId = '@@index([company_id], map: "fk_email_company_id_1_idx")',
+  agentId = `@@index([${ATTRIBUTE.agentId}], map: "fk_ema_agent_id_age_id_hpr1")`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: "fk_ema_company_member_id_com_id_erjh")`,
+  emailTemplateId = `@@index([${ATTRIBUTE.emailTemplateId}], map: "fk_ema_email_template_id_ema_id_5exl")`,
+  processId = `@@index([${ATTRIBUTE.processId}], map: "fk_ema_process_id_pro_id_gmvr")`,
+  companyId = `@@index([${ATTRIBUTE.companyId}], map: "fk_email_company_id_1_idx")`,
 }
 
 export default {

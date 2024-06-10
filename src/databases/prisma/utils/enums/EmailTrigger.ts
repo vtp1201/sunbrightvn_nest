@@ -32,7 +32,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  processStepId = '@@index([process_step_id], map: "fk_ema_process_step_id_pro_id_c9l8")',
+  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: "fk_ema_process_step_id_pro_id_c9l8")`,
 }
 
 export default {

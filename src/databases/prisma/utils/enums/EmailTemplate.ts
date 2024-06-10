@@ -49,9 +49,9 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  emailTypeId = '@@index([email_type_id], map: "fk_email_type_id_idx")',
-  nextEmailTemplateId = '@@index([next_email_template_id], map: "fk_next_email_template_id")',
-  processStepId = '@@index([process_step_id], map: "fk_process_step_id")',
+  emailTypeId = `@@index([${ATTRIBUTE.emailTypeId}], map: "fk_email_type_id_idx")`,
+  nextEmailTemplateId = `@@index([${ATTRIBUTE.nextEmailTemplateId}], map: "fk_next_email_template_id")`,
+  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: "fk_process_step_id")`,
 }
 
 export default {

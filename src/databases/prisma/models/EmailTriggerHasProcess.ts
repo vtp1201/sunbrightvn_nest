@@ -39,6 +39,15 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
 
+        // ids
+        .id({
+          fields: [
+            ATTRIBUTE.emailTemplateId,
+            ATTRIBUTE.emailTriggerId,
+            ATTRIBUTE.processId,
+          ],
+        })
+
         // indexes
         .raw(INDEX.emailTriggerId)
         .raw(INDEX.emailTemplateId)
