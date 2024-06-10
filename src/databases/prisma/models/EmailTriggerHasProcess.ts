@@ -6,7 +6,7 @@ import {
   COLUMN,
   INDEX,
 } from '../utils/enums/EmailTriggerHasProcess';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { createdTime, updatedTime } from '../mixins';
 
 export default createModel(
   MODEL_NAME.EMAIL_TRIGGER_HAS_PROCESS,
