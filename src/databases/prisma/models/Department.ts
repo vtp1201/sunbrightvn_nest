@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/Department';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
@@ -33,6 +33,15 @@ export default createModel(MODEL_NAME.DEPARTMENT, (DepartmentModel) => {
         autoincrement: true,
       },
     })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        default: '',
+        raw: RAW_STRING.LENGTH_45,
+      })
+      .json(ATTRIBUTE.config, {
+        map: COLUMN.config,
+        optional: true,
+      })
 
       // dateTime marks
       .mixin(initCreatedTime)
