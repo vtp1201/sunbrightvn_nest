@@ -1,7 +1,6 @@
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
-  id = 'id',
   countryId = 'countryId',
   fatcaId = 'fatcaId',
   taxReferenceType = 'taxReferenceType',
@@ -11,7 +10,6 @@ export enum ATTRIBUTE {
 }
 
 export enum COLUMN {
-  id = 'id',
   countryId = 'country_id',
   fatcaId = 'fatca_id',
   taxReferenceType = 'tax_reference_type',
