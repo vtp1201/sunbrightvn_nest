@@ -15,6 +15,11 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  renamedPackages = 'renamedPackages',
+  countryHasEntityTypes = 'countryHasEntityTypes',
+  countryHasServices = 'countryHasServices',
+  emailTemplates = 'emailTemplates',
+  emailTrigger = 'emailTrigger',
   teamGroup = 'teamGroup',
   role = 'role',
   emailType = 'emailType',

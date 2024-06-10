@@ -3,3 +3,8 @@ export { default as E_EMAIL_TEMPLATE } from './EmailTemplate';
 export { default as E_DEPARTMENT } from './Department';
 export { default as E_EMAIL_TEMPLATE_HAS_RECEIVER } from './EmailTemplateHasReceiver';
 export { default as E_EMAIL } from './Email';
+export { default as E_EMAIL_TRIGGER_HAS_PROCESS } from './EmailTriggerHasProcess';
+export { default as E_EMAIL_TRIGGER } from './EmailTrigger';
+export { default as E_EMAIL_TYPE } from './EmailType';
+export { default as E_ENTITY_TYPE_HAS_COMPANY_SUFFIX } from './EntityTypeHasCompanySuffix';
+export { default as E_ENTITY_TYPE } from './EntityType';
