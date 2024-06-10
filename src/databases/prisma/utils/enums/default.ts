@@ -15,6 +15,22 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  countryHasEntityTypeHasFileTemplates = 'countryHasEntityTypeHasFileTemplates',
+  historyFiles = 'historyFiles',
+  companyEvent = 'companyEvent',
+  rankingPartner = 'rankingPartner',
+  apiExample = 'apiExample',
+  questionGroup = 'questionGroup',
+  message = 'message',
+  note = 'note',
+  filledByCompanyMember = 'filledByCompanyMember',
+  fileType = 'fileType',
+  fees = 'fees',
+  feeType = 'feeType',
+  declarationTaxes = 'declarationTaxes',
+  countryHolderCountry = 'countryHolderCountry',
+  countryMailingCountry = 'countryMailingCountry',
+  countryResidentCountry = 'countryResidentCountry',
   renamedPackages = 'renamedPackages',
   countryHasEntityTypes = 'countryHasEntityTypes',
   countryHasServices = 'countryHasServices',
