@@ -935,3 +935,13 @@ model CustomerType {
 
   @@map("CustomerType")
 }
+
+model EmailTemplate {
+  id          Int      @id @map("id") @default(autoincrement())
+  createdTime DateTime @default(now()) @map("created_time")
+  updatedTime DateTime @updatedAt @map("updated_time")
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("EmailTemplate")
+}

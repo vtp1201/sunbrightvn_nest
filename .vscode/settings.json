@@ -9,6 +9,9 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
+  "[sh]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
   "editor.formatOnSave": true,
   "typescript.referencesCodeLens.enabled": true
 }

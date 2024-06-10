@@ -27,16 +27,16 @@ export enum ATTRIBUTE {
   id = 'id',
   createdTime = ATTRIBUTE_DEFAULT.createdTime,
   updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
-  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
+  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
 
 export enum COLUMN {
   id = 'id',
   createdTime = COLUMN_DEFAULT.createdTime,
   updatedTime = COLUMN_DEFAULT.updatedTime,
-  isDeleted = COLUMN_DEFAULT.isDeleted,
   deletedTime = COLUMN_DEFAULT.deletedTime,
+  isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
 export enum RELATION {
@@ -59,56 +59,55 @@ create_model() {
   echo "$enumdatabase" >"$pathenumsdb/$modelName.ts"
   print "$pathenumsdb/$modelName.ts"
 
-  echo "
-    import { createModel } from 'schemix';
+  echo "import { createModel } from 'schemix';
 
-    import { MODEL_NAME, TABLE_NAME, RAW_NUMBER } from '../utils';
-    import { ATTRIBUTE, COLUMN } from '../utils/enums/$modelName';
-    import { createdTime, deleted, updatedTime } from '../mixins';
+import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/$modelName';
+import { createdTime, deleted, updatedTime } from '../mixins';
 
-    export default createModel(
-      MODEL_NAME."$keyEnum",
-      ($fucModelName) => {
-        const initCreatedTime = createdTime({
-          attribute: ATTRIBUTE.createdTime,
-          column: COLUMN.createdTime,
-        });
-        const initUpdatedTime = updatedTime({
-          attribute: ATTRIBUTE.updatedTime,
-          column: COLUMN.updatedTime,
-        });
-        const initDeleted = deleted(
-          {
-            attribute: ATTRIBUTE.deletedTime,
-            column: COLUMN.deletedTime,
-          },
-          {
-            attribute: ATTRIBUTE.isDeleted,
-            column: COLUMN.isDeleted,
-          },
-        );
-
-        // defined Model
-        process.nextTick(() => {
-          $fucModelName.int(ATTRIBUTE.id, {
-            id: true,
-            map: COLUMN.id,
-            default: {
-              autoincrement: true,
-            },
-          })
-
-            // dateTime marks
-            .mixin(initCreatedTime)
-            .mixin(initUpdatedTime)
-            .mixin(initDeleted)
-
-            // table name
-            .map(TABLE_NAME."$keyEnum");
-        });
+export default createModel(
+  MODEL_NAME."$keyEnum",
+  ($fucModelName) => {
+    const initCreatedTime = createdTime({
+      attribute: ATTRIBUTE.createdTime,
+      column: COLUMN.createdTime,
+    });
+    const initUpdatedTime = updatedTime({
+      attribute: ATTRIBUTE.updatedTime,
+      column: COLUMN.updatedTime,
+    });
+    const initDeleted = deleted(
+      {
+        attribute: ATTRIBUTE.deletedTime,
+        column: COLUMN.deletedTime,
+      },
+      {
+        attribute: ATTRIBUTE.isDeleted,
+        column: COLUMN.isDeleted,
       },
     );
-    " >"$pathmodels/$modelName.ts"
+
+    // defined Model
+    process.nextTick(() => {
+      $fucModelName.int(ATTRIBUTE.id, {
+        id: true,
+        map: COLUMN.id,
+        default: {
+          autoincrement: true,
+        },
+      })
+
+        // dateTime marks
+        .mixin(initCreatedTime)
+        .mixin(initUpdatedTime)
+        .mixin(initDeleted)
+
+        // table name
+        .map(TABLE_NAME."$keyEnum");
+    });
+  },
+);
+" >"$pathmodels/$modelName.ts"
 
   # export enum
   print "$pathmodels/$modelName.ts"
