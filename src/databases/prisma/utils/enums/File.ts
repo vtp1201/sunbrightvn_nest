@@ -6,9 +6,6 @@ export enum ATTRIBUTE {
   path = 'path',
   mimeType = 'mimeType',
   s3Path = 's3Path',
-  isDeleted = 'isDeleted',
-  createdTime = ATTRIBUTE_DEFAULT.createdTime,
-  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
   userId = 'userId',
   companyId = 'companyId',
   messageId = 'messageId',
@@ -32,6 +29,10 @@ export enum ATTRIBUTE {
   filledByUserId = 'filledByUserId',
   status = 'status',
   companyEventId = 'companyEventId',
+  createdTime = ATTRIBUTE_DEFAULT.createdTime,
+  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
+  deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
+  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
 
 export enum COLUMN {
@@ -40,9 +41,6 @@ export enum COLUMN {
   path = 'path',
   mimeType = 'mime_type',
   s3Path = 's3_path',
-  isDeleted = 'is_deleted',
-  createdTime = COLUMN_DEFAULT.createdTime,
-  updatedTime = COLUMN_DEFAULT.updatedTime,
   userId = 'user_id',
   companyId = 'company_id',
   messageId = 'message_id',
@@ -66,6 +64,10 @@ export enum COLUMN {
   filledByUserId = 'filled_by_user_id',
   status = 'status',
   companyEventId = 'company_event_id',
+  createdTime = COLUMN_DEFAULT.createdTime,
+  updatedTime = COLUMN_DEFAULT.updatedTime,
+  deletedTime = COLUMN_DEFAULT.deletedTime,
+  isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
 export enum RELATION {
