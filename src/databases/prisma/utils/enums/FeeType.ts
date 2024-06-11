@@ -7,8 +7,6 @@ export enum ATTRIBUTE {
   cycleBegin = 'cycleBegin',
   cycleTime = 'cycleTime',
   description = 'description',
-  createdTime = ATTRIBUTE_DEFAULT.createdTime,
-  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
   isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
@@ -21,8 +19,6 @@ export enum COLUMN {
   cycleTime = 'cycle_time',
   description = 'description',
   isDeleted = 'is_deleted',
-  createdTime = COLUMN_DEFAULT.createdTime,
-  updatedTime = COLUMN_DEFAULT.updatedTime,
   deletedTime = COLUMN_DEFAULT.deletedTime,
 }
 
