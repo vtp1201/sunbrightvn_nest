@@ -1,20 +1,17 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/FileTemplateHasCompanyMemberType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+} from '../utils/enums/FileTemplateHasCompanyMemberType';
+import { deleted } from '../mixins';
+import { generatedForEnum } from '../enums';
 
 export default createModel(
   MODEL_NAME.FILE_TEMPLATE_HAS_COMPANY_MEMBER_TYPE,
   (FileTemplateHasCompanyMemberTypeModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
     const initDeleted = deleted(
       {
         attribute: ATTRIBUTE.deletedTime,
@@ -28,22 +25,57 @@ export default createModel(
 
     // defined Model
     process.nextTick(() => {
-      FileTemplateHasCompanyMemberTypeModel.int(ATTRIBUTE.id, {
-        id: true,
-        map: COLUMN.id,
-        default: {
-          autoincrement: true,
-        },
+      FileTemplateHasCompanyMemberTypeModel.int(ATTRIBUTE.fileTemplateId, {
+        map: COLUMN.fileTemplateId,
       })
+        .int(ATTRIBUTE.companyMemberTypeId, {
+          map: COLUMN.companyMemberTypeId,
+        })
+        .int(ATTRIBUTE.typeMemberId, {
+          map: COLUMN.typeMemberId,
+          optional: true,
+        })
+        .boolean(ATTRIBUTE.isSignedByAll, {
+          map: COLUMN.isSignedByAll,
+          default: false,
+        })
+        .boolean(ATTRIBUTE.isSignedByAppointed, {
+          map: COLUMN.isSignedByAppointed,
+          default: false,
+        })
+        .boolean(ATTRIBUTE.isSignedByIndividual, {
+          map: COLUMN.isSignedByIndividual,
+          default: false,
+        })
+        .boolean(ATTRIBUTE.isSignedTransfer, {
+          map: COLUMN.isSignedTransfer,
+          default: false,
+        })
+        .boolean(ATTRIBUTE.isSignedByOldestMember, {
+          map: COLUMN.isSignedByOldestMember,
+          default: false,
+        })
+        .enum(ATTRIBUTE.generatedFor, generatedForEnum, {
+          map: COLUMN.generatedFor,
+        })
+
+        // ids
+        .id({
+          fields: [
+            ATTRIBUTE.fileTemplateId,
+            ATTRIBUTE.companyMemberTypeId,
+            ATTRIBUTE.generatedFor,
+          ],
+        })
 
         // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // indexes
+        .raw(INDEX.typeMemberId)
 
         // table name
         .map(TABLE_NAME.FILE_TEMPLATE_HAS_COMPANY_MEMBER_TYPE);
     });
   },
 );
-

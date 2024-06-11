@@ -1,27 +1,44 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
-  id = 'id',
-  createdTime = ATTRIBUTE_DEFAULT.createdTime,
-  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
+  fileTemplateId = 'fileTemplateId',
+  companyMemberTypeId = 'companyMemberTypeId',
+  typeMemberId = 'typeMemberId',
+  isSignedByAll = 'isSignedByAll',
+  isSignedByAppointed = 'isSignedByAppointed',
+  isSignedByIndividual = 'isSignedByIndividual',
+  isSignedTransfer = 'isSignedTransfer',
+  isSignedByOldestMember = 'isSignedByOldestMember',
+  generatedFor = 'generatedFor',
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
   isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
 
 export enum COLUMN {
-  id = 'id',
-  createdTime = COLUMN_DEFAULT.createdTime,
-  updatedTime = COLUMN_DEFAULT.updatedTime,
+  fileTemplateId = 'file_template_id',
+  companyMemberTypeId = 'company_member_type_id',
+  typeMemberId = 'type_member_id',
+  isSignedByAll = 'is_signed_by_all',
+  isSignedByAppointed = 'is_signed_by_appointed',
+  isSignedByIndividual = 'is_signed_by_individual',
+  isSignedTransfer = 'is_signed_transfer',
+  isSignedByOldestMember = 'is_signed_by_oldest_member',
+  generatedFor = 'generated_for',
   deletedTime = COLUMN_DEFAULT.deletedTime,
   isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
 export enum RELATION {
+  companyMemberType = RELATION_DEFAULT.companyMemberType,
+  fileTemplate = RELATION_DEFAULT.fileTemplate,
+  typeMember = RELATION_DEFAULT.typeMember,
+}
 
+export enum INDEX {
+  typeMemberId = `@@index([${ATTRIBUTE.typeMemberId}], map: "fk_fcm_type_member_id_idx")`,
 }
 
 export default {
   ATTRIBUTE,
   RELATION,
 };
-
