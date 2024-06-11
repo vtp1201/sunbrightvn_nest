@@ -1,49 +1,123 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Fatca';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Fatca';
+import { deleted } from '../mixins';
 
-export default createModel(
-  MODEL_NAME.FATCA,
-  (FatcaModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
-    const initDeleted = deleted(
-      {
-        attribute: ATTRIBUTE.deletedTime,
-        column: COLUMN.deletedTime,
-      },
-      {
-        attribute: ATTRIBUTE.isDeleted,
-        column: COLUMN.isDeleted,
-      },
-    );
+export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
+  const initDeleted = deleted(
+    {
+      attribute: ATTRIBUTE.deletedTime,
+      column: COLUMN.deletedTime,
+    },
+    {
+      attribute: ATTRIBUTE.isDeleted,
+      column: COLUMN.isDeleted,
+    },
+  );
 
-    // defined Model
-    process.nextTick(() => {
-      FatcaModel.int(ATTRIBUTE.id, {
-        id: true,
-        map: COLUMN.id,
-        default: {
-          autoincrement: true,
-        },
+  // defined Model
+  process.nextTick(() => {
+    FatcaModel.int(ATTRIBUTE.id, {
+      id: true,
+      map: COLUMN.id,
+      default: {
+        autoincrement: true,
+      },
+    })
+      .int(ATTRIBUTE.companyMemberId, {
+        map: COLUMN.companyMemberId,
+        optional: true,
+      })
+      .int(ATTRIBUTE.customerId, {
+        map: COLUMN.customerId,
+        optional: true,
+      })
+      .int(ATTRIBUTE.taskId, {
+        map: COLUMN.taskId,
+      })
+      .string(ATTRIBUTE.holderName, {
+        map: COLUMN.holderName,
+        raw: RAW_STRING.LENGTH_255,
+      })
+      .dateTime(ATTRIBUTE.holderBirthday, {
+        map: COLUMN.holderBirthday,
+        raw: RAW_DATE_TIME.DATE_ONLY,
+      })
+      .int(ATTRIBUTE.holderCountryId, {
+        map: COLUMN.holderCountryId,
+        optional: true,
+      })
+      .string(ATTRIBUTE.residentAddress, {
+        map: COLUMN.residentAddress,
+        raw: RAW_STRING.LENGTH_255,
+        optional: true,
+      })
+      .int(ATTRIBUTE.residentCountryId, {
+        map: COLUMN.residentCountryId,
+        optional: true,
+      })
+      .string(ATTRIBUTE.residentCity, {
+        map: COLUMN.residentCity,
+        raw: RAW_STRING.LENGTH_255,
+        optional: true,
+      })
+      .string(ATTRIBUTE.residentState, {
+        map: COLUMN.residentState,
+        raw: RAW_STRING.LENGTH_255,
+        optional: true,
+      })
+      .string(ATTRIBUTE.residentPostalCode, {
+        map: COLUMN.residentPostalCode,
+        raw: RAW_STRING.LENGTH_255,
+        optional: true,
+      })
+      .string(ATTRIBUTE.mailingAddress, {
+        map: COLUMN.mailingAddress,
+        raw: RAW_STRING.LENGTH_255,
+        optional: true,
+      })
+      .int(ATTRIBUTE.mailingCountryId, {
+        map: COLUMN.mailingCountryId,
+        optional: true,
+      })
+      .string(ATTRIBUTE.mailingCity, {
+        map: COLUMN.mailingCity,
+        raw: RAW_STRING.LENGTH_255,
+        optional: true,
+      })
+      .string(ATTRIBUTE.mailingState, {
+        map: COLUMN.mailingState,
+        raw: RAW_STRING.LENGTH_255,
+        optional: true,
+      })
+      .string(ATTRIBUTE.mailingPostalCode, {
+        map: COLUMN.mailingPostalCode,
+        raw: RAW_STRING.LENGTH_255,
+        optional: true,
+      })
+      .int(ATTRIBUTE.optionDeclarationUSPerson, {
+        map: COLUMN.optionDeclarationUSPerson,
+        optional: true,
+      })
+      .string(ATTRIBUTE.taxpayerIdNumber, {
+        map: COLUMN.taxpayerIdNumber,
+        raw: RAW_STRING.LENGTH_255,
+        optional: true,
       })
 
-        // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
-        .mixin(initDeleted)
+      // dateTime marks
+      .mixin(initDeleted)
 
-        // table name
-        .map(TABLE_NAME.FATCA);
-    });
-  },
-);
+      // indexes
+      .raw(INDEX.companyMemberId)
+      .raw(INDEX.customerId)
+      .raw(INDEX.holderCountryId)
+      .raw(INDEX.mailingCountryId)
+      .raw(INDEX.residentCountryId)
+      .raw(INDEX.taskId)
 
+      // table name
+      .map(TABLE_NAME.FATCA);
+  });
+});

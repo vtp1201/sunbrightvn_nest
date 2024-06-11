@@ -20,8 +20,6 @@ export enum ATTRIBUTE {
   mailingPostalCode = 'mailingPostalCode',
   optionDeclarationUSPerson = 'optionDeclarationUSPerson',
   taxpayerIdNumber = 'taxpayerIdNumber',
-  createdTime = ATTRIBUTE_DEFAULT.createdTime,
-  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
   isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
@@ -46,8 +44,6 @@ export enum COLUMN {
   mailingPostalCode = 'mailing_postal_code',
   optionDeclarationUSPerson = 'option_declaration_US_person',
   taxpayerIdNumber = 'taxpayer_id_number',
-  createdTime = COLUMN_DEFAULT.createdTime,
-  updatedTime = COLUMN_DEFAULT.updatedTime,
   deletedTime = COLUMN_DEFAULT.deletedTime,
   isDeleted = COLUMN_DEFAULT.isDeleted,
 }
