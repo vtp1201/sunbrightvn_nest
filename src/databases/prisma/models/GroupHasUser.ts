@@ -2,48 +2,36 @@ import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/GroupHasUser';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { deleted } from '../mixins';
 
-export default createModel(
-  MODEL_NAME.GROUP_HAS_USER,
-  (GroupHasUserModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
-    const initDeleted = deleted(
-      {
-        attribute: ATTRIBUTE.deletedTime,
-        column: COLUMN.deletedTime,
-      },
-      {
-        attribute: ATTRIBUTE.isDeleted,
-        column: COLUMN.isDeleted,
-      },
-    );
+export default createModel(MODEL_NAME.GROUP_HAS_USER, (GroupHasUserModel) => {
+  const initDeleted = deleted(
+    {
+      attribute: ATTRIBUTE.deletedTime,
+      column: COLUMN.deletedTime,
+    },
+    {
+      attribute: ATTRIBUTE.isDeleted,
+      column: COLUMN.isDeleted,
+    },
+  );
 
-    // defined Model
-    process.nextTick(() => {
-      GroupHasUserModel.int(ATTRIBUTE.id, {
-        id: true,
-        map: COLUMN.id,
-        default: {
-          autoincrement: true,
-        },
+  // defined Model
+  process.nextTick(() => {
+    GroupHasUserModel.int(ATTRIBUTE.userId, {
+      map: COLUMN.userId,
+    })
+      .int(ATTRIBUTE.groupId, {
+        map: COLUMN.groupId,
       })
 
-        // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
-        .mixin(initDeleted)
+      // dateTime marks
+      .mixin(initDeleted)
 
-        // table name
-        .map(TABLE_NAME.GROUP_HAS_USER);
-    });
-  },
-);
+      // ids
+      .id({ fields: [ATTRIBUTE.groupId, ATTRIBUTE.userId] })
 
+      // table name
+      .map(TABLE_NAME.GROUP_HAS_USER);
+  });
+});
