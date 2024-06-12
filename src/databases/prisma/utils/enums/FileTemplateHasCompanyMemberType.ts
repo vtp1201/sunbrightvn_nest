@@ -38,7 +38,17 @@ export enum INDEX {
   typeMemberId = `@@index([${ATTRIBUTE.typeMemberId}], map: "fk_fcm_type_member_id_idx")`,
 }
 
+export enum GENERATED_FOR {
+  FOR_ONE = 'FOR_ONE',
+  FOR_ALL = 'FOR_ALL',
+  FOR_ALL_LEVEL = 'FOR_ALL_LEVEL',
+  FOR_NEW_MEMBER = 'FOR_NEW_MEMBER',
+  FOR_REMOVE_MEMBER = 'FOR_REMOVE_MEMBER',
+  FOR_TRANSFER = 'FOR_TRANSFER',
+}
+
 export default {
   ATTRIBUTE,
   RELATION,
+  GENERATED_FOR,
 };

@@ -1,7 +1,13 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
+  name = 'name',
+  day = 'day',
+  month = 'month',
+  year = 'year',
+  date = 'date',
+  countryId = 'countryId',
   createdTime = ATTRIBUTE_DEFAULT.createdTime,
   updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
@@ -10,6 +16,12 @@ export enum ATTRIBUTE {
 
 export enum COLUMN {
   id = 'id',
+  name = 'name',
+  day = 'day',
+  month = 'month',
+  year = 'year',
+  date = 'date',
+  countryId = 'country_id',
   createdTime = COLUMN_DEFAULT.createdTime,
   updatedTime = COLUMN_DEFAULT.updatedTime,
   deletedTime = COLUMN_DEFAULT.deletedTime,
@@ -17,11 +29,15 @@ export enum COLUMN {
 }
 
 export enum RELATION {
+  country = RELATION_DEFAULT.country,
+}
 
+export enum INDEX {
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: "fk_holiday_country_idx")`,
 }
 
 export default {
   ATTRIBUTE,
   RELATION,
+  INDEX,
 };
-
