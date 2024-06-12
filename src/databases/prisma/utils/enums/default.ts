@@ -15,6 +15,23 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  notificationTemplateHasRoles = 'notificationTemplateHasRoles',
+  subscription = 'subscription',
+  notificationStatus = 'notificationStatus',
+  notifications = 'notifications',
+  notificationTemplate = 'notificationTemplate',
+  notificationType = 'notificationType',
+  userHasNotifications = 'userHasNotifications',
+  noteType = 'noteType',
+  processHasNotes = 'processHasNotes',
+  supportCase = 'supportCase',
+  mailchimpCampaignMembers = 'mailchimpCampaignMembers',
+  mailchimpMember = 'mailchimpMember',
+  mailchimpCampaign = 'mailchimpCampaign',
+  mailchimpSummaries = 'mailchimpSummaries',
+  mailchimpCampaignMember = 'mailchimpCampaignMember',
+  limit = 'limit',
+  limits = 'limits',
   roleHasLimits = 'roleHasLimits',
   limitValues = 'limitValues',
   permission = 'permission',
