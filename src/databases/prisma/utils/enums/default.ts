@@ -15,6 +15,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  historyLogCdc = 'historyLogCdc',
   grantTypeAttributes = 'grantTypeAttributes',
   grantSchemeHasGrantTypeAttributes = 'grantSchemeHasGrantTypeAttributes',
   countryHasEntityTypeHasFileTemplates = 'countryHasEntityTypeHasFileTemplates',
