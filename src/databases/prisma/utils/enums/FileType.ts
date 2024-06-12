@@ -1,7 +1,10 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
+  name = 'name',
+  fileTypeGroupId = 'fileTypeGroupId',
+  parentId = 'parentId',
   createdTime = ATTRIBUTE_DEFAULT.createdTime,
   updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
@@ -10,6 +13,9 @@ export enum ATTRIBUTE {
 
 export enum COLUMN {
   id = 'id',
+  name = 'name',
+  fileTypeGroupId = 'file_type_group_id',
+  parentId = 'parent_id',
   createdTime = COLUMN_DEFAULT.createdTime,
   updatedTime = COLUMN_DEFAULT.updatedTime,
   deletedTime = COLUMN_DEFAULT.deletedTime,
@@ -17,11 +23,15 @@ export enum COLUMN {
 }
 
 export enum RELATION {
+  files = RELATION_DEFAULT.files,
+  fileType = RELATION_DEFAULT.fileType,
+}
 
+export enum INDEX {
+  parentId = `@@index([${ATTRIBUTE.parentId}])`,
 }
 
 export default {
   ATTRIBUTE,
   RELATION,
 };
-
