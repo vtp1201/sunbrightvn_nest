@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/FileTemplateType';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
@@ -35,6 +35,10 @@ export default createModel(
           autoincrement: true,
         },
       })
+        .string(ATTRIBUTE.name, {
+          map: COLUMN.name,
+          raw: RAW_STRING.LENGTH_45,
+        })
 
         // dateTime marks
         .mixin(initCreatedTime)
@@ -46,4 +50,3 @@ export default createModel(
     });
   },
 );
-
