@@ -43,6 +43,10 @@ export enum RELATION {
 
 }
 
+export enum INDEX {
+
+}
+
 export default {
   ATTRIBUTE,
   RELATION,
@@ -62,7 +66,7 @@ create_model() {
   echo "import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/$modelName';
+import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/$modelName';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
 export default createModel(
@@ -101,6 +105,9 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // indexes
+        .raw()
 
         // table name
         .map(TABLE_NAME."$keyEnum");

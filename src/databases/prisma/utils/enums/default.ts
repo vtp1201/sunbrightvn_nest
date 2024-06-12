@@ -15,6 +15,11 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  roleHasLimits = 'roleHasLimits',
+  limitValues = 'limitValues',
+  permission = 'permission',
+  limitType = 'limitType',
+  permissionGroup = 'permissionGroup',
   actionStepType = 'actionStepType',
   historyLogCdc = 'historyLogCdc',
   grantTypeAttributes = 'grantTypeAttributes',
