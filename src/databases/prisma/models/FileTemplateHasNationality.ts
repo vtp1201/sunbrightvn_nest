@@ -28,22 +28,29 @@ export default createModel(
 
     // defined Model
     process.nextTick(() => {
-      FileTemplateHasNationalityModel.int(ATTRIBUTE.id, {
-        id: true,
-        map: COLUMN.id,
-        default: {
-          autoincrement: true,
-        },
+      FileTemplateHasNationalityModel.int(ATTRIBUTE.fileTemplateId, {
+        map: COLUMN.fileTemplateId,
       })
+        .int(ATTRIBUTE.countryId, {
+          map: COLUMN.countryId,
+        })
+        .boolean(ATTRIBUTE.isFillMoreInformation, {
+          map: COLUMN.isFillMoreInformation,
+          default: false,
+        })
 
         // dateTime marks
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
 
+        // ids
+        .id({
+          fields: [ATTRIBUTE.countryId, ATTRIBUTE.fileTemplateId],
+        })
+
         // table name
         .map(TABLE_NAME.FILE_TEMPLATE_HAS_NATIONALITY);
     });
   },
 );
-
