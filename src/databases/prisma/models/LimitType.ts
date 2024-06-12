@@ -37,8 +37,8 @@ export default createModel(MODEL_NAME.LIMIT_TYPE, (LimitTypeModel) => {
         map: COLUMN.name,
         raw: RAW_STRING.LENGTH_45,
       })
-      .string(ATTRIBUTE.name, {
-        map: COLUMN.name,
+      .string(ATTRIBUTE.description, {
+        map: COLUMN.description,
         raw: RAW_STRING.LENGTH_200,
         optional: true,
       })
