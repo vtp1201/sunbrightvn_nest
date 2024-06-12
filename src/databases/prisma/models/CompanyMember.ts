@@ -40,8 +40,9 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
         map: COLUMN.countryId,
         optional: true,
       })
-      .int(ATTRIBUTE.companyId, {
-        map: COLUMN.companyId,
+      .int(ATTRIBUTE.parentId, {
+        map: COLUMN.parentId,
+        optional: true,
       })
       .int(ATTRIBUTE.typeMemberId, {
         map: COLUMN.typeMemberId,
