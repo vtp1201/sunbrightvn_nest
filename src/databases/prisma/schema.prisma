@@ -1603,8 +1603,8 @@ model Holiday {
   name        String   @map("name") @database.Text
   day         Int      @map("day")
   month       Int      @map("month")
-  year        Int      @map("year") @database.Date
-  date        DateTime @map("date")
+  year        Int      @map("year")
+  date        DateTime @map("date") @database.Date
   countryId   Int      @map("country_id")
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
