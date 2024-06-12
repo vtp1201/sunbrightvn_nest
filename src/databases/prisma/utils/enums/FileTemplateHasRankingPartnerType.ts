@@ -1,27 +1,21 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
-  id = 'id',
-  createdTime = ATTRIBUTE_DEFAULT.createdTime,
-  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
-  deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
-  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
+  fileTemplateId = 'fileTemplateId',
+  rankingPartnerTypeId = 'rankingPartnerTypeId',
 }
 
 export enum COLUMN {
-  id = 'id',
-  createdTime = COLUMN_DEFAULT.createdTime,
-  updatedTime = COLUMN_DEFAULT.updatedTime,
-  deletedTime = COLUMN_DEFAULT.deletedTime,
-  isDeleted = COLUMN_DEFAULT.isDeleted,
+  fileTemplateId = 'file_template_id',
+  rankingPartnerTypeId = 'ranking_partner_type_id',
 }
 
 export enum RELATION {
-
+  fileTemplate = RELATION_DEFAULT.fileTemplate,
+  rankingPartnerType = RELATION_DEFAULT.rankingPartnerType,
 }
 
 export default {
   ATTRIBUTE,
   RELATION,
 };
-
