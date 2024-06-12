@@ -8,7 +8,6 @@ export { default as E_EMAIL_TRIGGER } from './EmailTrigger';
 export { default as E_EMAIL_TYPE } from './EmailType';
 export { default as E_ENTITY_TYPE_HAS_COMPANY_SUFFIX } from './EntityTypeHasCompanySuffix';
 export { default as E_ENTITY_TYPE } from './EntityType';
-export { default as E_FATCA_HAS_QUESTION } from './FatcaHasQuestion';
 export { default as E_FATCA } from './Fatca';
 export { default as E_FEE_TYPE } from './FeeType';
 export { default as E_FEE } from './Fee';
