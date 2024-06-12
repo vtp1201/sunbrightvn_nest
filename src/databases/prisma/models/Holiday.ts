@@ -45,10 +45,10 @@ export default createModel(MODEL_NAME.HOLIDAY, (HolidayModel) => {
       })
       .int(ATTRIBUTE.year, {
         map: COLUMN.year,
-        raw: RAW_DATE_TIME.DATE_ONLY,
       })
       .dateTime(ATTRIBUTE.date, {
         map: COLUMN.date,
+        raw: RAW_DATE_TIME.DATE_ONLY,
       })
       .int(ATTRIBUTE.countryId, {
         map: COLUMN.countryId,
