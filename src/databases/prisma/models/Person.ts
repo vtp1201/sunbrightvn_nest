@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Person';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
@@ -33,6 +33,72 @@ export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
         autoincrement: true,
       },
     })
+      .int(ATTRIBUTE.countryId, {
+        map: COLUMN.countryId,
+        optional: true,
+      })
+      .string(ATTRIBUTE.firstName, {
+        map: COLUMN.firstName,
+        optional: true,
+        raw: RAW_STRING.LENGTH_200,
+      })
+      .string(ATTRIBUTE.lastName, {
+        map: COLUMN.lastName,
+        optional: true,
+        raw: RAW_STRING.LENGTH_200,
+      })
+      .int(ATTRIBUTE.genderId, {
+        map: COLUMN.genderId,
+        optional: true,
+      })
+      .string(ATTRIBUTE.phone, {
+        map: COLUMN.phone,
+        optional: true,
+        raw: RAW_STRING.LENGTH_45,
+      })
+      .string(ATTRIBUTE.phoneNumber, {
+        map: COLUMN.phoneNumber,
+        optional: true,
+        raw: RAW_STRING.LENGTH_255,
+      })
+      .int(ATTRIBUTE.phoneCountryId, {
+        map: COLUMN.phoneCountryId,
+        optional: true,
+      })
+      .string(ATTRIBUTE.email, {
+        map: COLUMN.email,
+        optional: true,
+        raw: RAW_STRING.LENGTH_45,
+      })
+      .dateTime(ATTRIBUTE.birthday, {
+        map: COLUMN.birthday,
+        optional: true,
+        raw: RAW_DATE_TIME.DATE_ONLY,
+      })
+      .int(ATTRIBUTE.titleNameId, {
+        map: COLUMN.titleNameId,
+        optional: true,
+      })
+      .string(ATTRIBUTE.address, {
+        map: COLUMN.address,
+        optional: true,
+        raw: RAW_STRING.TEXT,
+      })
+      .string(ATTRIBUTE.ssn, {
+        map: COLUMN.ssn,
+        optional: true,
+        raw: RAW_STRING.LENGTH_100,
+      })
+      .string(ATTRIBUTE.image, {
+        map: COLUMN.image,
+        optional: true,
+        raw: RAW_STRING.LENGTH_255,
+      })
+      .int(ATTRIBUTE.status, {
+        map: COLUMN.status,
+        optional: true,
+        default: 1,
+      })
 
       // dateTime marks
       .mixin(initCreatedTime)
@@ -40,7 +106,10 @@ export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw()
+      .raw(INDEX.countryId)
+      .raw(INDEX.genderId)
+      .raw(INDEX.phoneCountryId)
+      .raw(INDEX.titleNameId)
 
       // table name
       .map(TABLE_NAME.PERSON);
