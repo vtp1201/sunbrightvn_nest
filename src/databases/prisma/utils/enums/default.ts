@@ -17,6 +17,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  orderItems = 'orderItems',
   renamedPackage = 'renamedPackage',
   orderItemStatus = 'orderItemStatus',
   orderStatus = 'orderStatus',
