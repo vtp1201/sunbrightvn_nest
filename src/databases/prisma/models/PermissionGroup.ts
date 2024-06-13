@@ -1,20 +1,12 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/PermissionGroup';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/PermissionGroup';
+import { deleted } from '../mixins';
 
 export default createModel(
   MODEL_NAME.PERMISSION_GROUP,
   (PermissionGroupModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
     const initDeleted = deleted(
       {
         attribute: ATTRIBUTE.deletedTime,
@@ -35,14 +27,13 @@ export default createModel(
           autoincrement: true,
         },
       })
+        .string(ATTRIBUTE.name, {
+          map: COLUMN.name,
+          unique: true,
+        })
 
         // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
         .mixin(initDeleted)
-
-        // indexes
-        .raw()
 
         // table name
         .map(TABLE_NAME.PERMISSION_GROUP);

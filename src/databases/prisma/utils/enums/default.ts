@@ -17,6 +17,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  permissions = 'permissions',
   package = 'package',
   packages = 'packages',
   packageGroup = 'packageGroup',
