@@ -1,18 +1,10 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Permission';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { deleted } from '../mixins';
 
 export default createModel(MODEL_NAME.PERMISSION, (PermissionModel) => {
-  const initCreatedTime = createdTime({
-    attribute: ATTRIBUTE.createdTime,
-    column: COLUMN.createdTime,
-  });
-  const initUpdatedTime = updatedTime({
-    attribute: ATTRIBUTE.updatedTime,
-    column: COLUMN.updatedTime,
-  });
   const initDeleted = deleted(
     {
       attribute: ATTRIBUTE.deletedTime,
@@ -33,14 +25,30 @@ export default createModel(MODEL_NAME.PERMISSION, (PermissionModel) => {
         autoincrement: true,
       },
     })
+      .int(ATTRIBUTE.permissionGroupId, {
+        map: COLUMN.permissionGroupId,
+      })
+      .string(ATTRIBUTE.value, {
+        map: COLUMN.value,
+        raw: RAW_STRING.LENGTH_45,
+        unique: true,
+      })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        raw: RAW_STRING.LENGTH_45,
+        optional: true,
+      })
+      .string(ATTRIBUTE.description, {
+        map: COLUMN.description,
+        raw: RAW_STRING.LENGTH_100,
+        optional: true,
+      })
 
       // dateTime marks
-      .mixin(initCreatedTime)
-      .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
       // indexes
-      .raw()
+      .raw(INDEX.permissionGroupId)
 
       // table name
       .map(TABLE_NAME.PERMISSION);

@@ -1,31 +1,35 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
-  createdTime = ATTRIBUTE_DEFAULT.createdTime,
-  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
+  permissionGroupId = 'permissionGroupId',
+  value = 'value',
+  name = 'name',
+  description = 'description',
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
   isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
 
 export enum COLUMN {
   id = 'id',
-  createdTime = COLUMN_DEFAULT.createdTime,
-  updatedTime = COLUMN_DEFAULT.updatedTime,
+  permissionGroupId = 'permission_group_id',
+  value = 'value',
+  name = 'name',
+  description = 'description',
   deletedTime = COLUMN_DEFAULT.deletedTime,
   isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
 export enum RELATION {
-
+  limits = RELATION_DEFAULT.limits,
+  permissionGroup = RELATION_DEFAULT.permissionGroup,
 }
 
 export enum INDEX {
-
+  permissionGroupId = `@@index([${ATTRIBUTE.permissionGroupId}], map: "fk_permission_permission_group1_idx")`,
 }
 
 export default {
   ATTRIBUTE,
   RELATION,
 };
-
