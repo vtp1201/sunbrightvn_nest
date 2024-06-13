@@ -1,5 +1,6 @@
 export enum ATTRIBUTE_DEFAULT {
   id = 'id',
+  finishedTime = 'finishedTime',
   createdTime = 'createdTime',
   updatedTime = 'updatedTime',
   deletedTime = 'deletedTime',
@@ -8,6 +9,7 @@ export enum ATTRIBUTE_DEFAULT {
 
 export enum COLUMN_DEFAULT {
   id = 'id',
+  finishedTime = 'finished_time',
   createdTime = 'created_time',
   updatedTime = 'updated_time',
   deletedTime = 'deleted_time',
@@ -15,6 +17,10 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  renamedPackage = 'renamedPackage',
+  orderItemStatus = 'orderItemStatus',
+  orderStatus = 'orderStatus',
+  website = 'website',
   toolBusinessEntities = 'toolBusinessEntities',
   notificationTemplateHasRoles = 'notificationTemplateHasRoles',
   subscription = 'subscription',
