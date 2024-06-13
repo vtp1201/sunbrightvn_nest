@@ -15,6 +15,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  toolBusinessEntities = 'toolBusinessEntities',
   notificationTemplateHasRoles = 'notificationTemplateHasRoles',
   subscription = 'subscription',
   notificationStatus = 'notificationStatus',
