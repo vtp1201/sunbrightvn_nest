@@ -1,52 +1,22 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/OrderHasBank';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/OrderHasBank';
 
-export default createModel(
-  MODEL_NAME.ORDER_HAS_BANK,
-  (OrderHasBankModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
-    const initDeleted = deleted(
-      {
-        attribute: ATTRIBUTE.deletedTime,
-        column: COLUMN.deletedTime,
-      },
-      {
-        attribute: ATTRIBUTE.isDeleted,
-        column: COLUMN.isDeleted,
-      },
-    );
-
-    // defined Model
-    process.nextTick(() => {
-      OrderHasBankModel.int(ATTRIBUTE.id, {
-        id: true,
-        map: COLUMN.id,
-        default: {
-          autoincrement: true,
-        },
+export default createModel(MODEL_NAME.ORDER_HAS_BANK, (OrderHasBankModel) => {
+  // defined Model
+  process.nextTick(() => {
+    OrderHasBankModel.int(ATTRIBUTE.bankId, {
+      map: COLUMN.bankId,
+    })
+      .int(ATTRIBUTE.orderId, {
+        map: COLUMN.orderId,
       })
 
-        // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
-        .mixin(initDeleted)
+      // indexes
+      .id({ fields: [ATTRIBUTE.bankId, ATTRIBUTE.orderId] })
 
-        // indexes
-        .raw()
-
-        // table name
-        .map(TABLE_NAME.ORDER_HAS_BANK);
-    });
-  },
-);
-
+      // table name
+      .map(TABLE_NAME.ORDER_HAS_BANK);
+  });
+});
