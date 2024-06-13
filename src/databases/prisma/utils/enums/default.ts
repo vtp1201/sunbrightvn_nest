@@ -17,6 +17,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  package = 'package',
   packages = 'packages',
   packageGroup = 'packageGroup',
   packageType = 'packageType',

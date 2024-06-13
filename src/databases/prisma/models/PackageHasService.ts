@@ -1,20 +1,12 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/PackageHasService';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/PackageHasService';
+import { deleted } from '../mixins';
 
 export default createModel(
   MODEL_NAME.PACKAGE_HAS_SERVICE,
   (PackageHasServiceModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
     const initDeleted = deleted(
       {
         attribute: ATTRIBUTE.deletedTime,
@@ -28,21 +20,24 @@ export default createModel(
 
     // defined Model
     process.nextTick(() => {
-      PackageHasServiceModel.int(ATTRIBUTE.id, {
-        id: true,
-        map: COLUMN.id,
-        default: {
-          autoincrement: true,
-        },
+      PackageHasServiceModel.int(ATTRIBUTE.packageId, {
+        map: COLUMN.packageId,
       })
+        .int(ATTRIBUTE.serviceId, {
+          map: COLUMN.serviceId,
+        })
+        .int(ATTRIBUTE.typeId, {
+          map: COLUMN.typeId,
+          default: 1,
+        })
 
         // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
         .mixin(initDeleted)
 
-        // indexes
-        .raw()
+        // ids
+        .id({
+          fields: [ATTRIBUTE.packageId, ATTRIBUTE.serviceId, ATTRIBUTE.typeId],
+        })
 
         // table name
         .map(TABLE_NAME.PACKAGE_HAS_SERVICE);
