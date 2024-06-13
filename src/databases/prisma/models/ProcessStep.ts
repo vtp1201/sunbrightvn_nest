@@ -40,7 +40,7 @@ export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
       .mixin(initDeleted)
 
       // indexes
-      // .raw()
+      .raw()
 
       // table name
       .map(TABLE_NAME.PROCESS_STEP);

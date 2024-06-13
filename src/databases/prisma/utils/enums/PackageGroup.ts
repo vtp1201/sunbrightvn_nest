@@ -1,7 +1,8 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
+  name = 'name',
   createdTime = ATTRIBUTE_DEFAULT.createdTime,
   updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
@@ -10,6 +11,7 @@ export enum ATTRIBUTE {
 
 export enum COLUMN {
   id = 'id',
+  name = 'name',
   createdTime = COLUMN_DEFAULT.createdTime,
   updatedTime = COLUMN_DEFAULT.updatedTime,
   deletedTime = COLUMN_DEFAULT.deletedTime,
@@ -17,15 +19,10 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-
-}
-
-export enum INDEX {
-
+  packages = RELATION_DEFAULT.packages,
 }
 
 export default {
   ATTRIBUTE,
   RELATION,
 };
-

@@ -40,7 +40,7 @@ export default createModel(MODEL_NAME.QUESTION_GROUP, (QuestionGroupModel) => {
       .mixin(initDeleted)
 
       // indexes
-      // .raw()
+      .raw()
 
       // table name
       .map(TABLE_NAME.QUESTION_GROUP);

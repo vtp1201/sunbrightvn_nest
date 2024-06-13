@@ -1,7 +1,7 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/PackageGroup';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/PackageGroup';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
 export default createModel(MODEL_NAME.PACKAGE_GROUP, (PackageGroupModel) => {
@@ -33,14 +33,15 @@ export default createModel(MODEL_NAME.PACKAGE_GROUP, (PackageGroupModel) => {
         autoincrement: true,
       },
     })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        raw: RAW_STRING.TEXT,
+      })
 
       // dateTime marks
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
-
-      // indexes
-      // .raw()
 
       // table name
       .map(TABLE_NAME.PACKAGE_GROUP);

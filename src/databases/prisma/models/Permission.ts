@@ -40,7 +40,7 @@ export default createModel(MODEL_NAME.PERMISSION, (PermissionModel) => {
       .mixin(initDeleted)
 
       // indexes
-      // .raw()
+      .raw()
 
       // table name
       .map(TABLE_NAME.PERMISSION);

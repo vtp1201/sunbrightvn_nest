@@ -40,7 +40,7 @@ export default createModel(MODEL_NAME.PROPOSED_NAME, (ProposedNameModel) => {
       .mixin(initDeleted)
 
       // indexes
-      // .raw()
+      .raw()
 
       // table name
       .map(TABLE_NAME.PROPOSED_NAME);

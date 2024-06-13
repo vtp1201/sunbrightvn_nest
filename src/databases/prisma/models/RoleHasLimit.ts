@@ -40,7 +40,7 @@ export default createModel(MODEL_NAME.ROLE_HAS_LIMIT, (RoleHasLimitModel) => {
       .mixin(initDeleted)
 
       // indexes
-      // .raw()
+      .raw()
 
       // table name
       .map(TABLE_NAME.ROLE_HAS_LIMIT);

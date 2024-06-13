@@ -42,7 +42,7 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        // .raw()
+        .raw()
 
         // table name
         .map(TABLE_NAME.PROCESS_STEP_HAS_ROLE);

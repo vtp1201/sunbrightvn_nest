@@ -40,7 +40,7 @@ export default createModel(MODEL_NAME.PACKAGE_TYPE, (PackageTypeModel) => {
       .mixin(initDeleted)
 
       // indexes
-      // .raw()
+      .raw()
 
       // table name
       .map(TABLE_NAME.PACKAGE_TYPE);
