@@ -73,7 +73,7 @@ export default createModel(MODEL_NAME.ORDER_ITEM, (OrderItemModel) => {
         default: 0,
       })
       .dateTime(ATTRIBUTE.finishedTime, {
-        raw: COLUMN.finishedTime,
+        map: COLUMN.finishedTime,
         optional: true,
       })
 
