@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { timeout } from 'utilities';
+import { timeout } from '@utilities';
 
 export const connectPrisma = async () => {
   const dbName = 'MysqlDB';
