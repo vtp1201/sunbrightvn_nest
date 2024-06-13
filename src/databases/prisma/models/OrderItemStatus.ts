@@ -1,7 +1,7 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/OrderItemStatus';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/OrderItemStatus';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
 export default createModel(
@@ -35,18 +35,22 @@ export default createModel(
           autoincrement: true,
         },
       })
+        .string(ATTRIBUTE.name, {
+          map: COLUMN.name,
+          raw: RAW_STRING.LENGTH_45,
+        })
+        .int(ATTRIBUTE.order, {
+          map: COLUMN.order,
+          optional: true,
+        })
 
         // dateTime marks
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
 
-        // indexes
-        .raw()
-
         // table name
         .map(TABLE_NAME.ORDER_ITEM_STATUS);
     });
   },
 );
-
