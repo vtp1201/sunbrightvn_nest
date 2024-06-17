@@ -3346,8 +3346,8 @@ model service_change_officer_has_file_template {
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model service_has_company_member_type {
-  service_id             Int?
-  company_member_type_id Int?
+  service_id             Int
+  company_member_type_id Int
   company_member_type    company_member_type? @relation(fields: [company_member_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_service_member_type_company_member_type_id")
   service                service?             @relation(fields: [service_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_service_member_type_service_id")
 
