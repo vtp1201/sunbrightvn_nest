@@ -17,6 +17,10 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  questionParent = 'questionParent',
+  questionType = 'questionType',
+  questionPriority = 'questionPriority',
+  options = 'options',
   bankingProcess = 'bankingProcess',
   processSteps = 'processSteps',
   person = 'person',

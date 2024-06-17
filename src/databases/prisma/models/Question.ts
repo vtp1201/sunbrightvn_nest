@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Question';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
@@ -33,6 +33,30 @@ export default createModel(MODEL_NAME.QUESTION, (QuestionModel) => {
         autoincrement: true,
       },
     })
+      .string(ATTRIBUTE.content, {
+        map: COLUMN.content,
+        raw: RAW_STRING.TEXT,
+      })
+      .boolean(ATTRIBUTE.isBelongToFatca, {
+        map: COLUMN.isBelongToFatca,
+        default: false,
+      })
+      .string(ATTRIBUTE.description, {
+        map: COLUMN.description,
+        raw: RAW_STRING.TEXT,
+        optional: true,
+      })
+      .int(ATTRIBUTE.questionParentId, {
+        map: COLUMN.questionParentId,
+        optional: true,
+      })
+      .int(ATTRIBUTE.questionTypeId, {
+        map: COLUMN.questionTypeId,
+      })
+      .int(ATTRIBUTE.questionPriorityId, {
+        map: COLUMN.questionPriorityId,
+        optional: true,
+      })
 
       // dateTime marks
       .mixin(initCreatedTime)
@@ -40,7 +64,9 @@ export default createModel(MODEL_NAME.QUESTION, (QuestionModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw()
+      .raw(INDEX.questionParentId)
+      .raw(INDEX.questionPriorityId)
+      .raw(INDEX.questionTypeId)
 
       // table name
       .map(TABLE_NAME.QUESTION);
