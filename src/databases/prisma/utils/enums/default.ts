@@ -17,6 +17,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  parentRole = 'parentRole',
   rankingPartners = 'rankingPartners',
   questions = 'questions',
   fileTemplates = 'fileTemplates',

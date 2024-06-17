@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Role';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
@@ -33,6 +33,40 @@ export default createModel(MODEL_NAME.ROLE, (RoleModel) => {
         autoincrement: true,
       },
     })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        raw: RAW_STRING.LENGTH_45,
+      })
+      .string(ATTRIBUTE.value, {
+        map: COLUMN.value,
+        raw: RAW_STRING.LENGTH_100,
+        default: '',
+      })
+      .int(ATTRIBUTE.left, {
+        map: COLUMN.left,
+        optional: true,
+      })
+      .int(ATTRIBUTE.right, {
+        map: COLUMN.right,
+        optional: true,
+      })
+      .int(ATTRIBUTE.parentId, {
+        map: COLUMN.parentId,
+        optional: true,
+      })
+      .string(ATTRIBUTE.description, {
+        map: COLUMN.description,
+        raw: RAW_STRING.TEXT,
+        optional: true,
+      })
+      .int(ATTRIBUTE.status, {
+        map: COLUMN.status,
+        default: 1,
+      })
+      .json(ATTRIBUTE.colorCode, {
+        map: COLUMN.colorCode,
+        optional: true,
+      })
 
       // dateTime marks
       .mixin(initCreatedTime)
@@ -40,7 +74,7 @@ export default createModel(MODEL_NAME.ROLE, (RoleModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw()
+      .raw(INDEX.parentId)
 
       // table name
       .map(TABLE_NAME.ROLE);
