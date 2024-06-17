@@ -1,7 +1,7 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Rate';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/Rate';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
 export default createModel(MODEL_NAME.RATE, (RateModel) => {
@@ -33,14 +33,33 @@ export default createModel(MODEL_NAME.RATE, (RateModel) => {
         autoincrement: true,
       },
     })
+      .int(ATTRIBUTE.rateSourceId, {
+        map: COLUMN.rateSourceId,
+      })
+      .string(ATTRIBUTE.ip, {
+        map: COLUMN.ip,
+        raw: RAW_STRING.LENGTH_255,
+        optional: true,
+      })
+      .int(ATTRIBUTE.score, {
+        map: COLUMN.score,
+        default: 0,
+      })
+      .string(ATTRIBUTE.email, {
+        map: COLUMN.email,
+        raw: RAW_STRING.LENGTH_255,
+        optional: true,
+      })
+      .string(ATTRIBUTE.description, {
+        map: COLUMN.description,
+        optional: true,
+        raw: RAW_STRING.LENGTH_255,
+      })
 
       // dateTime marks
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
-
-      // indexes
-      .raw()
 
       // table name
       .map(TABLE_NAME.RATE);

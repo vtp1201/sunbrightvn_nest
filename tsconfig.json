@@ -18,12 +18,18 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@utilities": ["./src/utilities"],
-      "@types": ["./src/types"],
-      "@base": ["./src/base"],
-      "@modules": ["./src/modules"],
-      "@databases": ["./src/databases"],
-      "@middlewares": ["./src/middlewares"]
+      "@utilities/*": ["src/utilities/*"],
+      "@types/*": ["src/types/*"],
+      "@base/*": ["src/base"],
+      "@modules/*": ["src/modules/*"],
+      "@databases/*": ["src/databases/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@utilities": ["src/utilities"],
+      "@types": ["src/types"],
+      "@base": ["src/base"],
+      "@databases": ["src/databases"],
+      "@middlewares": ["src/middlewares"]
     }
-  }
+  },
+  "exclude": ["node_modules"]
 }
