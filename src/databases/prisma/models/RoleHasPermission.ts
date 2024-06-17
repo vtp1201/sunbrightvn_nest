@@ -1,48 +1,24 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/RoleHasPermission';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/RoleHasPermission';
 
 export default createModel(
   MODEL_NAME.ROLE_HAS_PERMISSION,
   (RoleHasPermissionModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
-    const initDeleted = deleted(
-      {
-        attribute: ATTRIBUTE.deletedTime,
-        column: COLUMN.deletedTime,
-      },
-      {
-        attribute: ATTRIBUTE.isDeleted,
-        column: COLUMN.isDeleted,
-      },
-    );
-
     // defined Model
     process.nextTick(() => {
-      RoleHasPermissionModel.int(ATTRIBUTE.id, {
-        id: true,
-        map: COLUMN.id,
-        default: {
-          autoincrement: true,
-        },
+      RoleHasPermissionModel.int(ATTRIBUTE.roleId, {
+        map: COLUMN.roleId,
       })
+        .int(ATTRIBUTE.permissionId, {
+          map: COLUMN.permissionId,
+        })
 
-        // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
-        .mixin(initDeleted)
-
-        // indexes
-        .raw()
+        // ids
+        .id({
+          fields: [ATTRIBUTE.roleId, ATTRIBUTE.permissionId],
+        })
 
         // table name
         .map(TABLE_NAME.ROLE_HAS_PERMISSION);
