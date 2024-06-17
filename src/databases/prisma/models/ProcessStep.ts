@@ -1,18 +1,10 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/ProcessStep';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { deleted } from '../mixins';
 
 export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
-  const initCreatedTime = createdTime({
-    attribute: ATTRIBUTE.createdTime,
-    column: COLUMN.createdTime,
-  });
-  const initUpdatedTime = updatedTime({
-    attribute: ATTRIBUTE.updatedTime,
-    column: COLUMN.updatedTime,
-  });
   const initDeleted = deleted(
     {
       attribute: ATTRIBUTE.deletedTime,
@@ -33,14 +25,59 @@ export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
         autoincrement: true,
       },
     })
+      .int(ATTRIBUTE.processStepTypeId, {
+        map: COLUMN.processStepTypeId,
+      })
+      .int(ATTRIBUTE.value, {
+        map: COLUMN.value,
+        unique: true,
+        optional: true,
+      })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        raw: RAW_STRING.LENGTH_100,
+      })
+      .string(ATTRIBUTE.description, {
+        map: COLUMN.description,
+        raw: RAW_STRING.TEXT,
+        optional: true,
+      })
+      .int(ATTRIBUTE.left, {
+        map: COLUMN.left,
+        optional: true,
+      })
+      .int(ATTRIBUTE.right, {
+        map: COLUMN.right,
+        optional: true,
+      })
+      .int(ATTRIBUTE.parentId, {
+        map: COLUMN.parentId,
+        optional: true,
+      })
+      .string(ATTRIBUTE.descriptionDisplay, {
+        map: COLUMN.descriptionDisplay,
+        raw: RAW_STRING.TEXT,
+        optional: true,
+      })
+      .boolean(ATTRIBUTE.isGeneratedFile, {
+        map: COLUMN.isGeneratedFile,
+        default: false,
+      })
+      .boolean(ATTRIBUTE.isSendLinkSigned, {
+        map: COLUMN.isSendLinkSigned,
+        default: false,
+      })
+      .int(ATTRIBUTE.order, {
+        map: COLUMN.order,
+        optional: true,
+      })
 
       // dateTime marks
-      .mixin(initCreatedTime)
-      .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
       // indexes
-      .raw()
+      .raw(INDEX.parentId)
+      .raw(INDEX.processStepTypeId)
 
       // table name
       .map(TABLE_NAME.PROCESS_STEP);
