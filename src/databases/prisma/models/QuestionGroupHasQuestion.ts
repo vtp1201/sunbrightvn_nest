@@ -1,52 +1,24 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  INDEX,
-} from '../utils/enums/QuestionGroupHasQuestion';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/QuestionGroupHasQuestion';
 
 export default createModel(
   MODEL_NAME.QUESTION_GROUP_HAS_QUESTION,
   (QuestionGroupHasQuestionModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
-    const initDeleted = deleted(
-      {
-        attribute: ATTRIBUTE.deletedTime,
-        column: COLUMN.deletedTime,
-      },
-      {
-        attribute: ATTRIBUTE.isDeleted,
-        column: COLUMN.isDeleted,
-      },
-    );
-
     // defined Model
     process.nextTick(() => {
-      QuestionGroupHasQuestionModel.int(ATTRIBUTE.id, {
-        id: true,
-        map: COLUMN.id,
-        default: {
-          autoincrement: true,
-        },
+      QuestionGroupHasQuestionModel.int(ATTRIBUTE.questionGroupId, {
+        map: COLUMN.questionGroupId,
       })
-
-        // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
-        .mixin(initDeleted)
+        .int(ATTRIBUTE.questionId, {
+          map: COLUMN.questionId,
+        })
 
         // indexes
-        .raw()
+        .id({
+          fields: [ATTRIBUTE.questionGroupId, ATTRIBUTE.questionId],
+        })
 
         // table name
         .map(TABLE_NAME.QUESTION_GROUP_HAS_QUESTION);
