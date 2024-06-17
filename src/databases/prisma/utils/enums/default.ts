@@ -17,6 +17,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  fileTemplates = 'fileTemplates',
   questionParent = 'questionParent',
   questionType = 'questionType',
   questionPriority = 'questionPriority',
