@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/RankingPartner';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
@@ -35,6 +35,21 @@ export default createModel(
           autoincrement: true,
         },
       })
+        .string(ATTRIBUTE.name, {
+          map: COLUMN.name,
+          raw: RAW_STRING.LENGTH_45,
+        })
+        .int(ATTRIBUTE.taskId, {
+          map: COLUMN.taskId,
+        })
+        .int(ATTRIBUTE.ranking, {
+          map: COLUMN.ranking,
+          optional: true,
+        })
+        .int(ATTRIBUTE.rankingPartnerTypeId, {
+          map: COLUMN.rankingPartnerTypeId,
+          optional: true,
+        })
 
         // dateTime marks
         .mixin(initCreatedTime)
@@ -42,7 +57,8 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw()
+        .raw(INDEX.rankingPartnerTypeId)
+        .raw(INDEX.taskId)
 
         // table name
         .map(TABLE_NAME.RANKING_PARTNER);
