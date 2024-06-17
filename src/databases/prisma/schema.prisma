@@ -2003,6 +2003,7 @@ model Package {
 
 model PackageGroup {
   id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.Text
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
   deletedTime DateTime @default(now()) @map("deleted_time")
@@ -2012,17 +2013,21 @@ model PackageGroup {
 }
 
 model PackageHasService {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
+  packageId   Int      @map("package_id")
+  serviceId   Int      @map("service_id")
+  typeId      Int      @default(1) @map("type_id")
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
+  @@id([packageId, serviceId, typeId])
   @@map("PackageHasService")
 }
 
 model PackageType {
   id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.Text
+  description String?  @map("description") @database.Text
+  image       String?  @map("image") @database.VarChar(200)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
   deletedTime DateTime @default(now()) @map("deleted_time")
@@ -2033,8 +2038,7 @@ model PackageType {
 
 model PaymentGateway {
   id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
+  name        String   @map("name") @database.VarChar(100)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
@@ -2042,29 +2046,44 @@ model PaymentGateway {
 }
 
 model PaymentInformation {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id                       Int       @id @default(autoincrement()) @map("id")
+  companyMemberId          Int?      @map("company_member_id")
+  orderId                  Int?      @map("order_id")
+  taskId                   Int?      @map("task_id")
+  dateOfPayment            DateTime? @map("date_of_payment")
+  paymentAmount            Int?      @map("payment_amount")
+  nameOnCard               String?   @map("name_on_card") @database.VarChar(255)
+  lastFourDigitsOnCard     Int?      @map("last_four_digits_on_card")
+  expiredDateOfCard        DateTime? @map("expired_date_of_card") @database.Date
+  issuingBank              String?   @map("issuing_bank") @database.VarChar(255)
+  emailAddressOfCardholder String?   @map("email_address_of_cardholder") @database.VarChar(255)
+  createdTime              DateTime  @default(now()) @map("created_time")
+  updatedTime              DateTime  @updatedAt @map("updated_time")
+  deletedTime              DateTime  @default(now()) @map("deleted_time")
+  isDeleted                Boolean   @default(false) @map("is_deleted")
 
+  @@index([companyMemberId], map: "fk_pay_company_member_id_com_id_1axx")
+  @@index([orderId], map: "fk_pay_order_id_ord_id_atc9")
+  @@index([taskId], map: "fk_pay_task_id_tas_id_3ro9")
   @@map("PaymentInformation")
 }
 
 model Permission {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id                Int      @id @default(autoincrement()) @map("id")
+  permissionGroupId Int      @map("permission_group_id")
+  value             String   @unique @map("value") @database.VarChar(45)
+  name              String?  @map("name") @database.VarChar(45)
+  description       String?  @map("description") @database.VarChar(100)
+  deletedTime       DateTime @default(now()) @map("deleted_time")
+  isDeleted         Boolean  @default(false) @map("is_deleted")
 
+  @@index([permissionGroupId], map: "fk_permission_permission_group1_idx")
   @@map("Permission")
 }
 
 model PermissionGroup {
   id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
+  name        String   @unique @map("name")
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
@@ -2072,159 +2091,245 @@ model PermissionGroup {
 }
 
 model Person {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id             Int       @id @default(autoincrement()) @map("id")
+  countryId      Int?      @map("country_id")
+  firstName      String?   @map("first_name") @database.VarChar(200)
+  lastName       String?   @map("last_name") @database.VarChar(200)
+  genderId       Int?      @map("gender_id")
+  phone          String?   @map("phone") @database.VarChar(45)
+  phoneNumber    String?   @map("phone_number") @database.VarChar(255)
+  phoneCountryId Int?      @map("phone_country_id")
+  email          String?   @map("email") @database.VarChar(45)
+  birthday       DateTime? @map("birthday") @database.Date
+  titleNameId    Int?      @map("title_name_id")
+  address        String?   @map("address") @database.Text
+  ssn            String?   @map("ssn") @database.VarChar(100)
+  image          String?   @map("image") @database.VarChar(255)
+  status         Int?      @default(1) @map("status")
+  createdTime    DateTime  @default(now()) @map("created_time")
+  updatedTime    DateTime  @updatedAt @map("updated_time")
+  deletedTime    DateTime  @default(now()) @map("deleted_time")
+  isDeleted      Boolean   @default(false) @map("is_deleted")
 
+  @@index([countryId], map: "fk_profile_country1_idx")
+  @@index([genderId], map: "fk_person_gender1_idx")
+  @@index([phoneCountryId], map: "fk_person_has_phone_country_idx")
+  @@index([titleNameId], map: "fk_person_title_name1_idx")
   @@map("Person")
 }
 
 model Process {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id                Int       @id @default(autoincrement()) @map("id")
+  taskId            Int       @map("task_id")
+  processStepId     Int       @map("process_step_id")
+  personId          Int?      @map("person_id")
+  userId            Int?      @map("user_id")
+  isApproved        Boolean?  @default(false) @map("is_approved")
+  isRejected        Boolean?  @default(false) @map("is_rejected")
+  isTerminated      Boolean?  @default(false) @map("is_terminated")
+  finishedTime      DateTime? @map("finished_time")
+  remindStartTime   DateTime? @map("remind_start_time")
+  status            Int?      @map("status")
+  bankingProcessId  Int?      @map("banking_process_id")
+  additionProcessId Int?      @map("addition_process_id")
+  priority          Int?      @map("priority")
+  description       Json?     @map("description")
+  parentId          Json?     @default("[]") @map("parent_id")
+  extraValue        Json?     @map("extra_value")
+  createdTime       DateTime  @default(now()) @map("created_time")
+  updatedTime       DateTime  @updatedAt @map("updated_time")
+  deletedTime       DateTime  @default(now()) @map("deleted_time")
+  isDeleted         Boolean   @default(false) @map("is_deleted")
 
+  @@index([additionProcessId], map: "fk_pro_addition_process_id_add_id_9meh")
+  @@index([bankingProcessId], map: "fk_pro_banking_process_id_ban_id_1ta5")
+  @@index([personId], map: "fk_pro_person_id_per_id_4mwi")
+  @@index([processStepId], map: "fk_pro_process_step_id_pro_id_jv5i")
+  @@index([userId], map: "fk_pro_user_id_use_id_110w")
+  @@index([taskId], map: "fk_pro_task_id_tas_id_egl0")
   @@map("Process")
 }
 
 model ProcessHasNote {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
+  processId   Int      @map("process_id")
+  noteId      Int      @map("note_id")
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
+  @@id([noteId, processId])
   @@map("ProcessHasNote")
 }
 
-model ProcessHasParentProcess {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
-
-  @@map("ProcessHasParentProcess")
-}
-
 model ProcessLog {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id                      Int       @id @default(autoincrement()) @map("id")
+  processId               Int       @map("process_id")
+  isFinished              Boolean   @default(false) @map("is_finished")
+  finishedTime            DateTime? @map("finished_time")
+  isLogMail               Boolean   @default(false) @map("is_log_mail")
+  isRemind                Boolean   @default(false) @map("is_remind")
+  description             String?   @map("description") @database.VarChar(255)
+  agentId                 Int?      @map("agent_id")
+  fileTemplateId          Int?      @map("file_template_id")
+  companyMemberId         Int?      @map("company_member_id")
+  belongToCompanyMemberId Int?      @map("belong_to_company_member_id")
+  emailTemplateId         Int?      @map("email_template_id")
+  createdTime             DateTime  @default(now()) @map("created_time")
+  deletedTime             DateTime  @default(now()) @map("deleted_time")
+  isDeleted               Boolean   @default(false) @map("is_deleted")
 
+  @@index([agentId], map: "fk_pro_agent_id_age_id_6pr9")
+  @@index([belongToCompanyMemberId], map: "fk_pro_belong_to_company_member_id_com_id_f9aw")
+  @@index([companyMemberId], map: "fk_pro_company_member_id_com_id_e3mj")
+  @@index([fileTemplateId], map: "fk_pro_file_template_id_fil_id_c3wc")
+  @@index([processId], map: "fk_pro_process_id_pro_id_1wjq")
   @@map("ProcessLog")
 }
 
 model ProcessStep {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id                 Int      @id @default(autoincrement()) @map("id")
+  processStepTypeId  Int      @map("process_step_type_id")
+  value              Int?     @unique @map("value")
+  name               String   @map("name") @database.VarChar(100)
+  description        String?  @map("description") @database.Text
+  left               Int?     @map("left")
+  right              Int?     @map("right")
+  parentId           Int?     @map("parent_id")
+  descriptionDisplay String?  @map("description_display") @database.Text
+  isGeneratedFile    Boolean  @default(false) @map("is_generated_file")
+  isSendLinkSigned   Boolean  @default(false) @map("is_send_link_signed")
+  order              Int?     @map("order")
+  deletedTime        DateTime @default(now()) @map("deleted_time")
+  isDeleted          Boolean  @default(false) @map("is_deleted")
 
+  @@index([parentId], map: "parent_id_idx")
+  @@index([processStepTypeId], map: "fk_pro_process_step_type_id_pro_id_e8sy")
   @@map("ProcessStep")
 }
 
 model ProcessStepHasFileTemplate {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  processStepId  Int     @map("process_step_id")
+  fileTemplateId Int     @map("file_template_id")
+  order          Int?    @map("order")
+  isBegin        Boolean @default(false) @map("is_begin")
 
+  @@id([fileTemplateId, processStepId])
   @@map("ProcessStepHasFileTemplate")
 }
 
 model ProcessStepHasRole {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  processStepId Int     @map("process_step_id")
+  roleId        Int     @map("role_id")
+  isMain        Boolean @default(false) @map("is_main")
 
+  @@id([processStepId, roleId])
   @@map("ProcessStepHasRole")
 }
 
 model ProcessStepType {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id            Int      @id @default(autoincrement()) @map("id")
+  name          String   @map("name") @database.VarChar(255)
+  isDashboard   Boolean  @default(false) @map("is_dashboard")
+  relationTypes Json?    @map("relation_types")
+  createdTime   DateTime @default(now()) @map("created_time")
+  updatedTime   DateTime @updatedAt @map("updated_time")
+  deletedTime   DateTime @default(now()) @map("deleted_time")
+  isDeleted     Boolean  @default(false) @map("is_deleted")
 
   @@map("ProcessStepType")
 }
 
 model Promotion {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id            Int      @id @default(autoincrement()) @map("id")
+  promotionCode String   @map("promotion_code") @database.VarChar(255)
+  percent       Int      @default(0) @map("percent")
+  amount        Int      @default(0) @map("amount")
+  isUsed        Boolean  @default(false) @map("is_used")
+  createdTime   DateTime @default(now()) @map("created_time")
+  deletedTime   DateTime @default(now()) @map("deleted_time")
+  isDeleted     Boolean  @default(false) @map("is_deleted")
 
   @@map("Promotion")
 }
 
 model ProposedName {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id              Int      @id @default(autoincrement()) @map("id")
+  name            String   @map("name") @database.VarChar(255)
+  companySuffixId Int      @map("company_suffix_id")
+  taskId          Int?     @map("task_id")
+  companyId       Int?     @map("company_id")
+  isApprove       Boolean  @default(false) @map("is_approve")
+  isSentAgent     Boolean  @default(false) @map("is_sent_agent")
+  isSentCustomer  Boolean  @default(false) @map("is_sent_customer")
+  isConfirmed     Boolean  @default(false) @map("is_confirmed")
+  createdTime     DateTime @default(now()) @map("created_time")
+  updatedTime     DateTime @updatedAt @map("updated_time")
+  deletedTime     DateTime @default(now()) @map("deleted_time")
+  isDeleted       Boolean  @default(false) @map("is_deleted")
 
+  @@index([companyId], map: "fk_pro_company_id_com_id_7hyb")
+  @@index([companySuffixId], map: "fk_pro_company_suffix_id_com_id_5kou")
+  @@index([taskId], map: "fk_pro_task_id_tas_id_62jn")
   @@map("ProposedName")
 }
 
 model ProposedTime {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id               Int      @id @default(autoincrement()) @map("id")
+  bankingProcessId Int      @map("banking_process_id")
+  fromTime         Int      @map("from_time")
+  toTime           Int      @map("to_time")
+  createdTime      DateTime @default(now()) @map("created_time")
+  updatedTime      DateTime @updatedAt @map("updated_time")
+  deletedTime      DateTime @default(now()) @map("deleted_time")
+  isDeleted        Boolean  @default(false) @map("is_deleted")
 
+  @@index([bankingProcessId], map: "fk_pro_banking_process_id_ban_id_24j5")
   @@map("ProposedTime")
 }
 
 model Question {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id                 Int      @id @default(autoincrement()) @map("id")
+  content            String   @map("content") @database.Text
+  isBelongToFatca    Boolean  @default(false) @map("is_belong_to_fatca")
+  description        String?  @map("description") @database.Text
+  questionParentId   Int?     @map("question_parent_id")
+  questionTypeId     Int      @map("question_type_id")
+  questionPriorityId Int?     @map("question_priority_id")
+  createdTime        DateTime @default(now()) @map("created_time")
+  updatedTime        DateTime @updatedAt @map("updated_time")
+  deletedTime        DateTime @default(now()) @map("deleted_time")
+  isDeleted          Boolean  @default(false) @map("is_deleted")
 
+  @@index([questionParentId], map: "fk_taque_question_parent_idx")
+  @@index([questionPriorityId], map: "fk_question_priority_idx_idx")
+  @@index([questionTypeId], map: "fk_question_type_idx")
   @@map("Question")
 }
 
 model QuestionGroup {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id             Int      @id @default(autoincrement()) @map("id")
+  name           String   @map("name") @database.VarChar(200)
+  left           Int?     @map("left")
+  right          Int?     @map("right")
+  fileTemplateId Int?     @map("file_template_id")
+  order          Int?     @map("order")
+  deletedTime    DateTime @default(now()) @map("deleted_time")
+  isDeleted      Boolean  @default(false) @map("is_deleted")
 
   @@map("QuestionGroup")
 }
 
 model QuestionGroupHasQuestion {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  questionGroupId Int @map("question_group_id")
+  questionId      Int @map("question_id")
 
+  @@id([questionGroupId, questionId])
   @@map("QuestionGroupHasQuestion")
 }
 
 model QuestionPriority {
   id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
+  name        String   @map("name") @database.VarChar(45)
+  description String?  @map("description") @database.Text
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
@@ -2232,27 +2337,31 @@ model QuestionPriority {
 }
 
 model QuestionType {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id   Int    @id @default(autoincrement()) @map("id")
+  name String @map("name") @database.Text
 
   @@map("QuestionType")
 }
 
 model RankingPartner {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id                   Int      @id @default(autoincrement()) @map("id")
+  name                 String   @map("name") @database.VarChar(45)
+  taskId               Int      @map("task_id")
+  ranking              Int?     @map("ranking")
+  rankingPartnerTypeId Int?     @map("ranking_partner_type_id")
+  createdTime          DateTime @default(now()) @map("created_time")
+  updatedTime          DateTime @updatedAt @map("updated_time")
+  deletedTime          DateTime @default(now()) @map("deleted_time")
+  isDeleted            Boolean  @default(false) @map("is_deleted")
 
+  @@index([rankingPartnerTypeId], map: "fk_ran_ranking_partner_type_id_ran_id_3u9b")
+  @@index([taskId], map: "fk_ran_task_id_tas_id_badp")
   @@map("RankingPartner")
 }
 
 model RankingPartnerType {
   id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(45)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
   deletedTime DateTime @default(now()) @map("deleted_time")
@@ -2262,41 +2371,51 @@ model RankingPartnerType {
 }
 
 model Rate {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id           Int      @id @default(autoincrement()) @map("id")
+  rateSourceId Int      @map("rate_source_id")
+  ip           String?  @map("ip") @database.VarChar(255)
+  score        Int      @default(0) @map("score")
+  email        String?  @map("email") @database.VarChar(255)
+  description  String?  @map("description") @database.VarChar(255)
+  createdTime  DateTime @default(now()) @map("created_time")
+  updatedTime  DateTime @updatedAt @map("updated_time")
+  deletedTime  DateTime @default(now()) @map("deleted_time")
+  isDeleted    Boolean  @default(false) @map("is_deleted")
 
   @@map("Rate")
 }
 
 model Role {
   id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(45)
+  value       String   @default("") @map("value") @database.VarChar(100)
+  left        Int?     @map("left")
+  right       Int?     @map("right")
+  parentId    Int?     @map("parent_id")
+  description String?  @map("description") @database.Text
+  status      Int      @default(1) @map("status")
+  colorCode   Json?    @map("color_code")
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
+  @@index([parentId], map: "fk_role_role1_idx")
   @@map("Role")
 }
 
 model RoleHasLimit {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  roleId  Int @map("role_id")
+  limitId Int @map("limit_id")
 
+  @@id([limitId, roleId])
   @@map("RoleHasLimit")
 }
 
 model RoleHasPermission {
-  id          Int      @id @default(autoincrement()) @map("id")
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  roleId       Int @map("role_id")
+  permissionId Int @map("permission_id")
 
+  @@id([roleId, permissionId])
   @@map("RoleHasPermission")
 }
