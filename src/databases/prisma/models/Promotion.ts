@@ -31,6 +31,7 @@ export default createModel(MODEL_NAME.PROMOTION, (PromotionModel) => {
     })
       .string(ATTRIBUTE.promotionCode, {
         map: COLUMN.promotionCode,
+        raw: RAW_STRING.LENGTH_255,
       })
       .int(ATTRIBUTE.percent, {
         map: COLUMN.percent,
