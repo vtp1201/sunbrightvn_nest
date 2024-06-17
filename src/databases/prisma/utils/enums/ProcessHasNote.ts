@@ -1,31 +1,25 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
-  id = 'id',
-  createdTime = ATTRIBUTE_DEFAULT.createdTime,
-  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
+  processId = 'processId',
+  noteId = 'noteId',
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
   isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
 
 export enum COLUMN {
-  id = 'id',
-  createdTime = COLUMN_DEFAULT.createdTime,
-  updatedTime = COLUMN_DEFAULT.updatedTime,
+  processId = 'process_id',
+  noteId = 'note_id',
   deletedTime = COLUMN_DEFAULT.deletedTime,
   isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
 export enum RELATION {
-
-}
-
-export enum INDEX {
-
+  note = RELATION_DEFAULT.note,
+  process = RELATION_DEFAULT.process,
 }
 
 export default {
   ATTRIBUTE,
   RELATION,
 };
-
