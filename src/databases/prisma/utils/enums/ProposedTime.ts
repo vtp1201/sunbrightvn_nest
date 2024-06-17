@@ -1,7 +1,10 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
+  bankingProcessId = 'bankingProcessId',
+  fromTime = 'fromTime',
+  toTime = 'toTime',
   createdTime = ATTRIBUTE_DEFAULT.createdTime,
   updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
@@ -10,6 +13,9 @@ export enum ATTRIBUTE {
 
 export enum COLUMN {
   id = 'id',
+  bankingProcessId = 'banking_process_id',
+  fromTime = 'from_time',
+  toTime = 'to_time',
   createdTime = COLUMN_DEFAULT.createdTime,
   updatedTime = COLUMN_DEFAULT.updatedTime,
   deletedTime = COLUMN_DEFAULT.deletedTime,
@@ -17,15 +23,14 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-
+  bankingProcess = RELATION_DEFAULT.bankingProcess,
 }
 
 export enum INDEX {
-
+  bankingProcessId = `@@index([${ATTRIBUTE.bankingProcessId}], map: "fk_pro_banking_process_id_ban_id_24j5")`,
 }
 
 export default {
   ATTRIBUTE,
   RELATION,
 };
-

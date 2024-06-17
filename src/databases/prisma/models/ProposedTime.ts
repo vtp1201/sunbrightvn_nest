@@ -33,6 +33,15 @@ export default createModel(MODEL_NAME.PROPOSED_TIME, (ProposedTimeModel) => {
         autoincrement: true,
       },
     })
+      .int(ATTRIBUTE.bankingProcessId, {
+        map: COLUMN.bankingProcessId,
+      })
+      .int(ATTRIBUTE.fromTime, {
+        map: COLUMN.fromTime,
+      })
+      .int(ATTRIBUTE.toTime, {
+        map: COLUMN.toTime,
+      })
 
       // dateTime marks
       .mixin(initCreatedTime)
@@ -40,7 +49,7 @@ export default createModel(MODEL_NAME.PROPOSED_TIME, (ProposedTimeModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw()
+      .raw(INDEX.bankingProcessId)
 
       // table name
       .map(TABLE_NAME.PROPOSED_TIME);
