@@ -30,6 +30,5 @@
       "@databases": ["src/databases"],
       "@middlewares": ["src/middlewares"]
     }
-  },
-  "exclude": ["node_modules"]
+  }
 }

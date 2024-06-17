@@ -63,7 +63,6 @@ export { default as E_PERMISSION_GROUP } from './PermissionGroup';
 export { default as E_PERMISSION } from './Permission';
 export { default as E_PERSON } from './Person';
 export { default as E_PROCESS_HAS_NOTE } from './ProcessHasNote';
-export { default as E_PROCESS_HAS_PARENT_PROCESS } from './ProcessHasParentProcess';
 export { default as E_PROCESS_LOG } from './ProcessLog';
 export { default as E_PROCESS_STEP_HAS_FILE_TEMPLATE } from './ProcessStepHasFileTemplate';
 export { default as E_PROCESS_STEP_HAS_ROLE } from './ProcessStepHasRole';
