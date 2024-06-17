@@ -1,7 +1,7 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/ProcessStepType';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/ProcessStepType';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
 export default createModel(
@@ -35,14 +35,23 @@ export default createModel(
           autoincrement: true,
         },
       })
+        .string(ATTRIBUTE.name, {
+          map: COLUMN.name,
+          raw: RAW_STRING.LENGTH_255,
+        })
+        .boolean(ATTRIBUTE.isDashboard, {
+          map: COLUMN.isDashboard,
+          default: false,
+        })
+        .json(ATTRIBUTE.relationTypes, {
+          map: COLUMN.relationTypes,
+          optional: true,
+        })
 
         // dateTime marks
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
-
-        // indexes
-        .raw()
 
         // table name
         .map(TABLE_NAME.PROCESS_STEP_TYPE);

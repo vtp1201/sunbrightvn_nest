@@ -17,6 +17,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  processSteps = 'processSteps',
   person = 'person',
   titleName = 'titleName',
   permissions = 'permissions',
