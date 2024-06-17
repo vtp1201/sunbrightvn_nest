@@ -10,6 +10,7 @@ export const RAW_STRING = {
   LENGTH_10: '@database.VarChar(10)',
   TEXT: '@database.Text',
   LONG_TEXT: '@database.LongText',
+  CHAR_36: '@database.Char(36)',
 };
 
 export const RAW_NUMBER = {

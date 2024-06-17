@@ -17,6 +17,12 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  serviceChangeOfficer = 'serviceChangeOfficer',
+  xeroAccount = 'xeroAccount',
+  subscriptions = 'subscriptions',
+  visaType = 'visaType',
+  visaPurpose = 'visaPurpose',
+  serviceUnit = 'serviceUnit',
   parentRole = 'parentRole',
   rankingPartners = 'rankingPartners',
   questions = 'questions',
