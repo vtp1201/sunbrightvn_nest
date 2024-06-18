@@ -1,52 +1,24 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/UserHasRole';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/UserHasRole';
 
-export default createModel(
-  MODEL_NAME.USER_HAS_ROLE,
-  (UserHasRoleModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
-    const initDeleted = deleted(
-      {
-        attribute: ATTRIBUTE.deletedTime,
-        column: COLUMN.deletedTime,
-      },
-      {
-        attribute: ATTRIBUTE.isDeleted,
-        column: COLUMN.isDeleted,
-      },
-    );
-
-    // defined Model
-    process.nextTick(() => {
-      UserHasRoleModel.int(ATTRIBUTE.id, {
-        id: true,
-        map: COLUMN.id,
-        default: {
-          autoincrement: true,
-        },
+export default createModel(MODEL_NAME.USER_HAS_ROLE, (UserHasRoleModel) => {
+  // defined Model
+  process.nextTick(() => {
+    UserHasRoleModel.int(ATTRIBUTE.userId, {
+      map: COLUMN.userId,
+    })
+      .int(ATTRIBUTE.roleId, {
+        map: COLUMN.roleId,
       })
 
-        // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
-        .mixin(initDeleted)
+      // ids
+      .id({
+        fields: [ATTRIBUTE.roleId, ATTRIBUTE.userId],
+      })
 
-        // indexes
-        .raw()
-
-        // table name
-        .map(TABLE_NAME.USER_HAS_ROLE);
-    });
-  },
-);
-
+      // table name
+      .map(TABLE_NAME.USER_HAS_ROLE);
+  });
+});
