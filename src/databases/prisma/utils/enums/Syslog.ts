@@ -27,9 +27,6 @@ export enum ATTRIBUTE {
   errMessage = 'errMessage',
   errStackTrace = 'errStackTrace',
   createdTime = ATTRIBUTE_DEFAULT.createdTime,
-  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
-  deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
-  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
 
 export enum COLUMN {
@@ -57,9 +54,6 @@ export enum COLUMN {
   errMessage = 'err_message',
   errStackTrace = 'err_stack_trace',
   createdTime = COLUMN_DEFAULT.createdTime,
-  updatedTime = COLUMN_DEFAULT.updatedTime,
-  deletedTime = COLUMN_DEFAULT.deletedTime,
-  isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
 export enum RELATION {
