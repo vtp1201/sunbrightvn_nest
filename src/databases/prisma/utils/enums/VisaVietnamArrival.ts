@@ -2,30 +2,27 @@ import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
-  createdTime = ATTRIBUTE_DEFAULT.createdTime,
-  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
+  countryId = 'countryId',
+  dayFree = 'dayFree',
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
   isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
 
 export enum COLUMN {
   id = 'id',
-  createdTime = COLUMN_DEFAULT.createdTime,
-  updatedTime = COLUMN_DEFAULT.updatedTime,
+  countryId = 'country_id',
+  dayFree = 'day_free',
   deletedTime = COLUMN_DEFAULT.deletedTime,
   isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
-export enum RELATION {
-
-}
+export enum RELATION {}
 
 export enum INDEX {
-
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: "fk_visa_vietnam_arrival_country1")`,
 }
 
 export default {
   ATTRIBUTE,
   RELATION,
 };
-

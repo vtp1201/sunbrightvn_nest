@@ -2,19 +2,11 @@ import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/VisaVietnamArrival';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { deleted } from '../mixins';
 
 export default createModel(
   MODEL_NAME.VISA_VIETNAM_ARRIVAL,
   (VisaVietnamArrivalModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
     const initDeleted = deleted(
       {
         attribute: ATTRIBUTE.deletedTime,
@@ -35,18 +27,23 @@ export default createModel(
           autoincrement: true,
         },
       })
+        .int(ATTRIBUTE.countryId, {
+          optional: true,
+          map: COLUMN.countryId,
+        })
+        .int(ATTRIBUTE.dayFree, {
+          optional: true,
+          map: COLUMN.dayFree,
+        })
 
         // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
         .mixin(initDeleted)
 
         // indexes
-        .raw()
+        .raw(INDEX.countryId)
 
         // table name
         .map(TABLE_NAME.VISA_VIETNAM_ARRIVAL);
     });
   },
 );
-

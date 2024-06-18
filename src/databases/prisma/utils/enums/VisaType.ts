@@ -3,7 +3,6 @@ import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
 export enum ATTRIBUTE {
   id = 'id',
   name = 'name',
-
   deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
   isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
