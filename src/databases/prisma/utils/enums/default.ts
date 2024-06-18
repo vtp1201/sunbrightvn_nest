@@ -17,13 +17,13 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  urlListType = 'urlListType',
   syslogType = 'syslogType',
   surveyChoices = 'surveyChoices',
   supportCases = 'supportCases',
   messages = 'messages',
   supportCaseStatus = 'supportCaseStatus',
   supportCaseType = 'supportCaseType',
-
   supportCasePriority = 'supportCasePriority',
   users = 'users',
   department = 'department',
