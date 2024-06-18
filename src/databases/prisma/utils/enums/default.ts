@@ -17,6 +17,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  syslogType = 'syslogType',
   surveyChoices = 'surveyChoices',
   supportCases = 'supportCases',
   messages = 'messages',
