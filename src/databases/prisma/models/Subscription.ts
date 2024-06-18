@@ -1,52 +1,70 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Subscription';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
-export default createModel(
-  MODEL_NAME.SUBSCRIPTION,
-  (SubscriptionModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
-    const initDeleted = deleted(
-      {
-        attribute: ATTRIBUTE.deletedTime,
-        column: COLUMN.deletedTime,
-      },
-      {
-        attribute: ATTRIBUTE.isDeleted,
-        column: COLUMN.isDeleted,
-      },
-    );
+export default createModel(MODEL_NAME.SUBSCRIPTION, (SubscriptionModel) => {
+  const initCreatedTime = createdTime({
+    attribute: ATTRIBUTE.createdTime,
+    column: COLUMN.createdTime,
+  });
+  const initUpdatedTime = updatedTime({
+    attribute: ATTRIBUTE.updatedTime,
+    column: COLUMN.updatedTime,
+  });
+  const initDeleted = deleted(
+    {
+      attribute: ATTRIBUTE.deletedTime,
+      column: COLUMN.deletedTime,
+    },
+    {
+      attribute: ATTRIBUTE.isDeleted,
+      column: COLUMN.isDeleted,
+    },
+  );
 
-    // defined Model
-    process.nextTick(() => {
-      SubscriptionModel.int(ATTRIBUTE.id, {
-        id: true,
-        map: COLUMN.id,
-        default: {
-          autoincrement: true,
-        },
+  // defined Model
+  process.nextTick(() => {
+    SubscriptionModel.int(ATTRIBUTE.id, {
+      id: true,
+      map: COLUMN.id,
+      default: {
+        autoincrement: true,
+      },
+    })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        raw: RAW_STRING.LENGTH_45,
+      })
+      .string(ATTRIBUTE.description, {
+        map: COLUMN.description,
+        raw: RAW_STRING.TEXT,
+        optional: true,
+      })
+      .string(ATTRIBUTE.value, {
+        map: COLUMN.value,
+        optional: true,
+        raw: RAW_STRING.TEXT,
+      })
+      .int(ATTRIBUTE.serviceId, {
+        map: COLUMN.serviceId,
+        optional: true,
+      })
+      .int(ATTRIBUTE.numOfCompany, {
+        map: COLUMN.numOfCompany,
+        optional: true,
       })
 
-        // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
-        .mixin(initDeleted)
+      // dateTime marks
+      .mixin(initCreatedTime)
+      .mixin(initUpdatedTime)
+      .mixin(initDeleted)
 
-        // indexes
-        .raw()
+      // indexes
+      .raw(INDEX.serviceId)
 
-        // table name
-        .map(TABLE_NAME.SUBSCRIPTION);
-    });
-  },
-);
-
+      // table name
+      .map(TABLE_NAME.SUBSCRIPTION);
+  });
+});
