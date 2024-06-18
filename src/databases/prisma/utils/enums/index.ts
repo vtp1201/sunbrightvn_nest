@@ -87,7 +87,6 @@ export { default as E_SERVICE_CHANGE_OFFICER } from './ServiceChangeOfficer';
 export { default as E_SERVICE_HAS_COMPANY_MEMBER_TYPE } from './ServiceHasCompanyMemberType';
 export { default as E_SERVICE_HAS_COMPANY_SUFFIX } from './ServiceHasCompanySuffix';
 export { default as E_SERVICE_HAS_FILE_TEMPLATE } from './ServiceHasFileTemplate';
-export { default as E_SERVICE_TYPE_COMPANY_MEMBER_TYPE } from './ServiceTypeCompanyMemberType';
 export { default as E_SERVICE_TYPE_HAS_DEPARTMENT } from './ServiceTypeHasDepartment';
 export { default as E_SERVICE_TYPE } from './ServiceType';
 export { default as E_SERVICE_UNIT } from './ServiceUnit';
