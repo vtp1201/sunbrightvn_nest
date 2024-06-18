@@ -17,6 +17,11 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  messages = 'messages',
+  supportCaseStatus = 'supportCaseStatus',
+  supportCaseType = 'supportCaseType',
+
+  supportCasePriority = 'supportCasePriority',
   users = 'users',
   department = 'department',
   serviceChangeOfficer = 'serviceChangeOfficer',
