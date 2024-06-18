@@ -17,6 +17,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  department = 'department',
   serviceChangeOfficer = 'serviceChangeOfficer',
   xeroAccount = 'xeroAccount',
   subscriptions = 'subscriptions',
