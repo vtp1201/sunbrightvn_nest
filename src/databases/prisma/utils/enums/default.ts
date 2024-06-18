@@ -17,6 +17,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  supportCases = 'supportCases',
   messages = 'messages',
   supportCaseStatus = 'supportCaseStatus',
   supportCaseType = 'supportCaseType',

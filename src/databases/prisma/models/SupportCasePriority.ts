@@ -1,20 +1,12 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/SupportCasePriority';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/SupportCasePriority';
+import { deleted } from '../mixins';
 
 export default createModel(
   MODEL_NAME.SUPPORT_CASE_PRIORITY,
   (SupportCasePriorityModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
     const initDeleted = deleted(
       {
         attribute: ATTRIBUTE.deletedTime,
@@ -35,18 +27,21 @@ export default createModel(
           autoincrement: true,
         },
       })
+        .string(ATTRIBUTE.name, {
+          map: COLUMN.name,
+          raw: RAW_STRING.LENGTH_100,
+        })
+        .string(ATTRIBUTE.description, {
+          map: COLUMN.description,
+          raw: RAW_STRING.LENGTH_200,
+          optional: true,
+        })
 
         // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
         .mixin(initDeleted)
-
-        // indexes
-        .raw()
 
         // table name
         .map(TABLE_NAME.SUPPORT_CASE_PRIORITY);
     });
   },
 );
-
