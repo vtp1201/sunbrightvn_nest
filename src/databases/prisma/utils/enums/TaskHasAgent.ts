@@ -1,31 +1,28 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+// TaskHasAgentEnum.ts
+
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
-  id = 'id',
+  taskId = 'taskId',
+  agentId = 'agentId',
+  additionProcessId = 'additionProcessId',
   createdTime = ATTRIBUTE_DEFAULT.createdTime,
-  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
-  deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
-  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
 }
 
 export enum COLUMN {
-  id = 'id',
+  taskId = 'task_id',
+  agentId = 'agent_id',
+  additionProcessId = 'addition_process_id',
   createdTime = COLUMN_DEFAULT.createdTime,
-  updatedTime = COLUMN_DEFAULT.updatedTime,
-  deletedTime = COLUMN_DEFAULT.deletedTime,
-  isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
 export enum RELATION {
-
-}
-
-export enum INDEX {
-
+  additionProcess = RELATION_DEFAULT.additionProcess,
+  agent = RELATION_DEFAULT.agent,
+  task = RELATION_DEFAULT.task,
 }
 
 export default {
   ATTRIBUTE,
   RELATION,
 };
-
