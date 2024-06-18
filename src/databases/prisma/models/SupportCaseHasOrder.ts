@@ -1,52 +1,36 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/SupportCaseHasOrder';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/SupportCaseHasOrder';
+import { updatedTime } from '../mixins';
 
 export default createModel(
   MODEL_NAME.SUPPORT_CASE_HAS_ORDER,
   (SupportCaseHasOrderModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
     const initUpdatedTime = updatedTime({
       attribute: ATTRIBUTE.updatedTime,
       column: COLUMN.updatedTime,
     });
-    const initDeleted = deleted(
-      {
-        attribute: ATTRIBUTE.deletedTime,
-        column: COLUMN.deletedTime,
-      },
-      {
-        attribute: ATTRIBUTE.isDeleted,
-        column: COLUMN.isDeleted,
-      },
-    );
 
     // defined Model
     process.nextTick(() => {
-      SupportCaseHasOrderModel.int(ATTRIBUTE.id, {
-        id: true,
-        map: COLUMN.id,
-        default: {
-          autoincrement: true,
-        },
+      SupportCaseHasOrderModel.int(ATTRIBUTE.supportCaseId, {
+        map: COLUMN.supportCaseId,
       })
+        .int(ATTRIBUTE.orderId, {
+          map: COLUMN.orderId,
+        })
 
         // dateTime marks
-        .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
-        .mixin(initDeleted)
 
-        // indexes
-        .raw()
+        // ids
+        .id({
+          fields: [ATTRIBUTE.supportCaseId, ATTRIBUTE.orderId],
+        })
 
         // table name
         .map(TABLE_NAME.SUPPORT_CASE_HAS_ORDER);
     });
   },
 );
-
