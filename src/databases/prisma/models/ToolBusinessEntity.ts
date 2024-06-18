@@ -35,6 +35,24 @@ export default createModel(
           autoincrement: true,
         },
       })
+        .int(ATTRIBUTE.optionId, {
+          map: COLUMN.optionId,
+        })
+        .int(ATTRIBUTE.entityTypeId, {
+          map: COLUMN.entityTypeId,
+        })
+        .int(ATTRIBUTE.score, {
+          map: COLUMN.score,
+          optional: true,
+        })
+        .boolean(ATTRIBUTE.isReject, {
+          map: COLUMN.isReject,
+          default: false,
+        })
+        .boolean(ATTRIBUTE.isReset, {
+          map: COLUMN.isReset,
+          default: false,
+        })
 
         // dateTime marks
         .mixin(initCreatedTime)
@@ -42,11 +60,11 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw()
+        .raw(INDEX.entityTypeId)
+        .raw(INDEX.optionId)
 
         // table name
         .map(TABLE_NAME.TOOL_BUSINESS_ENTITY);
     });
   },
 );
-
