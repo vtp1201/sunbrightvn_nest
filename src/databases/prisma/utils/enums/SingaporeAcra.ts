@@ -2,30 +2,21 @@ import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
-  createdTime = ATTRIBUTE_DEFAULT.createdTime,
-  updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
-  deletedTime = ATTRIBUTE_DEFAULT.deletedTime,
-  isDeleted = ATTRIBUTE_DEFAULT.isDeleted,
+  entityName = 'entityName',
 }
 
 export enum COLUMN {
   id = 'id',
-  createdTime = COLUMN_DEFAULT.createdTime,
-  updatedTime = COLUMN_DEFAULT.updatedTime,
-  deletedTime = COLUMN_DEFAULT.deletedTime,
-  isDeleted = COLUMN_DEFAULT.isDeleted,
+  entityName = 'entity_name',
 }
 
-export enum RELATION {
-
-}
+export enum RELATION {}
 
 export enum INDEX {
-
+  entityName = `@@index([${ATTRIBUTE.entityName}])`,
 }
 
 export default {
   ATTRIBUTE,
   RELATION,
 };
-
