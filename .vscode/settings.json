@@ -1,5 +1,13 @@
 {
-  "cSpell.words": ["ACRA", "conv", "datasource", "Fatca", "schemix", "syslogs"],
+  "cSpell.words": [
+    "ACRA",
+    "conv",
+    "datasource",
+    "Fatca",
+    "schemix",
+    "syslogs",
+    "tawk"
+  ],
   "[javascript]": {
     "editor.autoIndent": "keep"
   },

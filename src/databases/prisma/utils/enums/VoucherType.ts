@@ -26,6 +26,7 @@ export enum COLUMN {
 
 export enum RELATION {
   clicks = RELATION_DEFAULT.clicks,
+  vouchers = RELATION_DEFAULT.vouchers,
 }
 
 export default {
