@@ -113,7 +113,7 @@ export { default as E_TOOL_BUSINESS_ENTITY } from './ToolBusinessEntity';
 export { default as E_TYPE_MEMBER } from './TypeMember';
 export { default as E_URL_LIST_TYPE } from './UrlListType';
 export { default as E_URL_LIST } from './UrlList';
-export { default as E_READ_NOTIFICATION } from './ReadNotification';
+export { default as E_READ_NOTIFICATION } from './UserHasNotification';
 export { default as E_USER_HAS_ROLE } from './UserHasRole';
 export { default as E_USER } from './User';
 export { default as E_VISA_ORDER } from './VisaOrder';
