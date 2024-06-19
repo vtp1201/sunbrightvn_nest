@@ -1,5 +1,3 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
-
 export enum ATTRIBUTE {
   id = 'id',
   entityName = 'entityName',
