@@ -24,5 +24,5 @@ export const RAW_NUMBER = {
 
 export const RAW_DATE_TIME = {
   DATE_ONLY: '@database.Date',
-  DATE_CURRENT: '@database..DateTime(0)',
+  DATE_CURRENT: '@database.DateTime(0)',
 };

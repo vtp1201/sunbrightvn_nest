@@ -3,7 +3,6 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/XeroAccount';
 import { createdTime, deleted, updatedTime } from '../mixins';
-import { XERO_ACCOUNT_TYPE } from '@utilities/constants/xeroAccount';
 
 export default createModel(MODEL_NAME.XERO_ACCOUNT, (XeroAccountModel) => {
   const initCreatedTime = createdTime({
@@ -46,7 +45,7 @@ export default createModel(MODEL_NAME.XERO_ACCOUNT, (XeroAccountModel) => {
       .string(ATTRIBUTE.type, {
         map: COLUMN.type,
         raw: RAW_STRING.LENGTH_50,
-        default: XERO_ACCOUNT_TYPE.SALE,
+        default: 'SALE',
       })
       .string(ATTRIBUTE.code, {
         map: COLUMN.code,

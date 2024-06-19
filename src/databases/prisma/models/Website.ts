@@ -3,7 +3,6 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Website';
 import { createdTime, deleted } from '../mixins';
-import { CURRENCY_IDS } from '@utilities/constants/currency';
 
 export default createModel(MODEL_NAME.WEBSITE, (WebsiteModel) => {
   const initCreatedTime = createdTime({
@@ -32,7 +31,7 @@ export default createModel(MODEL_NAME.WEBSITE, (WebsiteModel) => {
     })
       .int(ATTRIBUTE.currencyId, {
         map: COLUMN.currencyId,
-        default: CURRENCY_IDS.USD,
+        default: 1,
       })
       .string(ATTRIBUTE.name, {
         map: COLUMN.name,

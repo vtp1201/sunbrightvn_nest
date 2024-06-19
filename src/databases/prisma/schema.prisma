@@ -2419,3 +2419,701 @@ model RoleHasPermission {
   @@id([roleId, permissionId])
   @@map("RoleHasPermission")
 }
+
+model Service {
+  id                      Int      @id @default(autoincrement()) @map("id")
+  serviceTypeId           Int      @map("service_type_id")
+  websiteId               Int      @map("website_id")
+  visaTypeId              Int?     @map("visa_type_id")
+  visaPurposeId           Int?     @map("visa_purpose_id")
+  carTypeId               Int?     @map("car_type_id")
+  carSeatId               Int?     @map("car_seat_id")
+  airportId               Int?     @map("airport_id")
+  serviceUnitId           Int?     @map("service_unit_id")
+  name                    String   @map("name") @database.Text
+  description             String?  @map("description") @database.Text
+  xeroItemId              String?  @map("xero_item_id") @database.VarChar(45)
+  xeroItemCode            String?  @map("xero_item_code") @database.VarChar(45)
+  uuid                    String?  @map("uuid") @database.Char(36)
+  xeroAccountId           Int?     @map("xero_account_id")
+  isActive                Boolean  @default(true) @map("is_active")
+  isServiceOutsideCompany Boolean  @default(false) @map("is_service_outside_company")
+  isDisplayed             Boolean  @default(true) @map("is_displayed")
+  isAttachIncorp          Boolean  @default(true) @map("is_attach_incorp")
+  quantity                Int?     @map("quantity")
+  upgradeServiceId        Int?     @map("upgrade_service_id")
+  discountServiceId       Int?     @map("discount_service_id")
+  createdTime             DateTime @default(now()) @map("created_time")
+  updatedTime             DateTime @updatedAt @map("updated_time")
+  deletedTime             DateTime @default(now()) @map("deleted_time")
+  isDeleted               Boolean  @default(false) @map("is_deleted")
+
+  @@index([airportId], map: "fk_service_airport1_idx")
+  @@index([carSeatId], map: "fk_service_car_seat1_idx")
+  @@index([carTypeId], map: "fk_service_car_type1_idx")
+  @@index([discountServiceId], map: "fk_discount_service_id_idx")
+  @@index([serviceTypeId], map: "fk_service_service_type1_idx")
+  @@index([serviceUnitId], map: "fk_service_service_unit1_idx")
+  @@index([upgradeServiceId], map: "fk_upgrade_service_id_idx")
+  @@index([visaPurposeId], map: "fk_service_visa_purpose1_idx")
+  @@index([visaTypeId], map: "fk_service_visa_type1_idx")
+  @@index([websiteId], map: "fk_service_website1_idx")
+  @@index([xeroAccountId], map: "fk_service_xero_account")
+  @@map("Service")
+}
+
+model ServiceChangeOfficer {
+  id                    Int      @id @default(autoincrement()) @map("id")
+  companyMemberTypeId   Int      @map("company_member_type_id")
+  changeRequestStatusId Int      @map("change_request_status_id")
+  name                  String   @map("name") @database.Text
+  description           String?  @map("description") @database.Text
+  createdTime           DateTime @default(now()) @map("created_time")
+  updatedTime           DateTime @updatedAt @map("updated_time")
+  deletedTime           DateTime @default(now()) @map("deleted_time")
+  isDeleted             Boolean  @default(false) @map("is_deleted")
+
+  @@index([changeRequestStatusId], map: "fk_service_change_officer_change_request_status_id_idx")
+  @@index([companyMemberTypeId], map: "fk_service_change_officer_company_member_type_id_idx")
+  @@map("ServiceChangeOfficer")
+}
+
+model ServiceHasCompanyMemberType {
+  serviceChangeOfficerId Int @map("service_change_officer_id")
+  fileTemplateId         Int @map("file_template_id")
+
+  @@id([serviceChangeOfficerId, fileTemplateId])
+  @@map("ServiceHasCompanyMemberType")
+}
+
+model ServiceHasCompanySuffix {
+  serviceId       Int @map("service_id")
+  companySuffixId Int @map("company_suffix_id")
+
+  @@id([serviceId, companySuffixId])
+  @@map("ServiceHasCompanySuffix")
+}
+
+model ServiceHasFileTemplate {
+  serviceId      Int @map("service_id")
+  fileTemplateId Int @map("file_template_id")
+
+  @@id([serviceId, fileTemplateId])
+  @@map("ServiceHasFileTemplate")
+}
+
+model ServiceType {
+  id               Int      @id @default(autoincrement()) @map("id")
+  name             String   @map("name") @database.VarChar(45)
+  description      String?  @map("description") @database.Text
+  left             Int?     @map("left")
+  right            Int?     @map("right")
+  parentId         Int?     @map("parent_id")
+  websiteId        Int?     @map("website_id")
+  isActive         Boolean  @default(true) @map("is_active")
+  isRequired       Boolean  @default(false) @map("is_required")
+  isOnly           Boolean  @default(false) @map("is_only")
+  processStepTypes Json?    @map("process_step_types")
+  order            Int?     @map("order")
+  createdTime      DateTime @default(now()) @map("created_time")
+  updatedTime      DateTime @updatedAt @map("updated_time")
+  deletedTime      DateTime @default(now()) @map("deleted_time")
+  isDeleted        Boolean  @default(false) @map("is_deleted")
+
+  @@index([parentId], map: "fk_service_type_service_type1_idx")
+  @@index([websiteId], map: "fk_ser_website_id_web_id_41gc")
+  @@map("ServiceType")
+}
+
+model ServiceTypeHasDepartment {
+  serviceTypeId Int @map("service_type_id")
+  departmentId  Int @map("department_id")
+
+  @@id([departmentId, serviceTypeId])
+  @@map("ServiceTypeHasDepartment")
+}
+
+model ServiceUnit {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(45)
+  plural      String?  @map("plural") @database.VarChar(45)
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("ServiceUnit")
+}
+
+model SingaporeAcra {
+  id         Int    @id @default(autoincrement()) @map("id")
+  entityName String @map("entity_name") @database.Text
+
+  // @@index([entityName])
+  @@map("SingaporeAcra")
+}
+
+model Subscription {
+  id           Int      @id @default(autoincrement()) @map("id")
+  name         String   @map("name") @database.VarChar(45)
+  description  String?  @map("description") @database.Text
+  value        String?  @map("value") @database.Text
+  serviceId    Int?     @map("service_id")
+  numOfCompany Int?     @map("num_of_company")
+  createdTime  DateTime @default(now()) @map("created_time")
+  updatedTime  DateTime @updatedAt @map("updated_time")
+  deletedTime  DateTime @default(now()) @map("deleted_time")
+  isDeleted    Boolean  @default(false) @map("is_deleted")
+
+  @@index([serviceId], map: "FK_service_sub")
+  @@map("Subscription")
+}
+
+model SupportCase {
+  id                    Int      @id @default(autoincrement()) @map("id")
+  subject               String   @map("subject") @database.VarChar(255)
+  userId                Int?     @map("user_id")
+  supportCaseTypeId     Int      @map("support_case_type_id")
+  supportCaseStatusId   Int      @map("support_case_status_id")
+  supportCasePriorityId Int      @map("support_case_priority_id")
+  point                 Int      @map("point")
+  createdTime           DateTime @default(now()) @map("created_time")
+  deletedTime           DateTime @default(now()) @map("deleted_time")
+  isDeleted             Boolean  @default(false) @map("is_deleted")
+
+  @@index([supportCasePriorityId], map: "fk_sup_support_case_priority_id_sup_id_3hj0")
+  @@index([supportCaseStatusId], map: "fk_sup_support_case_status_id_sup_id_fe69")
+  @@index([supportCaseTypeId], map: "fk_sup_support_case_type_id_sup_id_3ntx")
+  @@index([userId], map: "fk_sup_user_id_use_id_ge4h")
+  @@map("SupportCase")
+}
+
+model SupportCaseHasOrder {
+  supportCaseId Int      @map("support_case_id")
+  orderId       Int      @map("order_id")
+  updatedTime   DateTime @updatedAt @map("updated_time")
+
+  @@id([supportCaseId, orderId])
+  @@map("SupportCaseHasOrder")
+}
+
+model SupportCasePriority {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(100)
+  description String?  @map("description") @database.VarChar(200)
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("SupportCasePriority")
+}
+
+model SupportCaseStatus {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(100)
+  description String?  @map("description") @database.VarChar(200)
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("SupportCaseStatus")
+}
+
+model SupportCaseType {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(100)
+  description String?  @map("description") @database.VarChar(200)
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("SupportCaseType")
+}
+
+model Survey {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.Text
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("Survey")
+}
+
+model SurveyChoice {
+  id          Int      @id @default(autoincrement()) @map("id")
+  surveyId    Int      @map("survey_id")
+  name        String   @map("name") @database.Text
+  isContent   Boolean  @default(false) @map("is_content")
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@index([surveyId], map: "fk_survey_choice_survey_idx")
+  @@map("SurveyChoice")
+}
+
+model Syslog {
+  id                Int      @id @default(autoincrement()) @map("id")
+  apiUrl            String   @map("api_url") @database.VarChar(255)
+  userId            Int?     @map("user_id")
+  syslogTypeId      Int?     @map("syslog_type_id")
+  username          String?  @map("username") @database.VarChar(255)
+  bodyReq           String?  @map("body_req") @database.LongText
+  apiMethodId       Int      @map("api_method_id")
+  relevantLink      String?  @map("relevant_link") @database.VarChar(255)
+  ipAddress         String?  @map("ip_address") @database.VarChar(255)
+  countryId         Int?     @map("country_id")
+  customerId        Int?     @map("customer_id")
+  orderId           Int?     @map("order_id")
+  taskId            Int?     @map("task_id")
+  status            Int?     @map("status")
+  host              String?  @map("host") @database.VarChar(255)
+  referer           String?  @map("referer") @database.VarChar(255)
+  userAgent         String?  @map("user_agent") @database.VarChar(255)
+  method            String?  @map("method") @database.VarChar(255)
+  tokenId           Int?     @map("token_id")
+  isError           Boolean  @default(false) @map("is_error")
+  isUnExpectedError Boolean  @default(false) @map("is_un_expected_error")
+  errMessage        String?  @map("err_message") @database.VarChar(255)
+  errStackTrace     String?  @map("err_stack_trace") @database.VarChar(255)
+  createdTime       DateTime @default(now()) @map("created_time")
+
+  @@index([apiMethodId], map: "fk_sys_api_method_id_api_id_8yj3")
+  @@index([countryId], map: "fk_sys_country_id_cou_id_17il")
+  @@index([syslogTypeId], map: "fk_sys_syslog_type_id_sys_id_cbyy")
+  @@index([userId], map: "fk_sys_user_id_use_id_iwew")
+  @@map("Syslog")
+}
+
+model SyslogType {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(200)
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("SyslogType")
+}
+
+model Target {
+  id           Int       @id @default(autoincrement()) @map("id")
+  countryId    Int       @map("country_id")
+  value        Int?      @map("value")
+  targetTypeId Int?      @map("target_type_id")
+  dateOfTarget DateTime? @map("date_of_target") @database.Date
+  createdTime  DateTime  @default(now()) @map("created_time")
+  updatedTime  DateTime  @updatedAt @map("updated_time")
+  deletedTime  DateTime  @default(now()) @map("deleted_time")
+  isDeleted    Boolean   @default(false) @map("is_deleted")
+
+  @@index([countryId])
+  @@map("Target")
+}
+
+model Task {
+  id                                       Int      @id @default(autoincrement()) @map("id")
+  customerId                               Int?     @map("customer_id")
+  companyId                                Int?     @map("company_id")
+  orderId                                  Int?     @map("order_id")
+  upgradeOrderId                           Int?     @map("upgrade_order_id")
+  entityTypeId                             Int?     @map("entity_type_id")
+  countryId                                Int?     @map("country_id")
+  incorporationCountryId                   Int?     @map("incorporation_country_id")
+  isRemindClientContact                    Boolean  @default(false) @map("is_remind_client_contact")
+  isRemindAgentCheckName                   Boolean  @default(false) @map("is_remind_agent_check_name")
+  isRemindClientSignOrder                  Boolean  @default(false) @map("is_remind_client_sign_order")
+  isRemindAgentCheckDocument               Boolean  @default(false) @map("is_remind_agent_check_document")
+  isRemindClientSignDocument               Boolean  @default(false) @map("is_remind_client_sign_document")
+  isRemindAgentCheckOriginDocument         Boolean  @default(false) @map("is_remind_agent_check_orign_document")
+  isRemindClientCheckName                  Boolean  @default(false) @map("is_remind_client_check_name")
+  isRemindAgentReviewBusinessPlanForm      Boolean  @default(false) @map("is_remind_agent_review_business_plan_form")
+  isRemindAgentReviewApplicationSet        Boolean  @default(false) @map("is_remind_agent_review_application_set")
+  isRemindClientReviewApplicationSet       Boolean  @default(false) @map("is_remind_client_review_application_set")
+  isRemindClientDeposit                    Boolean  @default(false) @map("is_remind_client_deposit")
+  isRemindAgentReviewApplicationForm       Boolean  @default(false) @map("is_remind_agent_review_application_form")
+  isRemindClientReviewApplicationForm      Boolean  @default(false) @map("is_remind_client_review_application_form")
+  isRemindAgentReviewScheduleMeeting       Boolean  @default(false) @map("is_remind_agent_review_schedule_meeting")
+  isRemindClientScheduleMeeting            Boolean  @default(false) @map("is_remind_client_schedule_meeting")
+  isFinished                               Boolean  @default(false) @map("is_finished")
+  fullName                                 String?  @map("full_name") @database.VarChar(255)
+  phone                                    String?  @map("phone") @database.VarChar(255)
+  email                                    String?  @map("email") @database.VarChar(255)
+  address                                  String?  @map("address") @database.VarChar(255)
+  phoneCountryId                           Int?     @map("phone_country_id")
+  phoneNumber                              String?  @map("phone_number") @database.VarChar(255)
+  state                                    String?  @map("state") @database.VarChar(255)
+  city                                     String?  @map("city") @database.VarChar(255)
+  postalCode                               String?  @map("postal_code") @database.VarChar(255)
+  appointedShareholderCompanyMemberId      Int?     @map("appointed_shareholder_company_member_id")
+  appointedDirectorCompanyMemberId         Int?     @map("appointed_director_company_member_id")
+  appointedUboCompanyMemberId              Int?     @map("appointed_ubo_company_member_id")
+  appointedPresidentCompanyMemberId        Int?     @map("appointed_president_company_member_id")
+  isBankingFinished                        Boolean  @default(false) @map("is_banking_finished")
+  isRemindAgentServiceRequestRoundChop     Boolean  @default(false) @map("is_remind_agent_service_request_round_chop")
+  isRemindAgentServiceRequestCertification Boolean  @default(false) @map("is_remind_agent_service_request_certification")
+  isRemindAgentServiceRequestCourier       Boolean  @default(false) @map("is_remind_agent_service_request_courier")
+  reasonUseNomineeDirector                 String?  @map("reason_use_nominee_director") @database.VarChar(255)
+  reasonUseNomineeShareholder              String?  @map("reason_use_nominee_shareholder") @database.VarChar(255)
+  isNoteCompliance                         Boolean  @default(false) @map("is_note_compliance")
+  csLeaderId                               Int?     @map("cs_leader_id")
+  csMemberId                               Int?     @map("cs_member_id")
+  accountantLeaderId                       Int?     @map("accountant_leader_id")
+  accountantMemberId                       Int?     @map("accountant_member_id")
+  legalLeaderId                            Int?     @map("legal_leader_id")
+  legalMemberId                            Int?     @map("legal_member_id")
+  complianceLeaderId                       Int?     @map("compliance_leader_id")
+  complianceMemberId                       Int?     @map("compliance_member_id")
+  internalBookeepingLeaderId               Int?     @map("internal_bookeeping_leader_id")
+  internalBookeepingMemberId               Int?     @map("internal_bookeeping_member_id")
+  testerLeaderId                           Int?     @map("tester_leader_id")
+  timeUnassignedTester                     BigInt?  @map("time_unassigned_tester")
+  createdTime                              DateTime @default(now()) @map("created_time")
+  updatedTime                              DateTime @updatedAt @map("updated_time")
+  deletedTime                              DateTime @default(now()) @map("deleted_time")
+  isDeleted                                Boolean  @default(false) @map("is_deleted")
+
+  @@index([accountantLeaderId], map: "fk_tas_accountant_leader_id_use_id_jg1p")
+  @@index([accountantMemberId], map: "fk_tas_accountant_member_id_use_id_d12h")
+  @@index([appointedDirectorCompanyMemberId], map: "fk_tas_appointed_director_company_member_id_com_id_ht5c")
+  @@index([appointedPresidentCompanyMemberId], map: "fk_tas_appointed_president_company_member_id_com_id_2ves")
+  @@index([appointedShareholderCompanyMemberId], map: "fk_tas_appointed_shareholder_company_member_id_com_id_3k03")
+  @@index([appointedUboCompanyMemberId], map: "fk_tas_appointed_ubo_company_member_id_com_id_ee2u")
+  @@index([companyId], map: "fk_tas_company_id_com_id_j3cp")
+  @@index([countryId], map: "fk_tas_country_id_cou_id_caag")
+  @@index([complianceLeaderId], map: "fk_tas_compliance_leader_id_use_id_3dl1")
+  @@index([complianceMemberId], map: "fk_tas_compliance_member_id_use_id_kqi2")
+  @@index([csLeaderId], map: "fk_tas_cs_leader_id_use_id_guom")
+  @@index([csMemberId], map: "fk_tas_cs_member_id_use_id_50y8")
+  @@index([customerId], map: "fk_tas_customer_id_cus_id_5fep")
+  @@index([entityTypeId], map: "fk_tas_entity_type_id_ent_id_crjn")
+  @@index([incorporationCountryId], map: "fk_tas_incorporation_country_id_cou_id_73ul")
+  @@index([internalBookeepingLeaderId], map: "fk_tas_internal_bookeeping_leader_id_use_id_bx56")
+  @@index([internalBookeepingMemberId], map: "fk_tas_internal_bookeeping_member_id_use_id_c7t9")
+  @@index([legalLeaderId], map: "fk_tas_legal_leader_id_use_id_fnn2")
+  @@index([legalMemberId], map: "fk_tas_legal_member_id_use_id_1sn7")
+  @@index([orderId], map: "fk_tas_order_id_ord_id_ber2")
+  @@index([phoneCountryId], map: "fk_tas_phone_country_id_cou_id_9z9u")
+  @@index([upgradeOrderId], map: "fk_tas_upgrade_order_id_ord_id_1gdh")
+  @@index([testerLeaderId], map: "fk_task_tester_leader_id_idx")
+  @@map("Task")
+}
+
+model TaskHasAgent {
+  taskId            Int      @map("task_id")
+  agentId           Int      @map("agent_id")
+  additionProcessId Int?     @map("addition_process_id")
+  createdTime       DateTime @default(now()) @map("created_time")
+
+  @@id([taskId, agentId])
+  @@map("TaskHasAgent")
+}
+
+model TeamGroup {
+  id           Int      @id @default(autoincrement()) @map("id")
+  name         String   @map("name") @database.VarChar(100)
+  leaderUserId Int?     @map("leader_user_id")
+  createdTime  DateTime @default(now()) @map("created_time")
+  updatedTime  DateTime @updatedAt @map("updated_time")
+  deletedTime  DateTime @default(now()) @map("deleted_time")
+  isDeleted    Boolean  @default(false) @map("is_deleted")
+
+  @@index([leaderUserId], map: "fk_leader_user_id_idx")
+  @@map("TeamGroup")
+}
+
+model TitleName {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.Text
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("TitleName")
+}
+
+model Token {
+  id                      Int      @id @default(autoincrement()) @map("id")
+  userId                  Int      @map("user_id")
+  accessToken             String   @map("access_token") @database.VarChar(255)
+  accessTokenExp          Int      @map("access_token_exp")
+  accessTokenIat          Int      @map("access_token_iat")
+  refreshToken            String   @map("refresh_token") @database.VarChar(255)
+  refreshTokenExp         Int      @map("refresh_token_exp")
+  refreshTokenIat         Int      @map("refresh_token_iat")
+  scope                   String?  @map("scope") @database.VarChar(255)
+  tokenType               Int?     @map("token_type")
+  xeroTokenType           String?  @map("xero_token_type") @database.VarChar(255)
+  xeroIdToken             String?  @map("xero_id_token") @database.VarChar(255)
+  xeroSessionState        String?  @map("xero_session_state") @database.VarChar(255)
+  websiteId               Int?     @map("website_id")
+  taskId                  Int?     @map("task_id")
+  agentId                 Int?     @map("agent_id")
+  companyMemberId         Int?     @map("company_member_id")
+  fileTemplateId          Int?     @map("file_template_id")
+  belongToCompanyMemberId Int?     @map("belong_to_company_member_id")
+  ipAddress               String?  @map("ip_address") @database.VarChar(255)
+  countRequest            Int?     @map("count_request")
+  createdTime             DateTime @default(now()) @map("created_time")
+  updatedTime             DateTime @updatedAt @map("updated_time")
+
+  @@index([agentId], map: "fk_tok_agent_id_age_id_2cha")
+  @@index([belongToCompanyMemberId], map: "fk_tok_belong_to_company_member_id_com_id_9mf5")
+  @@index([companyMemberId], map: "fk_tok_company_member_id_com_id_lys")
+  @@index([fileTemplateId], map: "fk_tok_file_template_id_fil_id_g0lx")
+  @@index([taskId], map: "fk_tok_task_id_tas_id_g7px")
+  @@index([userId], map: "fk_tok_user_id_use_id_bunm")
+  @@index([websiteId], map: "fk_tok_website_id_web_id_4k48")
+  @@map("Token")
+}
+
+model TokenType {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(100)
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("TokenType")
+}
+
+model ToolBusinessEntity {
+  id           Int      @id @default(autoincrement()) @map("id")
+  optionId     Int      @map("option_id")
+  entityTypeId Int      @map("entity_type_id")
+  score        Int?     @map("score")
+  isReject     Boolean  @default(false) @map("is_reject")
+  isReset      Boolean  @default(false) @map("is_reset")
+  createdTime  DateTime @default(now()) @map("created_time")
+  updatedTime  DateTime @updatedAt @map("updated_time")
+  deletedTime  DateTime @default(now()) @map("deleted_time")
+  isDeleted    Boolean  @default(false) @map("is_deleted")
+
+  @@index([entityTypeId])
+  @@index([optionId], map: "fk_too_option_id_opt_id_9x22")
+  @@map("ToolBusinessEntity")
+}
+
+model TypeMember {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(100)
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("TypeMember")
+}
+
+model UrlList {
+  id            Int      @id @default(autoincrement()) @map("id")
+  name          String   @map("name") @database.VarChar(200)
+  value         String?  @map("value") @database.Text
+  urlListTypeId Int?     @map("url_list_type_id")
+  isUrl         Boolean  @default(false) @map("is_url")
+  createdTime   DateTime @default(now()) @map("created_time")
+  updatedTime   DateTime @updatedAt @map("updated_time")
+  deletedTime   DateTime @default(now()) @map("deleted_time")
+  isDeleted     Boolean  @default(false) @map("is_deleted")
+
+  @@index([urlListTypeId], map: "pk_url_list_type_idx")
+  @@map("UrlList")
+}
+
+model UrlListType {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(45)
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("UrlListType")
+}
+
+model User {
+  id                        Int      @id @default(autoincrement()) @map("id")
+  username                  String?  @map("username") @database.VarChar(320)
+  password                  String?  @map("password") @database.VarChar(100)
+  passwordSalt              String?  @map("password_salt") @database.VarChar(100)
+  status                    Int?     @map("status")
+  resetPasswordToken        String?  @map("reset_password_token") @database.Text
+  resetPasswordTokenExp     Int?     @map("reset_password_token_exp")
+  twoFactorToken            String?  @map("two_factor_token") @database.Text
+  twoFactorTokenExp         Int?     @map("two_factor_token_exp")
+  isTwoFactorAuthentication Boolean  @default(false) @map("is_two_factor_authentication")
+  personId                  Int?     @map("person_id")
+  customerId                Int?     @map("customer_id")
+  subscriptionId            Int?     @map("subscription_id")
+  facebookId                Int?     @map("facebook_id")
+  createdTime               DateTime @default(now()) @map("created_time")
+  updatedTime               DateTime @updatedAt @map("updated_time")
+  deletedTime               DateTime @default(now()) @map("deleted_time")
+  isDeleted                 Boolean  @default(false) @map("is_deleted")
+
+  @@index([customerId], map: "fk_user_customer1_idx")
+  @@index([personId], map: "fk_user_person1_idx")
+  @@index([subscriptionId], map: "fk_user_subscription1_idx")
+  @@map("User")
+}
+
+model UserHasNotification {
+  userId         Int      @map("user_id")
+  notificationId Int      @map("notification_id")
+  isRead         Boolean  @default(false) @map("is_read")
+  readAt         DateTime @map("read_at") @database..DateTime(0)
+
+  @@id([userId, notificationId])
+  @@map("UserHasNotification")
+}
+
+model UserHasRole {
+  userId Int @map("user_id")
+  roleId Int @map("role_id")
+
+  @@id([roleId, userId])
+  @@map("UserHasRole")
+}
+
+model VisaOrder {
+  id            Int      @id @default(autoincrement()) @map("id")
+  orderId       Int      @map("order_id")
+  airportId     Int?     @map("airport_id")
+  visaPurposeId Int?     @map("visa_purpose_id")
+  visaTypeId    Int?     @map("visa_type_id")
+  flightNumber  String?  @map("flight_number") @database.VarChar(255)
+  arrivalTime   DateTime @map("arrival_time") @database..DateTime(0)
+  entryTime     DateTime @map("entry_time") @database..DateTime(0)
+  exitTime      DateTime @map("exit_time") @database..DateTime(0)
+  carPickupTime DateTime @map("car_pickup_time") @database..DateTime(0)
+  createdTime   DateTime @default(now()) @map("created_time")
+  updatedTime   DateTime @updatedAt @map("updated_time")
+  deletedTime   DateTime @default(now()) @map("deleted_time")
+  isDeleted     Boolean  @default(false) @map("is_deleted")
+
+  @@index([airportId], map: "fk_vis_airport_id_air_id_a20y")
+  @@index([orderId], map: "fk_vis_order_id_ord_id_fwgt")
+  @@index([visaPurposeId], map: "fk_vis_visa_purpose_id_vis_id_9syb")
+  @@index([visaTypeId], map: "fk_vis_visa_type_id_vis_id_l2k0")
+  @@map("VisaOrder")
+}
+
+model VisaPurpose {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.Text
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("VisaPurpose")
+}
+
+model VisaType {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.Text
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("VisaType")
+}
+
+model VisaVietnamArrival {
+  id          Int      @id @default(autoincrement()) @map("id")
+  countryId   Int?     @map("country_id")
+  dayFree     Int?     @map("day_free")
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@index([countryId], map: "fk_visa_vietnam_arrival_country1")
+  @@map("VisaVietnamArrival")
+}
+
+model Voucher {
+  id             Int      @id @default(autoincrement()) @map("id")
+  name           String?  @map("name") @database.VarChar(255)
+  voucherCode    String   @map("voucher_code") @database.VarChar(255)
+  customerId     Int?     @map("customer_id")
+  googleClientId Int?     @map("google_client_id")
+  voucherTypeId  Int?     @map("voucher_type_id")
+  orderId        Int?     @map("order_id")
+  isActive       Boolean  @default(false) @map("is_active")
+  isUsed         Boolean  @default(false) @map("is_used")
+  isRunning      Boolean  @default(false) @map("is_running")
+  expiredTime    DateTime @map("expired_time") @database..DateTime(0)
+  activeDate     DateTime @map("active_date") @database..DateTime(0)
+  usedDate       DateTime @map("used_date") @database..DateTime(0)
+  openDate       DateTime @map("open_date") @database..DateTime(0)
+  createdTime    DateTime @default(now()) @map("created_time")
+  updatedTime    DateTime @updatedAt @map("updated_time")
+  deletedTime    DateTime @default(now()) @map("deleted_time")
+  isDeleted      Boolean  @default(false) @map("is_deleted")
+
+  @@index([customerId], map: "fk_vou_customer_id_cus_id_7f7y")
+  @@index([orderId], map: "fk_vou_order_id_ord_id_8rjw")
+  @@index([voucherTypeId], map: "fk_vou_voucher_type_id_vou_id_bgsy")
+  @@map("Voucher")
+}
+
+model VoucherType {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(225)
+  config      Json?    @map("config")
+  percent     Int?     @map("percent")
+  uuid        String   @map("uuid") @database.VarChar(36)
+  createdTime DateTime @default(now()) @map("created_time")
+  updatedTime DateTime @updatedAt @map("updated_time")
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("VoucherType")
+}
+
+model Website {
+  id                       Int      @id @default(autoincrement()) @map("id")
+  currencyId               Int      @default(1) @map("currency_id")
+  name                     String   @map("name") @database.VarChar(100)
+  domain                   String?  @map("domain") @database.VarChar(100)
+  domainDashboard          String?  @map("domain_dashboard") @database.VarChar(100)
+  stripeKey                String?  @map("stripe_key") @database.Text
+  paypalKey                String?  @map("paypal_key") @database.Text
+  mailchimpKey             String?  @map("mailchimp_key") @database.Text
+  minAmount                Float    @default(0) @map("min_amount") @database.Float
+  minUnit                  Float    @default(0) @map("min_unit") @database.Float
+  email                    String?  @map("email") @database.Text
+  emailContact             String?  @map("email_contact") @database.VarChar(100)
+  emailName                String?  @map("email_name") @database.Text
+  emailCode                String?  @map("email_code") @database.Text
+  emailCredential          String?  @map("email_credential") @database.Text
+  companiesHouseCredential String?  @map("companies_house_credential") @database.Text
+  analyticsSignature       String?  @map("analytics_signature") @database.VarChar(3072)
+  viewId                   String?  @map("view_id") @database.VarChar(32)
+  emailToken               String?  @map("email_token") @database.Text
+  tawkToWebhook            String?  @map("tawk_to_webhook") @database.VarChar(255)
+  awsBucketKey             String?  @map("aws_bucket_key") @database.Text
+  xeroTenantName           String?  @map("xero_tenant_name") @database.VarChar(100)
+  xeroTenantId             String?  @map("xero_tenant_id") @database.VarChar(100)
+  xeroClientId             String?  @map("xero_client_id") @database.VarChar(100)
+  xeroClientSecret         String?  @map("xero_client_secret") @database.VarChar(100)
+  xeroHookKey              String?  @map("xero_hook_key") @database.VarChar(100)
+  xeroRedirectUrl          String?  @map("xero_redirect_url") @database.VarChar(100)
+  awsBucketLog             String?  @map("aws_bucket_log") @database.Text
+  googleAdsConfig          String?  @map("google_ads_config") @database.Text
+  endpointSecretStripe     String?  @map("endpoint_secret_stripe") @database.Text
+  minMakePaymentAmount     Float    @default(0) @map("min_make_payment_amount") @database.Float
+  createdTime              DateTime @default(now()) @map("created_time")
+  deletedTime              DateTime @default(now()) @map("deleted_time")
+  isDeleted                Boolean  @default(false) @map("is_deleted")
+
+  @@index([currencyId], map: "fk_website_currency_1_idx")
+  @@map("Website")
+}
+
+model XeroAccount {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(50)
+  description String?  @map("description") @database.VarChar(200)
+  type        String   @default("SALE") @map("type") @database.VarChar(50)
+  code        String   @map("code") @database.VarChar(50)
+  createdTime DateTime @default(now()) @map("created_time")
+  updatedTime DateTime @updatedAt @map("updated_time")
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("XeroAccount")
+}
+
+model XeroInvoiceStatus {
+  id          Int      @id @default(autoincrement()) @map("id")
+  name        String   @map("name") @database.VarChar(100)
+  xeroCode    String   @map("xero_code") @database.VarChar(100)
+  description String?  @map("description") @database.VarChar(200)
+  deletedTime DateTime @default(now()) @map("deleted_time")
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+
+  @@map("XeroInvoiceStatus")
+}
