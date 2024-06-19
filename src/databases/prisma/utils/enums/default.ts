@@ -17,6 +17,8 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  vouchers = 'vouchers',
+  clicks = 'clicks',
   airport = 'airport',
   urlListType = 'urlListType',
   syslogType = 'syslogType',
