@@ -17,7 +17,7 @@ enum generatedFor {
 }
 
 model actionLog {
-  id          Int      @default(autoincrement()) @map("id")
+  id          Int      @map("id") @default(autoincrement())
   userId      Int?     @map("user_id")
   description String?  @map("description") @database.VarChar(255)
   type        Int      @map("type")
@@ -30,12 +30,12 @@ model actionLog {
 }
 
 model actionProcessStep {
-  id                Int      @id @default(autoincrement()) @map("id")
+  id                Int      @id @map("id") @default(autoincrement())
   processStepId     Int      @map("process_step_id")
   nextProcessStepId Int      @map("next_process_step_id")
   countryId         Int?     @map("country_id")
   bankId            Int?     @map("bank_id")
-  priority          Int?     @default(1) @map("priority") @database.TinyInt
+  priority          Int?     @map("priority") @default(1) @database.TinyInt
   serviceTypeId     Int?     @map("service_type_id")
   actionStepTypeId  Int      @map("action_step_type_id")
   createdTime       DateTime @default(now()) @map("created_time")
@@ -47,7 +47,7 @@ model actionProcessStep {
 }
 
 model actionStepType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @map("id") @id @default(autoincrement())
   name        String?  @map("name") @database.VarChar(255)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -58,7 +58,7 @@ model actionStepType {
 }
 
 model additionProcess {
-  id             Int      @id @default(autoincrement()) @map("id")
+  id             Int      @map("id") @id @default(autoincrement())
   taskId         Int      @map("task_id")
   trackingLink   String?  @map("tracking_link") @database.VarChar(200)
   serviceTypeIds Json?    @map("service_type_ids")
@@ -71,7 +71,7 @@ model additionProcess {
 }
 
 model agency {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @map("id") @id @default(autoincrement())
   name        String?  @map("name") @database.VarChar(100)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -82,14 +82,14 @@ model agency {
 }
 
 model agent {
-  id           Int      @id @default(autoincrement()) @map("id")
+  id           Int      @map("id") @id @default(autoincrement())
   name         String?  @map("name") @database.VarChar(200)
   email        String?  @map("email") @database.VarChar(200)
   countryId    Int?     @map("country_id")
   agencyId     Int      @map("agency_id")
   agentTypeId  Int      @map("agent_type_id")
   bankId       Int?     @map("bank_id")
-  isHasNominee Boolean? @default(false) @map("is_has_nominee")
+  isHasNominee Boolean? @map("is_has_nominee") @default(false)
   createdTime  DateTime @default(now()) @map("created_time")
   updatedTime  DateTime @updatedAt @map("updated_time")
   deletedTime  DateTime @default(now()) @map("deleted_time")
@@ -99,7 +99,7 @@ model agent {
 }
 
 model agentType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(100)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -108,7 +108,7 @@ model agentType {
 }
 
 model airport {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String?  @map("name") @database.VarChar(100)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -117,7 +117,7 @@ model airport {
 }
 
 model answer {
-  id              Int      @id @default(autoincrement()) @map("id")
+  id              Int      @id @map("id") @default(autoincrement())
   valueInt        Int?     @map("value_int")
   valueText       String?  @map("value_text") @database.Text
   optionId        Int      @map("option_id")
@@ -136,12 +136,12 @@ model answer {
 }
 
 model Api {
-  id              Int      @id @default(autoincrement()) @map("id")
+  id              Int      @map("id") @id @default(autoincrement())
   url             String   @map("url") @database.VarChar(255)
   apiMethodId     Int      @map("api_method_id")
   note            Json?    @map("note")
-  isRecaptcha     Boolean? @default(false) @map("is_recaptcha")
-  isAuthorization Boolean? @default(false) @map("is_authorization")
+  isRecaptcha     Boolean? @map("is_recaptcha") @default(false)
+  isAuthorization Boolean? @map("is_authorization") @default(false)
   description     String?  @map("description") @database.Text
   createdTime     DateTime @default(now()) @map("created_time")
   updatedTime     DateTime @updatedAt @map("updated_time")
@@ -152,7 +152,7 @@ model Api {
 }
 
 model apiExample {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   apiId       Int      @map("api_id")
   apiStatusId Int      @map("api_status_id")
   apiGroupId  Int?     @map("api_group_id")
@@ -170,7 +170,7 @@ model apiExample {
 }
 
 model apiGroup {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(255)
   description String?  @map("description") @database.Text
   createdTime DateTime @default(now()) @map("created_time")
@@ -195,7 +195,7 @@ model ApiHasGroup {
 }
 
 model ApiMethod {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   description String?  @map("description") @database.Text
   createdTime DateTime @default(now()) @map("created_time")
@@ -207,7 +207,7 @@ model ApiMethod {
 }
 
 model ApiStatus {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   code        String   @map("code") @database.VarChar(45)
   description String?  @map("description") @database.Text
   createdTime DateTime @default(now()) @map("created_time")
@@ -219,12 +219,12 @@ model ApiStatus {
 }
 
 model Bank {
-  id             Int      @id @default(autoincrement()) @map("id")
+  id             Int      @id @map("id") @default(autoincrement())
   name           String   @map("name") @database.VarChar(100)
   image          String?  @map("image") @database.VarChar(200)
   countryId      Int?     @map("country_id")
   initialDeposit Int?     @map("initial_deposit")
-  isVirtual      Boolean? @default(false) @map("is_virtual")
+  isVirtual      Boolean? @map("is_virtual") @default(false)
   deletedTime    DateTime @default(now()) @map("deleted_time")
   isDeleted      Boolean  @default(false) @map("is_deleted")
 
@@ -232,7 +232,7 @@ model Bank {
 }
 
 model BankBranch {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String?  @map("name") @database.VarChar(200)
   address     String?  @map("address") @database.VarChar(200)
   bankId      Int?     @map("bank_id")
@@ -245,11 +245,11 @@ model BankBranch {
 model BankHasCountry {
   bankId           Int      @map("bank_id")
   countryId        Int      @map("country_id")
-  isMemberCountry  Boolean? @default(false) @map("is_member_country")
-  isPartnerCountry Boolean? @default(false) @map("is_partner_country")
-  isOwnerCountry   Boolean? @default(false) @map("is_owner_country")
-  isRemoteOpening  Boolean? @default(false) @map("is_remote_opening")
-  score            Int?     @default(0) @map("score")
+  isMemberCountry  Boolean? @map("is_member_country") @default(false)
+  isPartnerCountry Boolean? @map("is_partner_country") @default(false)
+  isOwnerCountry   Boolean? @map("is_owner_country") @default(false)
+  isRemoteOpening  Boolean? @map("is_remote_opening") @default(false)
+  score            Int?     @map("score") @default(0)
 
   @@id([bankId, countryId])
   @@map("BankHasCountry")
@@ -272,10 +272,10 @@ model BankHasKeyword {
 }
 
 model BankingProcess {
-  id                          Int      @id @default(autoincrement()) @map("id")
+  id                          Int      @id @map("id") @default(autoincrement())
   taskId                      Int?     @map("task_id")
   bankId                      Int?     @map("bank_id")
-  status                      Int?     @default(0) @map("status")
+  status                      Int?     @map("status") @default(0)
   clientTime                  BigInt?  @map("client_time")
   content                     String   @map("content") @database.VarChar(200)
   bankBranchId                Int?     @map("bank_branch_id")
@@ -296,7 +296,7 @@ model BankingProcess {
 }
 
 model Billing {
-  id                Int      @id @default(autoincrement()) @map("id")
+  id                Int      @id @map("id") @default(autoincrement())
   countryId         Int?     @map("country_id")
   userId            Int?     @map("user_id")
   customerId        Int?     @map("customer_id")
@@ -323,14 +323,14 @@ model Billing {
 }
 
 model BusinessActivity {
-  id                         Int      @id @default(autoincrement()) @map("id")
+  id                         Int      @id @map("id") @default(autoincrement())
   name                       String   @map("name") @database.Text
   countryId                  Int?     @map("country_id")
   sicCode                    String?  @map("sic_code") @database.VarChar(10)
   description                String?  @map("description") @database.Text
   businessActivityIndustryId Int?     @map("business_activity_industry_id")
   labelIds                   Json?    @map("label_ids")
-  isCommon                   Boolean? @default(false) @map("is_common")
+  isCommon                   Boolean? @map("is_common") @default(false)
   deletedTime                DateTime @default(now()) @map("deleted_time")
   isDeleted                  Boolean  @default(false) @map("is_deleted")
 
@@ -338,7 +338,7 @@ model BusinessActivity {
 }
 
 model BusinessActivityIndustry {
-  id                              Int      @id @default(autoincrement()) @map("id")
+  id                              Int      @id @map("id") @default(autoincrement())
   name                            String   @map("name") @database.Text
   country_id                      Int?     @map("country_id")
   parentId                        Int?     @map("parent_id")
@@ -352,7 +352,7 @@ model BusinessActivityIndustry {
 }
 
 model BusinessActivityIndustryClass {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -361,7 +361,7 @@ model BusinessActivityIndustryClass {
 }
 
 model BusinessActivityLabel {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.Text
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -370,7 +370,7 @@ model BusinessActivityLabel {
 }
 
 model Campaign {
-  id             Int      @id @default(autoincrement()) @map("id")
+  id             Int      @id @map("id") @default(autoincrement())
   name           String?  @map("name") @database.VarChar(100)
   description    String?  @map("description") @database.Text
   campaignTypeId Int?     @map("campaign_type_id")
@@ -393,7 +393,7 @@ model CampaignHasVoucherType {
 }
 
 model CampaignType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String?  @map("name") @database.VarChar(225)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -402,10 +402,10 @@ model CampaignType {
 }
 
 model CarSeat {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String?  @map("name") @database.Text
-  babyMax     Int?     @default(0) @map("baby_max")
-  value       Int?     @default(0) @map("value")
+  babyMax     Int?     @map("baby_max") @default(0)
+  value       Int?     @map("value") @default(0)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
@@ -413,7 +413,7 @@ model CarSeat {
 }
 
 model ChangeRequest {
-  id                     Int      @id @default(autoincrement()) @map("id")
+  id                     Int      @id @map("id") @default(autoincrement())
   taskId                 Int      @map("task_id")
   companyId              Int      @map("company_id")
   changeRequestStatusId  Int      @map("change_request_status_id")
@@ -422,7 +422,7 @@ model ChangeRequest {
   toCompanyMemberId      Int?     @map("to_company_member_id")
   toCompanyPositionId    Int?     @map("to_company_position_id")
   changeRequestRelatedId Int?     @map("change_request_related_id")
-  isApproved             Boolean  @default(false) @map("is_approved")
+  isApproved             Boolean  @map("is_approved") @default(false)
   createdTime            DateTime @default(now()) @map("created_time")
   updatedTime            DateTime @updatedAt @map("updated_time")
   deletedTime            DateTime @default(now()) @map("deleted_time")
@@ -432,12 +432,12 @@ model ChangeRequest {
 }
 
 model ChangeRequestItem {
-  id              Int      @id @default(autoincrement()) @map("id")
+  id              Int      @id @map("id") @default(autoincrement())
   changeRequestId Int      @map("change_request_id")
   model           String   @map("model") @database.VarChar(100)
   fieldName       String   @map("field_name") @database.VarChar(100)
   value           String   @map("value") @database.Text
-  isFee           Boolean  @default(true) @map("is_fee")
+  isFee           Boolean  @map("is_fee") @default(true)
   dataType        String   @map("data_type") @database.VarChar(45)
   targetId        Int?     @map("target_id")
   createdTime     DateTime @default(now()) @map("created_time")
@@ -449,7 +449,7 @@ model ChangeRequestItem {
 }
 
 model ChangeRequestStatus {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -460,7 +460,7 @@ model ChangeRequestStatus {
 }
 
 model Click {
-  id             Int      @id @default(autoincrement()) @map("id")
+  id             Int      @id @map("id") @default(autoincrement())
   googleClientId String?  @map("google_client_id") @database.VarChar(225)
   ipAddress      String?  @map("ip_address") @database.VarChar(45)
   voucherTypeId  Int?     @map("voucher_type_id")
@@ -473,8 +473,8 @@ model Click {
 }
 
 model Company {
-  id                       Int       @id @default(autoincrement()) @map("id")
-  version                  Int       @default(0) @map("version")
+  id                       Int       @id @map("id") @default(autoincrement())
+  version                  Int       @map("version") @default(0)
   companyCode              String?   @map("company_code") @database.VarChar(255)
   countryId                Int?      @map("country_id")
   companyRegNo             String?   @map("company_reg_no") @database.VarChar(255)
@@ -491,7 +491,7 @@ model Company {
   incorporationDate        DateTime? @map("incorporation_date") @database.Date
   xeroContactId            String?   @map("xero_contact_id") @database.VarChar(255)
   businessActivity         String?   @map("business_activity") @database.VarChar(255)
-  isOutsideCompany         Boolean   @default(false) @map("is_outside_company")
+  isOutsideCompany         Boolean   @map("is_outside_company") @default(false)
   renewalDate              DateTime? @map("renewal_date") @database.Date
   billingId                Int?      @map("billing_id")
   contactFullName          String?   @map("contact_full_name") @database.VarChar(255)
@@ -541,7 +541,7 @@ model Company {
 }
 
 model CompanyEvent {
-  id                 Int       @id @default(autoincrement()) @map("id")
+  id                 Int       @id @map("id") @default(autoincrement())
   companyId          Int       @map("company_id")
   serviceId          Int       @map("service_id")
   orderId            Int?      @map("order_id")
@@ -550,9 +550,9 @@ model CompanyEvent {
   dateCompleted      DateTime? @map("date_completed") @database.Date
   dueDate            DateTime? @map("due_date") @database.Date
   dateRemind         DateTime? @map("date_remind") @database.Date
-  isNotShow          Boolean   @default(false) @map("is_not_show")
+  isNotShow          Boolean   @map("is_not_show") @default(false)
   companyEventTypeId Int?      @map("company_event_type_id")
-  isNotifyDueRenewal Boolean   @default(false) @map("is_notify_due_renewal")
+  isNotifyDueRenewal Boolean   @map("is_notify_due_renewal") @default(false)
   createdTime        DateTime  @default(now()) @map("created_time")
   updatedTime        DateTime  @updatedAt @map("updated_time")
   deletedTime        DateTime  @default(now()) @map("deleted_time")
@@ -562,7 +562,7 @@ model CompanyEvent {
 }
 
 model CompanyEventType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.Text
   description String?  @map("description") @database.Text
   createdTime DateTime @default(now()) @map("created_time")
@@ -598,7 +598,7 @@ model CompanyHasOperationCountry {
 }
 
 model CompanyInterest {
-  id                         Int       @id @default(autoincrement()) @map("id")
+  id                         Int       @id @map("id") @default(autoincrement())
   taskId                     Int       @map("task_id")
   no                         Int?      @map("no")
   companyId                  Int       @map("company_id")
@@ -608,8 +608,8 @@ model CompanyInterest {
   startNumber                Int?      @map("start_number")
   endNumber                  Int?      @map("end_number")
   value                      Float     @map("value") @database.Float
-  isValid                    Boolean   @default(false) @map("is_valid")
-  isApproved                 Boolean   @default(false) @map("is_approved")
+  isValid                    Boolean   @map("is_valid") @default(false)
+  isApproved                 Boolean   @map("is_approved") @default(false)
   issuedFileId               Int?      @map("issued_file_id")
   issuedDated                DateTime? @map("issued_dated") @database.Date
   expiredDated               DateTime? @map("expired_dated") @database.Date
@@ -622,13 +622,13 @@ model CompanyInterest {
 }
 
 model CompanyMember {
-  id                           Int       @id @default(autoincrement()) @map("id")
+  id                           Int       @id @map("id") @default(autoincrement())
   companyId                    Int       @map("company_id")
   countryId                    Int?      @map("country_id")
   parentId                     Int?      @map("parent_id")
   typeMemberId                 Int?      @map("type_member_id")
-  isNominee                    Boolean   @default(false) @map("is_nominee")
-  isApproved                   Boolean   @default(false) @map("is_approved")
+  isNominee                    Boolean   @map("is_nominee") @default(false)
+  isApproved                   Boolean   @map("is_approved") @default(false)
   firstName                    String?   @map("first_name") @database.VarChar(255)
   middleName                   String?   @map("middle_name") @database.VarChar(255)
   lastName                     String?   @map("last_name") @database.VarChar(255)
@@ -684,7 +684,7 @@ model CompanyMemberOperationCountries {
 }
 
 model CompanyMemberIssueReference {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(100)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -695,7 +695,7 @@ model CompanyMemberIssueReference {
 }
 
 model CompanyMemberReferences {
-  id                            Int      @id @default(autoincrement()) @map("id")
+  id                            Int      @id @map("id") @default(autoincrement())
   companyMemberId               Int      @map("company_member_id")
   companyMemberIssueReferenceId Int?     @map("company_member_issuse_reference_id")
   name                          String?  @map("name") @database.VarChar(255)
@@ -713,11 +713,11 @@ model CompanyMemberReferences {
 }
 
 model CompanyMemberType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   description String?  @map("description") @database.Text
   parentId    Int?     @map("parent_id")
-  isRequired  Boolean  @default(false) @map("is_required")
+  isRequired  Boolean  @map("is_required") @default(false)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
@@ -725,7 +725,7 @@ model CompanyMemberType {
 }
 
 model CompanyOwnership {
-  id                         Int       @id @default(autoincrement()) @map("id")
+  id                         Int       @id @map("id") @default(autoincrement())
   taskId                     Int       @map("task_id")
   no                         Int?      @map("no")
   companyId                  Int       @map("company_id")
@@ -733,8 +733,8 @@ model CompanyOwnership {
   companyPositionId          Int?      @map("company_position_id")
   corporationCompanyMemberId Int?      @map("corporation_company_member_id")
   value                      Float     @map("value") @database.Float
-  isValid                    Boolean   @default(false) @map("is_valid")
-  isApproved                 Boolean   @default(false) @map("is_approved")
+  isValid                    Boolean   @map("is_valid") @default(false)
+  isApproved                 Boolean   @map("is_approved") @default(false)
   issuedFileId               Int?      @map("issued_file_id")
   issuedDated                DateTime? @map("issued_dated") @database.Date
   expiredDated               DateTime? @map("expired_dated") @database.Date
@@ -747,19 +747,19 @@ model CompanyOwnership {
 }
 
 model CompanyPosition {
-  id                                Int       @id @default(autoincrement()) @map("id")
+  id                                Int       @id @map("id") @default(autoincrement())
   companyMemberId                   Int       @map("company_member_id")
   companyMemberTypeId               Int       @map("company_member_type_id")
   corporationCompanyMemberId        Int?      @map("corporation_company_member_id")
-  numberAllotted                    Int       @default(0) @map("number_allotted")
-  percentOfInterest                 Float     @default(0) @map("percent_of_interest") @database.Float
-  ownPercent                        Float     @default(0) @map("own_percent") @database.Float
+  numberAllotted                    Int       @map("number_allotted") @default(0)
+  percentOfInterest                 Float     @map("percent_of_interest") @default(0) @database.Float
+  ownPercent                        Float     @map("own_percent") @default(0) @database.Float
   dateOfAppointment                 DateTime? @map("date_of_appointment") @database.Date
   dateOfResign                      DateTime? @map("date_of_resign") @database.Date
-  isAppointed                       Boolean   @default(false) @map("is_appointed")
-  isApproved                        Boolean   @default(false) @map("is_approved")
-  isContactPerson                   Boolean   @default(false) @map("is_contact_person")
-  isHandleRelationshipContactPerson Boolean   @default(false) @map("is_handle_relationship_contact_person")
+  isAppointed                       Boolean   @map("is_appointed") @default(false)
+  isApproved                        Boolean   @map("is_approved") @default(false)
+  isContactPerson                   Boolean   @map("is_contact_person") @default(false)
+  isHandleRelationshipContactPerson Boolean   @map("is_handle_relationship_contact_person") @default(false)
   positionDetail                    String?   @map("position_detail") @database.VarChar(255)
   relationshipWithCompany           Json?     @map("relationship_with_company")
   createdTime                       DateTime  @default(now()) @map("created_time")
@@ -771,7 +771,7 @@ model CompanyPosition {
 }
 
 model CompanyShare {
-  id                         Int       @id @default(autoincrement()) @map("id")
+  id                         Int       @id @map("id") @default(autoincrement())
   taskId                     Int       @map("task_id")
   no                         Int?      @map("no")
   companyId                  Int       @map("company_id")
@@ -781,8 +781,8 @@ model CompanyShare {
   startNumber                BigInt?   @map("start_number")
   endNumber                  BigInt?   @map("end_number")
   value                      BigInt    @map("value")
-  isValid                    Boolean   @default(false) @map("is_valid")
-  isApproved                 Boolean   @default(false) @map("is_approved")
+  isValid                    Boolean   @map("is_valid") @default(false)
+  isApproved                 Boolean   @map("is_approved") @default(false)
   issuedFileId               Int?      @map("issued_file_id")
   issuedDated                DateTime? @map("issued_dated") @database.Date
   expiredDated               DateTime? @map("expired_dated") @database.Date
@@ -795,7 +795,7 @@ model CompanyShare {
 }
 
 model CompanyStatus {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -806,10 +806,10 @@ model CompanyStatus {
 }
 
 model CompanySuffix {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   description String?  @map("description") @database.Text
-  isPrefix    Boolean  @default(false) @map("is_prefix")
+  isPrefix    Boolean  @map("is_prefix") @default(false)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
@@ -817,10 +817,10 @@ model CompanySuffix {
 }
 
 model ContactFrom {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(50)
   description String?  @map("description") @database.Text
-  type        Int      @default(2) @map("type")
+  type        Int      @map("type") @default(2)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
   deletedTime DateTime @default(now()) @map("deleted_time")
@@ -830,7 +830,7 @@ model ContactFrom {
 }
 
 model ContactFromHistory {
-  id            Int      @id @default(autoincrement()) @map("id")
+  id            Int      @id @map("id") @default(autoincrement())
   customerId    Int      @map("customer_id")
   contactFromId Int      @map("contact_from_id")
   tagName       String?  @map("tag_name") @database.VarChar(255)
@@ -843,7 +843,7 @@ model ContactFromHistory {
 }
 
 model Continent {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -854,14 +854,14 @@ model Continent {
 }
 
 model Country {
-  id           Int      @id @default(autoincrement()) @map("id")
+  id           Int      @id @map("id") @default(autoincrement())
   name         String   @map("name") @database.VarChar(45)
-  guid         String   @unique @map("guid") @database.VarChar(100)
+  guid         String   @map("guid") @unique @database.VarChar(100)
   countryCode  String?  @map("country_code") @database.VarChar(45)
   phoneCode    String?  @map("phone_code") @database.VarChar(45)
   subName      String   @map("sub_name") @database.VarChar(255)
-  isRestricted Boolean  @default(false) @map("is_restricted")
-  isCountry    Boolean  @default(false) @map("is_country")
+  isRestricted Boolean  @map("is_restricted") @default(false)
+  isCountry    Boolean  @map("is_country") @default(false)
   continentId  Int?     @map("continent_id")
   deletedTime  DateTime @default(now()) @map("deleted_time")
   isDeleted    Boolean  @default(false) @map("is_deleted")
@@ -924,7 +924,7 @@ model CustomerHasSurveyChoice {
 }
 
 model CustomerStatus {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   description String   @map("description") @database.VarChar(100)
   createdTime DateTime @default(now()) @map("created_time")
@@ -936,7 +936,7 @@ model CustomerStatus {
 }
 
 model CustomerType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   description String   @map("description") @database.VarChar(100)
   createdTime DateTime @default(now()) @map("created_time")
@@ -958,8 +958,8 @@ model DeclarationTax {
 }
 
 model Department {
-  id          Int      @id @default(autoincrement()) @map("id")
-  name        String   @default("") @map("name") @database.VarChar(45)
+  id          Int      @id @map("id") @default(autoincrement())
+  name        String   @map("name") @default("") @database.VarChar(45)
   config      Json?    @map("config")
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -970,7 +970,7 @@ model Department {
 }
 
 model Email {
-  id              Int      @id @default(autoincrement()) @map("id")
+  id              Int      @id @map("id") @default(autoincrement())
   emailTemplateId Int?     @map("email_template_id")
   subject         String?  @map("subject") @database.VarChar(255)
   agentId         Int?     @map("agent_id")
@@ -979,9 +979,9 @@ model Email {
   companyId       Int?     @map("company_id")
   order           Int?     @map("order")
   timeToSend      BigInt?  @map("time_to_send")
-  isCompleted     Boolean  @default(false) @map("is_completed")
-  isError         Boolean  @default(false) @map("is_error")
-  isRunning       Boolean  @default(false) @map("is_running")
+  isCompleted     Boolean  @map("is_completed") @default(false)
+  isError         Boolean  @map("is_error") @default(false)
+  isRunning       Boolean  @map("is_running") @default(false)
   description     String?  @map("description") @database.Text
   emailFrom       String?  @map("email_from") @database.VarChar(200)
   emailTo         String?  @map("email_to") @database.VarChar(225)
@@ -1001,7 +1001,7 @@ model Email {
 }
 
 model EmailTemplate {
-  id                  Int      @id @default(autoincrement()) @map("id")
+  id                  Int      @id @map("id") @default(autoincrement())
   name                String?  @map("name") @database.VarChar(255)
   description         String?  @map("description") @database.VarChar(255)
   previewText         String?  @map("preview_text") @database.VarChar(255)
@@ -1011,7 +1011,7 @@ model EmailTemplate {
   processStepId       Int?     @map("process_step_id")
   emailTypeId         Int?     @map("email_type_id")
   maxTimeSend         Int?     @map("max_time_send")
-  isEmailRemind       Boolean  @default(false) @map("is_email_remind")
+  isEmailRemind       Boolean  @map("is_email_remind") @default(false)
   dataViewTables      Json?    @map("data_view_tables")
   createdTime         DateTime @default(now()) @map("created_time")
   updatedTime         DateTime @updatedAt @map("updated_time")
@@ -1025,16 +1025,16 @@ model EmailTemplate {
 }
 
 model EmailTemplateHasReceiver {
-  id              Int      @id @default(autoincrement()) @map("id")
+  id              Int      @id @map("id") @default(autoincrement())
   emailTemplateId Int      @map("email_template_id")
   email           String?  @map("email") @database.VarChar(100)
   userId          Int?     @map("user_id")
   roleId          Int?     @map("role_id")
   groupId         Int?     @map("group_id")
-  isMainReceiver  Boolean  @default(false) @map("is_main_receiver")
-  isCcReceiver    Boolean  @default(false) @map("is_cc_receiver")
-  isBccReceiver   Boolean  @default(false) @map("is_bcc_receiver")
-  isExcluded      Boolean  @default(false) @map("is_excluded")
+  isMainReceiver  Boolean  @map("is_main_receiver") @default(false)
+  isCcReceiver    Boolean  @map("is_cc_receiver") @default(false)
+  isBccReceiver   Boolean  @map("is_bcc_receiver") @default(false)
+  isExcluded      Boolean  @map("is_excluded") @default(false)
   createdTime     DateTime @default(now()) @map("created_time")
   updatedTime     DateTime @updatedAt @map("updated_time")
   deletedTime     DateTime @default(now()) @map("deleted_time")
@@ -1048,12 +1048,12 @@ model EmailTemplateHasReceiver {
 }
 
 model EmailTrigger {
-  id             Int      @id @default(autoincrement()) @map("id")
+  id             Int      @id @map("id") @default(autoincrement())
   name           String?  @map("name") @database.VarChar(255)
   type           Int?     @map("type")
   serviceTypeIds Json?    @map("service_type_ids")
   processStepId  Int?     @map("process_step_id")
-  isRemindAgent  Boolean  @default(false) @map("is_remind_agent")
+  isRemindAgent  Boolean  @map("is_remind_agent") @default(false)
   createdTime    DateTime @default(now()) @map("created_time")
   updatedTime    DateTime @updatedAt @map("updated_time")
   deletedTime    DateTime @default(now()) @map("deleted_time")
@@ -1079,7 +1079,7 @@ model EmailTriggerHasProcess {
 }
 
 model EmailType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String?  @map("name") @database.VarChar(45)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -1090,7 +1090,7 @@ model EmailType {
 }
 
 model EntityType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String?  @map("name") @database.Text
   guid        String?  @map("guid") @database.Text
   country     String?  @map("country") @database.Text
@@ -1111,7 +1111,7 @@ model EntityTypeHasCompanySuffix {
 }
 
 model Fatca {
-  id                        Int      @id @default(autoincrement()) @map("id")
+  id                        Int      @id @map("id") @default(autoincrement())
   companyMemberId           Int?     @map("company_member_id")
   customerId                Int?     @map("customer_id")
   taskId                    Int      @map("task_id")
@@ -1143,7 +1143,7 @@ model Fatca {
 }
 
 model Fee {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   serviceId   Int?     @map("service_id")
   feeTypeId   Int      @map("fee_type_id")
   value       Float?   @map("value") @database.Float
@@ -1158,10 +1158,10 @@ model Fee {
 }
 
 model FeeType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   value       String?  @map("value") @database.VarChar(45)
   name        String?  @map("name") @database.VarChar(45)
-  cycleBegin  Int?     @default(0) @map("cycle_begin")
+  cycleBegin  Int?     @map("cycle_begin") @default(0)
   cycleTime   Int?     @map("cycle_time")
   description String?  @map("description") @database.Text
   deletedTime DateTime @default(now()) @map("deleted_time")
@@ -1171,7 +1171,7 @@ model FeeType {
 }
 
 model File {
-  id                      Int      @id @default(autoincrement()) @map("id")
+  id                      Int      @id @map("id") @default(autoincrement())
   name                    String   @map("name") @database.VarChar(255)
   path                    String?  @map("path") @database.VarChar(255)
   mimeType                String?  @map("mime_type") @database.VarChar(255)
@@ -1184,7 +1184,7 @@ model File {
   taskId                  Int?     @map("task_id")
   fileTemplateId          Int?     @map("file_template_id")
   filledByCompanyMemberId Int?     @map("filled_by_company_member_id")
-  isFilled                Boolean  @default(false) @map("is_filled")
+  isFilled                Boolean  @map("is_filled") @default(false)
   fullName                String?  @map("full_name") @database.VarChar(255)
   ipAddress               String?  @map("ip_address") @database.VarChar(255)
   noteId                  Int?     @map("note_id")
@@ -1197,7 +1197,7 @@ model File {
   toCompanyMemberId       Int?     @map("to_company_member_id")
   typeId                  Int?     @map("type_id")
   filledByUserId          Int?     @map("filled_by_user_id")
-  status                  Int      @default(1) @map("status")
+  status                  Int      @map("status") @default(1)
   companyEventId          Int?     @map("company_event_id")
   createdTime             DateTime @default(now()) @map("created_time")
   updatedTime             DateTime @updatedAt @map("updated_time")
@@ -1223,15 +1223,15 @@ model File {
 }
 
 model FileTemplate {
-  id                        Int      @id @default(autoincrement()) @map("id")
+  id                        Int      @id @map("id") @default(autoincrement())
   name                      String   @map("name") @database.VarChar(255)
   description               String?  @map("description") @database.Text
   pathTemplate              String?  @map("path_template") @database.VarChar(255)
-  isNotSigned               Boolean  @default(false) @map("is_not_signed")
-  isESign                   Boolean  @default(false) @map("is_esign")
-  isSignedForFatca          Boolean  @default(false) @map("is_signed_for_FATCA")
-  isApprovedDateAppointment Boolean  @default(false) @map("is_approved_date_appointment")
-  isInactive                Boolean  @default(false) @map("is_inactive")
+  isNotSigned               Boolean  @map("is_not_signed") @default(false)
+  isESign                   Boolean  @map("is_esign") @default(false)
+  isSignedForFatca          Boolean  @map("is_signed_for_FATCA") @default(false)
+  isApprovedDateAppointment Boolean  @map("is_approved_date_appointment") @default(false)
+  isInactive                Boolean  @map("is_inactive") @default(false)
   collectSameId             Int?     @map("collect_same_id")
   parentId                  Int?     @map("parent_id")
   fileTemplateTypeId        Int?     @map("file_template_type_id")
@@ -1249,11 +1249,11 @@ model FileTemplateHasCompanyMemberType {
   fileTemplateId         Int          @map("file_template_id")
   companyMemberTypeId    Int          @map("company_member_type_id")
   typeMemberId           Int?         @map("type_member_id")
-  isSignedByAll          Boolean      @default(false) @map("is_signed_by_all")
-  isSignedByAppointed    Boolean      @default(false) @map("is_signed_by_appointed")
-  isSignedByIndividual   Boolean      @default(false) @map("is_signed_by_individual")
-  isSignedTransfer       Boolean      @default(false) @map("is_signed_transfer")
-  isSignedByOldestMember Boolean      @default(false) @map("is_signed_by_oldest_member")
+  isSignedByAll          Boolean      @map("is_signed_by_all") @default(false)
+  isSignedByAppointed    Boolean      @map("is_signed_by_appointed") @default(false)
+  isSignedByIndividual   Boolean      @map("is_signed_by_individual") @default(false)
+  isSignedTransfer       Boolean      @map("is_signed_transfer") @default(false)
+  isSignedByOldestMember Boolean      @map("is_signed_by_oldest_member") @default(false)
   generatedFor           generatedFor @map("generated_for")
   deletedTime            DateTime     @default(now()) @map("deleted_time")
   isDeleted              Boolean      @default(false) @map("is_deleted")
@@ -1266,7 +1266,7 @@ model FileTemplateHasCompanyMemberType {
 model FileTemplateHasNationality {
   fileTemplateId        Int      @map("file_template_id")
   countryId             Int      @map("country_id")
-  isFillMoreInformation Boolean  @default(false) @map("is_fill_more_information")
+  isFillMoreInformation Boolean  @map("is_fill_more_information") @default(false)
   createdTime           DateTime @default(now()) @map("created_time")
   updatedTime           DateTime @updatedAt @map("updated_time")
   deletedTime           DateTime @default(now()) @map("deleted_time")
@@ -1285,7 +1285,7 @@ model FileTemplateHasRankingPartnerType {
 }
 
 model FileTemplateType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -1296,7 +1296,7 @@ model FileTemplateType {
 }
 
 model FileType {
-  id              Int      @id @default(autoincrement()) @map("id")
+  id              Int      @id @map("id") @default(autoincrement())
   name            String   @map("name") @database.VarChar(120)
   fileTypeGroupId Int?     @map("file_type_group_id")
   parentId        Int?     @map("parent_id")
@@ -1310,7 +1310,7 @@ model FileType {
 }
 
 model GaChannel {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -1321,7 +1321,7 @@ model GaChannel {
 }
 
 model Gender {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   prefix      String   @map("prefix") @database.VarChar(45)
   deletedTime DateTime @default(now()) @map("deleted_time")
@@ -1331,7 +1331,7 @@ model Gender {
 }
 
 model GrantScheme {
-  id           Int      @id @default(autoincrement()) @map("id")
+  id           Int      @id @map("id") @default(autoincrement())
   name         String   @map("name") @database.VarChar(100)
   description  String?  @map("description") @database.Text
   countryId    Int?     @map("country_id")
@@ -1350,7 +1350,7 @@ model GrantScheme {
 }
 
 model GrantSchemeHasGrantTypeAttribute {
-  id                  Int      @id @default(autoincrement()) @map("id")
+  id                  Int      @id @map("id") @default(autoincrement())
   grantSchemeId       Int      @map("grant_scheme_id")
   needsBasedId        Int?     @map("needs_based_id")
   industryId          Int?     @map("industry_id")
@@ -1380,7 +1380,7 @@ model GrantSchemeHasGrantTypeAttribute {
 }
 
 model GrantType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(100)
   description String?  @map("description") @database.Text
   createdTime DateTime @default(now()) @map("created_time")
@@ -1392,14 +1392,14 @@ model GrantType {
 }
 
 model GrantTypeAttribute {
-  id                    Int      @id @default(autoincrement()) @map("id")
+  id                    Int      @id @map("id") @default(autoincrement())
   grantTypeId           Int      @map("grant_type_id")
   name                  String   @map("name") @database.VarChar(100)
   description           String?  @map("description") @database.Text
   parentId              Int?     @map("parent_id")
   countryId             Int?     @map("country_id")
   grantTypeAttributeCol String?  @map("grant_type_attribute_col") @database.VarChar(45)
-  isDisabled            Boolean? @default(false) @map("is_disabled")
+  isDisabled            Boolean? @map("is_disabled") @default(false)
   order                 Int?     @map("order")
   createdTime           DateTime @default(now()) @map("created_time")
   updatedTime           DateTime @updatedAt @map("updated_time")
@@ -1423,8 +1423,8 @@ model GroupHasUser {
 }
 
 model HistoryCompany {
-  id                         Int       @id @default(autoincrement()) @map("id")
-  version                    Int       @default(1) @map("version")
+  id                         Int       @id @map("id") @default(autoincrement())
+  version                    Int       @map("version") @default(1)
   companyId                  Int       @map("company_id")
   taskId                     Int       @map("task_id")
   companyCode                String?   @map("company_code") @database.VarChar(255)
@@ -1441,7 +1441,7 @@ model HistoryCompany {
   note                       String?   @map("note") @database.VarChar(255)
   incorporationDate          DateTime? @map("incorporation_date") @database.Date
   xeroContactId              String?   @map("xero_contact_id") @database.VarChar(255)
-  isOutsideCompany           Boolean   @default(false) @map("is_outside_company")
+  isOutsideCompany           Boolean   @map("is_outside_company") @default(false)
   renewalDate                DateTime? @map("renewal_date") @database.Date
   billingId                  Int?      @map("billing_id")
   contactFullName            String?   @map("contact_full_name") @database.VarChar(255)
@@ -1482,7 +1482,7 @@ model HistoryCompany {
   sealImage                  String?   @map("seal_image") @database.VarChar(255)
   leftCheckingBank           Int?      @map("left_checking_bank")
   businessActivityDetail     Int?      @map("business_activity_detail")
-  CompanyHasBusinessActivity Json      @default("[]") @map("CompanyHasBusinessActivity")
+  CompanyHasBusinessActivity Json      @map("CompanyHasBusinessActivity") @default("[]")
   createdTime                DateTime  @default(now()) @map("created_time")
   updatedTime                DateTime  @updatedAt @map("updated_time")
   deletedTime                DateTime  @default(now()) @map("deleted_time")
@@ -1499,15 +1499,15 @@ model HistoryCompany {
 }
 
 model HistoryCompanyMember {
-  id                           Int       @id @default(autoincrement()) @map("id")
-  version                      Int       @default(1) @map("version")
+  id                           Int       @id @map("id") @default(autoincrement())
+  version                      Int       @map("version") @default(1)
   taskId                       Int       @map("task_id")
   companyId                    Int       @map("company_id")
   companyMemberId              Int       @map("company_member_id")
   countryId                    Int?      @map("country_id")
   typeMemberId                 Int?      @map("type_member_id")
-  isNominee                    Boolean   @default(false) @map("is_nominee")
-  isApproved                   Boolean   @default(false) @map("is_approved")
+  isNominee                    Boolean   @map("is_nominee") @default(false)
+  isApproved                   Boolean   @map("is_approved") @default(false)
   firstName                    String?   @map("first_name") @database.VarChar(255)
   middleName                   String?   @map("middle_name") @database.VarChar(255)
   lastName                     String?   @map("last_name") @database.VarChar(255)
@@ -1558,13 +1558,13 @@ model HistoryCompanyMember {
   deletedTime                  DateTime  @default(now()) @map("deleted_time")
   isDeleted                    Boolean   @default(false) @map("is_deleted")
 
-  @@unique([taskId, companyMemberId, version], map: "companyMemberId_taskId_version")
   @@index([addressCountryId], map: "address_country_id")
   @@index([birthCountryId], map: "birth_country_id")
   @@index([countryId], map: "country_id")
   @@index([genderId], map: "gender_id")
   @@index([phoneCountryId], map: "phone_country_id")
   @@index([typeMemberId], map: "type_member_id")
+  @@unique([taskId, companyMemberId, version], map: "companyMemberId_taskId_version")
   @@map("HistoryCompanyMember")
 }
 
@@ -1581,7 +1581,7 @@ model HistoryFile {
 }
 
 model HistoryLogCDC {
-  id               Int      @id @default(autoincrement()) @map("id")
+  id               Int      @id @map("id") @default(autoincrement())
   userId           Int      @map("user_id")
   taskId           Int      @map("task_id")
   companyId        Int?     @map("company_id")
@@ -1599,7 +1599,7 @@ model HistoryLogCDC {
 }
 
 model Holiday {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.Text
   day         Int      @map("day")
   month       Int      @map("month")
@@ -1616,7 +1616,7 @@ model Holiday {
 }
 
 model Limit {
-  id                Int      @id @default(autoincrement()) @map("id")
+  id                Int      @id @map("id") @default(autoincrement())
   name              String   @map("name") @database.VarChar(100)
   limitTypeId       Int      @map("limit_type_id")
   permissionGroupId Int      @map("permission_group_id")
@@ -1634,7 +1634,7 @@ model Limit {
 }
 
 model LimitType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   description String?  @map("description") @database.VarChar(200)
   createdTime DateTime @default(now()) @map("created_time")
@@ -1646,7 +1646,7 @@ model LimitType {
 }
 
 model LimitValue {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   limitId     Int      @map("limit_id")
   name        String   @map("name") @database.VarChar(45)
   description String?  @map("description") @database.VarChar(200)
@@ -1660,7 +1660,7 @@ model LimitValue {
 }
 
 model MailchimpCampaign {
-  id              Int     @id @default(autoincrement()) @map("id")
+  id              Int     @id @map("id") @default(autoincrement())
   name            String  @map("name") @database.VarChar(225)
   workflowId      String? @map("workflow_id") @database.VarChar(45)
   mailchimpTypeId Int?    @map("mailchimp_type_id")
@@ -1670,7 +1670,7 @@ model MailchimpCampaign {
 }
 
 model MailchimpCampaignMember {
-  id                     Int      @id @default(autoincrement()) @map("id")
+  id                     Int      @id @map("id") @default(autoincrement())
   mailchimpMemberEmailId String?  @map("mailchimp_member_email_id") @database.VarChar(255)
   mailchimpCampaignId    Int      @map("mailchimp_campaign_id")
   convDate               String?  @map("conv_date") @database.VarChar(255)
@@ -1694,7 +1694,7 @@ model MailchimpMember {
 }
 
 model MailchimpSummary {
-  id                  Int      @id @default(autoincrement()) @map("id")
+  id                  Int      @id @map("id") @default(autoincrement())
   open                Int?     @map("open")
   uniqueOpen          Int?     @map("unique_open")
   click               Int?     @map("click")
@@ -1711,7 +1711,7 @@ model MailchimpSummary {
 }
 
 model MailchimpTag {
-  id            Int      @id @default(autoincrement()) @map("id")
+  id            Int      @id @map("id") @default(autoincrement())
   name          String   @map("name") @database.VarChar(200)
   description   String?  @map("description") @database.Text
   contactFromId Int?     @map("contact_from_id")
@@ -1725,7 +1725,7 @@ model MailchimpTag {
 }
 
 model Message {
-  id            Int      @id @default(autoincrement()) @map("id")
+  id            Int      @id @map("id") @default(autoincrement())
   userId        Int      @map("user_id")
   supportCaseId Int      @map("support_case_id")
   content       String?  @map("content") @database.Text
@@ -1739,13 +1739,13 @@ model Message {
 }
 
 model Note {
-  id                 Int      @id @default(autoincrement()) @map("id")
+  id                 Int      @id @map("id") @default(autoincrement())
   title              String?  @map("title") @database.VarChar(255)
   description        String?  @map("description") @database.Text
   taskId             Int?     @map("task_id")
   companyMemberId    Int?     @map("company_member_id")
-  isBelongToClient   Boolean  @default(false) @map("is_belong_to_client")
-  isComplianceReject Boolean  @default(false) @map("is_compliance_reject")
+  isBelongToClient   Boolean  @map("is_belong_to_client") @default(false)
+  isComplianceReject Boolean  @map("is_compliance_reject") @default(false)
   userId             Int?     @map("user_id")
   noteTypeId         Int?     @map("note_type_id")
   companyId          Int?     @map("company_id")
@@ -1767,7 +1767,7 @@ model Note {
 }
 
 model NoteType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(255)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -1778,7 +1778,7 @@ model NoteType {
 }
 
 model Notification {
-  id                 Int      @id @default(autoincrement()) @map("id")
+  id                 Int      @id @map("id") @default(autoincrement())
   type               Int?     @map("type")
   description        String   @map("description") @database.VarChar(255)
   targetId           Int?     @map("target_id")
@@ -1786,7 +1786,7 @@ model Notification {
   taskId             Int?     @map("task_id")
   profileId          Int?     @map("profile_id")
   supportCaseId      Int?     @map("support_case_id")
-  isRead             Boolean  @default(false) @map("is_read")
+  isRead             Boolean  @map("is_read") @default(false)
   notificationTypeId Int      @map("notification_type_id")
   createdTime        DateTime @default(now()) @map("created_time")
   deletedTime        DateTime @default(now()) @map("deleted_time")
@@ -1797,7 +1797,7 @@ model Notification {
 }
 
 model NotificationStatus {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -1808,11 +1808,11 @@ model NotificationStatus {
 }
 
 model NotificationTemplate {
-  id                   Int      @id @default(autoincrement()) @map("id")
+  id                   Int      @id @map("id") @default(autoincrement())
   message              String?  @map("message") @database.Text
-  isNotifyToCustomer   Boolean  @default(false) @map("is_notify_to_customer")
-  isNotifyToLeader     Boolean  @default(false) @map("is_notify_to_leader")
-  isNotifyToSupporter  Boolean  @default(false) @map("is_notify_to_supporter")
+  isNotifyToCustomer   Boolean  @map("is_notify_to_customer") @default(false)
+  isNotifyToLeader     Boolean  @map("is_notify_to_leader") @default(false)
+  isNotifyToSupporter  Boolean  @map("is_notify_to_supporter") @default(false)
   notificationStatusId Int?     @map("notification_status_id")
   notificationTypeId   Int?     @map("notification_type_id")
   processStepId        Int?     @map("process_step_id")
@@ -1840,7 +1840,7 @@ model NotificationTemplateHasRole {
 }
 
 model NotificationType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -1851,7 +1851,7 @@ model NotificationType {
 }
 
 model Option {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   content     String   @map("content") @database.Text
   questionId  String   @map("question_id")
   description String?  @map("description") @database.Text
@@ -1863,7 +1863,7 @@ model Option {
 }
 
 model Order {
-  id                  Int       @id @default(autoincrement()) @map("id")
+  id                  Int       @id @map("id") @default(autoincrement())
   customerId          Int?      @map("customer_id")
   companyId           Int?      @map("company_id")
   amount              Float?    @map("amount") @database.Float
@@ -1876,7 +1876,7 @@ model Order {
   creditAmount        Float?    @map("credit_amount") @database.Float
   creditDescription   String?   @map("credit_description") @database.VarChar(255)
   annualFee           Float?    @map("annual_fee") @database.Float
-  isInvoiced          Boolean   @default(false) @map("is_invoiced")
+  isInvoiced          Boolean   @map("is_invoiced") @default(false)
   orderCode           String?   @map("order_code") @database.VarChar(255)
   xeroInvoiceId       String?   @map("xero_invoice_id") @database.VarChar(255)
   paymentGatewayId    Int?      @map("payment_gateway_id")
@@ -1885,9 +1885,9 @@ model Order {
   xeroInvoiceStatusId Int?      @map("xero_invoice_status_id")
   xeroInvoiceUrl      String?   @map("xero_invoice_url") @database.VarChar(255)
   xeroInvoiceNo       String?   @map("xero_invoice_no") @database.VarChar(255)
-  orderStatusId       Int       @default(0) @map("order_status_id")
+  orderStatusId       Int       @map("order_status_id") @default(0)
   paidTime            DateTime? @map("paid_time")
-  websiteId           Int?      @default(1) @map("website_id")
+  websiteId           Int?      @map("website_id") @default(1)
   billingId           Int?      @map("billing_id")
   orderFromId         Int?      @map("order_from_id")
   countryCardId       Int?      @map("country_card_id")
@@ -1909,7 +1909,7 @@ model Order {
 }
 
 model OrderFrom {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -1928,7 +1928,7 @@ model OrderHasBank {
 }
 
 model OrderItem {
-  id                  Int       @id @default(autoincrement()) @map("id")
+  id                  Int       @id @map("id") @default(autoincrement())
   orderId             Int       @map("order_id")
   serviceId           Int       @map("service_id")
   packageId           Int?      @map("package_id")
@@ -1938,9 +1938,9 @@ model OrderItem {
   description         String?   @map("description") @database.Text
   voucherId           Int?      @map("voucher_id")
   promotionId         Int?      @map("promotion_id")
-  isRefund            Boolean   @default(false) @map("is_refund")
+  isRefund            Boolean   @map("is_refund") @default(false)
   discountOrderItemId Int?      @map("discount_order_item_id")
-  orderItemStatusId   Int       @default(0) @map("order_item_status_id")
+  orderItemStatusId   Int       @map("order_item_status_id") @default(0)
   finishedTime        DateTime? @map("finished_time")
   createdTime         DateTime  @default(now()) @map("created_time")
   updatedTime         DateTime  @updatedAt @map("updated_time")
@@ -1953,7 +1953,7 @@ model OrderItem {
 }
 
 model OrderItemStatus {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   order       Int?     @map("order")
   createdTime DateTime @default(now()) @map("created_time")
@@ -1965,7 +1965,7 @@ model OrderItemStatus {
 }
 
 model OrderStatus {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -1974,7 +1974,7 @@ model OrderStatus {
 }
 
 model Package {
-  id              Int      @id @default(autoincrement()) @map("id")
+  id              Int      @id @map("id") @default(autoincrement())
   serviceTypeId   Int      @map("service_type_id")
   packageTypeId   Int      @map("package_type_id")
   countryId       Int      @map("country_id")
@@ -2002,7 +2002,7 @@ model Package {
 }
 
 model PackageGroup {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.Text
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -2015,7 +2015,7 @@ model PackageGroup {
 model PackageHasService {
   packageId   Int      @map("package_id")
   serviceId   Int      @map("service_id")
-  typeId      Int      @default(1) @map("type_id")
+  typeId      Int      @map("type_id") @default(1)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
@@ -2024,7 +2024,7 @@ model PackageHasService {
 }
 
 model PackageType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.Text
   description String?  @map("description") @database.Text
   image       String?  @map("image") @database.VarChar(200)
@@ -2037,7 +2037,7 @@ model PackageType {
 }
 
 model PaymentGateway {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(100)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -2046,7 +2046,7 @@ model PaymentGateway {
 }
 
 model PaymentInformation {
-  id                       Int       @id @default(autoincrement()) @map("id")
+  id                       Int       @id @map("id") @default(autoincrement())
   companyMemberId          Int?      @map("company_member_id")
   orderId                  Int?      @map("order_id")
   taskId                   Int?      @map("task_id")
@@ -2069,9 +2069,9 @@ model PaymentInformation {
 }
 
 model Permission {
-  id                Int      @id @default(autoincrement()) @map("id")
+  id                Int      @id @map("id") @default(autoincrement())
   permissionGroupId Int      @map("permission_group_id")
-  value             String   @unique @map("value") @database.VarChar(45)
+  value             String   @map("value") @unique @database.VarChar(45)
   name              String?  @map("name") @database.VarChar(45)
   description       String?  @map("description") @database.VarChar(100)
   deletedTime       DateTime @default(now()) @map("deleted_time")
@@ -2082,8 +2082,8 @@ model Permission {
 }
 
 model PermissionGroup {
-  id          Int      @id @default(autoincrement()) @map("id")
-  name        String   @unique @map("name")
+  id          Int      @id @map("id") @default(autoincrement())
+  name        String   @map("name") @unique
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
@@ -2091,7 +2091,7 @@ model PermissionGroup {
 }
 
 model Person {
-  id             Int       @id @default(autoincrement()) @map("id")
+  id             Int       @id @map("id") @default(autoincrement())
   countryId      Int?      @map("country_id")
   firstName      String?   @map("first_name") @database.VarChar(200)
   lastName       String?   @map("last_name") @database.VarChar(200)
@@ -2105,7 +2105,7 @@ model Person {
   address        String?   @map("address") @database.Text
   ssn            String?   @map("ssn") @database.VarChar(100)
   image          String?   @map("image") @database.VarChar(255)
-  status         Int?      @default(1) @map("status")
+  status         Int?      @map("status") @default(1)
   createdTime    DateTime  @default(now()) @map("created_time")
   updatedTime    DateTime  @updatedAt @map("updated_time")
   deletedTime    DateTime  @default(now()) @map("deleted_time")
@@ -2119,14 +2119,14 @@ model Person {
 }
 
 model Process {
-  id                Int       @id @default(autoincrement()) @map("id")
+  id                Int       @id @map("id") @default(autoincrement())
   taskId            Int       @map("task_id")
   processStepId     Int       @map("process_step_id")
   personId          Int?      @map("person_id")
   userId            Int?      @map("user_id")
-  isApproved        Boolean?  @default(false) @map("is_approved")
-  isRejected        Boolean?  @default(false) @map("is_rejected")
-  isTerminated      Boolean?  @default(false) @map("is_terminated")
+  isApproved        Boolean?  @map("is_approved") @default(false)
+  isRejected        Boolean?  @map("is_rejected") @default(false)
+  isTerminated      Boolean?  @map("is_terminated") @default(false)
   finishedTime      DateTime? @map("finished_time")
   remindStartTime   DateTime? @map("remind_start_time")
   status            Int?      @map("status")
@@ -2134,7 +2134,7 @@ model Process {
   additionProcessId Int?      @map("addition_process_id")
   priority          Int?      @map("priority")
   description       Json?     @map("description")
-  parentId          Json?     @default("[]") @map("parent_id")
+  parentId          Json?     @map("parent_id") @default("[]")
   extraValue        Json?     @map("extra_value")
   createdTime       DateTime  @default(now()) @map("created_time")
   updatedTime       DateTime  @updatedAt @map("updated_time")
@@ -2161,12 +2161,12 @@ model ProcessHasNote {
 }
 
 model ProcessLog {
-  id                      Int       @id @default(autoincrement()) @map("id")
+  id                      Int       @id @map("id") @default(autoincrement())
   processId               Int       @map("process_id")
-  isFinished              Boolean   @default(false) @map("is_finished")
+  isFinished              Boolean   @map("is_finished") @default(false)
   finishedTime            DateTime? @map("finished_time")
-  isLogMail               Boolean   @default(false) @map("is_log_mail")
-  isRemind                Boolean   @default(false) @map("is_remind")
+  isLogMail               Boolean   @map("is_log_mail") @default(false)
+  isRemind                Boolean   @map("is_remind") @default(false)
   description             String?   @map("description") @database.VarChar(255)
   agentId                 Int?      @map("agent_id")
   fileTemplateId          Int?      @map("file_template_id")
@@ -2186,17 +2186,17 @@ model ProcessLog {
 }
 
 model ProcessStep {
-  id                 Int      @id @default(autoincrement()) @map("id")
+  id                 Int      @id @map("id") @default(autoincrement())
   processStepTypeId  Int      @map("process_step_type_id")
-  value              Int?     @unique @map("value")
+  value              Int?     @map("value") @unique
   name               String   @map("name") @database.VarChar(100)
   description        String?  @map("description") @database.Text
   left               Int?     @map("left")
   right              Int?     @map("right")
   parentId           Int?     @map("parent_id")
   descriptionDisplay String?  @map("description_display") @database.Text
-  isGeneratedFile    Boolean  @default(false) @map("is_generated_file")
-  isSendLinkSigned   Boolean  @default(false) @map("is_send_link_signed")
+  isGeneratedFile    Boolean  @map("is_generated_file") @default(false)
+  isSendLinkSigned   Boolean  @map("is_send_link_signed") @default(false)
   order              Int?     @map("order")
   deletedTime        DateTime @default(now()) @map("deleted_time")
   isDeleted          Boolean  @default(false) @map("is_deleted")
@@ -2210,7 +2210,7 @@ model ProcessStepHasFileTemplate {
   processStepId  Int     @map("process_step_id")
   fileTemplateId Int     @map("file_template_id")
   order          Int?    @map("order")
-  isBegin        Boolean @default(false) @map("is_begin")
+  isBegin        Boolean @map("is_begin") @default(false)
 
   @@id([fileTemplateId, processStepId])
   @@map("ProcessStepHasFileTemplate")
@@ -2219,16 +2219,16 @@ model ProcessStepHasFileTemplate {
 model ProcessStepHasRole {
   processStepId Int     @map("process_step_id")
   roleId        Int     @map("role_id")
-  isMain        Boolean @default(false) @map("is_main")
+  isMain        Boolean @map("is_main") @default(false)
 
   @@id([processStepId, roleId])
   @@map("ProcessStepHasRole")
 }
 
 model ProcessStepType {
-  id            Int      @id @default(autoincrement()) @map("id")
+  id            Int      @id @map("id") @default(autoincrement())
   name          String   @map("name") @database.VarChar(255)
-  isDashboard   Boolean  @default(false) @map("is_dashboard")
+  isDashboard   Boolean  @map("is_dashboard") @default(false)
   relationTypes Json?    @map("relation_types")
   createdTime   DateTime @default(now()) @map("created_time")
   updatedTime   DateTime @updatedAt @map("updated_time")
@@ -2239,11 +2239,11 @@ model ProcessStepType {
 }
 
 model Promotion {
-  id            Int      @id @default(autoincrement()) @map("id")
+  id            Int      @id @map("id") @default(autoincrement())
   promotionCode String   @map("promotion_code") @database.VarChar(255)
-  percent       Int      @default(0) @map("percent")
-  amount        Int      @default(0) @map("amount")
-  isUsed        Boolean  @default(false) @map("is_used")
+  percent       Int      @map("percent") @default(0)
+  amount        Int      @map("amount") @default(0)
+  isUsed        Boolean  @map("is_used") @default(false)
   createdTime   DateTime @default(now()) @map("created_time")
   deletedTime   DateTime @default(now()) @map("deleted_time")
   isDeleted     Boolean  @default(false) @map("is_deleted")
@@ -2252,15 +2252,15 @@ model Promotion {
 }
 
 model ProposedName {
-  id              Int      @id @default(autoincrement()) @map("id")
+  id              Int      @id @map("id") @default(autoincrement())
   name            String   @map("name") @database.VarChar(255)
   companySuffixId Int      @map("company_suffix_id")
   taskId          Int?     @map("task_id")
   companyId       Int?     @map("company_id")
-  isApprove       Boolean  @default(false) @map("is_approve")
-  isSentAgent     Boolean  @default(false) @map("is_sent_agent")
-  isSentCustomer  Boolean  @default(false) @map("is_sent_customer")
-  isConfirmed     Boolean  @default(false) @map("is_confirmed")
+  isApprove       Boolean  @map("is_approve") @default(false)
+  isSentAgent     Boolean  @map("is_sent_agent") @default(false)
+  isSentCustomer  Boolean  @map("is_sent_customer") @default(false)
+  isConfirmed     Boolean  @map("is_confirmed") @default(false)
   createdTime     DateTime @default(now()) @map("created_time")
   updatedTime     DateTime @updatedAt @map("updated_time")
   deletedTime     DateTime @default(now()) @map("deleted_time")
@@ -2273,7 +2273,7 @@ model ProposedName {
 }
 
 model ProposedTime {
-  id               Int      @id @default(autoincrement()) @map("id")
+  id               Int      @id @map("id") @default(autoincrement())
   bankingProcessId Int      @map("banking_process_id")
   fromTime         Int      @map("from_time")
   toTime           Int      @map("to_time")
@@ -2287,9 +2287,9 @@ model ProposedTime {
 }
 
 model Question {
-  id                 Int      @id @default(autoincrement()) @map("id")
+  id                 Int      @id @map("id") @default(autoincrement())
   content            String   @map("content") @database.Text
-  isBelongToFatca    Boolean  @default(false) @map("is_belong_to_fatca")
+  isBelongToFatca    Boolean  @map("is_belong_to_fatca") @default(false)
   description        String?  @map("description") @database.Text
   questionParentId   Int?     @map("question_parent_id")
   questionTypeId     Int      @map("question_type_id")
@@ -2306,7 +2306,7 @@ model Question {
 }
 
 model QuestionGroup {
-  id             Int      @id @default(autoincrement()) @map("id")
+  id             Int      @id @map("id") @default(autoincrement())
   name           String   @map("name") @database.VarChar(200)
   left           Int?     @map("left")
   right          Int?     @map("right")
@@ -2327,7 +2327,7 @@ model QuestionGroupHasQuestion {
 }
 
 model QuestionPriority {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   description String?  @map("description") @database.Text
   deletedTime DateTime @default(now()) @map("deleted_time")
@@ -2337,14 +2337,14 @@ model QuestionPriority {
 }
 
 model QuestionType {
-  id   Int    @id @default(autoincrement()) @map("id")
+  id   Int    @id @map("id") @default(autoincrement())
   name String @map("name") @database.Text
 
   @@map("QuestionType")
 }
 
 model RankingPartner {
-  id                   Int      @id @default(autoincrement()) @map("id")
+  id                   Int      @id @map("id") @default(autoincrement())
   name                 String   @map("name") @database.VarChar(45)
   taskId               Int      @map("task_id")
   ranking              Int?     @map("ranking")
@@ -2360,7 +2360,7 @@ model RankingPartner {
 }
 
 model RankingPartnerType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -2371,10 +2371,10 @@ model RankingPartnerType {
 }
 
 model Rate {
-  id           Int      @id @default(autoincrement()) @map("id")
+  id           Int      @id @map("id") @default(autoincrement())
   rateSourceId Int      @map("rate_source_id")
   ip           String?  @map("ip") @database.VarChar(255)
-  score        Int      @default(0) @map("score")
+  score        Int      @map("score") @default(0)
   email        String?  @map("email") @database.VarChar(255)
   description  String?  @map("description") @database.VarChar(255)
   createdTime  DateTime @default(now()) @map("created_time")
@@ -2386,14 +2386,14 @@ model Rate {
 }
 
 model Role {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
-  value       String   @default("") @map("value") @database.VarChar(100)
+  value       String   @map("value") @default("") @database.VarChar(100)
   left        Int?     @map("left")
   right       Int?     @map("right")
   parentId    Int?     @map("parent_id")
   description String?  @map("description") @database.Text
-  status      Int      @default(1) @map("status")
+  status      Int      @map("status") @default(1)
   colorCode   Json?    @map("color_code")
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -2421,7 +2421,7 @@ model RoleHasPermission {
 }
 
 model Service {
-  id                      Int      @id @default(autoincrement()) @map("id")
+  id                      Int      @id @map("id") @default(autoincrement())
   serviceTypeId           Int      @map("service_type_id")
   websiteId               Int      @map("website_id")
   visaTypeId              Int?     @map("visa_type_id")
@@ -2436,10 +2436,10 @@ model Service {
   xeroItemCode            String?  @map("xero_item_code") @database.VarChar(45)
   uuid                    String?  @map("uuid") @database.Char(36)
   xeroAccountId           Int?     @map("xero_account_id")
-  isActive                Boolean  @default(true) @map("is_active")
-  isServiceOutsideCompany Boolean  @default(false) @map("is_service_outside_company")
-  isDisplayed             Boolean  @default(true) @map("is_displayed")
-  isAttachIncorp          Boolean  @default(true) @map("is_attach_incorp")
+  isActive                Boolean  @map("is_active") @default(true)
+  isServiceOutsideCompany Boolean  @map("is_service_outside_company") @default(false)
+  isDisplayed             Boolean  @map("is_displayed") @default(true)
+  isAttachIncorp          Boolean  @map("is_attach_incorp") @default(true)
   quantity                Int?     @map("quantity")
   upgradeServiceId        Int?     @map("upgrade_service_id")
   discountServiceId       Int?     @map("discount_service_id")
@@ -2463,7 +2463,7 @@ model Service {
 }
 
 model ServiceChangeOfficer {
-  id                    Int      @id @default(autoincrement()) @map("id")
+  id                    Int      @id @map("id") @default(autoincrement())
   companyMemberTypeId   Int      @map("company_member_type_id")
   changeRequestStatusId Int      @map("change_request_status_id")
   name                  String   @map("name") @database.Text
@@ -2503,16 +2503,16 @@ model ServiceHasFileTemplate {
 }
 
 model ServiceType {
-  id               Int      @id @default(autoincrement()) @map("id")
+  id               Int      @id @map("id") @default(autoincrement())
   name             String   @map("name") @database.VarChar(45)
   description      String?  @map("description") @database.Text
   left             Int?     @map("left")
   right            Int?     @map("right")
   parentId         Int?     @map("parent_id")
   websiteId        Int?     @map("website_id")
-  isActive         Boolean  @default(true) @map("is_active")
-  isRequired       Boolean  @default(false) @map("is_required")
-  isOnly           Boolean  @default(false) @map("is_only")
+  isActive         Boolean  @map("is_active") @default(true)
+  isRequired       Boolean  @map("is_required") @default(false)
+  isOnly           Boolean  @map("is_only") @default(false)
   processStepTypes Json?    @map("process_step_types")
   order            Int?     @map("order")
   createdTime      DateTime @default(now()) @map("created_time")
@@ -2534,7 +2534,7 @@ model ServiceTypeHasDepartment {
 }
 
 model ServiceUnit {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   plural      String?  @map("plural") @database.VarChar(45)
   deletedTime DateTime @default(now()) @map("deleted_time")
@@ -2544,15 +2544,15 @@ model ServiceUnit {
 }
 
 model SingaporeAcra {
-  id         Int    @id @default(autoincrement()) @map("id")
-  entityName String @map("entity_name") @database.Text
+  id         Int    @id @map("id") @default(autoincrement())
+  entityName String @map("entity_name") @unique @database.VarChar(3072)
 
-  // @@index([entityName])
+  @@index([entityName])
   @@map("SingaporeAcra")
 }
 
 model Subscription {
-  id           Int      @id @default(autoincrement()) @map("id")
+  id           Int      @id @map("id") @default(autoincrement())
   name         String   @map("name") @database.VarChar(45)
   description  String?  @map("description") @database.Text
   value        String?  @map("value") @database.Text
@@ -2568,7 +2568,7 @@ model Subscription {
 }
 
 model SupportCase {
-  id                    Int      @id @default(autoincrement()) @map("id")
+  id                    Int      @id @map("id") @default(autoincrement())
   subject               String   @map("subject") @database.VarChar(255)
   userId                Int?     @map("user_id")
   supportCaseTypeId     Int      @map("support_case_type_id")
@@ -2596,7 +2596,7 @@ model SupportCaseHasOrder {
 }
 
 model SupportCasePriority {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(100)
   description String?  @map("description") @database.VarChar(200)
   deletedTime DateTime @default(now()) @map("deleted_time")
@@ -2606,7 +2606,7 @@ model SupportCasePriority {
 }
 
 model SupportCaseStatus {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(100)
   description String?  @map("description") @database.VarChar(200)
   deletedTime DateTime @default(now()) @map("deleted_time")
@@ -2616,7 +2616,7 @@ model SupportCaseStatus {
 }
 
 model SupportCaseType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(100)
   description String?  @map("description") @database.VarChar(200)
   deletedTime DateTime @default(now()) @map("deleted_time")
@@ -2626,7 +2626,7 @@ model SupportCaseType {
 }
 
 model Survey {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.Text
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -2635,10 +2635,10 @@ model Survey {
 }
 
 model SurveyChoice {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   surveyId    Int      @map("survey_id")
   name        String   @map("name") @database.Text
-  isContent   Boolean  @default(false) @map("is_content")
+  isContent   Boolean  @map("is_content") @default(false)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
@@ -2647,7 +2647,7 @@ model SurveyChoice {
 }
 
 model Syslog {
-  id                Int      @id @default(autoincrement()) @map("id")
+  id                Int      @id @map("id") @default(autoincrement())
   apiUrl            String   @map("api_url") @database.VarChar(255)
   userId            Int?     @map("user_id")
   syslogTypeId      Int?     @map("syslog_type_id")
@@ -2680,7 +2680,7 @@ model Syslog {
 }
 
 model SyslogType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(200)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -2689,7 +2689,7 @@ model SyslogType {
 }
 
 model Target {
-  id           Int       @id @default(autoincrement()) @map("id")
+  id           Int       @id @map("id") @default(autoincrement())
   countryId    Int       @map("country_id")
   value        Int?      @map("value")
   targetTypeId Int?      @map("target_type_id")
@@ -2704,7 +2704,7 @@ model Target {
 }
 
 model Task {
-  id                                       Int      @id @default(autoincrement()) @map("id")
+  id                                       Int      @id @map("id") @default(autoincrement())
   customerId                               Int?     @map("customer_id")
   companyId                                Int?     @map("company_id")
   orderId                                  Int?     @map("order_id")
@@ -2712,22 +2712,22 @@ model Task {
   entityTypeId                             Int?     @map("entity_type_id")
   countryId                                Int?     @map("country_id")
   incorporationCountryId                   Int?     @map("incorporation_country_id")
-  isRemindClientContact                    Boolean  @default(false) @map("is_remind_client_contact")
-  isRemindAgentCheckName                   Boolean  @default(false) @map("is_remind_agent_check_name")
-  isRemindClientSignOrder                  Boolean  @default(false) @map("is_remind_client_sign_order")
-  isRemindAgentCheckDocument               Boolean  @default(false) @map("is_remind_agent_check_document")
-  isRemindClientSignDocument               Boolean  @default(false) @map("is_remind_client_sign_document")
-  isRemindAgentCheckOriginDocument         Boolean  @default(false) @map("is_remind_agent_check_orign_document")
-  isRemindClientCheckName                  Boolean  @default(false) @map("is_remind_client_check_name")
-  isRemindAgentReviewBusinessPlanForm      Boolean  @default(false) @map("is_remind_agent_review_business_plan_form")
-  isRemindAgentReviewApplicationSet        Boolean  @default(false) @map("is_remind_agent_review_application_set")
-  isRemindClientReviewApplicationSet       Boolean  @default(false) @map("is_remind_client_review_application_set")
-  isRemindClientDeposit                    Boolean  @default(false) @map("is_remind_client_deposit")
-  isRemindAgentReviewApplicationForm       Boolean  @default(false) @map("is_remind_agent_review_application_form")
-  isRemindClientReviewApplicationForm      Boolean  @default(false) @map("is_remind_client_review_application_form")
-  isRemindAgentReviewScheduleMeeting       Boolean  @default(false) @map("is_remind_agent_review_schedule_meeting")
-  isRemindClientScheduleMeeting            Boolean  @default(false) @map("is_remind_client_schedule_meeting")
-  isFinished                               Boolean  @default(false) @map("is_finished")
+  isRemindClientContact                    Boolean  @map("is_remind_client_contact") @default(false)
+  isRemindAgentCheckName                   Boolean  @map("is_remind_agent_check_name") @default(false)
+  isRemindClientSignOrder                  Boolean  @map("is_remind_client_sign_order") @default(false)
+  isRemindAgentCheckDocument               Boolean  @map("is_remind_agent_check_document") @default(false)
+  isRemindClientSignDocument               Boolean  @map("is_remind_client_sign_document") @default(false)
+  isRemindAgentCheckOriginDocument         Boolean  @map("is_remind_agent_check_orign_document") @default(false)
+  isRemindClientCheckName                  Boolean  @map("is_remind_client_check_name") @default(false)
+  isRemindAgentReviewBusinessPlanForm      Boolean  @map("is_remind_agent_review_business_plan_form") @default(false)
+  isRemindAgentReviewApplicationSet        Boolean  @map("is_remind_agent_review_application_set") @default(false)
+  isRemindClientReviewApplicationSet       Boolean  @map("is_remind_client_review_application_set") @default(false)
+  isRemindClientDeposit                    Boolean  @map("is_remind_client_deposit") @default(false)
+  isRemindAgentReviewApplicationForm       Boolean  @map("is_remind_agent_review_application_form") @default(false)
+  isRemindClientReviewApplicationForm      Boolean  @map("is_remind_client_review_application_form") @default(false)
+  isRemindAgentReviewScheduleMeeting       Boolean  @map("is_remind_agent_review_schedule_meeting") @default(false)
+  isRemindClientScheduleMeeting            Boolean  @map("is_remind_client_schedule_meeting") @default(false)
+  isFinished                               Boolean  @map("is_finished") @default(false)
   fullName                                 String?  @map("full_name") @database.VarChar(255)
   phone                                    String?  @map("phone") @database.VarChar(255)
   email                                    String?  @map("email") @database.VarChar(255)
@@ -2741,13 +2741,13 @@ model Task {
   appointedDirectorCompanyMemberId         Int?     @map("appointed_director_company_member_id")
   appointedUboCompanyMemberId              Int?     @map("appointed_ubo_company_member_id")
   appointedPresidentCompanyMemberId        Int?     @map("appointed_president_company_member_id")
-  isBankingFinished                        Boolean  @default(false) @map("is_banking_finished")
-  isRemindAgentServiceRequestRoundChop     Boolean  @default(false) @map("is_remind_agent_service_request_round_chop")
-  isRemindAgentServiceRequestCertification Boolean  @default(false) @map("is_remind_agent_service_request_certification")
-  isRemindAgentServiceRequestCourier       Boolean  @default(false) @map("is_remind_agent_service_request_courier")
+  isBankingFinished                        Boolean  @map("is_banking_finished") @default(false)
+  isRemindAgentServiceRequestRoundChop     Boolean  @map("is_remind_agent_service_request_round_chop") @default(false)
+  isRemindAgentServiceRequestCertification Boolean  @map("is_remind_agent_service_request_certification") @default(false)
+  isRemindAgentServiceRequestCourier       Boolean  @map("is_remind_agent_service_request_courier") @default(false)
   reasonUseNomineeDirector                 String?  @map("reason_use_nominee_director") @database.VarChar(255)
   reasonUseNomineeShareholder              String?  @map("reason_use_nominee_shareholder") @database.VarChar(255)
-  isNoteCompliance                         Boolean  @default(false) @map("is_note_compliance")
+  isNoteCompliance                         Boolean  @map("is_note_compliance") @default(false)
   csLeaderId                               Int?     @map("cs_leader_id")
   csMemberId                               Int?     @map("cs_member_id")
   accountantLeaderId                       Int?     @map("accountant_leader_id")
@@ -2802,7 +2802,7 @@ model TaskHasAgent {
 }
 
 model TeamGroup {
-  id           Int      @id @default(autoincrement()) @map("id")
+  id           Int      @id @map("id") @default(autoincrement())
   name         String   @map("name") @database.VarChar(100)
   leaderUserId Int?     @map("leader_user_id")
   createdTime  DateTime @default(now()) @map("created_time")
@@ -2815,7 +2815,7 @@ model TeamGroup {
 }
 
 model TitleName {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.Text
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -2824,7 +2824,7 @@ model TitleName {
 }
 
 model Token {
-  id                      Int      @id @default(autoincrement()) @map("id")
+  id                      Int      @id @map("id") @default(autoincrement())
   userId                  Int      @map("user_id")
   accessToken             String   @map("access_token") @database.VarChar(255)
   accessTokenExp          Int      @map("access_token_exp")
@@ -2859,7 +2859,7 @@ model Token {
 }
 
 model TokenType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(100)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -2868,12 +2868,12 @@ model TokenType {
 }
 
 model ToolBusinessEntity {
-  id           Int      @id @default(autoincrement()) @map("id")
+  id           Int      @id @map("id") @default(autoincrement())
   optionId     Int      @map("option_id")
   entityTypeId Int      @map("entity_type_id")
   score        Int?     @map("score")
-  isReject     Boolean  @default(false) @map("is_reject")
-  isReset      Boolean  @default(false) @map("is_reset")
+  isReject     Boolean  @map("is_reject") @default(false)
+  isReset      Boolean  @map("is_reset") @default(false)
   createdTime  DateTime @default(now()) @map("created_time")
   updatedTime  DateTime @updatedAt @map("updated_time")
   deletedTime  DateTime @default(now()) @map("deleted_time")
@@ -2885,7 +2885,7 @@ model ToolBusinessEntity {
 }
 
 model TypeMember {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(100)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -2894,7 +2894,7 @@ model TypeMember {
 }
 
 model UrlList {
-  id            Int      @id @default(autoincrement()) @map("id")
+  id            Int      @id @map("id") @default(autoincrement())
   name          String   @map("name") @database.VarChar(200)
   value         String?  @map("value") @database.Text
   urlListTypeId Int?     @map("url_list_type_id")
@@ -2909,7 +2909,7 @@ model UrlList {
 }
 
 model UrlListType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(45)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -2918,7 +2918,7 @@ model UrlListType {
 }
 
 model User {
-  id                        Int      @id @default(autoincrement()) @map("id")
+  id                        Int      @id @map("id") @default(autoincrement())
   username                  String?  @map("username") @database.VarChar(320)
   password                  String?  @map("password") @database.VarChar(100)
   passwordSalt              String?  @map("password_salt") @database.VarChar(100)
@@ -2927,7 +2927,7 @@ model User {
   resetPasswordTokenExp     Int?     @map("reset_password_token_exp")
   twoFactorToken            String?  @map("two_factor_token") @database.Text
   twoFactorTokenExp         Int?     @map("two_factor_token_exp")
-  isTwoFactorAuthentication Boolean  @default(false) @map("is_two_factor_authentication")
+  isTwoFactorAuthentication Boolean  @map("is_two_factor_authentication") @default(false)
   personId                  Int?     @map("person_id")
   customerId                Int?     @map("customer_id")
   subscriptionId            Int?     @map("subscription_id")
@@ -2946,8 +2946,8 @@ model User {
 model UserHasNotification {
   userId         Int      @map("user_id")
   notificationId Int      @map("notification_id")
-  isRead         Boolean  @default(false) @map("is_read")
-  readAt         DateTime @map("read_at") @database..DateTime(0)
+  isRead         Boolean  @map("is_read") @default(false)
+  readAt         DateTime @map("read_at") @database.DateTime(0)
 
   @@id([userId, notificationId])
   @@map("UserHasNotification")
@@ -2962,16 +2962,16 @@ model UserHasRole {
 }
 
 model VisaOrder {
-  id            Int      @id @default(autoincrement()) @map("id")
+  id            Int      @id @map("id") @default(autoincrement())
   orderId       Int      @map("order_id")
   airportId     Int?     @map("airport_id")
   visaPurposeId Int?     @map("visa_purpose_id")
   visaTypeId    Int?     @map("visa_type_id")
   flightNumber  String?  @map("flight_number") @database.VarChar(255)
-  arrivalTime   DateTime @map("arrival_time") @database..DateTime(0)
-  entryTime     DateTime @map("entry_time") @database..DateTime(0)
-  exitTime      DateTime @map("exit_time") @database..DateTime(0)
-  carPickupTime DateTime @map("car_pickup_time") @database..DateTime(0)
+  arrivalTime   DateTime @map("arrival_time") @database.DateTime(0)
+  entryTime     DateTime @map("entry_time") @database.DateTime(0)
+  exitTime      DateTime @map("exit_time") @database.DateTime(0)
+  carPickupTime DateTime @map("car_pickup_time") @database.DateTime(0)
   createdTime   DateTime @default(now()) @map("created_time")
   updatedTime   DateTime @updatedAt @map("updated_time")
   deletedTime   DateTime @default(now()) @map("deleted_time")
@@ -2985,7 +2985,7 @@ model VisaOrder {
 }
 
 model VisaPurpose {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.Text
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -2994,7 +2994,7 @@ model VisaPurpose {
 }
 
 model VisaType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.Text
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
@@ -3003,7 +3003,7 @@ model VisaType {
 }
 
 model VisaVietnamArrival {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   countryId   Int?     @map("country_id")
   dayFree     Int?     @map("day_free")
   deletedTime DateTime @default(now()) @map("deleted_time")
@@ -3014,20 +3014,20 @@ model VisaVietnamArrival {
 }
 
 model Voucher {
-  id             Int      @id @default(autoincrement()) @map("id")
+  id             Int      @id @map("id") @default(autoincrement())
   name           String?  @map("name") @database.VarChar(255)
   voucherCode    String   @map("voucher_code") @database.VarChar(255)
   customerId     Int?     @map("customer_id")
   googleClientId Int?     @map("google_client_id")
   voucherTypeId  Int?     @map("voucher_type_id")
   orderId        Int?     @map("order_id")
-  isActive       Boolean  @default(false) @map("is_active")
-  isUsed         Boolean  @default(false) @map("is_used")
-  isRunning      Boolean  @default(false) @map("is_running")
-  expiredTime    DateTime @map("expired_time") @database..DateTime(0)
-  activeDate     DateTime @map("active_date") @database..DateTime(0)
-  usedDate       DateTime @map("used_date") @database..DateTime(0)
-  openDate       DateTime @map("open_date") @database..DateTime(0)
+  isActive       Boolean  @map("is_active") @default(false)
+  isUsed         Boolean  @map("is_used") @default(false)
+  isRunning      Boolean  @map("is_running") @default(false)
+  expiredTime    DateTime @map("expired_time") @database.DateTime(0)
+  activeDate     DateTime @map("active_date") @database.DateTime(0)
+  usedDate       DateTime @map("used_date") @database.DateTime(0)
+  openDate       DateTime @map("open_date") @database.DateTime(0)
   createdTime    DateTime @default(now()) @map("created_time")
   updatedTime    DateTime @updatedAt @map("updated_time")
   deletedTime    DateTime @default(now()) @map("deleted_time")
@@ -3040,7 +3040,7 @@ model Voucher {
 }
 
 model VoucherType {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(225)
   config      Json?    @map("config")
   percent     Int?     @map("percent")
@@ -3054,16 +3054,16 @@ model VoucherType {
 }
 
 model Website {
-  id                       Int      @id @default(autoincrement()) @map("id")
-  currencyId               Int      @default(1) @map("currency_id")
+  id                       Int      @id @map("id") @default(autoincrement())
+  currencyId               Int      @map("currency_id") @default(1)
   name                     String   @map("name") @database.VarChar(100)
   domain                   String?  @map("domain") @database.VarChar(100)
   domainDashboard          String?  @map("domain_dashboard") @database.VarChar(100)
   stripeKey                String?  @map("stripe_key") @database.Text
   paypalKey                String?  @map("paypal_key") @database.Text
   mailchimpKey             String?  @map("mailchimp_key") @database.Text
-  minAmount                Float    @default(0) @map("min_amount") @database.Float
-  minUnit                  Float    @default(0) @map("min_unit") @database.Float
+  minAmount                Float    @map("min_amount") @default(0) @database.Float
+  minUnit                  Float    @map("min_unit") @default(0) @database.Float
   email                    String?  @map("email") @database.Text
   emailContact             String?  @map("email_contact") @database.VarChar(100)
   emailName                String?  @map("email_name") @database.Text
@@ -3084,7 +3084,7 @@ model Website {
   awsBucketLog             String?  @map("aws_bucket_log") @database.Text
   googleAdsConfig          String?  @map("google_ads_config") @database.Text
   endpointSecretStripe     String?  @map("endpoint_secret_stripe") @database.Text
-  minMakePaymentAmount     Float    @default(0) @map("min_make_payment_amount") @database.Float
+  minMakePaymentAmount     Float    @map("min_make_payment_amount") @default(0) @database.Float
   createdTime              DateTime @default(now()) @map("created_time")
   deletedTime              DateTime @default(now()) @map("deleted_time")
   isDeleted                Boolean  @default(false) @map("is_deleted")
@@ -3094,10 +3094,10 @@ model Website {
 }
 
 model XeroAccount {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(50)
   description String?  @map("description") @database.VarChar(200)
-  type        String   @default("SALE") @map("type") @database.VarChar(50)
+  type        String   @map("type") @default("SALE") @database.VarChar(50)
   code        String   @map("code") @database.VarChar(50)
   createdTime DateTime @default(now()) @map("created_time")
   updatedTime DateTime @updatedAt @map("updated_time")
@@ -3108,7 +3108,7 @@ model XeroAccount {
 }
 
 model XeroInvoiceStatus {
-  id          Int      @id @default(autoincrement()) @map("id")
+  id          Int      @id @map("id") @default(autoincrement())
   name        String   @map("name") @database.VarChar(100)
   xeroCode    String   @map("xero_code") @database.VarChar(100)
   description String?  @map("description") @database.VarChar(200)
