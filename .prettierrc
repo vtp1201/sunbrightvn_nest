@@ -8,5 +8,6 @@
   "semi": true,
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
   "importOrderSeparation": true,
-  "experimentalBabelParserPluginsList": ["jsx", "typescript"]
+  "experimentalBabelParserPluginsList": ["jsx", "typescript"],
+  "importOrderSortSpecifiers": true
 }

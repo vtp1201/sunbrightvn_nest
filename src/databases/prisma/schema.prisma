@@ -901,6 +901,121 @@ model CountryHasQuestion {
   @@map("CountryHasQuestion")
 }
 
+model Customer {
+  id                         Int       @id @map("id") @default(autoincrement())
+  creditAmount               Float     @map("credit_amount") @default(0) @database.Float
+  creditDescription          String?   @map("credit_description") @database.Text
+  countryId                  Int?      @map("country_id")
+  personId                   Int?      @map("person_id")
+  campaignAdsId              Int?      @map("campaign_ads_id")
+  clientId                   Int?      @map("client_id")
+  gaChannelId                Int?      @map("ga_channel_id")
+  contactFromId              Int?      @map("contact_from_id")
+  entityTypeId               Int?      @map("entity_type_id")
+  companySuffixId            Int?      @map("company_suffix_id")
+  companyCountryId           Int?      @map("company_country_id")
+  titleNameId                Int?      @map("title_name_id")
+  websiteId                  Int       @map("website_id") @default(1)
+  customerTypeId             Int?      @map("customer_type_id")
+  firstName                  String?   @map("first_name") @database.VarChar(45)
+  lastName                   String?   @map("last_name") @database.VarChar(45)
+  address                    String?   @map("address") @database.Text
+  genderId                   Int?      @map("gender_id")
+  email                      String?   @map("email") @database.VarChar(320)
+  ccEmail                    String?   @map("cc_email") @database.Text
+  emailStatus                String?   @map("email_status") @database.VarChar(20)
+  phone                      String?   @map("phone") @database.VarChar(45)
+  phoneNumber                String?   @map("phone_number") @database.VarChar(255)
+  phoneCountryId             Int?      @map("phone_country_id")
+  skype                      String?   @map("skype") @database.VarChar(45)
+  status                     Int?      @map("status") @default(0)
+  companyName                String?   @map("company_name") @database.Text
+  description                String?   @map("description") @database.Text
+  image                      String?   @map("image") @database.VarChar(250)
+  signature                  String?   @map("signature") @database.Text
+  otherType                  String?   @map("other_type") @database.Text
+  businessDescription        String?   @map("business_description") @database.Text
+  subject                    String?   @map("subject") @database.Text
+  message                    String?   @map("message") @database.Text
+  entryTime                  DateTime? @map("entry_time") @database.DateTime(0)
+  birthday                   DateTime? @map("birthday") @database.DateTime(0)
+  exitTime                   DateTime? @map("exit_time") @database.DateTime(0)
+  passport                   String?   @map("passport") @database.Text
+  flightNumber               String?   @map("flight_number") @database.Text
+  arrivalTime                DateTime? @map("arrival_time") @database.DateTime(0)
+  airportId                  Int?      @map("airport_id")
+  visaPurposeId              Int?      @map("visa_purpose_id")
+  visaTypeId                 Int?      @map("visa_type_id")
+  orderId                    Int?      @map("order_id")
+  mailchimpId                String?   @map("mailchimp_id") @database.Text
+  surveyContent              String?   @map("survey_content") @database.Text
+  xeroContactId              String?   @map("xero_contact_id") @database.Text
+  logs                       String?   @map("logs") @database.Text
+  customerStatusId           Int?      @map("customer_status_id") @default(0)
+  city                       String?   @map("city") @database.VarChar(200)
+  state                      String?   @map("state") @database.VarChar(200)
+  postalCode                 String?   @map("postal_code") @database.VarChar(200)
+  companyRegistrationNo      String?   @map("company_registration_no") @database.VarChar(200)
+  companyAddress             String?   @map("company_address") @database.VarChar(200)
+  companyAddressCountryId    Int?      @map("company_address_country_id")
+  companyAddressCity         String?   @map("company_address_city") @database.VarChar(200)
+  companyAddressState        String?   @map("company_address_state") @database.VarChar(200)
+  companyAddressPostalCode   String?   @map("company_address_postal_code") @database.VarChar(100)
+  isFirstLogin               Boolean   @map("is_first_login") @default(false)
+  businessActivityIndustryId Int?      @map("business_activity_industry_id")
+  packageId                  Int?      @map("package_id")
+  csLeaderId                 Int?      @map("cs_leader_id")
+  csMemberId                 Int?      @map("cs_member_id")
+  accountantLeaderId         Int?      @map("accountant_leader_id")
+  accountantMemberId         Int?      @map("accountant_member_id")
+  legalLeaderId              Int?      @map("legal_leader_id")
+  legalMemberId              Int?      @map("legal_member_id")
+  complianceLeaderId         Int?      @map("compliance_leader_id")
+  complianceMemberId         Int?      @map("compliance_member_id")
+  internalBookeepingLeaderId Int?      @map("internal_bookeeping_leader_id")
+  internalBookeepingMemberId Int?      @map("internal_bookeeping_member_id")
+  testerLeaderId             Int?      @map("tester_leader_id")
+  timeUnassignedTester       BigInt?   @map("time_unassigned_tester")
+  createdTime                DateTime  @default(now()) @map("created_time")
+  updatedTime                DateTime  @updatedAt @map("updated_time")
+  deletedTime                DateTime  @default(now()) @map("deleted_time")
+  isDeleted                  Boolean   @default(false) @map("is_deleted")
+
+  @@index([accountantLeaderId], map: "customer_accountant_leader_id_foreign_idx")
+  @@index([accountantMemberId], map: "customer_accountant_member_id_foreign_idx")
+  @@index([airportId], map: "fk_customer_airport1_idx")
+  @@index([businessActivityIndustryId], map: "fk_customer_business_activity_industry1_idx")
+  @@index([campaignAdsId], map: "fk_customer_campaign_ads1_idx")
+  @@index([companyAddressCountryId], map: "FK_customer_company_country_id_idx")
+  @@index([companyCountryId], map: "company_country_id")
+  @@index([companySuffixId], map: "fk_customer_suffix_idx")
+  @@index([complianceLeaderId], map: "customer_compliance_leader_id_foreign_idx")
+  @@index([complianceMemberId], map: "customer_compliance_member_id_foreign_idx")
+  @@index([contactFromId], map: "fk_customer_contact_from1_idx")
+  @@index([countryId], map: "fk_customer_country1_idx")
+  @@index([csLeaderId], map: "customer_cs_leader_id_foreign_idx")
+  @@index([csMemberId], map: "customer_cs_member_id_foreign_idx")
+  @@index([customerStatusId], map: "FK_cutomer_status")
+  @@index([customerTypeId], map: "fk_customer_customer_type1_idx")
+  @@index([entityTypeId], map: "fk_customer_entity_type_idx")
+  @@index([gaChannelId], map: "fk_customer_ga_channel1")
+  @@index([genderId], map: "fk_customer_gender_idx")
+  @@index([internalBookeepingLeaderId], map: "customer_internal_bookeeping_leader_id_foreign_idx")
+  @@index([internalBookeepingMemberId], map: "customer_internal_bookeeping_member_id_foreign_idx")
+  @@index([legalLeaderId], map: "customer_legal_leader_id_foreign_idx")
+  @@index([legalMemberId], map: "customer_legal_member_id_foreign_idx")
+  @@index([orderId], map: "fk_customer_order1_idx")
+  @@index([packageId], map: "fk_customer_package_idx")
+  @@index([personId], map: "fk_customer_person1_idx")
+  @@index([phoneCountryId], map: "fk_customer_has_phone_country_idx")
+  @@index([testerLeaderId], map: "fk_customer_tester_leader_id_idx")
+  @@index([titleNameId], map: "fk_customer_title_name_idx")
+  @@index([visaPurposeId], map: "fk_customer_visa_purpose1_idx")
+  @@index([visaTypeId], map: "fk_customer_visatype1_idx")
+  @@index([websiteId], map: "fk_customer_website_idx")
+  @@map("Customer")
+}
+
 model CustomerHasBank {
   customerId Int @map("customer_id")
   bankId     Int @map("bank_id")

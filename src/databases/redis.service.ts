@@ -3,12 +3,10 @@ import { Redis } from 'ioredis';
 import { timeout } from '@utilities';
 
 @Injectable()
-export class PrismaService extends Redis implements OnModuleInit {
+export class RedisService extends Redis implements OnModuleInit {
   async onModuleInit() {
     const dbName = 'MysqlDB';
     try {
-      // if (!MYSQL_URL) throw `Can't find MYSQL_URL in env`;
-      await this.cr;
       console.info('\x1b[31m%s\x1b[0m is connected!', dbName);
     } catch (error) {
       console.error(`Can't connect ${dbName}`);
