@@ -17,9 +17,13 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
-  "[sh]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
+  // "[sh]": {
+  //   "editor.defaultFormatter": "foxundermoon.shell-format"
+  // },
   "editor.formatOnSave": true,
-  "typescript.referencesCodeLens.enabled": true
+  "typescript.referencesCodeLens.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.tslint": "always",
+    "source.fixAll.eslint": "always"
+  }
 }
