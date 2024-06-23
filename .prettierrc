@@ -6,8 +6,20 @@
   "printWidth": 80,
   "jsxBracketSameLine": true,
   "semi": true,
-  "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+  "importOrder": [
+    "^@nestjs/(.*)$",
+    "^@core/(.*)$",
+    "^@server/(.*)$",
+    "^@ui/(.*)$",
+    "^[./]"
+  ],
   "importOrderSeparation": true,
   "experimentalBabelParserPluginsList": ["jsx", "typescript"],
-  "importOrderSortSpecifiers": true
+  "importOrderSortSpecifiers": true,
+  "importOrderParserPlugins": [
+    "typescript",
+    "classProperties",
+    "decorators-legacy",
+    "[\"decorators\", { \"decoratorsBeforeExport\": true }]"
+  ]
 }
