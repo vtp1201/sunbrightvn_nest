@@ -1,3 +1,7 @@
+export enum ss {
+  USER = 'User',
+}
+
 export const MODEL_NAME = {
   ACTION_LOG: 'actionLog',
   ACTION_PROCESS_STEP: 'actionProcessStep',

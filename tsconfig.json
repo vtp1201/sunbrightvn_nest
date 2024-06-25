@@ -21,13 +21,13 @@
       "@configs/*": ["src/configs/*"],
       "@utilities/*": ["src/utilities/*"],
       "@types/*": ["src/types/*"],
-      "@base/*": ["src/base"],
+      "@abstract/*": ["src/abstract/*"],
       "@modules/*": ["src/modules/*"],
       "@databases/*": ["src/databases/*"],
       "@middlewares/*": ["src/middlewares/*"],
       "@utilities": ["src/utilities"],
       "@types": ["src/types"],
-      "@base": ["src/base"],
+      "@abstract": ["src/abstract"],
       "@databases": ["src/databases"],
       "@middlewares": ["src/middlewares"]
     }

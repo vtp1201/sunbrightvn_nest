@@ -6,7 +6,8 @@
     "Fatca",
     "schemix",
     "syslogs",
-    "tawk"
+    "tawk",
+    "Uncapitalize"
   ],
   "[javascript]": {
     "editor.autoIndent": "keep"
