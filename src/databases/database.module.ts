@@ -1,11 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { RedisService } from './redis.service';
 
+@Global()
 @Module({
-  imports: [],
-  controllers: [],
-  providers: [PrismaService, RedisService],
-  exports: [PrismaService, RedisService],
+  providers: [PrismaService],
+  exports: [PrismaService],
 })
 export class DatabaseModule {}

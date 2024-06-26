@@ -5,3 +5,7 @@ export enum ROUTE_AUTH {
 export const ROUTES = {
   AUTH: ROUTE_AUTH,
 };
+
+export enum API_TAGS {
+  AUTH = 'Auth',
+}

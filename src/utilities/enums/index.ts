@@ -1,1 +1,1 @@
-export * from '@databases/prisma/enums';
+export * from './route';
