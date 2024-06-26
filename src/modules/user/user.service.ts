@@ -1,4 +1,4 @@
-import { AbstractService } from '@abstract';
+import { AbstractService } from 'src/abstracts';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

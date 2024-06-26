@@ -1,4 +1,4 @@
-import { AbstractRepository } from '@abstract';
+import { AbstractRepository } from 'src/abstracts';
 import { PrismaService } from '@databases/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { ss } from '@utilities';
@@ -12,8 +12,10 @@ export class UserRepository extends AbstractRepository<ss.USER> {
   }
 
   async check() {
-    const data = this.findMany({
-      select: {},
+    const data = await this.findMany({
+      select: { id: true },
+      where: {},
     });
+    return data;
   }
 }
