@@ -1,20 +1,22 @@
 import { AbstractRepository } from 'src/abstracts';
 import { PrismaService } from '@databases/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { ss } from '@utilities';
-
-const user = 'user';
+import { MODEL_NAME } from '@utilities';
 
 @Injectable()
-export class UserRepository extends AbstractRepository<ss.USER> {
+export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
   constructor(prismaService: PrismaService) {
-    super(user, prismaService);
+    super(prismaService);
   }
 
-  async check() {
-    const data = await this.findMany({
-      select: { id: true },
-      where: {},
+  async test() {
+    const data = await this.findUnique({
+      select: {
+        id: true,
+      },
+      where: {
+        id: 2,
+      },
     });
     return data;
   }

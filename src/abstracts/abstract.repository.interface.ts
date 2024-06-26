@@ -9,9 +9,9 @@ interface Clients<
   A extends ModelArgs<T, O>,
   O extends Operation,
 > {
-  User: Prisma.Prisma__UserClient<GetResult<T, A, O>, never>;
-  Token: Prisma.Prisma__TokenClient<GetResult<T, A, O>, never>;
-  Process: Prisma.Prisma__ProcessClient<GetResult<T, A, O>, never>;
+  user: Prisma.Prisma__userClient<GetResult<T, A, O>, never>;
+  token: Prisma.Prisma__tokenClient<GetResult<T, A, O>, never>;
+  process: Prisma.Prisma__processClient<GetResult<T, A, O>, never>;
 }
 
 type MethodsWithParams<T, M extends ModelName> = {

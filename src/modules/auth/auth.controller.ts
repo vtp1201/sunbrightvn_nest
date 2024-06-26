@@ -144,18 +144,18 @@ export class AuthController {
   // })
   async signIn(@Req() request: RequestWithUser) {
     const { user } = request;
-    return await this.authService.signIn(user._id.toString());
+    // return await this.authService.signIn(user._id.toString());
   }
 
-  @UseGuards(JwtRefreshTokenGuard)
-  @Post('refresh')
-  async refreshAccessToken(@Req() request: RequestWithUser) {
-    const { user } = request;
-    const access_token = this.authService.generateAccessToken({
-      user_id: user._id.toString(),
-    });
-    return {
-      access_token,
-    };
-  }
+  // @UseGuards(JwtRefreshTokenGuard)
+  // @Post('refresh')
+  // async refreshAccessToken(@Req() request: RequestWithUser) {
+  //   const { user } = request;
+  //   const access_token = this.authService.generateAccessToken({
+  //     user_id: user._id.toString(),
+  //   });
+  //   return {
+  //     access_token,
+  //   };
+  // }
 }

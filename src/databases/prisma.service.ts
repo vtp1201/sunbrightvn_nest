@@ -1,10 +1,11 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { timeout } from '@utilities';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
+  ModelName = Prisma.ModelName;
   constructor(private configService: ConfigService) {
     super();
   }

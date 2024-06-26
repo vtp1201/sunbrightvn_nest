@@ -6,15 +6,12 @@ import {
   ModelResult,
 } from './abstract.repository.interface';
 import { Prisma } from '@prisma/client';
-// import { ExtendedPrismaClient } from '@core/database';
 
 export class AbstractRepository<T extends ModelName>
   implements IAbstractRepository<T>
 {
-  constructor(
-    private readonly _model: Uncapitalize<T>,
-    private readonly _prismaService: PrismaService,
-  ) {}
+  private readonly _model: T;
+  constructor(private readonly _prismaService: PrismaService) {}
 
   findUnique<A extends ModelArgs<T, 'findUnique'>>(
     args: Prisma.SelectSubset<A, ModelArgs<T, 'findUnique'>>,
