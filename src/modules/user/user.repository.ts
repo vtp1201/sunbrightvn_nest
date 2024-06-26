@@ -1,4 +1,4 @@
-import { AbstractRepository } from 'src/abstracts';
+import { AbstractRepository } from '@abstracts';
 import { PrismaService } from '@databases/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { MODEL_NAME, E_USER } from '@utilities';

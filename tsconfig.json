@@ -20,14 +20,12 @@
     "paths": {
       "@configs/*": ["src/configs/*"],
       "@utilities/*": ["src/utilities/*"],
-      "@types/*": ["src/types/*"],
-      "@abstract/*": ["src/abstracts/*"],
       "@modules/*": ["src/modules/*"],
       "@databases/*": ["src/databases/*"],
       "@middlewares/*": ["src/middlewares/*"],
       "@utilities": ["src/utilities"],
       "@types": ["src/types"],
-      "@abstract": ["src/abstracts"],
+      "@abstracts": ["src/abstracts"],
       "@databases": ["src/databases"],
       "@middlewares": ["src/middlewares"]
     }
