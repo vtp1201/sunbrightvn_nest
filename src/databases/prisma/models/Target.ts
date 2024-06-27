@@ -56,7 +56,7 @@ export default createModel(MODEL_NAME.TARGET, (TargetModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.countryId)
+      // .raw(INDEX.countryId)
 
       // table name
       .map(TABLE_NAME.TARGET);

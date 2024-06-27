@@ -88,9 +88,9 @@ export default createModel(MODEL_NAME.EMAIL_TEMPLATE, (EmailTemplateModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.emailTypeId)
-      .raw(INDEX.nextEmailTemplateId)
-      .raw(INDEX.processStepId)
+      // .raw(INDEX.emailTypeId)
+      // .raw(INDEX.nextEmailTemplateId)
+      // .raw(INDEX.processStepId)
 
       // table name
       .map(TABLE_NAME.EMAIL_TEMPLATE);

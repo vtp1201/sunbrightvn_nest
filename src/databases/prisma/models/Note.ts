@@ -90,12 +90,12 @@ export default createModel(MODEL_NAME.NOTE, (NoteModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.companyId)
-      .raw(INDEX.companyMemberId)
-      .raw(INDEX.noteTypeId)
-      .raw(INDEX.processStepId)
-      .raw(INDEX.taskId)
-      .raw(INDEX.userId)
+      // .raw(INDEX.companyId)
+      // .raw(INDEX.companyMemberId)
+      // .raw(INDEX.noteTypeId)
+      // .raw(INDEX.processStepId)
+      // .raw(INDEX.taskId)
+      // .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.NOTE);

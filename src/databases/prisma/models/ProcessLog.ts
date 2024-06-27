@@ -79,11 +79,11 @@ export default createModel(MODEL_NAME.PROCESS_LOG, (ProcessLogModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.agentId)
-      .raw(INDEX.belongToCompanyMemberId)
-      .raw(INDEX.companyMemberId)
-      .raw(INDEX.fileTemplateId)
-      .raw(INDEX.processId)
+      // .raw(INDEX.agentId)
+      // .raw(INDEX.belongToCompanyMemberId)
+      // .raw(INDEX.companyMemberId)
+      // .raw(INDEX.fileTemplateId)
+      // .raw(INDEX.processId)
 
       // table name
       .map(TABLE_NAME.PROCESS_LOG);

@@ -79,11 +79,11 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw(INDEX.actionStepTypeId)
-        .raw(INDEX.notificationTypeId)
-        .raw(INDEX.notificationStatusId)
-        .raw(INDEX.processStepId)
-        .raw(INDEX.subscriptionId)
+        // .raw(INDEX.actionStepTypeId)
+        // .raw(INDEX.notificationTypeId)
+        // .raw(INDEX.notificationStatusId)
+        // .raw(INDEX.processStepId)
+        // .raw(INDEX.subscriptionId)
 
         // table name
         .map(TABLE_NAME.NOTIFICATION_TEMPLATE);

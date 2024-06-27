@@ -109,13 +109,13 @@ export default createModel(MODEL_NAME.TOKEN, (TokenModel) => {
       .mixin(initUpdatedTime)
 
       // indexes
-      .raw(INDEX.agentId)
-      .raw(INDEX.belongToCompanyMemberId)
-      .raw(INDEX.companyMemberId)
-      .raw(INDEX.fileTemplateId)
-      .raw(INDEX.taskId)
-      .raw(INDEX.userId)
-      .raw(INDEX.websiteId)
+      // .raw(INDEX.agentId)
+      // .raw(INDEX.belongToCompanyMemberId)
+      // .raw(INDEX.companyMemberId)
+      // .raw(INDEX.fileTemplateId)
+      // .raw(INDEX.taskId)
+      // .raw(INDEX.userId)
+      // .raw(INDEX.websiteId)
 
       // table name
       .map(TABLE_NAME.TOKEN);

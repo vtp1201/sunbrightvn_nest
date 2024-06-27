@@ -52,8 +52,8 @@ export default createModel(MODEL_NAME.FEE, (FeeModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.feeTypeId)
-      .raw(INDEX.serviceId)
+      // .raw(INDEX.feeTypeId)
+      // .raw(INDEX.serviceId)
 
       // table name
       .map(TABLE_NAME.FEE);

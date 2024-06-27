@@ -71,9 +71,9 @@ export default createModel(MODEL_NAME.PROPOSED_NAME, (ProposedNameModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.companyId)
-      .raw(INDEX.companySuffixId)
-      .raw(INDEX.taskId)
+      // .raw(INDEX.companyId)
+      // .raw(INDEX.companySuffixId)
+      // .raw(INDEX.taskId)
 
       // table name
       .map(TABLE_NAME.PROPOSED_NAME);

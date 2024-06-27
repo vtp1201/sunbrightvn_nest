@@ -106,10 +106,10 @@ export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.countryId)
-      .raw(INDEX.genderId)
-      .raw(INDEX.phoneCountryId)
-      .raw(INDEX.titleNameId)
+      // .raw(INDEX.countryId)
+      // .raw(INDEX.genderId)
+      // .raw(INDEX.phoneCountryId)
+      // .raw(INDEX.titleNameId)
 
       // table name
       .map(TABLE_NAME.PERSON);

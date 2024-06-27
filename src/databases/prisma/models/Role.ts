@@ -74,7 +74,7 @@ export default createModel(MODEL_NAME.ROLE, (RoleModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.parentId)
+      // .raw(INDEX.parentId)
 
       // table name
       .map(TABLE_NAME.ROLE);

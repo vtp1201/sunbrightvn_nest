@@ -62,7 +62,7 @@ export default createModel(
         .mixin(initCreatedTime)
 
         // indexes
-        .raw(INDEX.mailchimpCampaignId)
+        // .raw(INDEX.mailchimpCampaignId)
 
         // table name
         .map(TABLE_NAME.MAILCHIMP_SUMMARY);

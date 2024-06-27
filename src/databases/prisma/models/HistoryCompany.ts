@@ -311,13 +311,13 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw(INDEX.billingId)
-        .raw(INDEX.businessCountryId)
-        .raw(INDEX.companyStatusId)
-        .raw(INDEX.companySuffixId)
-        .raw(INDEX.countryId)
-        .raw(INDEX.entityTypeId)
-        .raw(INDEX.operatingCountryId)
+        // .raw(INDEX.billingId)
+        // .raw(INDEX.businessCountryId)
+        // .raw(INDEX.companyStatusId)
+        // .raw(INDEX.companySuffixId)
+        // .raw(INDEX.countryId)
+        // .raw(INDEX.entityTypeId)
+        // .raw(INDEX.operatingCountryId)
 
         // table name
         .map(TABLE_NAME.HISTORY_COMPANY);

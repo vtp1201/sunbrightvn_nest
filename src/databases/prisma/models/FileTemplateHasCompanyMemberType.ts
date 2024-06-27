@@ -72,7 +72,7 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw(INDEX.typeMemberId)
+        // .raw(INDEX.typeMemberId)
 
         // table name
         .map(TABLE_NAME.FILE_TEMPLATE_HAS_COMPANY_MEMBER_TYPE);

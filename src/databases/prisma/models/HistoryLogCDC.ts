@@ -54,10 +54,10 @@ export default createModel(MODEL_NAME.HISTORY_LOG_CDC, (HistoryLogCDCModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.actionStepTypeId)
-      .raw(INDEX.companyId)
-      .raw(INDEX.taskId)
-      .raw(INDEX.userId)
+      // .raw(INDEX.actionStepTypeId)
+      // .raw(INDEX.companyId)
+      // .raw(INDEX.taskId)
+      // .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.HISTORY_LOG_CDC);

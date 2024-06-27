@@ -64,9 +64,9 @@ export default createModel(MODEL_NAME.QUESTION, (QuestionModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.questionParentId)
-      .raw(INDEX.questionPriorityId)
-      .raw(INDEX.questionTypeId)
+      // .raw(INDEX.questionParentId)
+      // .raw(INDEX.questionPriorityId)
+      // .raw(INDEX.questionTypeId)
 
       // table name
       .map(TABLE_NAME.QUESTION);

@@ -279,13 +279,13 @@ export default createModel(
         .mixin(initDeleted)
 
         // Indexes
-        .raw(INDEX.addressCountryId)
-        .raw(INDEX.birthCountryId)
-        .raw(INDEX.countryId)
-        .raw(INDEX.genderId)
-        .raw(INDEX.phoneCountryId)
-        .raw(INDEX.typeMemberId)
-        .raw(INDEX.uniqueTaskCompanyMemberVersion)
+        // .raw(INDEX.addressCountryId)
+        // .raw(INDEX.birthCountryId)
+        // .raw(INDEX.countryId)
+        // .raw(INDEX.genderId)
+        // .raw(INDEX.phoneCountryId)
+        // .raw(INDEX.typeMemberId)
+        // .raw(INDEX.uniqueTaskCompanyMemberVersion)
 
         // table name
         .map(TABLE_NAME.HISTORY_COMPANY_MEMBER);

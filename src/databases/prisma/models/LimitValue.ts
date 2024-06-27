@@ -51,7 +51,7 @@ export default createModel(MODEL_NAME.LIMIT_VALUE, (LimitValueModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.limitId)
+      // .raw(INDEX.limitId)
 
       // table name
       .map(TABLE_NAME.LIMIT_VALUE);

@@ -82,10 +82,10 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw(INDEX.emailTemplateId)
-        .raw(INDEX.groupId)
-        .raw(INDEX.roleId)
-        .raw(INDEX.userId)
+        // .raw(INDEX.emailTemplateId)
+        // .raw(INDEX.groupId)
+        // .raw(INDEX.roleId)
+        // .raw(INDEX.userId)
 
         // table name
         .map(TABLE_NAME.EMAIL_TEMPLATE_HAS_RECEIVER);

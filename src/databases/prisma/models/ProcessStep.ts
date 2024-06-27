@@ -76,8 +76,8 @@ export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.parentId)
-      .raw(INDEX.processStepTypeId)
+      // .raw(INDEX.parentId)
+      // .raw(INDEX.processStepTypeId)
 
       // table name
       .map(TABLE_NAME.PROCESS_STEP);

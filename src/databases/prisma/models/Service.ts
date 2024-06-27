@@ -126,17 +126,17 @@ export default createModel(MODEL_NAME.SERVICE, (ServiceModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.airportId)
-      .raw(INDEX.carSeatId)
-      .raw(INDEX.carTypeId)
-      .raw(INDEX.discountServiceId)
-      .raw(INDEX.serviceTypeId)
-      .raw(INDEX.serviceUnitId)
-      .raw(INDEX.upgradeServiceId)
-      .raw(INDEX.visaPurposeId)
-      .raw(INDEX.visaTypeId)
-      .raw(INDEX.websiteId)
-      .raw(INDEX.xeroAccountId)
+      // .raw(INDEX.airportId)
+      // .raw(INDEX.carSeatId)
+      // .raw(INDEX.carTypeId)
+      // .raw(INDEX.discountServiceId)
+      // .raw(INDEX.serviceTypeId)
+      // .raw(INDEX.serviceUnitId)
+      // .raw(INDEX.upgradeServiceId)
+      // .raw(INDEX.visaPurposeId)
+      // .raw(INDEX.visaTypeId)
+      // .raw(INDEX.websiteId)
+      // .raw(INDEX.xeroAccountId)
 
       // table name
       .map(TABLE_NAME.SERVICE);

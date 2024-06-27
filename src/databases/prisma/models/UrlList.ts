@@ -57,7 +57,7 @@ export default createModel(MODEL_NAME.URL_LIST, (UrlListModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.urlListTypeId)
+      // .raw(INDEX.urlListTypeId)
 
       // table name
       .map(TABLE_NAME.URL_LIST);

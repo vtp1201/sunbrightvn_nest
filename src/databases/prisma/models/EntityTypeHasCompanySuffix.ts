@@ -23,8 +23,8 @@ export default createModel(
         .id({ fields: [ATTRIBUTE.entityTypeId, ATTRIBUTE.companySuffixId] })
 
         // indexes
-        .raw(INDEX.companySuffixId)
-        .raw(INDEX.entityTypeId)
+        // .raw(INDEX.companySuffixId)
+        // .raw(INDEX.entityTypeId)
 
         // table name
         .map(TABLE_NAME.ENTITY_TYPE_HAS_COMPANY_SUFFIX);

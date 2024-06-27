@@ -183,7 +183,7 @@ export default createModel(MODEL_NAME.WEBSITE, (WebsiteModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.currencyId)
+      // .raw(INDEX.currencyId)
 
       // table name
       .map(TABLE_NAME.WEBSITE);

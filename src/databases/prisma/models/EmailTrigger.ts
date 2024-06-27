@@ -61,7 +61,7 @@ export default createModel(MODEL_NAME.EMAIL_TRIGGER, (EmailTriggerModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.processStepId)
+      // .raw(INDEX.processStepId)
 
       // table name
       .map(TABLE_NAME.EMAIL_TRIGGER);

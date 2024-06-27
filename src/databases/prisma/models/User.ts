@@ -107,9 +107,9 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
       .mixin(rolesRelation)
 
       // indexes
-      .raw(INDEX.customerId)
-      .raw(INDEX.personId)
-      .raw(INDEX.subscriptionId)
+      // .raw(INDEX.customerId)
+      // .raw(INDEX.personId)
+      // .raw(INDEX.subscriptionId)
 
       // table name
       .map(TABLE_NAME.USER);

@@ -57,8 +57,8 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw(INDEX.changeRequestStatusId)
-        .raw(INDEX.companyMemberTypeId)
+        // .raw(INDEX.changeRequestStatusId)
+        // .raw(INDEX.companyMemberTypeId)
 
         // table name
         .map(TABLE_NAME.SERVICE_CHANGE_OFFICER);

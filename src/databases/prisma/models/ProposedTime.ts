@@ -49,7 +49,7 @@ export default createModel(MODEL_NAME.PROPOSED_TIME, (ProposedTimeModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.bankingProcessId)
+      // .raw(INDEX.bankingProcessId)
 
       // table name
       .map(TABLE_NAME.PROPOSED_TIME);

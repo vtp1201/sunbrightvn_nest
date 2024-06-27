@@ -48,7 +48,7 @@ export default createModel(MODEL_NAME.TEAM_GROUP, (TeamGroupModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.leaderUserId)
+      // .raw(INDEX.leaderUserId)
 
       // table name
       .map(TABLE_NAME.TEAM_GROUP);

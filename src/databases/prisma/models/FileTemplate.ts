@@ -84,8 +84,8 @@ export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.collectSameId)
-      .raw(INDEX.parentId)
+      // .raw(INDEX.collectSameId)
+      // .raw(INDEX.parentId)
 
       // table name
       .map(TABLE_NAME.FILE_TEMPLATE);

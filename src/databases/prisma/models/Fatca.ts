@@ -110,12 +110,12 @@ export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.companyMemberId)
-      .raw(INDEX.customerId)
-      .raw(INDEX.holderCountryId)
-      .raw(INDEX.mailingCountryId)
-      .raw(INDEX.residentCountryId)
-      .raw(INDEX.taskId)
+      // .raw(INDEX.companyMemberId)
+      // .raw(INDEX.customerId)
+      // .raw(INDEX.holderCountryId)
+      // .raw(INDEX.mailingCountryId)
+      // .raw(INDEX.residentCountryId)
+      // .raw(INDEX.taskId)
 
       // table name
       .map(TABLE_NAME.FATCA);

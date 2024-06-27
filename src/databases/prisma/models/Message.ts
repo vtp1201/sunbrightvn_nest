@@ -46,8 +46,8 @@ export default createModel(MODEL_NAME.MESSAGE, (MessageModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.supportCaseId)
-      .raw(INDEX.userId)
+      // .raw(INDEX.supportCaseId)
+      // .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.MESSAGE);

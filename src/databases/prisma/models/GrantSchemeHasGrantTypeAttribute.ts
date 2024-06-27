@@ -85,16 +85,16 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw(INDEX.agencyId)
-        .raw(INDEX.businessSizeId)
-        .raw(INDEX.businessStageId)
-        .raw(INDEX.grantSchemeId)
-        .raw(INDEX.industryId)
-        .raw(INDEX.localShareholdingId)
-        .raw(INDEX.needsBasedId)
-        .raw(INDEX.numberEmployeesId)
-        .raw(INDEX.typeId)
-        .raw(INDEX.yearsOperationId)
+        // .raw(INDEX.agencyId)
+        // .raw(INDEX.businessSizeId)
+        // .raw(INDEX.businessStageId)
+        // .raw(INDEX.grantSchemeId)
+        // .raw(INDEX.industryId)
+        // .raw(INDEX.localShareholdingId)
+        // .raw(INDEX.needsBasedId)
+        // .raw(INDEX.numberEmployeesId)
+        // .raw(INDEX.typeId)
+        // .raw(INDEX.yearsOperationId)
 
         // table name
         .map(TABLE_NAME.GRANT_SCHEME_HAS_GRANT_TYPE_ATTRIBUTE);

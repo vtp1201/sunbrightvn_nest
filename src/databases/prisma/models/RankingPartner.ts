@@ -57,8 +57,8 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw(INDEX.rankingPartnerTypeId)
-        .raw(INDEX.taskId)
+        // .raw(INDEX.rankingPartnerTypeId)
+        // .raw(INDEX.taskId)
 
         // table name
         .map(TABLE_NAME.RANKING_PARTNER);

@@ -40,7 +40,7 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw(INDEX.countryId)
+        // .raw(INDEX.countryId)
 
         // table name
         .map(TABLE_NAME.VISA_VIETNAM_ARRIVAL);

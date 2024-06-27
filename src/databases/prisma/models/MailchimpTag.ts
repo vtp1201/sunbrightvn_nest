@@ -53,7 +53,7 @@ export default createModel(MODEL_NAME.MAILCHIMP_TAG, (MailchimpTagModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.contactFromId)
+      // .raw(INDEX.contactFromId)
 
       // table name
       .map(TABLE_NAME.MAILCHIMP_TAG);

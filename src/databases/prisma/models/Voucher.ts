@@ -93,9 +93,9 @@ export default createModel(MODEL_NAME.VOUCHER, (VoucherModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.customerId)
-      .raw(INDEX.orderId)
-      .raw(INDEX.voucherTypeId)
+      // .raw(INDEX.customerId)
+      // .raw(INDEX.orderId)
+      // .raw(INDEX.voucherTypeId)
 
       // table name
       .map(TABLE_NAME.VOUCHER);

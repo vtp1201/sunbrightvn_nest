@@ -62,7 +62,7 @@ export default createModel(MODEL_NAME.SUBSCRIPTION, (SubscriptionModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.serviceId)
+      // .raw(INDEX.serviceId)
 
       // table name
       .map(TABLE_NAME.SUBSCRIPTION);

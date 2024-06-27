@@ -55,10 +55,10 @@ export default createModel(MODEL_NAME.SUPPORT_CASE, (SupportCaseModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.supportCasePriorityId)
-      .raw(INDEX.supportCaseStatusId)
-      .raw(INDEX.supportCaseTypeId)
-      .raw(INDEX.userId)
+      // .raw(INDEX.supportCasePriorityId)
+      // .raw(INDEX.supportCaseStatusId)
+      // .raw(INDEX.supportCaseTypeId)
+      // .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.SUPPORT_CASE);

@@ -60,8 +60,8 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw(INDEX.entityTypeId)
-        .raw(INDEX.optionId)
+        // .raw(INDEX.entityTypeId)
+        // .raw(INDEX.optionId)
 
         // table name
         .map(TABLE_NAME.TOOL_BUSINESS_ENTITY);

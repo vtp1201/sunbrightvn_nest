@@ -42,7 +42,7 @@ export default createModel(MODEL_NAME.OPTION, (OptionModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.questionId)
+      // .raw(INDEX.questionId)
 
       // table name
       .map(TABLE_NAME.OPTION);

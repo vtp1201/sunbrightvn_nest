@@ -53,8 +53,8 @@ export default createModel(
         .mixin(initCreatedTime)
 
         // indexes
-        .raw(INDEX.mailchimpCampaignId)
-        .raw(INDEX.mailchimpMemberEmailId)
+        // .raw(INDEX.mailchimpCampaignId)
+        // .raw(INDEX.mailchimpMemberEmailId)
 
         // table name
         .map(TABLE_NAME.MAILCHIMP_CAMPAIGN_MEMBER);

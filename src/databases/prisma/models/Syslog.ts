@@ -121,10 +121,10 @@ export default createModel(MODEL_NAME.SYSLOG, (SyslogModel) => {
       .mixin(initCreatedTime)
 
       // indexes
-      .raw(INDEX.apiMethodId)
-      .raw(INDEX.countryId)
-      .raw(INDEX.syslogTypeId)
-      .raw(INDEX.userId)
+      // .raw(INDEX.apiMethodId)
+      // .raw(INDEX.countryId)
+      // .raw(INDEX.syslogTypeId)
+      // .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.SYSLOG);

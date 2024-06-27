@@ -111,12 +111,12 @@ export default createModel(MODEL_NAME.PROCESS, (ProcessModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.additionProcessId)
-      .raw(INDEX.bankingProcessId)
-      .raw(INDEX.personId)
-      .raw(INDEX.processStepId)
-      .raw(INDEX.userId)
-      .raw(INDEX.taskId)
+      // .raw(INDEX.additionProcessId)
+      // .raw(INDEX.bankingProcessId)
+      // .raw(INDEX.personId)
+      // .raw(INDEX.processStepId)
+      // .raw(INDEX.userId)
+      // .raw(INDEX.taskId)
 
       // table name
       .map(TABLE_NAME.PROCESS);

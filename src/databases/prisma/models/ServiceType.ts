@@ -85,8 +85,8 @@ export default createModel(MODEL_NAME.SERVICE_TYPE, (ServiceTypeModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.parentId)
-      .raw(INDEX.websiteId)
+      // .raw(INDEX.parentId)
+      // .raw(INDEX.websiteId)
 
       // table name
       .map(TABLE_NAME.SERVICE_TYPE);

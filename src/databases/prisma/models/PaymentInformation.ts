@@ -86,9 +86,9 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw(INDEX.companyMemberId)
-        .raw(INDEX.orderId)
-        .raw(INDEX.taskId)
+        // .raw(INDEX.companyMemberId)
+        // .raw(INDEX.orderId)
+        // .raw(INDEX.taskId)
 
         // table name
         .map(TABLE_NAME.PAYMENT_INFORMATION);

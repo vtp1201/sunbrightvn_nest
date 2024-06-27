@@ -41,7 +41,7 @@ export default createModel(MODEL_NAME.SURVEY_CHOICE, (SurveyChoiceModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.surveyId)
+      // .raw(INDEX.surveyId)
 
       // table name
       .map(TABLE_NAME.SURVEY_CHOICE);

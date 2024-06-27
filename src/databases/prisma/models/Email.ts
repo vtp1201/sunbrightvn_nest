@@ -110,11 +110,11 @@ export default createModel(MODEL_NAME.EMAIL, (EmailModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.agentId)
-      .raw(INDEX.companyMemberId)
-      .raw(INDEX.emailTemplateId)
-      .raw(INDEX.processId)
-      .raw(INDEX.companyId)
+      // .raw(INDEX.agentId)
+      // .raw(INDEX.companyMemberId)
+      // .raw(INDEX.emailTemplateId)
+      // .raw(INDEX.processId)
+      // .raw(INDEX.companyId)
 
       // table name
       .map(TABLE_NAME.EMAIL);

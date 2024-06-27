@@ -58,9 +58,9 @@ export default createModel(MODEL_NAME.LIMIT, (LimitModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.limitTypeId)
-      .raw(INDEX.permissionGroupId)
-      .raw(INDEX.permissionId)
+      // .raw(INDEX.limitTypeId)
+      // .raw(INDEX.permissionGroupId)
+      // .raw(INDEX.permissionId)
 
       // table name
       .map(TABLE_NAME.LIMIT);

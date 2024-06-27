@@ -165,15 +165,15 @@ export default createModel(MODEL_NAME.ORDER, (OrderModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.billingId)
-      .raw(INDEX.companyId)
-      .raw(INDEX.countryCardId)
-      .raw(INDEX.customerId)
-      .raw(INDEX.orderFromId)
-      .raw(INDEX.orderStatusId)
-      .raw(INDEX.paymentGatewayId)
-      .raw(INDEX.websiteId)
-      .raw(INDEX.xeroInvoiceStatusId)
+      // .raw(INDEX.billingId)
+      // .raw(INDEX.companyId)
+      // .raw(INDEX.countryCardId)
+      // .raw(INDEX.customerId)
+      // .raw(INDEX.orderFromId)
+      // .raw(INDEX.orderStatusId)
+      // .raw(INDEX.paymentGatewayId)
+      // .raw(INDEX.websiteId)
+      // .raw(INDEX.xeroInvoiceStatusId)
 
       // table name
       .map(TABLE_NAME.ORDER);

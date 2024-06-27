@@ -82,10 +82,10 @@ export default createModel(MODEL_NAME.ORDER_ITEM, (OrderItemModel) => {
       .mixin(initUpdatedTime)
 
       // indexes
-      .raw(INDEX.orderId)
-      .raw(INDEX.orderItemStatusId)
-      .raw(INDEX.packageId)
-      .raw(INDEX.serviceId)
+      // .raw(INDEX.orderId)
+      // .raw(INDEX.orderItemStatusId)
+      // .raw(INDEX.packageId)
+      // .raw(INDEX.serviceId)
 
       // table name
       .map(TABLE_NAME.ORDER_ITEM);

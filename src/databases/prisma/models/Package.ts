@@ -81,13 +81,13 @@ export default createModel(MODEL_NAME.PACKAGE, (PackageModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.countryId)
-      .raw(INDEX.entityTypeId)
-      .raw(INDEX.packageAnnualId)
-      .raw(INDEX.packageGroupId)
-      .raw(INDEX.packageTypeId)
-      .raw(INDEX.serviceTypeId)
-      .raw(INDEX.websiteId)
+      // .raw(INDEX.countryId)
+      // .raw(INDEX.entityTypeId)
+      // .raw(INDEX.packageAnnualId)
+      // .raw(INDEX.packageGroupId)
+      // .raw(INDEX.packageTypeId)
+      // .raw(INDEX.serviceTypeId)
+      // .raw(INDEX.websiteId)
 
       // table name
       .map(TABLE_NAME.PACKAGE);

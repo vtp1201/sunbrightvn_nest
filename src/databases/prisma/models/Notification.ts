@@ -70,7 +70,7 @@ export default createModel(MODEL_NAME.NOTIFICATION, (NotificationModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.notificationTypeId)
+      // .raw(INDEX.notificationTypeId)
 
       // table name
       .map(TABLE_NAME.NOTIFICATION);

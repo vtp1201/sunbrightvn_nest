@@ -60,7 +60,7 @@ export default createModel(MODEL_NAME.HOLIDAY, (HolidayModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.countryId)
+      // .raw(INDEX.countryId)
 
       // table name
       .map(TABLE_NAME.HOLIDAY);

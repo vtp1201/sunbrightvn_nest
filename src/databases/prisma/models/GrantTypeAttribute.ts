@@ -76,9 +76,9 @@ export default createModel(
         .mixin(initDeleted)
 
         // indexes
-        .raw(INDEX.countryId)
-        .raw(INDEX.grantTypeId)
-        .raw(INDEX.parentId)
+        // .raw(INDEX.countryId)
+        // .raw(INDEX.grantTypeId)
+        // .raw(INDEX.parentId)
 
         // table name
         .map(TABLE_NAME.GRANT_TYPE_ATTRIBUTE);

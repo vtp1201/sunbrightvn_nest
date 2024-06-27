@@ -76,10 +76,10 @@ export default createModel(MODEL_NAME.VISA_ORDER, (VisaOrderModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.airportId)
-      .raw(INDEX.orderId)
-      .raw(INDEX.visaPurposeId)
-      .raw(INDEX.visaTypeId)
+      // .raw(INDEX.airportId)
+      // .raw(INDEX.orderId)
+      // .raw(INDEX.visaPurposeId)
+      // .raw(INDEX.visaTypeId)
 
       // table name
       .map(TABLE_NAME.VISA_ORDER);

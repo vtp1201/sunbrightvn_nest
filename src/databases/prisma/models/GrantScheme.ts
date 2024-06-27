@@ -78,7 +78,7 @@ export default createModel(MODEL_NAME.GRANT_SCHEME, (GrantSchemeModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.countryId)
+      // .raw(INDEX.countryId)
 
       // table name
       .map(TABLE_NAME.GRANT_SCHEME);

@@ -52,7 +52,7 @@ export default createModel(MODEL_NAME.FILE_TYPE, (FileTypeModel) => {
       .mixin(initDeleted)
 
       // indexes
-      .raw(INDEX.parentId)
+      // .raw(INDEX.parentId)
 
       // table name
       .map(TABLE_NAME.FILE_TYPE);

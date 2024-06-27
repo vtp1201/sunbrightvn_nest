@@ -49,9 +49,9 @@ export default createModel(
         })
 
         // indexes
-        .raw(INDEX.emailTriggerId)
-        .raw(INDEX.emailTemplateId)
-        .raw(INDEX.processId)
+        // .raw(INDEX.emailTriggerId)
+        // .raw(INDEX.emailTemplateId)
+        // .raw(INDEX.processId)
 
         // table name
         .map(TABLE_NAME.EMAIL_TRIGGER_HAS_PROCESS);
