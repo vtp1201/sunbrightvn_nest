@@ -11,7 +11,7 @@ export class UserService extends AbstractService<MODEL_NAME.USER> {
 
   async getUserByUsername(username: string) {
     try {
-      const user = await this.repository.findFirst({
+      const user = await this.findFirst({
         where: {
           [this.repository.attributes.username]: username,
         },
