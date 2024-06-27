@@ -17,7 +17,7 @@ export enum RELATION {
 
 export enum INDEX {
   entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}])`,
-  companySuffixId = `@@index([${ATTRIBUTE.companySuffixId}], map: "fk_entity_type_has_company_suffix_company_suffix1_idx")`,
+  companySuffixId = `@@index([${ATTRIBUTE.companySuffixId}])`,
 }
 
 export default {

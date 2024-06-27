@@ -74,17 +74,17 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  discountServiceId = `@@index([${ATTRIBUTE.discountServiceId}], map: "fk_discount_service_id_idx")`,
-  airportId = `@@index([${ATTRIBUTE.airportId}], map: "fk_service_airport1_idx")`,
-  carSeatId = `@@index([${ATTRIBUTE.carSeatId}], map: "fk_service_car_seat1_idx")`,
-  carTypeId = `@@index([${ATTRIBUTE.carTypeId}], map: "fk_service_car_type1_idx")`,
-  serviceTypeId = `@@index([${ATTRIBUTE.serviceTypeId}], map: "fk_service_service_type1_idx")`,
-  serviceUnitId = `@@index([${ATTRIBUTE.serviceUnitId}], map: "fk_service_service_unit1_idx")`,
-  visaPurposeId = `@@index([${ATTRIBUTE.visaPurposeId}], map: "fk_service_visa_purpose1_idx")`,
-  visaTypeId = `@@index([${ATTRIBUTE.visaTypeId}], map: "fk_service_visa_type1_idx")`,
-  websiteId = `@@index([${ATTRIBUTE.websiteId}], map: "fk_service_website1_idx")`,
-  xeroAccountId = `@@index([${ATTRIBUTE.xeroAccountId}], map: "fk_service_xero_account")`,
-  upgradeServiceId = `@@index([${ATTRIBUTE.upgradeServiceId}], map: "fk_upgrade_service_id_idx")`,
+  discountServiceId = `@@index([${ATTRIBUTE.discountServiceId}])`,
+  airportId = `@@index([${ATTRIBUTE.airportId}])`,
+  carSeatId = `@@index([${ATTRIBUTE.carSeatId}])`,
+  carTypeId = `@@index([${ATTRIBUTE.carTypeId}])`,
+  serviceTypeId = `@@index([${ATTRIBUTE.serviceTypeId}])`,
+  serviceUnitId = `@@index([${ATTRIBUTE.serviceUnitId}])`,
+  visaPurposeId = `@@index([${ATTRIBUTE.visaPurposeId}])`,
+  visaTypeId = `@@index([${ATTRIBUTE.visaTypeId}])`,
+  websiteId = `@@index([${ATTRIBUTE.websiteId}])`,
+  xeroAccountId = `@@index([${ATTRIBUTE.xeroAccountId}])`,
+  upgradeServiceId = `@@index([${ATTRIBUTE.upgradeServiceId}])`,
 }
 
 export default {

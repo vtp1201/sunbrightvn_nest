@@ -30,8 +30,8 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  companyMemberTypeId = `@@index([${ATTRIBUTE.companyMemberTypeId}], map: "fk_service_change_officer_company_member_type_id_idx")`,
-  changeRequestStatusId = `@@index([${ATTRIBUTE.changeRequestStatusId}], map: "fk_service_change_officer_change_request_status_id_idx")`,
+  companyMemberTypeId = `@@index([${ATTRIBUTE.companyMemberTypeId}])`,
+  changeRequestStatusId = `@@index([${ATTRIBUTE.changeRequestStatusId}])`,
 }
 
 export default {

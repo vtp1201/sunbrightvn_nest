@@ -31,7 +31,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  optionId = `@@index([${ATTRIBUTE.optionId}], map: "fk_too_option_id_opt_id_9x22")`,
+  optionId = `@@index([${ATTRIBUTE.optionId}])`,
   entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}])`,
 }
 

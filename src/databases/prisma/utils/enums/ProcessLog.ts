@@ -45,11 +45,11 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  agentId = `@@index([${ATTRIBUTE.agentId}], map: "fk_pro_agent_id_age_id_6pr9")`,
-  belongToCompanyMemberId = `@@index([${ATTRIBUTE.belongToCompanyMemberId}], map: "fk_pro_belong_to_company_member_id_com_id_f9aw")`,
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: "fk_pro_company_member_id_com_id_e3mj")`,
-  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}], map: "fk_pro_file_template_id_fil_id_c3wc")`,
-  processId = `@@index([${ATTRIBUTE.processId}], map: "fk_pro_process_id_pro_id_1wjq")`,
+  agentId = `@@index([${ATTRIBUTE.agentId}])`,
+  belongToCompanyMemberId = `@@index([${ATTRIBUTE.belongToCompanyMemberId}])`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
+  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}])`,
+  processId = `@@index([${ATTRIBUTE.processId}])`,
 }
 
 export default {

@@ -28,8 +28,8 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  feeTypeId = `@@index([${ATTRIBUTE.feeTypeId}], map: "fk_fee_fee_category1")`,
-  serviceId = `@@index([${ATTRIBUTE.serviceId}], map: "fk_fee_service1")`,
+  feeTypeId = `@@index([${ATTRIBUTE.feeTypeId}])`,
+  serviceId = `@@index([${ATTRIBUTE.serviceId}])`,
 }
 
 export default {

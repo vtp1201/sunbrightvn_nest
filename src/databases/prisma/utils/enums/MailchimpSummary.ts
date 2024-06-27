@@ -33,7 +33,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  mailchimpCampaignId = `@@index([${ATTRIBUTE.mailchimpCampaignId}], map: "fk_mai_mailchimp_campaign_id_mai_id_kf6o")`,
+  mailchimpCampaignId = `@@index([${ATTRIBUTE.mailchimpCampaignId}])`,
 }
 
 export default {

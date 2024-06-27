@@ -29,7 +29,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  urlListTypeId = `@@index([${ATTRIBUTE.urlListTypeId}], map: "pk_url_list_type_idx")`,
+  urlListTypeId = `@@index([${ATTRIBUTE.urlListTypeId}])`,
 }
 
 export default {

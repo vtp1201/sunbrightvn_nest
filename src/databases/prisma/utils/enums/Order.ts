@@ -94,15 +94,15 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  billingId = `@@index([${ATTRIBUTE.billingId}], map: "fk_ord_billing_id_bil_id_7408")`,
-  companyId = `@@index([${ATTRIBUTE.companyId}], map: "fk_ord_company_id_com_id_3fyj")`,
-  customerId = `@@index([${ATTRIBUTE.customerId}], map: "fk_ord_customer_id_cus_id_a3fz")`,
-  orderStatusId = `@@index([${ATTRIBUTE.orderStatusId}], map: "fk_ord_order_status_id_ord_id_j2rt")`,
-  paymentGatewayId = `@@index([${ATTRIBUTE.paymentGatewayId}], map: "fk_ord_payment_gateway_id_pay_id_eysq")`,
-  websiteId = `@@index([${ATTRIBUTE.websiteId}], map: "fk_ord_website_id_web_id_e77e")`,
-  xeroInvoiceStatusId = `@@index([${ATTRIBUTE.xeroInvoiceStatusId}], map: "fk_ord_xero_invoice_status_id_xer_id_46g8")`,
-  countryCardId = `@@index([${ATTRIBUTE.countryCardId}], map: "fk_order_country_card_id_idx")`,
-  orderFromId = `@@index([${ATTRIBUTE.orderFromId}], map: "fk_order_from_id_idx")`,
+  billingId = `@@index([${ATTRIBUTE.billingId}])`,
+  companyId = `@@index([${ATTRIBUTE.companyId}])`,
+  customerId = `@@index([${ATTRIBUTE.customerId}])`,
+  orderStatusId = `@@index([${ATTRIBUTE.orderStatusId}])`,
+  paymentGatewayId = `@@index([${ATTRIBUTE.paymentGatewayId}])`,
+  websiteId = `@@index([${ATTRIBUTE.websiteId}])`,
+  xeroInvoiceStatusId = `@@index([${ATTRIBUTE.xeroInvoiceStatusId}])`,
+  countryCardId = `@@index([${ATTRIBUTE.countryCardId}])`,
+  orderFromId = `@@index([${ATTRIBUTE.orderFromId}])`,
 }
 
 export default {

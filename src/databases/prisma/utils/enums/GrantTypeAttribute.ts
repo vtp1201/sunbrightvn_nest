@@ -49,9 +49,9 @@ export enum RELATION {
 // grantType = RELATION_DEFAULT.grantType,
 
 export enum INDEX {
-  countryId = `@@index([${ATTRIBUTE.countryId}], map: "fk_grant_type_attribute_country_idx")`,
-  parentId = `@@index([${ATTRIBUTE.parentId}], map: "fk_grant_type_attribute_self_idx")`,
-  grantTypeId = `@@index([${ATTRIBUTE.grantTypeId}], map: "fk_grant_type_attribute_type_idx")`,
+  countryId = `@@index([${ATTRIBUTE.countryId}])`,
+  parentId = `@@index([${ATTRIBUTE.parentId}])`,
+  grantTypeId = `@@index([${ATTRIBUTE.grantTypeId}])`,
 }
 
 export default {

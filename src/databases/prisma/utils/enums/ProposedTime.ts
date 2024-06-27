@@ -27,7 +27,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  bankingProcessId = `@@index([${ATTRIBUTE.bankingProcessId}], map: "fk_pro_banking_process_id_ban_id_24j5")`,
+  bankingProcessId = `@@index([${ATTRIBUTE.bankingProcessId}])`,
 }
 
 export default {

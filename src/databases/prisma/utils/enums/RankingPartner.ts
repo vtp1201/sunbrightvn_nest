@@ -31,8 +31,8 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  rankingPartnerTypeId = `@@index([${ATTRIBUTE.rankingPartnerTypeId}], map: "fk_ran_ranking_partner_type_id_ran_id_3u9b")`,
-  taskId = `@@index([${ATTRIBUTE.taskId}], map: "fk_ran_task_id_tas_id_badp")`,
+  rankingPartnerTypeId = `@@index([${ATTRIBUTE.rankingPartnerTypeId}])`,
+  taskId = `@@index([${ATTRIBUTE.taskId}])`,
 }
 
 export default {

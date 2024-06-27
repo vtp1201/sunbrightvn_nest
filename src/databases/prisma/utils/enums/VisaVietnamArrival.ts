@@ -19,7 +19,7 @@ export enum COLUMN {
 export enum RELATION {}
 
 export enum INDEX {
-  countryId = `@@index([${ATTRIBUTE.countryId}], map: "fk_visa_vietnam_arrival_country1")`,
+  countryId = `@@index([${ATTRIBUTE.countryId}])`,
 }
 
 export default {

@@ -27,8 +27,8 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  supportCaseId = `@@index([${ATTRIBUTE.supportCaseId}], map: "fk_mes_support_case_id_sup_id_1au7")`,
-  userId = `@@index([${ATTRIBUTE.userId}], map: "fk_mes_user_id_use_id_1n2l")`,
+  supportCaseId = `@@index([${ATTRIBUTE.supportCaseId}])`,
+  userId = `@@index([${ATTRIBUTE.userId}])`,
 }
 
 export default {

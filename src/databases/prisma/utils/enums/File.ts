@@ -91,21 +91,21 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  changeRequestId = `@@index([${ATTRIBUTE.changeRequestId}], map: "fk_change_request_file_id_idx")`,
-  companyId = `@@index([${ATTRIBUTE.companyId}], map: "fk_fil_company_id_com_id_e3qa")`,
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: "fk_fil_company_member_id_com_id_jiat")`,
-  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}], map: "fk_fil_file_template_id_fil_id_ev0d")`,
-  fileTypeId = `@@index([${ATTRIBUTE.fileTypeId}], map: "fk_fil_file_type_id_fil_id_5psy")`,
-  filledByCompanyMemberId = `@@index([${ATTRIBUTE.filledByCompanyMemberId}], map: "fk_fil_filled_by_company_member_id_com_id_1lvj")`,
-  messageId = `@@index([${ATTRIBUTE.messageId}], map: "fk_fil_message_id_mes_id_2yvf")`,
-  noteId = `@@index([${ATTRIBUTE.noteId}], map: "fk_fil_note_id_not_id_1rdz")`,
-  orderId = `@@index([${ATTRIBUTE.orderId}], map: "fk_fil_order_id_ord_id_4pg2")`,
-  questionGroupId = `@@index([${ATTRIBUTE.questionGroupId}], map: "fk_fil_question_group_id_que_id_1rji")`,
-  rankingPartnerId = `@@index([${ATTRIBUTE.rankingPartnerId}], map: "fk_fil_ranking_partner_id_ran_id_fly1")`,
-  taskId = `@@index([${ATTRIBUTE.taskId}], map: "fk_fil_task_id_tas_id_hjct")`,
-  userId = `@@index([${ATTRIBUTE.userId}], map: "fk_fil_user_id_use_id_6ag1")`,
-  apiExampleId = `@@index([${ATTRIBUTE.apiExampleId}], map: "fk_file_api_example")`,
-  companyEventId = `@@index([${ATTRIBUTE.companyEventId}], map: "fk_file_company_event_id_idx")`,
+  changeRequestId = `@@index([${ATTRIBUTE.changeRequestId}])`,
+  companyId = `@@index([${ATTRIBUTE.companyId}])`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
+  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}])`,
+  fileTypeId = `@@index([${ATTRIBUTE.fileTypeId}])`,
+  filledByCompanyMemberId = `@@index([${ATTRIBUTE.filledByCompanyMemberId}])`,
+  messageId = `@@index([${ATTRIBUTE.messageId}])`,
+  noteId = `@@index([${ATTRIBUTE.noteId}])`,
+  orderId = `@@index([${ATTRIBUTE.orderId}])`,
+  questionGroupId = `@@index([${ATTRIBUTE.questionGroupId}])`,
+  rankingPartnerId = `@@index([${ATTRIBUTE.rankingPartnerId}])`,
+  taskId = `@@index([${ATTRIBUTE.taskId}])`,
+  userId = `@@index([${ATTRIBUTE.userId}])`,
+  apiExampleId = `@@index([${ATTRIBUTE.apiExampleId}])`,
+  companyEventId = `@@index([${ATTRIBUTE.companyEventId}])`,
 }
 
 export default {

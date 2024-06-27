@@ -51,8 +51,8 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  processStepTypeId = `@@index([${ATTRIBUTE.processStepTypeId}], map: "fk_pro_process_step_type_id_pro_id_e8sy")`,
-  parentId = `@@index([${ATTRIBUTE.parentId}], map: "parent_id_idx")`,
+  processStepTypeId = `@@index([${ATTRIBUTE.processStepTypeId}])`,
+  parentId = `@@index([${ATTRIBUTE.parentId}])`,
 }
 
 export default {

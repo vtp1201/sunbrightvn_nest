@@ -132,13 +132,13 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  uniqueTaskCompanyMemberVersion = `@@unique([${ATTRIBUTE.taskId}, ${ATTRIBUTE.companyMemberId}, ${ATTRIBUTE.version}], map: "companyMemberId_taskId_version")`,
-  addressCountryId = `@@index([${ATTRIBUTE.addressCountryId}], map: "address_country_id")`,
-  birthCountryId = `@@index([${ATTRIBUTE.birthCountryId}], map: "birth_country_id")`,
-  countryId = `@@index([${ATTRIBUTE.countryId}], map: "country_id")`,
-  genderId = `@@index([${ATTRIBUTE.genderId}], map: "gender_id")`,
-  phoneCountryId = `@@index([${ATTRIBUTE.phoneCountryId}], map: "phone_country_id")`,
-  typeMemberId = `@@index([${ATTRIBUTE.typeMemberId}], map: "type_member_id")`,
+  uniqueTaskCompanyMemberVersion = `@@unique([${ATTRIBUTE.taskId}, ${ATTRIBUTE.companyMemberId}, ${ATTRIBUTE.version}])`,
+  addressCountryId = `@@index([${ATTRIBUTE.addressCountryId}])`,
+  birthCountryId = `@@index([${ATTRIBUTE.birthCountryId}])`,
+  countryId = `@@index([${ATTRIBUTE.countryId}])`,
+  genderId = `@@index([${ATTRIBUTE.genderId}])`,
+  phoneCountryId = `@@index([${ATTRIBUTE.phoneCountryId}])`,
+  typeMemberId = `@@index([${ATTRIBUTE.typeMemberId}])`,
 }
 
 export default {

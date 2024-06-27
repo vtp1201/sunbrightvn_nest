@@ -35,7 +35,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  typeMemberId = `@@index([${ATTRIBUTE.typeMemberId}], map: "fk_fcm_type_member_id_idx")`,
+  typeMemberId = `@@index([${ATTRIBUTE.typeMemberId}])`,
 }
 
 export enum GENERATED_FOR {

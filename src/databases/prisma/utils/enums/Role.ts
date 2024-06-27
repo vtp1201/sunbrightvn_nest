@@ -37,7 +37,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  parentId = `@@index([${ATTRIBUTE.parentId}], map: "fk_role_role1_idx")`,
+  parentId = `@@index([${ATTRIBUTE.parentId}])`,
 }
 
 export default {

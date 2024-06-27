@@ -43,10 +43,10 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  emailTemplateId = `@@index([${ATTRIBUTE.emailTemplateId}], map: "fk_email_template_id_idx")`,
-  groupId = `@@index([${ATTRIBUTE.groupId}], map: "fk_group_id_idx")`,
-  roleId = `@@index([${ATTRIBUTE.roleId}], map: "fk_role_id_idx")`,
-  userId = `@@index([${ATTRIBUTE.userId}], map: "fk_user_id_idx")`,
+  emailTemplateId = `@@index([${ATTRIBUTE.emailTemplateId}])`,
+  groupId = `@@index([${ATTRIBUTE.groupId}])`,
+  roleId = `@@index([${ATTRIBUTE.roleId}])`,
+  userId = `@@index([${ATTRIBUTE.userId}])`,
 }
 
 export default {

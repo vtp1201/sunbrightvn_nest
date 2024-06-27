@@ -61,13 +61,13 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  agentId = `@@index([${ATTRIBUTE.agentId}], map: "fk_tok_agent_id_age_id_2cha")`,
-  belongToCompanyMemberId = `@@index([${ATTRIBUTE.belongToCompanyMemberId}], map: "fk_tok_belong_to_company_member_id_com_id_9mf5")`,
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: "fk_tok_company_member_id_com_id_lys")`,
-  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}], map: "fk_tok_file_template_id_fil_id_g0lx")`,
-  taskId = `@@index([${ATTRIBUTE.taskId}], map: "fk_tok_task_id_tas_id_g7px")`,
-  userId = `@@index([${ATTRIBUTE.userId}], map: "fk_tok_user_id_use_id_bunm")`,
-  websiteId = `@@index([${ATTRIBUTE.websiteId}], map: "fk_tok_website_id_web_id_4k48")`,
+  agentId = `@@index([${ATTRIBUTE.agentId}])`,
+  belongToCompanyMemberId = `@@index([${ATTRIBUTE.belongToCompanyMemberId}])`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
+  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}])`,
+  taskId = `@@index([${ATTRIBUTE.taskId}])`,
+  userId = `@@index([${ATTRIBUTE.userId}])`,
+  websiteId = `@@index([${ATTRIBUTE.websiteId}])`,
   accessToken = `@@index([${ATTRIBUTE.accessToken}])`,
   refreshToken = `@@index([${ATTRIBUTE.refreshToken}])`,
 }

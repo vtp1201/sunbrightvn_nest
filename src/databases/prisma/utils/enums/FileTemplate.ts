@@ -57,8 +57,8 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  parentId = `@@index([${ATTRIBUTE.parentId}], map: "FK_file_template_parent_id_idx")`,
-  collectSameId = `@@index([${ATTRIBUTE.collectSameId}], map: "fk_collect_same_id_INDEX")`,
+  parentId = `@@index([${ATTRIBUTE.parentId}])`,
+  collectSameId = `@@index([${ATTRIBUTE.collectSameId}])`,
 }
 
 export default {

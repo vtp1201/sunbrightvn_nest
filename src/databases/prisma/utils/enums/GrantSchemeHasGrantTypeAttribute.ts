@@ -49,16 +49,16 @@ export enum RELATION {}
 // grantTypeAttributeYearsOperation = RELATION_DEFAULT.grantTypeAttributeYearsOperation,
 
 export enum INDEX {
-  agencyId = `@@index([${ATTRIBUTE.agencyId}], map: "fk_grant_scheme_has_grant_type_attribute_agency_idx")`,
-  businessSizeId = `@@index([${ATTRIBUTE.businessSizeId}], map: "fk_grant_scheme_has_grant_type_attribute_business_size_idx")`,
-  businessStageId = `@@index([${ATTRIBUTE.businessStageId}], map: "fk_grant_scheme_has_grant_type_attribute_business_stage_idx")`,
-  grantSchemeId = `@@index([${ATTRIBUTE.grantSchemeId}], map: "fk_grant_scheme_has_grant_type_attribute_grant_scheme_idx")`,
-  industryId = `@@index([${ATTRIBUTE.industryId}], map: "fk_grant_scheme_has_grant_type_attribute_industry_idx")`,
-  localShareholdingId = `@@index([${ATTRIBUTE.localShareholdingId}], map: "fk_grant_scheme_has_grant_type_attribute_local_shareholding_idx")`,
-  needsBasedId = `@@index([${ATTRIBUTE.needsBasedId}], map: "fk_grant_scheme_has_grant_type_attribute_needs_base_idx")`,
-  numberEmployeesId = `@@index([${ATTRIBUTE.numberEmployeesId}], map: "fk_grant_scheme_has_grant_type_attribute_number_employees_idx")`,
-  typeId = `@@index([${ATTRIBUTE.typeId}], map: "fk_grant_scheme_has_grant_type_attribute_type_idx")`,
-  yearsOperationId = `@@index([${ATTRIBUTE.yearsOperationId}], map: "fk_grant_scheme_has_grant_type_attribute_years_operation_idx")`,
+  agencyId = `@@index([${ATTRIBUTE.agencyId}])`,
+  businessSizeId = `@@index([${ATTRIBUTE.businessSizeId}])`,
+  businessStageId = `@@index([${ATTRIBUTE.businessStageId}])`,
+  grantSchemeId = `@@index([${ATTRIBUTE.grantSchemeId}])`,
+  industryId = `@@index([${ATTRIBUTE.industryId}])`,
+  localShareholdingId = `@@index([${ATTRIBUTE.localShareholdingId}])`,
+  needsBasedId = `@@index([${ATTRIBUTE.needsBasedId}])`,
+  numberEmployeesId = `@@index([${ATTRIBUTE.numberEmployeesId}])`,
+  typeId = `@@index([${ATTRIBUTE.typeId}])`,
+  yearsOperationId = `@@index([${ATTRIBUTE.yearsOperationId}])`,
 }
 
 export default {

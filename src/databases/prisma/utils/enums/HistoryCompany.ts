@@ -145,13 +145,13 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  billingId = `@@index([${ATTRIBUTE.billingId}], map: "billing_id")`,
-  businessCountryId = `@@index([${ATTRIBUTE.businessCountryId}], map: "business_country_id")`,
-  companyStatusId = `@@index([${ATTRIBUTE.companyStatusId}], map: "company_status_id")`,
-  companySuffixId = `@@index([${ATTRIBUTE.companySuffixId}], map: "company_suffix_id")`,
-  countryId = `@@index([${ATTRIBUTE.countryId}], map: "country_id")`,
-  entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}], map: "entity_type_id")`,
-  operatingCountryId = `@@index([${ATTRIBUTE.operatingCountryId}], map: "operating_country_id")`,
+  billingId = `@@index([${ATTRIBUTE.billingId}])`,
+  businessCountryId = `@@index([${ATTRIBUTE.businessCountryId}])`,
+  companyStatusId = `@@index([${ATTRIBUTE.companyStatusId}])`,
+  companySuffixId = `@@index([${ATTRIBUTE.companySuffixId}])`,
+  countryId = `@@index([${ATTRIBUTE.countryId}])`,
+  entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}])`,
+  operatingCountryId = `@@index([${ATTRIBUTE.operatingCountryId}])`,
 }
 
 export default {

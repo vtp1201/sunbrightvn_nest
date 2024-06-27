@@ -24,8 +24,8 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  countryId = '@@index([country_id], map: "fk_dec_country_id_cou_id_37d2")',
-  fatcaId = '@@index([fatca_id], map: "fk_dec_fatca_id_fat_id_c5mf")',
+  countryId = `@@index([${ATTRIBUTE.countryId}])`,
+  fatcaId = `@@index([${ATTRIBUTE.fatcaId}])`,
 }
 
 export default {

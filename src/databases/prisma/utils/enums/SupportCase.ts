@@ -35,10 +35,10 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  supportCasePriorityId = `@@index([${ATTRIBUTE.supportCasePriorityId}], map: "fk_sup_support_case_priority_id_sup_id_3hj0")`,
-  supportCaseStatusId = `@@index([${ATTRIBUTE.supportCaseStatusId}], map: "fk_sup_support_case_status_id_sup_id_fe69")`,
-  supportCaseTypeId = `@@index([${ATTRIBUTE.supportCaseTypeId}], map: "fk_sup_support_case_type_id_sup_id_3ntx")`,
-  userId = `@@index([${ATTRIBUTE.userId}], map: "fk_sup_user_id_use_id_ge4h")`,
+  supportCasePriorityId = `@@index([${ATTRIBUTE.supportCasePriorityId}])`,
+  supportCaseStatusId = `@@index([${ATTRIBUTE.supportCaseStatusId}])`,
+  supportCaseTypeId = `@@index([${ATTRIBUTE.supportCaseTypeId}])`,
+  userId = `@@index([${ATTRIBUTE.userId}])`,
 }
 
 export default {

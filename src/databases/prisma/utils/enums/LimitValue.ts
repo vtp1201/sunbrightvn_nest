@@ -27,7 +27,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  limitId = `@@index([${ATTRIBUTE.limitId}], map: "fk_limit_id_idx")`,
+  limitId = `@@index([${ATTRIBUTE.limitId}])`,
 }
 
 export default {

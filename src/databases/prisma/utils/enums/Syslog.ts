@@ -64,10 +64,10 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  apiMethodId = `@@index([${ATTRIBUTE.apiMethodId}], map: "fk_sys_api_method_id_api_id_8yj3")`,
-  countryId = `@@index([${ATTRIBUTE.countryId}], map: "fk_sys_country_id_cou_id_17il")`,
-  syslogTypeId = `@@index([${ATTRIBUTE.syslogTypeId}], map: "fk_sys_syslog_type_id_sys_id_cbyy")`,
-  userId = `@@index([${ATTRIBUTE.userId}], map: "fk_sys_user_id_use_id_iwew")`,
+  apiMethodId = `@@index([${ATTRIBUTE.apiMethodId}])`,
+  countryId = `@@index([${ATTRIBUTE.countryId}])`,
+  syslogTypeId = `@@index([${ATTRIBUTE.syslogTypeId}])`,
+  userId = `@@index([${ATTRIBUTE.userId}])`,
 }
 
 export default {

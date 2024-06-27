@@ -52,12 +52,12 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  userId = `@@index([${ATTRIBUTE.userId}], map: "fk_not_user_id_use_id_bxzk")`,
-  companyId = `@@index([${ATTRIBUTE.companyId}], map: "fk_note_company_idx")`,
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: "fk_note_company_member_id_idx")`,
-  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: "fk_note_process_step_id_idx")`,
-  taskId = `@@index([${ATTRIBUTE.taskId}], map: "fk_note_task_id_idx")`,
-  noteTypeId = `@@index([${ATTRIBUTE.noteTypeId}], map: "fk_note_type_id_idx")`,
+  userId = `@@index([${ATTRIBUTE.userId}])`,
+  companyId = `@@index([${ATTRIBUTE.companyId}])`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
+  processStepId = `@@index([${ATTRIBUTE.processStepId}])`,
+  taskId = `@@index([${ATTRIBUTE.taskId}])`,
+  noteTypeId = `@@index([${ATTRIBUTE.noteTypeId}])`,
 }
 
 export default {

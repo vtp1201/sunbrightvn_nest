@@ -25,9 +25,9 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  emailTemplateId = `@@index([${ATTRIBUTE.emailTemplateId}], map: "fk_ema_email_template_id_ema_id_jsfc")`,
+  emailTemplateId = `@@index([${ATTRIBUTE.emailTemplateId}])`,
   emailTriggerId = `@@index([${ATTRIBUTE.emailTriggerId}])`,
-  processId = `@@index([${ATTRIBUTE.processId}], map: "fk_ema_process_id_pro_id_5hgb")`,
+  processId = `@@index([${ATTRIBUTE.processId}])`,
 }
 
 export default {

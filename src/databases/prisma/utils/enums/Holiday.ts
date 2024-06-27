@@ -33,7 +33,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  countryId = `@@index([${ATTRIBUTE.countryId}], map: "fk_holiday_country_idx")`,
+  countryId = `@@index([${ATTRIBUTE.countryId}])`,
 }
 
 export default {

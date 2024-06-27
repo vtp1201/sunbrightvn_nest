@@ -52,10 +52,10 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  genderId = `@@index([${ATTRIBUTE.genderId}], map: "fk_person_gender1_idx")`,
-  phoneCountryId = `@@index([${ATTRIBUTE.phoneCountryId}], map: "fk_person_has_phone_country_idx")`,
-  titleNameId = `@@index([${ATTRIBUTE.titleNameId}], map: "fk_person_title_name1_idx")`,
-  countryId = `@@index([${ATTRIBUTE.countryId}], map: "fk_profile_country1_idx")`,
+  genderId = `@@index([${ATTRIBUTE.genderId}])`,
+  phoneCountryId = `@@index([${ATTRIBUTE.phoneCountryId}])`,
+  titleNameId = `@@index([${ATTRIBUTE.titleNameId}])`,
+  countryId = `@@index([${ATTRIBUTE.countryId}])`,
 }
 
 export default {

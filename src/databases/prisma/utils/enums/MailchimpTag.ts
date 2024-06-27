@@ -27,7 +27,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  contactFromId = `@@index([${ATTRIBUTE.contactFromId}], map: "fk_mt_contact_form_idx")`,
+  contactFromId = `@@index([${ATTRIBUTE.contactFromId}])`,
 }
 
 export default {

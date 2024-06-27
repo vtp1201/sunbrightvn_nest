@@ -49,9 +49,9 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  customerId = `@@index([${ATTRIBUTE.customerId}], map: "fk_vou_customer_id_cus_id_7f7y")`,
-  orderId = `@@index([${ATTRIBUTE.orderId}], map: "fk_vou_order_id_ord_id_8rjw")`,
-  voucherTypeId = `@@index([${ATTRIBUTE.voucherTypeId}], map: "fk_vou_voucher_type_id_vou_id_bgsy")`,
+  customerId = `@@index([${ATTRIBUTE.customerId}])`,
+  orderId = `@@index([${ATTRIBUTE.orderId}])`,
+  voucherTypeId = `@@index([${ATTRIBUTE.voucherTypeId}])`,
 }
 
 export default {

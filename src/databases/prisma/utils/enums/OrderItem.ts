@@ -46,10 +46,10 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  orderId = `@@index([${ATTRIBUTE.orderId}], map: "fk_ord_order_id_ord_id_fvmb")`,
-  orderItemStatusId = `@@index([${ATTRIBUTE.orderItemStatusId}], map: "fk_ord_order_item_status_id_ord_id_8qd8")`,
-  packageId = `@@index([${ATTRIBUTE.packageId}], map: "fk_ord_package_id_pac_id_3934")`,
-  serviceId = `@@index([${ATTRIBUTE.serviceId}], map: "fk_ord_service_id_ser_id_hwno")`,
+  orderId = `@@index([${ATTRIBUTE.orderId}])`,
+  orderItemStatusId = `@@index([${ATTRIBUTE.orderItemStatusId}])`,
+  packageId = `@@index([${ATTRIBUTE.packageId}])`,
+  serviceId = `@@index([${ATTRIBUTE.serviceId}])`,
 }
 
 export default {

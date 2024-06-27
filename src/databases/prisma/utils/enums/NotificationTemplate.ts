@@ -44,11 +44,11 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  notificationStatusId = `@@index([${ATTRIBUTE.notificationStatusId}], map: "fk_notification_status_id_idx")`,
-  notificationTypeId = `@@index([${ATTRIBUTE.notificationTypeId}], map: "fk_notification_type_id_idx")`,
-  actionStepTypeId = `@@index([${ATTRIBUTE.actionStepTypeId}], map: "fk_notify_action_step_type_id_idx")`,
-  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: "fk_notify_process_step_id_idx")`,
-  subscriptionId = `@@index([${ATTRIBUTE.subscriptionId}], map: "fk_notify_subscription_id_idx")`,
+  notificationStatusId = `@@index([${ATTRIBUTE.notificationStatusId}])`,
+  notificationTypeId = `@@index([${ATTRIBUTE.notificationTypeId}])`,
+  actionStepTypeId = `@@index([${ATTRIBUTE.actionStepTypeId}])`,
+  processStepId = `@@index([${ATTRIBUTE.processStepId}])`,
+  subscriptionId = `@@index([${ATTRIBUTE.subscriptionId}])`,
 }
 
 export default {

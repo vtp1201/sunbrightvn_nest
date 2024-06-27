@@ -64,12 +64,12 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  additionProcessId = `@@index([${ATTRIBUTE.additionProcessId}], map: "fk_pro_addition_process_id_add_id_9meh")`,
-  bankingProcessId = `@@index([${ATTRIBUTE.bankingProcessId}], map: "fk_pro_banking_process_id_ban_id_1ta5")`,
-  personId = `@@index([${ATTRIBUTE.personId}], map: "fk_pro_person_id_per_id_4mwi")`,
-  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: "fk_pro_process_step_id_pro_id_jv5i")`,
-  taskId = `@@index([${ATTRIBUTE.taskId}], map: "fk_pro_task_id_tas_id_egl0")`,
-  userId = `@@index([${ATTRIBUTE.userId}], map: "fk_pro_user_id_use_id_110w")`,
+  additionProcessId = `@@index([${ATTRIBUTE.additionProcessId}])`,
+  bankingProcessId = `@@index([${ATTRIBUTE.bankingProcessId}])`,
+  personId = `@@index([${ATTRIBUTE.personId}])`,
+  processStepId = `@@index([${ATTRIBUTE.processStepId}])`,
+  taskId = `@@index([${ATTRIBUTE.taskId}])`,
+  userId = `@@index([${ATTRIBUTE.userId}])`,
 }
 
 export default {

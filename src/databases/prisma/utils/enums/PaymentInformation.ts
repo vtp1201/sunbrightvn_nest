@@ -43,9 +43,9 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: "fk_pay_company_member_id_com_id_1axx")`,
-  orderId = `@@index([${ATTRIBUTE.orderId}], map: "fk_pay_order_id_ord_id_atc9")`,
-  taskId = `@@index([${ATTRIBUTE.taskId}], map: "fk_pay_task_id_tas_id_3ro9")`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
+  orderId = `@@index([${ATTRIBUTE.orderId}])`,
+  taskId = `@@index([${ATTRIBUTE.taskId}])`,
 }
 
 export default {

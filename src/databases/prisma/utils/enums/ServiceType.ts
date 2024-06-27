@@ -48,8 +48,8 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  websiteId = `@@index([${ATTRIBUTE.websiteId}], map: "fk_ser_website_id_web_id_41gc")`,
-  parentId = `@@index([${ATTRIBUTE.parentId}], map: "fk_service_type_service_type1_idx")`,
+  websiteId = `@@index([${ATTRIBUTE.websiteId}])`,
+  parentId = `@@index([${ATTRIBUTE.parentId}])`,
 }
 
 export default {

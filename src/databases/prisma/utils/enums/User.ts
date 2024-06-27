@@ -64,9 +64,9 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  customerId = `@@index([${ATTRIBUTE.customerId}], map: "fk_user_customer1_idx")`,
-  personId = `@@index([${ATTRIBUTE.personId}], map: "fk_user_person1_idx")`,
-  subscriptionId = `@@index([${ATTRIBUTE.subscriptionId}], map: "fk_user_subscription1_idx")`,
+  customerId = `@@index([${ATTRIBUTE.customerId}])`,
+  personId = `@@index([${ATTRIBUTE.personId}])`,
+  subscriptionId = `@@index([${ATTRIBUTE.subscriptionId}])`,
 }
 
 export default {

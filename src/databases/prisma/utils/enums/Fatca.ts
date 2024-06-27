@@ -59,12 +59,12 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: "fk_fat_company_member_id_com_id_dfbt")`,
-  customerId = `@@index([${ATTRIBUTE.customerId}], map: "fk_fat_customer_id_cus_id_1x24")`,
-  holderCountryId = `@@index([${ATTRIBUTE.holderCountryId}], map: "fk_fat_holder_country_id_cou_id_350l")`,
-  mailingCountryId = `@@index([${ATTRIBUTE.mailingCountryId}], map: "fk_fat_mailing_country_id_cou_id_bmuc")`,
-  residentCountryId = `@@index([${ATTRIBUTE.residentCountryId}], map: "fk_fat_resident_country_id_cou_id_l92h")`,
-  taskId = `@@index([${ATTRIBUTE.taskId}], map: "fk_fat_task_id_tas_id_7a31")`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
+  customerId = `@@index([${ATTRIBUTE.customerId}])`,
+  holderCountryId = `@@index([${ATTRIBUTE.holderCountryId}])`,
+  mailingCountryId = `@@index([${ATTRIBUTE.mailingCountryId}])`,
+  residentCountryId = `@@index([${ATTRIBUTE.residentCountryId}])`,
+  taskId = `@@index([${ATTRIBUTE.taskId}])`,
 }
 
 export default {

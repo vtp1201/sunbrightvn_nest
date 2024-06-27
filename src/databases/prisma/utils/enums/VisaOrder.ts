@@ -42,10 +42,10 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  airportId = `@@index([${ATTRIBUTE.airportId}], map: "fk_vis_airport_id_air_id_a20y")`,
-  orderId = `@@index([${ATTRIBUTE.orderId}], map: "fk_vis_order_id_ord_id_fwgt")`,
-  visaPurposeId = `@@index([${ATTRIBUTE.visaPurposeId}], map: "fk_vis_visa_purpose_id_vis_id_9syb")`,
-  visaTypeId = `@@index([${ATTRIBUTE.visaTypeId}], map: "fk_vis_visa_type_id_vis_id_l2k0")`,
+  airportId = `@@index([${ATTRIBUTE.airportId}])`,
+  orderId = `@@index([${ATTRIBUTE.orderId}])`,
+  visaPurposeId = `@@index([${ATTRIBUTE.visaPurposeId}])`,
+  visaTypeId = `@@index([${ATTRIBUTE.visaTypeId}])`,
 }
 
 export default {

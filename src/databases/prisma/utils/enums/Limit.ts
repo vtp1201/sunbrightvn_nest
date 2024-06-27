@@ -35,9 +35,9 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  limitTypeId = `@@index([${ATTRIBUTE.limitTypeId}], map: "fk_limit_type_id_idx")`,
-  permissionGroupId = `@@index([${ATTRIBUTE.permissionGroupId}], map: "fk_permission_group_id_idx")`,
-  permissionId = `@@index([${ATTRIBUTE.permissionId}], map: "fk_permission_id_idx")`,
+  limitTypeId = `@@index([${ATTRIBUTE.limitTypeId}])`,
+  permissionGroupId = `@@index([${ATTRIBUTE.permissionGroupId}])`,
+  permissionId = `@@index([${ATTRIBUTE.permissionId}])`,
 }
 
 export default {

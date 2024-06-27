@@ -21,7 +21,7 @@ export enum COLUMN {
 export enum RELATION {}
 
 export enum INDEX {
-  surveyId = `@@index([${ATTRIBUTE.surveyId}], map: "fk_survey_choice_survey_idx")`,
+  surveyId = `@@index([${ATTRIBUTE.surveyId}])`,
 }
 
 export default {

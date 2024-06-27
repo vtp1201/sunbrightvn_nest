@@ -38,7 +38,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  notificationTypeId = `@@index([${ATTRIBUTE.notificationTypeId}], map: "fk_not_notification_type_id_not_id_6s6")`,
+  notificationTypeId = `@@index([${ATTRIBUTE.notificationTypeId}])`,
 }
 
 export default {

@@ -32,7 +32,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  serviceId = `@@index([${ATTRIBUTE.serviceId}], map: "FK_service_sub")`,
+  serviceId = `@@index([${ATTRIBUTE.serviceId}])`,
 }
 
 export default {

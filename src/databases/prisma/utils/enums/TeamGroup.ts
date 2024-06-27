@@ -25,7 +25,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  leaderUserId = `@@index([${ATTRIBUTE.leaderUserId}], map: "fk_leader_user_id_idx")`,
+  leaderUserId = `@@index([${ATTRIBUTE.leaderUserId}])`,
 }
 
 export default {

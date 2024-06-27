@@ -81,7 +81,7 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  currencyId = `@@index([${ATTRIBUTE.currencyId}], map: "fk_website_currency_1_idx")`,
+  currencyId = `@@index([${ATTRIBUTE.currencyId}])`,
 }
 
 export default {

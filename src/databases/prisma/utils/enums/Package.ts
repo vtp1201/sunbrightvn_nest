@@ -49,13 +49,13 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  packageAnnualId = `@@index([${ATTRIBUTE.packageAnnualId}], map: "fk_package_annual_idx")`,
-  countryId = `@@index([${ATTRIBUTE.countryId}], map: "fk_package_country1_idx")`,
-  entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}], map: "fk_package_entity_type1_idx")`,
-  packageGroupId = `@@index([${ATTRIBUTE.packageGroupId}], map: "fk_package_package_group_idx")`,
-  packageTypeId = `@@index([${ATTRIBUTE.packageTypeId}], map: "fk_package_package_type1")`,
-  serviceTypeId = `@@index([${ATTRIBUTE.serviceTypeId}], map: "fk_package_service_type1_idx")`,
-  websiteId = `@@index([${ATTRIBUTE.websiteId}], map: "fk_package_website1_idx")`,
+  packageAnnualId = `@@index([${ATTRIBUTE.packageAnnualId}])`,
+  countryId = `@@index([${ATTRIBUTE.countryId}])`,
+  entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}])`,
+  packageGroupId = `@@index([${ATTRIBUTE.packageGroupId}])`,
+  packageTypeId = `@@index([${ATTRIBUTE.packageTypeId}])`,
+  serviceTypeId = `@@index([${ATTRIBUTE.serviceTypeId}])`,
+  websiteId = `@@index([${ATTRIBUTE.websiteId}])`,
 }
 
 export default {

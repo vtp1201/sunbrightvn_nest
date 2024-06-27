@@ -37,9 +37,9 @@ export enum RELATION {
 }
 
 export enum INDEX {
-  questionPriorityId = `@@index([${ATTRIBUTE.questionPriorityId}], map: "fk_question_priority_idx_idx")`,
-  questionTypeId = `@@index([${ATTRIBUTE.questionTypeId}], map: "fk_question_type_idx")`,
-  questionParentId = `@@index([${ATTRIBUTE.questionParentId}], map: "fk_taque_question_parent_idx")`,
+  questionPriorityId = `@@index([${ATTRIBUTE.questionPriorityId}])`,
+  questionTypeId = `@@index([${ATTRIBUTE.questionTypeId}])`,
+  questionParentId = `@@index([${ATTRIBUTE.questionParentId}])`,
 }
 
 export default {
