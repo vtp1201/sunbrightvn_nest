@@ -10,4 +10,7 @@ export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
   constructor(prismaService: PrismaService) {
     super(prismaService);
   }
+  test() {
+    return 'test';
+  }
 }

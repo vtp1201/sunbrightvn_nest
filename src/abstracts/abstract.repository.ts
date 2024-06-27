@@ -15,7 +15,7 @@ export class AbstractRepository<T extends ModelName>
 
   findUnique<A extends ModelArgs<T, 'findUnique'>>(
     args: Prisma.SelectSubset<A, ModelArgs<T, 'findUnique'>>,
-  ): ModelResult<T, A, 'findUnique'> {
+  ): Promise<ModelResult<T, A, 'findUnique'>> {
     return this._prismaService[this._model as Prisma.ModelName].findUnique(
       args,
     );
@@ -23,7 +23,7 @@ export class AbstractRepository<T extends ModelName>
 
   findUniqueOrThrow<A extends ModelArgs<T, 'findUniqueOrThrow'>>(
     args?: Prisma.SelectSubset<A, ModelArgs<T, 'findUniqueOrThrow'>>,
-  ): ModelResult<T, A, 'findUniqueOrThrow'> {
+  ): Promise<ModelResult<T, A, 'findUniqueOrThrow'>> {
     return this._prismaService[
       this._model as Prisma.ModelName
     ].findUniqueOrThrow(args);
@@ -31,13 +31,13 @@ export class AbstractRepository<T extends ModelName>
 
   findFirst<A extends ModelArgs<T, 'findFirst'>>(
     args?: Prisma.SelectSubset<A, ModelArgs<T, 'findFirst'>>,
-  ): ModelResult<T, A, 'findFirst'> {
+  ): Promise<ModelResult<T, A, 'findFirst'>> {
     return this._prismaService[this._model as Prisma.ModelName].findFirst(args);
   }
 
   findFirstOrThrow<A extends ModelArgs<T, 'findFirstOrThrow'>>(
     args?: Prisma.SelectSubset<A, ModelArgs<T, 'findFirstOrThrow'>>,
-  ): ModelResult<T, A, 'findFirstOrThrow'> {
+  ): Promise<ModelResult<T, A, 'findFirstOrThrow'>> {
     return this._prismaService[
       this._model as Prisma.ModelName
     ].findFirstOrThrow(args);
@@ -45,19 +45,19 @@ export class AbstractRepository<T extends ModelName>
 
   findMany<A extends ModelArgs<T, 'findMany'>>(
     args?: Prisma.SelectSubset<A, ModelArgs<T, 'findMany'>>,
-  ): ModelResult<T, A, 'findMany'> {
+  ): Promise<ModelResult<T, A, 'findMany'>> {
     return this._prismaService[this._model as Prisma.ModelName].findMany(args);
   }
 
   create<A extends ModelArgs<T, 'create'>>(
     args: Prisma.SelectSubset<A, ModelArgs<T, 'create'>>,
-  ): ModelResult<T, A, 'create'> {
+  ): Promise<ModelResult<T, A, 'create'>> {
     return this._prismaService[this._model as Prisma.ModelName].create(args);
   }
 
   createMany<A extends ModelArgs<T, 'createMany'>>(
     args?: Prisma.SelectSubset<A, ModelArgs<T, 'createMany'>>,
-  ): ModelResult<T, A, 'createMany'> {
+  ): Promise<ModelResult<T, A, 'createMany'>> {
     return this._prismaService[this._model as Prisma.ModelName].createMany(
       args,
     );
@@ -65,13 +65,13 @@ export class AbstractRepository<T extends ModelName>
 
   update<A extends ModelArgs<T, 'update'>>(
     args: Prisma.SelectSubset<A, ModelArgs<T, 'update'>>,
-  ): ModelResult<T, A, 'update'> {
+  ): Promise<ModelResult<T, A, 'update'>> {
     return this._prismaService[this._model as Prisma.ModelName].update(args);
   }
 
   updateMany<A extends ModelArgs<T, 'updateMany'>>(
     args: Prisma.SelectSubset<A, ModelArgs<T, 'updateMany'>>,
-  ): ModelResult<T, A, 'updateMany'> {
+  ): Promise<ModelResult<T, A, 'updateMany'>> {
     return this._prismaService[this._model as Prisma.ModelName].updateMany(
       args,
     );
@@ -79,13 +79,13 @@ export class AbstractRepository<T extends ModelName>
 
   delete<A extends ModelArgs<T, 'delete'>>(
     args: Prisma.SelectSubset<A, ModelArgs<T, 'delete'>>,
-  ): ModelResult<T, A, 'delete'> {
+  ): Promise<ModelResult<T, A, 'delete'>> {
     return this._prismaService[this._model as Prisma.ModelName].delete(args);
   }
 
   deleteMany<A extends ModelArgs<T, 'deleteMany'>>(
     args?: Prisma.SelectSubset<A, ModelArgs<T, 'deleteMany'>>,
-  ): ModelResult<T, A, 'deleteMany'> {
+  ): Promise<ModelResult<T, A, 'deleteMany'>> {
     return this._prismaService[this._model as Prisma.ModelName].deleteMany(
       args,
     );
@@ -93,7 +93,7 @@ export class AbstractRepository<T extends ModelName>
 
   upsert<A extends ModelArgs<T, 'upsert'>>(
     args: Prisma.SelectSubset<A, ModelArgs<T, 'upsert'>>,
-  ): ModelResult<T, A, 'upsert'> {
+  ): Promise<ModelResult<T, A, 'upsert'>> {
     return this._prismaService[this._model as Prisma.ModelName].upsert(args);
   }
 }
