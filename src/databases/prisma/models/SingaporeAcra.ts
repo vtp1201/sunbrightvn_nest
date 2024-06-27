@@ -16,7 +16,7 @@ export default createModel(MODEL_NAME.SINGAPORE_ACRA, (SingaporeAcraModel) => {
       .string(ATTRIBUTE.entityName, {
         map: COLUMN.entityName,
         unique: true,
-        raw: RAW_STRING.LENGTH_3072,
+        raw: RAW_STRING.LENGTH_500,
       })
 
       // indexes

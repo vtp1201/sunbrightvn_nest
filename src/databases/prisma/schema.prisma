@@ -2472,7 +2472,7 @@ model serviceUnit {
 
 model singaporeAcra {
   id         Int    @id @default(autoincrement()) @map("id")
-  entityName String @unique @map("entity_name") @database.VarChar(3072)
+  entityName String @unique @map("entity_name") @database.VarChar(2000)
 
   @@map("singapore_acra")
 }
@@ -2944,7 +2944,7 @@ model website {
   emailCode                String?  @map("email_code") @database.Text
   emailCredential          String?  @map("email_credential") @database.Text
   companiesHouseCredential String?  @map("companies_house_credential") @database.Text
-  analyticsSignature       String?  @map("analytics_signature") @database.VarChar(3072)
+  analyticsSignature       String?  @map("analytics_signature") @database.VarChar(2000)
   viewId                   String?  @map("view_id") @database.VarChar(32)
   emailToken               String?  @map("email_token") @database.Text
   tawkToWebhook            String?  @map("tawk_to_webhook") @database.VarChar(255)

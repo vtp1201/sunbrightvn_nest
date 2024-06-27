@@ -104,7 +104,7 @@ export default createModel(MODEL_NAME.WEBSITE, (WebsiteModel) => {
       })
       .string(ATTRIBUTE.analyticsSignature, {
         map: COLUMN.analyticsSignature,
-        raw: RAW_STRING.LENGTH_3072,
+        raw: RAW_STRING.LENGTH_500,
         optional: true,
       })
       .string(ATTRIBUTE.viewId, {
