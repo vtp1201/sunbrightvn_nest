@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { ENV_PATH } from '@utilities';
 import { validate } from '@configs/config.validate';
 import { RedisModule } from '@nestjs-modules/ioredis';
+import * as path from 'path';
+import { I18nModule } from 'nestjs-i18n';
 
 @Module({
   imports: [
@@ -14,6 +16,13 @@ import { RedisModule } from '@nestjs-modules/ioredis';
     RedisModule.forRoot({
       type: 'single',
       url: '',
+    }),
+    I18nModule.forRoot({
+      fallbackLanguage: 'en',
+      loaderOptions: {
+        path: path.join(__dirname, '/i18n/'),
+        watch: true,
+      },
     }),
   ],
   controllers: [],
