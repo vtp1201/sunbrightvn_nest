@@ -43,6 +43,7 @@ export enum COLUMN {
 }
 
 export enum RELATION {
+  roles = RELATION_DEFAULT.roles,
   actionLog = 'actionLog',
   billing = 'billing',
   emailTemplateHasReceiver = 'email_template_has_receiver',

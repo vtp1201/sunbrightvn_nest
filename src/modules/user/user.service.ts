@@ -5,7 +5,7 @@ import { MODEL_NAME } from '@utilities';
 
 @Injectable()
 export class UserService extends AbstractService<MODEL_NAME.USER> {
-  constructor(private readonly repository: UserRepository) {
+  constructor(public readonly repository: UserRepository) {
     super(repository);
   }
 

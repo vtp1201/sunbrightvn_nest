@@ -17,6 +17,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  roles = 'roles',
   notification = 'notification',
   vouchers = 'vouchers',
   clicks = 'clicks',

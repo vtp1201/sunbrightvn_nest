@@ -25,7 +25,7 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post()
-  async signIn(@Req() request: RequestWithUser) {
+  async login(@Req() request: RequestWithUser) {
     const { user } = request;
     // return await this.authService.signIn(user._id.toString());
   }

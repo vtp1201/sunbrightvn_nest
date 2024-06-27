@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/User';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/User';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import Role from './Role';
 
 export default createModel(MODEL_NAME.USER, (UserModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,12 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // relations defined
+  const rolesRelation = oneToMany({
+    model: Role,
+    relation: RELATION.roles,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -95,6 +102,9 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(rolesRelation)
 
       // indexes
       .raw(INDEX.customerId)
