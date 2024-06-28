@@ -26,6 +26,13 @@ export default createModel(
       },
     );
 
+    // relations defined
+    const roleRelation = oneToOne({
+      attribute: ATTRIBUTE.roleId,
+      model: Role,
+      relation: RELATION.role,
+    });
+
     // defined Model
     process.nextTick(() => {
       AdditionProcessModel.int(ATTRIBUTE.id, {

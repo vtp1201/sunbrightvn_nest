@@ -1,4 +1,4 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
@@ -30,6 +30,12 @@ export enum COLUMN {
   deletedTime = COLUMN_DEFAULT.deletedTime,
 }
 
-export enum RELATION {}
+export enum RELATION {
+  processStepParent = RELATION_DEFAULT.processStepParent,
+  processStepChildren = RELATION_DEFAULT.processStepChildren,
+  country = RELATION_DEFAULT.country,
+  bank = RELATION_DEFAULT.bank,
+  actionStepType = RELATION_DEFAULT.actionStepType,
+}
 
 export default { ATTRIBUTE, RELATION };

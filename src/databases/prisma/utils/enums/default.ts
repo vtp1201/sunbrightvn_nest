@@ -17,6 +17,8 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  processStepChildren = 'processStepChildren',
+  processStepParent = 'processStepParent',
   roles = 'roles',
   notification = 'notification',
   vouchers = 'vouchers',
