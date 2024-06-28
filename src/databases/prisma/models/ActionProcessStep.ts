@@ -1,8 +1,12 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_NUMBER } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/ActionProcessStep';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ActionProcessStep';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import ProcessStep from './ProcessStep';
+import Country from './Country';
+import Bank from './Bank';
+import ActionStepType from './ActionStepType';
 
 export default createModel(
   MODEL_NAME.ACTION_PROCESS_STEP,
@@ -25,6 +29,32 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    const processStepParentRelation = oneToOne({
+      attribute: ATTRIBUTE.processStepId,
+      model: ProcessStep,
+      relation: RELATION.processStepParent,
+    });
+    const processStepChildrenRelation = oneToOne({
+      attribute: ATTRIBUTE.nextProcessStepId,
+      model: ProcessStep,
+      relation: RELATION.processStepChildren,
+    });
+    const countryRelation = oneToOne({
+      attribute: ATTRIBUTE.countryId,
+      model: Country,
+      relation: RELATION.country,
+    });
+    const bankRelation = oneToOne({
+      attribute: ATTRIBUTE.bankId,
+      model: Bank,
+      relation: RELATION.bank,
+    });
+    const actionStepTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.actionStepTypeId,
+      model: ActionStepType,
+      relation: RELATION.actionStepType,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -62,6 +92,13 @@ export default createModel(
         .int(ATTRIBUTE.actionStepTypeId, {
           map: COLUMN.actionStepTypeId,
         })
+
+        // relations
+        .mixin(processStepChildrenRelation)
+        .mixin(processStepParentRelation)
+        .mixin(countryRelation)
+        .mixin(bankRelation)
+        .mixin(actionStepTypeRelation)
 
         // dateTime marks
         .mixin(initCreatedTime)
