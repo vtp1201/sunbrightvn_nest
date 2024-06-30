@@ -127,6 +127,7 @@ export enum COLUMN {
 }
 
 export enum RELATION {
+  agents = RELATION_DEFAULT.agents,
   userTaskAccountantLeaderIdTouser = RELATION_DEFAULT.user,
   userTaskAccountantMemberIdTouser = RELATION_DEFAULT.user,
   companyMemberTaskAppointedDirectorCompanyMemberIdTocompanyMember = RELATION_DEFAULT.companyMember,

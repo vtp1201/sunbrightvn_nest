@@ -93,17 +93,17 @@ export default createModel(
           map: COLUMN.actionStepTypeId,
         })
 
+        // dateTime marks
+        .mixin(initCreatedTime)
+        .mixin(initUpdatedTime)
+        .mixin(initDeleted)
+
         // relations
         .mixin(processStepChildrenRelation)
         .mixin(processStepParentRelation)
         .mixin(countryRelation)
         .mixin(bankRelation)
         .mixin(actionStepTypeRelation)
-
-        // dateTime marks
-        .mixin(initCreatedTime)
-        .mixin(initUpdatedTime)
-        .mixin(initDeleted)
 
         // table name
         .map(TABLE_NAME.ACTION_PROCESS_STEP);

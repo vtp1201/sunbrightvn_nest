@@ -16,6 +16,53 @@ enum generatedFor {
   FOR_TRANSFER
 }
 
+model role {
+  id          Int           @id @default(autoincrement()) @map("id")
+  name        String        @map("name") @database.VarChar(45)
+  value       String        @default("") @map("value") @database.VarChar(100)
+  left        Int?          @map("left")
+  right       Int?          @map("right")
+  parentId    Int?          @map("parent_id")
+  description String?       @map("description") @database.Text
+  status      Int           @default(1) @map("status")
+  colorCode   Json?         @map("color_code")
+  createdTime DateTime      @default(now()) @map("created_time")
+  updatedTime DateTime      @updatedAt @map("updated_time")
+  deletedTime DateTime      @default(now()) @map("deleted_time")
+  isDeleted   Boolean       @default(false) @map("is_deleted")
+  user        user?         @relation(fields: [userId], references: [id])
+  userId      Int?
+  userHasRole userHasRole[]
+
+  @@map("role")
+}
+
+model user {
+  id                        Int           @id @default(autoincrement()) @map("id")
+  username                  String?       @map("username") @database.VarChar(320)
+  password                  String?       @map("password") @database.VarChar(100)
+  passwordSalt              String?       @map("password_salt") @database.VarChar(100)
+  status                    Int?          @map("status")
+  resetPasswordToken        String?       @map("reset_password_token") @database.Text
+  resetPasswordTokenExp     Int?          @map("reset_password_token_exp")
+  twoFactorToken            String?       @map("two_factor_token") @database.Text
+  twoFactorTokenExp         Int?          @map("two_factor_token_exp")
+  isTwoFactorAuthentication Boolean       @default(false) @map("is_two_factor_authentication")
+  personId                  Int?          @map("person_id")
+  customerId                Int?          @map("customer_id")
+  subscriptionId            Int?          @map("subscription_id")
+  facebookId                Int?          @map("facebook_id")
+  createdTime               DateTime      @default(now()) @map("created_time")
+  updatedTime               DateTime      @updatedAt @map("updated_time")
+  deletedTime               DateTime      @default(now()) @map("deleted_time")
+  isDeleted                 Boolean       @default(false) @map("is_deleted")
+  roles                     role[]
+  actionLog                 actionLog[]
+  userHasRole               userHasRole[]
+
+  @@map("user")
+}
+
 model actionLog {
   id          Int      @default(autoincrement()) @map("id")
   userId      Int?     @map("user_id")
@@ -24,50 +71,139 @@ model actionLog {
   createdTime DateTime @default(now()) @map("created_time")
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
+  user        user     @relation(fields: [userId], references: [id])
 
   @@id([id, type])
   @@map("action_log")
 }
 
-model actionProcessStep {
-  id                Int      @id @default(autoincrement()) @map("id")
-  processStepId     Int      @map("process_step_id")
-  nextProcessStepId Int      @map("next_process_step_id")
-  countryId         Int?     @map("country_id")
-  bankId            Int?     @map("bank_id")
-  priority          Int?     @default(1) @map("priority") @database.TinyInt
-  serviceTypeId     Int?     @map("service_type_id")
-  actionStepTypeId  Int      @map("action_step_type_id")
-  createdTime       DateTime @default(now()) @map("created_time")
-  updatedTime       DateTime @updatedAt @map("updated_time")
-  deletedTime       DateTime @default(now()) @map("deleted_time")
-  isDeleted         Boolean  @default(false) @map("is_deleted")
+model processStep {
+  id                  Int                 @id @default(autoincrement()) @map("id")
+  processStepTypeId   Int                 @map("process_step_type_id")
+  value               Int?                @unique @map("value")
+  name                String              @map("name") @database.VarChar(100)
+  description         String?             @map("description") @database.Text
+  left                Int?                @map("left")
+  right               Int?                @map("right")
+  parentId            Int?                @map("parent_id")
+  descriptionDisplay  String?             @map("description_display") @database.Text
+  isGeneratedFile     Boolean             @default(false) @map("is_generated_file")
+  isSendLinkSigned    Boolean             @default(false) @map("is_send_link_signed")
+  order               Int?                @map("order")
+  deletedTime         DateTime            @default(now()) @map("deleted_time")
+  isDeleted           Boolean             @default(false) @map("is_deleted")
+  actionProcessSteps  actionProcessStep[]
+  actionCProcessSteps actionProcessStep[]
+  actionProcessStep   actionProcessStep[]
+  actionProcessStep   actionProcessStep[]
 
-  @@map("action_process_step")
+  @@map("process_step")
+}
+
+model country {
+  id                Int                 @id @default(autoincrement()) @map("id")
+  name              String              @map("name") @database.VarChar(45)
+  guid              String              @unique @map("guid") @database.VarChar(100)
+  countryCode       String?             @map("country_code") @database.VarChar(45)
+  phoneCode         String?             @map("phone_code") @database.VarChar(45)
+  subName           String              @map("sub_name") @database.VarChar(255)
+  isRestricted      Boolean             @default(false) @map("is_restricted")
+  isCountry         Boolean             @default(false) @map("is_country")
+  continentId       Int?                @map("continent_id")
+  deletedTime       DateTime            @default(now()) @map("deleted_time")
+  isDeleted         Boolean             @default(false) @map("is_deleted")
+  actionProcessStep actionProcessStep[]
+  agent             agent[]
+
+  @@map("country")
+}
+
+model bank {
+  id                Int                 @id @default(autoincrement()) @map("id")
+  name              String              @map("name") @database.VarChar(100)
+  image             String?             @map("image") @database.VarChar(200)
+  countryId         Int?                @map("country_id")
+  initialDeposit    Int?                @map("initial_deposit")
+  isVirtual         Boolean?            @default(false) @map("is_virtual")
+  deletedTime       DateTime            @default(now()) @map("deleted_time")
+  isDeleted         Boolean             @default(false) @map("is_deleted")
+  actionProcessStep actionProcessStep[]
+  agent             agent[]
+
+  @@map("bank")
+}
+
+model historyLogCdc {
+  id               Int             @id @default(autoincrement()) @map("id")
+  userId           Int             @map("user_id")
+  taskId           Int             @map("task_id")
+  companyId        Int?            @map("company_id")
+  actionStepTypeId Int?            @map("action_step_type_id")
+  createdTime      DateTime        @default(now()) @map("created_time")
+  updatedTime      DateTime        @updatedAt @map("updated_time")
+  deletedTime      DateTime        @default(now()) @map("deleted_time")
+  isDeleted        Boolean         @default(false) @map("is_deleted")
+  actionStepType   actionStepType? @relation(fields: [actionStepTypeId], references: [id])
+
+  @@map("history_log_cdc")
+}
+
+model notificationTemplate {
+  id                   Int             @id @default(autoincrement()) @map("id")
+  message              String?         @map("message") @database.Text
+  isNotifyToCustomer   Boolean         @default(false) @map("is_notify_to_customer")
+  isNotifyToLeader     Boolean         @default(false) @map("is_notify_to_leader")
+  isNotifyToSupporter  Boolean         @default(false) @map("is_notify_to_supporter")
+  notificationStatusId Int?            @map("notification_status_id")
+  notificationTypeId   Int?            @map("notification_type_id")
+  processStepId        Int?            @map("process_step_id")
+  actionStepTypeId     Int?            @map("action_step_type_id")
+  subscriptionId       Int?            @map("subscription_id")
+  createdTime          DateTime        @default(now()) @map("created_time")
+  updatedTime          DateTime        @updatedAt @map("updated_time")
+  deletedTime          DateTime        @default(now()) @map("deleted_time")
+  isDeleted            Boolean         @default(false) @map("is_deleted")
+  actionStepType       actionStepType? @relation(fields: [actionStepTypeId], references: [id])
+
+  @@map("notification_template")
 }
 
 model actionStepType {
-  id          Int      @id @default(autoincrement()) @map("id")
-  name        String?  @map("name") @database.VarChar(255)
-  createdTime DateTime @default(now()) @map("created_time")
-  updatedTime DateTime @updatedAt @map("updated_time")
-  deletedTime DateTime @default(now()) @map("deleted_time")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
+  id                    Int                    @id @default(autoincrement()) @map("id")
+  name                  String?                @map("name") @database.VarChar(255)
+  createdTime           DateTime               @default(now()) @map("created_time")
+  updatedTime           DateTime               @updatedAt @map("updated_time")
+  deletedTime           DateTime               @default(now()) @map("deleted_time")
+  isDeleted             Boolean                @default(false) @map("is_deleted")
+  actionProcessSteps    actionProcessStep[]
+  historyLogCDCs        historyLogCdc[]
+  notificationTemplates notificationTemplate[]
 
   @@map("action_step_type")
 }
 
-model additionProcess {
-  id             Int      @id @default(autoincrement()) @map("id")
-  taskId         Int      @map("task_id")
-  trackingLink   String?  @map("tracking_link") @database.VarChar(200)
-  serviceTypeIds Json?    @map("service_type_ids")
-  createdTime    DateTime @default(now()) @map("created_time")
-  updatedTime    DateTime @updatedAt @map("updated_time")
-  deletedTime    DateTime @default(now()) @map("deleted_time")
-  isDeleted      Boolean  @default(false) @map("is_deleted")
+model actionProcessStep {
+  id                  Int            @id @default(autoincrement()) @map("id")
+  processStepId       Int            @map("process_step_id")
+  nextProcessStepId   Int            @map("next_process_step_id")
+  countryId           Int?           @map("country_id")
+  bankId              Int?           @map("bank_id")
+  priority            Int?           @default(1) @map("priority") @database.TinyInt
+  serviceTypeId       Int?           @map("service_type_id")
+  actionStepTypeId    Int            @map("action_step_type_id")
+  createdTime         DateTime       @default(now()) @map("created_time")
+  updatedTime         DateTime       @updatedAt @map("updated_time")
+  deletedTime         DateTime       @default(now()) @map("deleted_time")
+  isDeleted           Boolean        @default(false) @map("is_deleted")
+  processStepChildren processStep    @relation(fields: [nextProcessStepId], name: "processStepChildren", references: [id])
+  processStepParent   processStep    @relation(fields: [processStepId], name: "processStepParent", references: [id])
+  country             country        @relation(fields: [countryId], references: [id])
+  bank                bank           @relation(fields: [bankId], references: [id])
+  actionStepType      actionStepType @relation(fields: [actionStepTypeId], references: [id])
+  processStep         processStep    @relation(fields: [processStepId], references: [id])
+  processStep         processStep    @relation(fields: [processStepId], references: [id])
 
-  @@map("addition_process")
+  @@map("action_process_step")
 }
 
 model agency {
@@ -77,25 +213,9 @@ model agency {
   updatedTime DateTime @updatedAt @map("updated_time")
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
+  agents      agent[]
 
   @@map("agency")
-}
-
-model agent {
-  id           Int      @id @default(autoincrement()) @map("id")
-  name         String?  @map("name") @database.VarChar(200)
-  email        String?  @map("email") @database.VarChar(200)
-  countryId    Int?     @map("country_id")
-  agencyId     Int      @map("agency_id")
-  agentTypeId  Int      @map("agent_type_id")
-  bankId       Int?     @map("bank_id")
-  isHasNominee Boolean? @default(false) @map("is_has_nominee")
-  createdTime  DateTime @default(now()) @map("created_time")
-  updatedTime  DateTime @updatedAt @map("updated_time")
-  deletedTime  DateTime @default(now()) @map("deleted_time")
-  isDeleted    Boolean  @default(false) @map("is_deleted")
-
-  @@map("agent")
 }
 
 model agentType {
@@ -103,8 +223,252 @@ model agentType {
   name        String   @map("name") @database.VarChar(100)
   deletedTime DateTime @default(now()) @map("deleted_time")
   isDeleted   Boolean  @default(false) @map("is_deleted")
+  agents      agent[]
 
   @@map("agent_type")
+}
+
+model processLog {
+  id                      Int       @id @default(autoincrement()) @map("id")
+  processId               Int       @map("process_id")
+  isFinished              Boolean   @default(false) @map("is_finished")
+  finishedTime            DateTime? @map("finished_time")
+  isLogMail               Boolean   @default(false) @map("is_log_mail")
+  isRemind                Boolean   @default(false) @map("is_remind")
+  description             String?   @map("description") @database.VarChar(255)
+  agentId                 Int?      @map("agent_id")
+  fileTemplateId          Int?      @map("file_template_id")
+  companyMemberId         Int?      @map("company_member_id")
+  belongToCompanyMemberId Int?      @map("belong_to_company_member_id")
+  emailTemplateId         Int?      @map("email_template_id")
+  createdTime             DateTime  @default(now()) @map("created_time")
+  deletedTime             DateTime  @default(now()) @map("deleted_time")
+  isDeleted               Boolean   @default(false) @map("is_deleted")
+  agent                   agent?    @relation(fields: [agentId], references: [id])
+
+  @@map("process_log")
+}
+
+model token {
+  id                      Int      @id @default(autoincrement()) @map("id")
+  userId                  Int      @map("user_id")
+  accessToken             String   @map("access_token") @database.VarChar(255)
+  accessTokenExp          Int      @map("access_token_exp")
+  accessTokenIat          Int      @map("access_token_iat")
+  refreshToken            String   @map("refresh_token") @database.VarChar(255)
+  refreshTokenExp         Int      @map("refresh_token_exp")
+  refreshTokenIat         Int      @map("refresh_token_iat")
+  scope                   String?  @map("scope") @database.VarChar(255)
+  tokenType               Int?     @map("token_type")
+  xeroTokenType           String?  @map("xero_token_type") @database.VarChar(255)
+  xeroIdToken             String?  @map("xero_id_token") @database.VarChar(255)
+  xeroSessionState        String?  @map("xero_session_state") @database.VarChar(255)
+  websiteId               Int?     @map("website_id")
+  taskId                  Int?     @map("task_id")
+  agentId                 Int?     @map("agent_id")
+  companyMemberId         Int?     @map("company_member_id")
+  fileTemplateId          Int?     @map("file_template_id")
+  belongToCompanyMemberId Int?     @map("belong_to_company_member_id")
+  ipAddress               String?  @map("ip_address") @database.VarChar(255)
+  countRequest            Int?     @map("count_request")
+  createdTime             DateTime @default(now()) @map("created_time")
+  updatedTime             DateTime @updatedAt @map("updated_time")
+  agent                   agent?   @relation(fields: [agentId], references: [id])
+
+  @@map("token")
+}
+
+model email {
+  id              Int      @id @default(autoincrement()) @map("id")
+  emailTemplateId Int?     @map("email_template_id")
+  subject         String?  @map("subject") @database.VarChar(255)
+  agentId         Int?     @map("agent_id")
+  processId       Int?     @map("process_id")
+  companyMemberId Int?     @map("company_member_id")
+  companyId       Int?     @map("company_id")
+  order           Int?     @map("order")
+  timeToSend      BigInt?  @map("time_to_send")
+  isCompleted     Boolean  @default(false) @map("is_completed")
+  isError         Boolean  @default(false) @map("is_error")
+  isRunning       Boolean  @default(false) @map("is_running")
+  description     String?  @map("description") @database.Text
+  emailFrom       String?  @map("email_from") @database.VarChar(200)
+  emailTo         String?  @map("email_to") @database.VarChar(225)
+  emailCc         String?  @map("email_cc") @database.VarChar(255)
+  attachments     String?  @map("attachments") @database.LongText
+  createdTime     DateTime @default(now()) @map("created_time")
+  updatedTime     DateTime @updatedAt @map("updated_time")
+  deletedTime     DateTime @default(now()) @map("deleted_time")
+  isDeleted       Boolean  @default(false) @map("is_deleted")
+  agent           agent?   @relation(fields: [agentId], references: [id])
+
+  @@map("email")
+}
+
+model agent {
+  id                Int              @id @default(autoincrement()) @map("id")
+  name              String?          @map("name") @database.VarChar(200)
+  email             String?          @map("email") @database.VarChar(200)
+  countryId         Int?             @map("country_id")
+  agencyId          Int              @map("agency_id")
+  agentTypeId       Int              @map("agent_type_id")
+  bankId            Int?             @map("bank_id")
+  isHasNominee      Boolean?         @default(false) @map("is_has_nominee")
+  createdTime       DateTime         @default(now()) @map("created_time")
+  updatedTime       DateTime         @updatedAt @map("updated_time")
+  deletedTime       DateTime         @default(now()) @map("deleted_time")
+  isDeleted         Boolean          @default(false) @map("is_deleted")
+  agency            agency           @relation(fields: [agencyId], references: [id])
+  country           country          @relation(fields: [countryId], references: [id])
+  agentType         agentType        @relation(fields: [agentTypeId], references: [id])
+  bank              bank             @relation(fields: [bankId], references: [id])
+  processLogs       processLog[]
+  tokens            token[]
+  emails            email[]
+  tasks             task[]
+  additionProcess   additionProcess? @relation(fields: [additionProcessId], references: [id])
+  additionProcessId Int?
+
+  @@map("agent")
+}
+
+model task {
+  id                                       Int               @id @default(autoincrement()) @map("id")
+  customerId                               Int?              @map("customer_id")
+  companyId                                Int?              @map("company_id")
+  orderId                                  Int?              @map("order_id")
+  upgradeOrderId                           Int?              @map("upgrade_order_id")
+  entityTypeId                             Int?              @map("entity_type_id")
+  countryId                                Int?              @map("country_id")
+  incorporationCountryId                   Int?              @map("incorporation_country_id")
+  isRemindClientContact                    Boolean           @default(false) @map("is_remind_client_contact")
+  isRemindAgentCheckName                   Boolean           @default(false) @map("is_remind_agent_check_name")
+  isRemindClientSignOrder                  Boolean           @default(false) @map("is_remind_client_sign_order")
+  isRemindAgentCheckDocument               Boolean           @default(false) @map("is_remind_agent_check_document")
+  isRemindClientSignDocument               Boolean           @default(false) @map("is_remind_client_sign_document")
+  isRemindAgentCheckOriginDocument         Boolean           @default(false) @map("is_remind_agent_check_orign_document")
+  isRemindClientCheckName                  Boolean           @default(false) @map("is_remind_client_check_name")
+  isRemindAgentReviewBusinessPlanForm      Boolean           @default(false) @map("is_remind_agent_review_business_plan_form")
+  isRemindAgentReviewApplicationSet        Boolean           @default(false) @map("is_remind_agent_review_application_set")
+  isRemindClientReviewApplicationSet       Boolean           @default(false) @map("is_remind_client_review_application_set")
+  isRemindClientDeposit                    Boolean           @default(false) @map("is_remind_client_deposit")
+  isRemindAgentReviewApplicationForm       Boolean           @default(false) @map("is_remind_agent_review_application_form")
+  isRemindClientReviewApplicationForm      Boolean           @default(false) @map("is_remind_client_review_application_form")
+  isRemindAgentReviewScheduleMeeting       Boolean           @default(false) @map("is_remind_agent_review_schedule_meeting")
+  isRemindClientScheduleMeeting            Boolean           @default(false) @map("is_remind_client_schedule_meeting")
+  isFinished                               Boolean           @default(false) @map("is_finished")
+  fullName                                 String?           @map("full_name") @database.VarChar(255)
+  phone                                    String?           @map("phone") @database.VarChar(255)
+  email                                    String?           @map("email") @database.VarChar(255)
+  address                                  String?           @map("address") @database.VarChar(255)
+  phoneCountryId                           Int?              @map("phone_country_id")
+  phoneNumber                              String?           @map("phone_number") @database.VarChar(255)
+  state                                    String?           @map("state") @database.VarChar(255)
+  city                                     String?           @map("city") @database.VarChar(255)
+  postalCode                               String?           @map("postal_code") @database.VarChar(255)
+  appointedShareholderCompanyMemberId      Int?              @map("appointed_shareholder_company_member_id")
+  appointedDirectorCompanyMemberId         Int?              @map("appointed_director_company_member_id")
+  appointedUboCompanyMemberId              Int?              @map("appointed_ubo_company_member_id")
+  appointedPresidentCompanyMemberId        Int?              @map("appointed_president_company_member_id")
+  isBankingFinished                        Boolean           @default(false) @map("is_banking_finished")
+  isRemindAgentServiceRequestRoundChop     Boolean           @default(false) @map("is_remind_agent_service_request_round_chop")
+  isRemindAgentServiceRequestCertification Boolean           @default(false) @map("is_remind_agent_service_request_certification")
+  isRemindAgentServiceRequestCourier       Boolean           @default(false) @map("is_remind_agent_service_request_courier")
+  reasonUseNomineeDirector                 String?           @map("reason_use_nominee_director") @database.VarChar(255)
+  reasonUseNomineeShareholder              String?           @map("reason_use_nominee_shareholder") @database.VarChar(255)
+  isNoteCompliance                         Boolean           @default(false) @map("is_note_compliance")
+  csLeaderId                               Int?              @map("cs_leader_id")
+  csMemberId                               Int?              @map("cs_member_id")
+  accountantLeaderId                       Int?              @map("accountant_leader_id")
+  accountantMemberId                       Int?              @map("accountant_member_id")
+  legalLeaderId                            Int?              @map("legal_leader_id")
+  legalMemberId                            Int?              @map("legal_member_id")
+  complianceLeaderId                       Int?              @map("compliance_leader_id")
+  complianceMemberId                       Int?              @map("compliance_member_id")
+  internalBookeepingLeaderId               Int?              @map("internal_bookeeping_leader_id")
+  internalBookeepingMemberId               Int?              @map("internal_bookeeping_member_id")
+  testerLeaderId                           Int?              @map("tester_leader_id")
+  timeUnassignedTester                     BigInt?           @map("time_unassigned_tester")
+  createdTime                              DateTime          @default(now()) @map("created_time")
+  updatedTime                              DateTime          @updatedAt @map("updated_time")
+  deletedTime                              DateTime          @default(now()) @map("deleted_time")
+  isDeleted                                Boolean           @default(false) @map("is_deleted")
+  agents                                   agent[]
+  additionProcess                          additionProcess[]
+
+  @@map("task")
+}
+
+model process {
+  id                Int              @id @default(autoincrement()) @map("id")
+  taskId            Int              @map("task_id")
+  processStepId     Int              @map("process_step_id")
+  personId          Int?             @map("person_id")
+  userId            Int?             @map("user_id")
+  isApproved        Boolean?         @default(false) @map("is_approved")
+  isRejected        Boolean?         @default(false) @map("is_rejected")
+  isTerminated      Boolean?         @default(false) @map("is_terminated")
+  finishedTime      DateTime?        @map("finished_time")
+  remindStartTime   DateTime?        @map("remind_start_time")
+  status            Int?             @map("status")
+  bankingProcessId  Int?             @map("banking_process_id")
+  additionProcessId Int?             @map("addition_process_id")
+  priority          Int?             @map("priority")
+  description       Json?            @map("description")
+  parentId          Json?            @default("[]") @map("parent_id")
+  extraValue        Json?            @map("extra_value")
+  createdTime       DateTime         @default(now()) @map("created_time")
+  updatedTime       DateTime         @updatedAt @map("updated_time")
+  deletedTime       DateTime         @default(now()) @map("deleted_time")
+  isDeleted         Boolean          @default(false) @map("is_deleted")
+  additionProcess   additionProcess? @relation(fields: [additionProcessId], references: [id])
+
+  @@map("process")
+}
+
+model billing {
+  id                Int              @id @default(autoincrement()) @map("id")
+  countryId         Int?             @map("country_id")
+  userId            Int?             @map("user_id")
+  customerId        Int?             @map("customer_id")
+  name              String?          @map("name") @database.Text
+  postalCode        String?          @map("postal_code") @database.VarChar(45)
+  phone             String?          @map("phone") @database.VarChar(45)
+  address           String?          @map("address") @database.Text
+  address1          String?          @map("address_1") @database.Text
+  state             String?          @map("state") @database.VarChar(225)
+  city              String?          @map("city") @database.VarChar(225)
+  firstName         String?          @map("first_name") @database.VarChar(200)
+  lastName          String?          @map("last_name") @database.VarChar(200)
+  phoneNumber       String?          @map("phone_number") @database.VarChar(255)
+  phoneCountryId    Int?             @map("phone_country_id")
+  taxId             String?          @map("tax_id") @database.VarChar(50)
+  xeroContactId     String?          @unique @map("xero_contact_id") @database.VarChar(255)
+  additionProcessId Int?             @map("addition_process_id")
+  createdTime       DateTime         @default(now()) @map("created_time")
+  updatedTime       DateTime         @updatedAt @map("updated_time")
+  deletedTime       DateTime         @default(now()) @map("deleted_time")
+  isDeleted         Boolean          @default(false) @map("is_deleted")
+  additionProcess   additionProcess? @relation(fields: [additionProcessId], references: [id])
+
+  @@map("billing")
+}
+
+model additionProcess {
+  id             Int       @id @default(autoincrement()) @map("id")
+  taskId         Int       @map("task_id")
+  trackingLink   String?   @map("tracking_link") @database.VarChar(200)
+  serviceTypeIds Json?     @map("service_type_ids")
+  createdTime    DateTime  @default(now()) @map("created_time")
+  updatedTime    DateTime  @updatedAt @map("updated_time")
+  deletedTime    DateTime  @default(now()) @map("deleted_time")
+  isDeleted      Boolean   @default(false) @map("is_deleted")
+  task           task      @relation(fields: [taskId], references: [id])
+  processes      process[]
+  billings       billing[]
+  agents         agent[]
+
+  @@map("addition_process")
 }
 
 model airport {
@@ -218,19 +582,6 @@ model apiStatus {
   @@map("api_status")
 }
 
-model bank {
-  id             Int      @id @default(autoincrement()) @map("id")
-  name           String   @map("name") @database.VarChar(100)
-  image          String?  @map("image") @database.VarChar(200)
-  countryId      Int?     @map("country_id")
-  initialDeposit Int?     @map("initial_deposit")
-  isVirtual      Boolean? @default(false) @map("is_virtual")
-  deletedTime    DateTime @default(now()) @map("deleted_time")
-  isDeleted      Boolean  @default(false) @map("is_deleted")
-
-  @@map("bank")
-}
-
 model bankBranch {
   id          Int      @id @default(autoincrement()) @map("id")
   name        String?  @map("name") @database.VarChar(200)
@@ -293,33 +644,6 @@ model bankingProcess {
   isDeleted                   Boolean  @default(false) @map("is_deleted")
 
   @@map("banking_process")
-}
-
-model billing {
-  id                Int      @id @default(autoincrement()) @map("id")
-  countryId         Int?     @map("country_id")
-  userId            Int?     @map("user_id")
-  customerId        Int?     @map("customer_id")
-  name              String?  @map("name") @database.Text
-  postalCode        String?  @map("postal_code") @database.VarChar(45)
-  phone             String?  @map("phone") @database.VarChar(45)
-  address           String?  @map("address") @database.Text
-  address1          String?  @map("address_1") @database.Text
-  state             String?  @map("state") @database.VarChar(225)
-  city              String?  @map("city") @database.VarChar(225)
-  firstName         String?  @map("first_name") @database.VarChar(200)
-  lastName          String?  @map("last_name") @database.VarChar(200)
-  phoneNumber       String?  @map("phone_number") @database.VarChar(255)
-  phoneCountryId    Int?     @map("phone_country_id")
-  taxId             String?  @map("tax_id") @database.VarChar(50)
-  xeroContactId     String?  @unique @map("xero_contact_id") @database.VarChar(255)
-  additionProcessId Int?     @map("addition_process_id")
-  createdTime       DateTime @default(now()) @map("created_time")
-  updatedTime       DateTime @updatedAt @map("updated_time")
-  deletedTime       DateTime @default(now()) @map("deleted_time")
-  isDeleted         Boolean  @default(false) @map("is_deleted")
-
-  @@map("billing")
 }
 
 model businessActivity {
@@ -853,22 +1177,6 @@ model continent {
   @@map("continent")
 }
 
-model country {
-  id           Int      @id @default(autoincrement()) @map("id")
-  name         String   @map("name") @database.VarChar(45)
-  guid         String   @unique @map("guid") @database.VarChar(100)
-  countryCode  String?  @map("country_code") @database.VarChar(45)
-  phoneCode    String?  @map("phone_code") @database.VarChar(45)
-  subName      String   @map("sub_name") @database.VarChar(255)
-  isRestricted Boolean  @default(false) @map("is_restricted")
-  isCountry    Boolean  @default(false) @map("is_country")
-  continentId  Int?     @map("continent_id")
-  deletedTime  DateTime @default(now()) @map("deleted_time")
-  isDeleted    Boolean  @default(false) @map("is_deleted")
-
-  @@map("country")
-}
-
 model countryHasCompanySuffix {
   countryId       Int @map("country_id")
   companySuffixId Int @map("company_suffix_id")
@@ -1058,32 +1366,6 @@ model department {
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
   @@map("department")
-}
-
-model email {
-  id              Int      @id @default(autoincrement()) @map("id")
-  emailTemplateId Int?     @map("email_template_id")
-  subject         String?  @map("subject") @database.VarChar(255)
-  agentId         Int?     @map("agent_id")
-  processId       Int?     @map("process_id")
-  companyMemberId Int?     @map("company_member_id")
-  companyId       Int?     @map("company_id")
-  order           Int?     @map("order")
-  timeToSend      BigInt?  @map("time_to_send")
-  isCompleted     Boolean  @default(false) @map("is_completed")
-  isError         Boolean  @default(false) @map("is_error")
-  isRunning       Boolean  @default(false) @map("is_running")
-  description     String?  @map("description") @database.Text
-  emailFrom       String?  @map("email_from") @database.VarChar(200)
-  emailTo         String?  @map("email_to") @database.VarChar(225)
-  emailCc         String?  @map("email_cc") @database.VarChar(255)
-  attachments     String?  @map("attachments") @database.LongText
-  createdTime     DateTime @default(now()) @map("created_time")
-  updatedTime     DateTime @updatedAt @map("updated_time")
-  deletedTime     DateTime @default(now()) @map("deleted_time")
-  isDeleted       Boolean  @default(false) @map("is_deleted")
-
-  @@map("email")
 }
 
 model emailTemplate {
@@ -1598,20 +1880,6 @@ model historyFile {
   @@map("history_file")
 }
 
-model historyLogCdc {
-  id               Int      @id @default(autoincrement()) @map("id")
-  userId           Int      @map("user_id")
-  taskId           Int      @map("task_id")
-  companyId        Int?     @map("company_id")
-  actionStepTypeId Int?     @map("action_step_type_id")
-  createdTime      DateTime @default(now()) @map("created_time")
-  updatedTime      DateTime @updatedAt @map("updated_time")
-  deletedTime      DateTime @default(now()) @map("deleted_time")
-  isDeleted        Boolean  @default(false) @map("is_deleted")
-
-  @@map("history_log_cdc")
-}
-
 model holiday {
   id          Int      @id @default(autoincrement()) @map("id")
   name        String   @map("name") @database.Text
@@ -1801,25 +2069,6 @@ model notificationStatus {
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
   @@map("notification_status")
-}
-
-model notificationTemplate {
-  id                   Int      @id @default(autoincrement()) @map("id")
-  message              String?  @map("message") @database.Text
-  isNotifyToCustomer   Boolean  @default(false) @map("is_notify_to_customer")
-  isNotifyToLeader     Boolean  @default(false) @map("is_notify_to_leader")
-  isNotifyToSupporter  Boolean  @default(false) @map("is_notify_to_supporter")
-  notificationStatusId Int?     @map("notification_status_id")
-  notificationTypeId   Int?     @map("notification_type_id")
-  processStepId        Int?     @map("process_step_id")
-  actionStepTypeId     Int?     @map("action_step_type_id")
-  subscriptionId       Int?     @map("subscription_id")
-  createdTime          DateTime @default(now()) @map("created_time")
-  updatedTime          DateTime @updatedAt @map("updated_time")
-  deletedTime          DateTime @default(now()) @map("deleted_time")
-  isDeleted            Boolean  @default(false) @map("is_deleted")
-
-  @@map("notification_template")
 }
 
 model notificationTemplateHasRole {
@@ -2080,32 +2329,6 @@ model person {
   @@map("person")
 }
 
-model process {
-  id                Int       @id @default(autoincrement()) @map("id")
-  taskId            Int       @map("task_id")
-  processStepId     Int       @map("process_step_id")
-  personId          Int?      @map("person_id")
-  userId            Int?      @map("user_id")
-  isApproved        Boolean?  @default(false) @map("is_approved")
-  isRejected        Boolean?  @default(false) @map("is_rejected")
-  isTerminated      Boolean?  @default(false) @map("is_terminated")
-  finishedTime      DateTime? @map("finished_time")
-  remindStartTime   DateTime? @map("remind_start_time")
-  status            Int?      @map("status")
-  bankingProcessId  Int?      @map("banking_process_id")
-  additionProcessId Int?      @map("addition_process_id")
-  priority          Int?      @map("priority")
-  description       Json?     @map("description")
-  parentId          Json?     @default("[]") @map("parent_id")
-  extraValue        Json?     @map("extra_value")
-  createdTime       DateTime  @default(now()) @map("created_time")
-  updatedTime       DateTime  @updatedAt @map("updated_time")
-  deletedTime       DateTime  @default(now()) @map("deleted_time")
-  isDeleted         Boolean   @default(false) @map("is_deleted")
-
-  @@map("process")
-}
-
 model processHasNote {
   processId   Int      @map("process_id")
   noteId      Int      @map("note_id")
@@ -2114,45 +2337,6 @@ model processHasNote {
 
   @@id([noteId, processId])
   @@map("process_has_note")
-}
-
-model processLog {
-  id                      Int       @id @default(autoincrement()) @map("id")
-  processId               Int       @map("process_id")
-  isFinished              Boolean   @default(false) @map("is_finished")
-  finishedTime            DateTime? @map("finished_time")
-  isLogMail               Boolean   @default(false) @map("is_log_mail")
-  isRemind                Boolean   @default(false) @map("is_remind")
-  description             String?   @map("description") @database.VarChar(255)
-  agentId                 Int?      @map("agent_id")
-  fileTemplateId          Int?      @map("file_template_id")
-  companyMemberId         Int?      @map("company_member_id")
-  belongToCompanyMemberId Int?      @map("belong_to_company_member_id")
-  emailTemplateId         Int?      @map("email_template_id")
-  createdTime             DateTime  @default(now()) @map("created_time")
-  deletedTime             DateTime  @default(now()) @map("deleted_time")
-  isDeleted               Boolean   @default(false) @map("is_deleted")
-
-  @@map("process_log")
-}
-
-model processStep {
-  id                 Int      @id @default(autoincrement()) @map("id")
-  processStepTypeId  Int      @map("process_step_type_id")
-  value              Int?     @unique @map("value")
-  name               String   @map("name") @database.VarChar(100)
-  description        String?  @map("description") @database.Text
-  left               Int?     @map("left")
-  right              Int?     @map("right")
-  parentId           Int?     @map("parent_id")
-  descriptionDisplay String?  @map("description_display") @database.Text
-  isGeneratedFile    Boolean  @default(false) @map("is_generated_file")
-  isSendLinkSigned   Boolean  @default(false) @map("is_send_link_signed")
-  order              Int?     @map("order")
-  deletedTime        DateTime @default(now()) @map("deleted_time")
-  isDeleted          Boolean  @default(false) @map("is_deleted")
-
-  @@map("process_step")
 }
 
 model processStepHasFileTemplate {
@@ -2325,27 +2509,6 @@ model rate {
   @@map("rate")
 }
 
-model role {
-  id          Int           @id @default(autoincrement()) @map("id")
-  name        String        @map("name") @database.VarChar(45)
-  value       String        @default("") @map("value") @database.VarChar(100)
-  left        Int?          @map("left")
-  right       Int?          @map("right")
-  parentId    Int?          @map("parent_id")
-  description String?       @map("description") @database.Text
-  status      Int           @default(1) @map("status")
-  colorCode   Json?         @map("color_code")
-  createdTime DateTime      @default(now()) @map("created_time")
-  updatedTime DateTime      @updatedAt @map("updated_time")
-  deletedTime DateTime      @default(now()) @map("deleted_time")
-  isDeleted   Boolean       @default(false) @map("is_deleted")
-  user        user?         @relation(fields: [userId], references: [id])
-  userId      Int?
-  userHasRole userHasRole[]
-
-  @@map("role")
-}
-
 model roleHasLimit {
   roleId  Int @map("role_id")
   limitId Int @map("limit_id")
@@ -2472,7 +2635,7 @@ model serviceUnit {
 
 model singaporeAcra {
   id         Int    @id @default(autoincrement()) @map("id")
-  entityName String @unique @map("entity_name") @database.VarChar(2000)
+  entityName String @unique @map("entity_name") @database.VarChar(500)
 
   @@map("singapore_acra")
 }
@@ -2618,71 +2781,6 @@ model target {
   @@map("target")
 }
 
-model task {
-  id                                       Int      @id @default(autoincrement()) @map("id")
-  customerId                               Int?     @map("customer_id")
-  companyId                                Int?     @map("company_id")
-  orderId                                  Int?     @map("order_id")
-  upgradeOrderId                           Int?     @map("upgrade_order_id")
-  entityTypeId                             Int?     @map("entity_type_id")
-  countryId                                Int?     @map("country_id")
-  incorporationCountryId                   Int?     @map("incorporation_country_id")
-  isRemindClientContact                    Boolean  @default(false) @map("is_remind_client_contact")
-  isRemindAgentCheckName                   Boolean  @default(false) @map("is_remind_agent_check_name")
-  isRemindClientSignOrder                  Boolean  @default(false) @map("is_remind_client_sign_order")
-  isRemindAgentCheckDocument               Boolean  @default(false) @map("is_remind_agent_check_document")
-  isRemindClientSignDocument               Boolean  @default(false) @map("is_remind_client_sign_document")
-  isRemindAgentCheckOriginDocument         Boolean  @default(false) @map("is_remind_agent_check_orign_document")
-  isRemindClientCheckName                  Boolean  @default(false) @map("is_remind_client_check_name")
-  isRemindAgentReviewBusinessPlanForm      Boolean  @default(false) @map("is_remind_agent_review_business_plan_form")
-  isRemindAgentReviewApplicationSet        Boolean  @default(false) @map("is_remind_agent_review_application_set")
-  isRemindClientReviewApplicationSet       Boolean  @default(false) @map("is_remind_client_review_application_set")
-  isRemindClientDeposit                    Boolean  @default(false) @map("is_remind_client_deposit")
-  isRemindAgentReviewApplicationForm       Boolean  @default(false) @map("is_remind_agent_review_application_form")
-  isRemindClientReviewApplicationForm      Boolean  @default(false) @map("is_remind_client_review_application_form")
-  isRemindAgentReviewScheduleMeeting       Boolean  @default(false) @map("is_remind_agent_review_schedule_meeting")
-  isRemindClientScheduleMeeting            Boolean  @default(false) @map("is_remind_client_schedule_meeting")
-  isFinished                               Boolean  @default(false) @map("is_finished")
-  fullName                                 String?  @map("full_name") @database.VarChar(255)
-  phone                                    String?  @map("phone") @database.VarChar(255)
-  email                                    String?  @map("email") @database.VarChar(255)
-  address                                  String?  @map("address") @database.VarChar(255)
-  phoneCountryId                           Int?     @map("phone_country_id")
-  phoneNumber                              String?  @map("phone_number") @database.VarChar(255)
-  state                                    String?  @map("state") @database.VarChar(255)
-  city                                     String?  @map("city") @database.VarChar(255)
-  postalCode                               String?  @map("postal_code") @database.VarChar(255)
-  appointedShareholderCompanyMemberId      Int?     @map("appointed_shareholder_company_member_id")
-  appointedDirectorCompanyMemberId         Int?     @map("appointed_director_company_member_id")
-  appointedUboCompanyMemberId              Int?     @map("appointed_ubo_company_member_id")
-  appointedPresidentCompanyMemberId        Int?     @map("appointed_president_company_member_id")
-  isBankingFinished                        Boolean  @default(false) @map("is_banking_finished")
-  isRemindAgentServiceRequestRoundChop     Boolean  @default(false) @map("is_remind_agent_service_request_round_chop")
-  isRemindAgentServiceRequestCertification Boolean  @default(false) @map("is_remind_agent_service_request_certification")
-  isRemindAgentServiceRequestCourier       Boolean  @default(false) @map("is_remind_agent_service_request_courier")
-  reasonUseNomineeDirector                 String?  @map("reason_use_nominee_director") @database.VarChar(255)
-  reasonUseNomineeShareholder              String?  @map("reason_use_nominee_shareholder") @database.VarChar(255)
-  isNoteCompliance                         Boolean  @default(false) @map("is_note_compliance")
-  csLeaderId                               Int?     @map("cs_leader_id")
-  csMemberId                               Int?     @map("cs_member_id")
-  accountantLeaderId                       Int?     @map("accountant_leader_id")
-  accountantMemberId                       Int?     @map("accountant_member_id")
-  legalLeaderId                            Int?     @map("legal_leader_id")
-  legalMemberId                            Int?     @map("legal_member_id")
-  complianceLeaderId                       Int?     @map("compliance_leader_id")
-  complianceMemberId                       Int?     @map("compliance_member_id")
-  internalBookeepingLeaderId               Int?     @map("internal_bookeeping_leader_id")
-  internalBookeepingMemberId               Int?     @map("internal_bookeeping_member_id")
-  testerLeaderId                           Int?     @map("tester_leader_id")
-  timeUnassignedTester                     BigInt?  @map("time_unassigned_tester")
-  createdTime                              DateTime @default(now()) @map("created_time")
-  updatedTime                              DateTime @updatedAt @map("updated_time")
-  deletedTime                              DateTime @default(now()) @map("deleted_time")
-  isDeleted                                Boolean  @default(false) @map("is_deleted")
-
-  @@map("task")
-}
-
 model taskHasAgent {
   taskId            Int      @map("task_id")
   agentId           Int      @map("agent_id")
@@ -2712,34 +2810,6 @@ model titleName {
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
   @@map("title_name")
-}
-
-model token {
-  id                      Int      @id @default(autoincrement()) @map("id")
-  userId                  Int      @map("user_id")
-  accessToken             String   @map("access_token") @database.VarChar(255)
-  accessTokenExp          Int      @map("access_token_exp")
-  accessTokenIat          Int      @map("access_token_iat")
-  refreshToken            String   @map("refresh_token") @database.VarChar(255)
-  refreshTokenExp         Int      @map("refresh_token_exp")
-  refreshTokenIat         Int      @map("refresh_token_iat")
-  scope                   String?  @map("scope") @database.VarChar(255)
-  tokenType               Int?     @map("token_type")
-  xeroTokenType           String?  @map("xero_token_type") @database.VarChar(255)
-  xeroIdToken             String?  @map("xero_id_token") @database.VarChar(255)
-  xeroSessionState        String?  @map("xero_session_state") @database.VarChar(255)
-  websiteId               Int?     @map("website_id")
-  taskId                  Int?     @map("task_id")
-  agentId                 Int?     @map("agent_id")
-  companyMemberId         Int?     @map("company_member_id")
-  fileTemplateId          Int?     @map("file_template_id")
-  belongToCompanyMemberId Int?     @map("belong_to_company_member_id")
-  ipAddress               String?  @map("ip_address") @database.VarChar(255)
-  countRequest            Int?     @map("count_request")
-  createdTime             DateTime @default(now()) @map("created_time")
-  updatedTime             DateTime @updatedAt @map("updated_time")
-
-  @@map("token")
 }
 
 model tokenType {
@@ -2796,31 +2866,6 @@ model urlListType {
   isDeleted   Boolean  @default(false) @map("is_deleted")
 
   @@map("url_list_type")
-}
-
-model user {
-  id                        Int           @id @default(autoincrement()) @map("id")
-  username                  String?       @map("username") @database.VarChar(320)
-  password                  String?       @map("password") @database.VarChar(100)
-  passwordSalt              String?       @map("password_salt") @database.VarChar(100)
-  status                    Int?          @map("status")
-  resetPasswordToken        String?       @map("reset_password_token") @database.Text
-  resetPasswordTokenExp     Int?          @map("reset_password_token_exp")
-  twoFactorToken            String?       @map("two_factor_token") @database.Text
-  twoFactorTokenExp         Int?          @map("two_factor_token_exp")
-  isTwoFactorAuthentication Boolean       @default(false) @map("is_two_factor_authentication")
-  personId                  Int?          @map("person_id")
-  customerId                Int?          @map("customer_id")
-  subscriptionId            Int?          @map("subscription_id")
-  facebookId                Int?          @map("facebook_id")
-  createdTime               DateTime      @default(now()) @map("created_time")
-  updatedTime               DateTime      @updatedAt @map("updated_time")
-  deletedTime               DateTime      @default(now()) @map("deleted_time")
-  isDeleted                 Boolean       @default(false) @map("is_deleted")
-  roles                     role[]
-  userHasRole               userHasRole[]
-
-  @@map("user")
 }
 
 model userHasNotification {
@@ -2944,7 +2989,7 @@ model website {
   emailCode                String?  @map("email_code") @database.Text
   emailCredential          String?  @map("email_credential") @database.Text
   companiesHouseCredential String?  @map("companies_house_credential") @database.Text
-  analyticsSignature       String?  @map("analytics_signature") @database.VarChar(2000)
+  analyticsSignature       String?  @map("analytics_signature") @database.VarChar(500)
   viewId                   String?  @map("view_id") @database.VarChar(32)
   emailToken               String?  @map("email_token") @database.Text
   tawkToWebhook            String?  @map("tawk_to_webhook") @database.VarChar(255)

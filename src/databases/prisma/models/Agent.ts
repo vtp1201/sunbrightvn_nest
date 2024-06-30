@@ -1,8 +1,22 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Agent';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Agent';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import Agency from './Agency';
+import Country from './Country';
+import AgentType from './AgentType';
+import Bank from './Bank';
+import ProcessLog from './ProcessLog';
+import Token from './Token';
+import Email from './Email';
+import Task from './Task';
 
 export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +37,44 @@ export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const agencyRelation = oneToOne({
+    attribute: ATTRIBUTE.agencyId,
+    model: Agency,
+    relation: RELATION.agency,
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: Country,
+    relation: RELATION.country,
+  });
+  const agentTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.agentTypeId,
+    model: AgentType,
+    relation: RELATION.agentType,
+  });
+  const bankRelation = oneToOne({
+    attribute: ATTRIBUTE.bankId,
+    model: Bank,
+    relation: RELATION.bank,
+  });
+  const processLogsRelation = oneToMany({
+    model: ProcessLog,
+    relation: RELATION.processLogs,
+  });
+  const tokensRelation = oneToMany({
+    model: Token,
+    relation: RELATION.tokens,
+  });
+  const emailsRelation = oneToMany({
+    model: Email,
+    relation: RELATION.emails,
+  });
+  const tasksRelation = oneToMany({
+    model: Task,
+    relation: RELATION.tasks,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -67,6 +119,16 @@ export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(agencyRelation)
+      .mixin(countryRelation)
+      .mixin(agentTypeRelation)
+      .mixin(bankRelation)
+      .mixin(processLogsRelation)
+      .mixin(tokensRelation)
+      .mixin(emailsRelation)
+      .mixin(tasksRelation)
 
       // table name
       .map(TABLE_NAME.AGENT);

@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Agency';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Agency';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import Agent from './Agent';
 
 export default createModel(MODEL_NAME.AGENCY, (AgencyModel) => {
   const initCreatedTime = createdTime({
@@ -24,6 +25,12 @@ export default createModel(MODEL_NAME.AGENCY, (AgencyModel) => {
     },
   );
 
+  // relations defined
+  const agentsRelation = oneToMany({
+    model: Agent,
+    relation: RELATION.agents,
+  });
+
   // defined Model
   process.nextTick(() => {
     AgencyModel.int(ATTRIBUTE.id, {
@@ -43,6 +50,9 @@ export default createModel(MODEL_NAME.AGENCY, (AgencyModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(agentsRelation)
 
       // table name
       .map(TABLE_NAME.AGENCY);

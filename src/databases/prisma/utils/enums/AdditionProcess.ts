@@ -28,7 +28,7 @@ export enum RELATION {
   task = RELATION_DEFAULT.task,
   billings = RELATION_DEFAULT.billings,
   processes = RELATION_DEFAULT.processes,
-  taskHasAgents = RELATION_DEFAULT.taskHasAgents,
+  agents = RELATION_DEFAULT.agents,
 }
 
 export default {

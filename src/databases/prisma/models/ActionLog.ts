@@ -50,12 +50,12 @@ export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
         fields: [ATTRIBUTE.id, ATTRIBUTE.type],
       })
 
-      // relations
-      .mixin(userRelation)
-
       // dateTime marks
       .mixin(initCreatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(userRelation)
 
       // table name
       .map(TABLE_NAME.ACTION_LOG);

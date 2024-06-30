@@ -1,8 +1,18 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/AdditionProcess';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/AdditionProcess';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import Task from './Task';
+import Process from './Process';
+import Billing from './Billing';
+import Agent from './Agent';
 
 export default createModel(
   MODEL_NAME.ADDITION_PROCESS,
@@ -26,11 +36,23 @@ export default createModel(
       },
     );
 
-    // relations defined
-    const roleRelation = oneToOne({
-      attribute: ATTRIBUTE.roleId,
-      model: Role,
-      relation: RELATION.role,
+    // defined Relation
+    const taskRelation = oneToOne({
+      attribute: ATTRIBUTE.taskId,
+      model: Task,
+      relation: RELATION.task,
+    });
+    const processesRelation = oneToMany({
+      model: Process,
+      relation: RELATION.processes,
+    });
+    const billingsRelation = oneToMany({
+      model: Billing,
+      relation: RELATION.billings,
+    });
+    const agentsRelation = oneToMany({
+      model: Agent,
+      relation: RELATION.agents,
     });
 
     // defined Model
@@ -64,6 +86,12 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(taskRelation)
+        .mixin(processesRelation)
+        .mixin(billingsRelation)
+        .mixin(agentsRelation)
 
         // table name
         .map(TABLE_NAME.ADDITION_PROCESS);

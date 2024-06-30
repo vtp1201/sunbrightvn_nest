@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Task';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Task';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import Agent from './Agent';
 
 export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,12 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relation
+  const agentsRelation = oneToMany({
+    model: Agent,
+    relation: RELATION.agents,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -268,6 +275,9 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(agentsRelation)
 
       // indexes
       // .raw(INDEX.accountantLeaderId)
