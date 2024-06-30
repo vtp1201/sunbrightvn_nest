@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Api';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Api';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import ApiMethod from './ApiMethod';
 
 export default createModel(MODEL_NAME.API, (ApiModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,13 @@ export default createModel(MODEL_NAME.API, (ApiModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const apiMethodRelation = oneToOne({
+    attribute: ATTRIBUTE.apiMethodId,
+    model: ApiMethod,
+    relation: RELATION.apiMethod,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -64,6 +72,9 @@ export default createModel(MODEL_NAME.API, (ApiModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(apiMethodRelation)
 
       // table name
       .map(TABLE_NAME.API);

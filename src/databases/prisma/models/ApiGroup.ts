@@ -1,8 +1,10 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/ApiGroup';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ApiGroup';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import ApiExample from './ApiExample';
+import ApiHasGroup from './ApiHasGroup';
 
 export default createModel(MODEL_NAME.API_GROUP, (ApiGroupModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +25,16 @@ export default createModel(MODEL_NAME.API_GROUP, (ApiGroupModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const apiExamplesRelation = oneToMany({
+    model: ApiExample,
+    relation: RELATION.apiExamples,
+  });
+  const apiHasGroupsRelation = oneToMany({
+    model: ApiHasGroup,
+    relation: RELATION.apiHasGroups,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -47,6 +59,10 @@ export default createModel(MODEL_NAME.API_GROUP, (ApiGroupModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(apiExamplesRelation)
+      .mixin(apiHasGroupsRelation)
 
       // table name
       .map(TABLE_NAME.API_GROUP);

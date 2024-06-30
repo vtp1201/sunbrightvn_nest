@@ -20,10 +20,15 @@ export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // init relations
   const userRelation = oneToOne({
     attribute: ATTRIBUTE.userId,
     model: User,
     relation: RELATION.user,
+    option: {
+      optional: true,
+    },
   });
 
   // defined Model

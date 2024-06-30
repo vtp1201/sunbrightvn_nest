@@ -72,9 +72,9 @@ export default createModel(
           raw: RAW_STRING.LENGTH_200,
           optional: true,
         })
-        .string(ATTRIBUTE.trackingLink, {
-          map: COLUMN.trackingLink,
-          raw: RAW_STRING.LENGTH_200,
+        .string(ATTRIBUTE.trackingCode, {
+          map: COLUMN.trackingCode,
+          raw: RAW_STRING.LENGTH_100,
           optional: true,
         })
         .json(ATTRIBUTE.serviceTypeIds, {

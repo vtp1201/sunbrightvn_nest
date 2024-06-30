@@ -7,6 +7,7 @@ import ProcessStep from './ProcessStep';
 import Country from './Country';
 import Bank from './Bank';
 import ActionStepType from './ActionStepType';
+import ServiceType from './ServiceType';
 
 export default createModel(
   MODEL_NAME.ACTION_PROCESS_STEP,
@@ -44,11 +45,25 @@ export default createModel(
       attribute: ATTRIBUTE.countryId,
       model: Country,
       relation: RELATION.country,
+      option: {
+        optional: true,
+      },
     });
     const bankRelation = oneToOne({
       attribute: ATTRIBUTE.bankId,
       model: Bank,
       relation: RELATION.bank,
+      option: {
+        optional: true,
+      },
+    });
+    const serviceTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.serviceTypeId,
+      model: ServiceType,
+      relation: RELATION.serviceType,
+      option: {
+        optional: true,
+      },
     });
     const actionStepTypeRelation = oneToOne({
       attribute: ATTRIBUTE.actionStepTypeId,
@@ -103,6 +118,7 @@ export default createModel(
         .mixin(processStepParentRelation)
         .mixin(countryRelation)
         .mixin(bankRelation)
+        .mixin(serviceTypeRelation)
         .mixin(actionStepTypeRelation)
 
         // table name

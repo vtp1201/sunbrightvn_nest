@@ -48,6 +48,7 @@ export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
     attribute: ATTRIBUTE.countryId,
     model: Country,
     relation: RELATION.country,
+    option: { optional: true },
   });
   const agentTypeRelation = oneToOne({
     attribute: ATTRIBUTE.agentTypeId,
@@ -58,6 +59,7 @@ export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
     attribute: ATTRIBUTE.bankId,
     model: Bank,
     relation: RELATION.bank,
+    option: { optional: true },
   });
   const processLogsRelation = oneToMany({
     model: ProcessLog,

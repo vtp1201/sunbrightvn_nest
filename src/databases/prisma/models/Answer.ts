@@ -1,8 +1,13 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Answer';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Answer';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import CompanyMember from './CompanyMember';
+import Option from './Option';
+import Question from './Question';
+import Country from './Country';
+import Company from './Company';
 
 export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +28,37 @@ export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const optionRelation = oneToOne({
+    attribute: ATTRIBUTE.optionId,
+    model: Option,
+    relation: RELATION.option,
+  });
+  const companyMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.companyMemberId,
+    model: CompanyMember,
+    relation: RELATION.companyMember,
+    option: { optional: true },
+  });
+  const questionRelation = oneToOne({
+    attribute: ATTRIBUTE.questionId,
+    model: Question,
+    relation: RELATION.question,
+    option: { optional: true },
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.selectCountryId,
+    model: Country,
+    relation: RELATION.country,
+    option: { optional: true },
+  });
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: Company,
+    relation: RELATION.company,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -74,6 +110,13 @@ export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(optionRelation)
+      .mixin(companyMemberRelation)
+      .mixin(questionRelation)
+      .mixin(countryRelation)
+      .mixin(companyRelation)
 
       // table name
       .map(TABLE_NAME.ANSWER);

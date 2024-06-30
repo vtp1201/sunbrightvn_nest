@@ -36,6 +36,7 @@ export enum RELATION {
   country = RELATION_DEFAULT.country,
   bank = RELATION_DEFAULT.bank,
   actionStepType = RELATION_DEFAULT.actionStepType,
+  serviceType = RELATION_DEFAULT.serviceType,
 }
 
 export default { ATTRIBUTE, RELATION };
