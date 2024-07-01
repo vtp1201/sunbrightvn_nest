@@ -17,6 +17,21 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  tasksAppointedPresident = 'tasksAppointedPresident',
+  tasksAppointedShareholder = 'tasksAppointedShareholder',
+  tasksAppointedUbo = 'tasksAppointedUbo',
+  tasksAppointedDirector = 'tasksAppointedDirector',
+  tokensToCompanyMember = 'tokensToCompanyMember',
+  processLogsBelongToCompanyMember = 'processLogsBelongToCompanyMember',
+  paymentsInformation = 'paymentsInformation',
+  filesFilled = 'filesFilled',
+  fatcas = 'fatcas',
+  companyCorporationShares = 'companyCorporationShares',
+  companyCorporationPositions = 'companyCorporationPositions',
+  companyCorporationOwnerships = 'companyCorporationOwnerships',
+  companyCorporationInterests = 'companyCorporationInterests',
+  addressCountry = 'addressCountry',
+  birthCountry = 'birthCountry',
   operationCountries = 'operationCountries',
   currencies = 'currencies',
   toCompanyMember = 'toCompanyMember',

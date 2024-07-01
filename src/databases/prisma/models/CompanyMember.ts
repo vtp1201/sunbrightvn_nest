@@ -1,8 +1,36 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_DATE_TIME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyMember';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyMember';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  answer,
+  businessActivity,
+  changeRequest,
+  company,
+  companyInterest,
+  companyMemberReference,
+  companyOwnership,
+  companyPosition,
+  companyShare,
+  country,
+  email,
+  fatca,
+  file,
+  gender,
+  note,
+  paymentInformation,
+  processLog,
+  task,
+  token,
+  typeMember,
+} from '.';
 
 export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +51,157 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: company,
+    relation: RELATION.company,
+  });
+  const genderRelation = oneToOne({
+    attribute: ATTRIBUTE.genderId,
+    model: gender,
+    relation: RELATION.gender,
+    option: { optional: true },
+  });
+  const typeMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.typeMemberId,
+    model: typeMember,
+    relation: RELATION.typeMember,
+    option: { optional: true },
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: country,
+    relation: RELATION.country,
+    option: { optional: true },
+  });
+  const phoneCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.phoneCountryId,
+    model: country,
+    relation: RELATION.phoneCountry,
+    option: { optional: true },
+  });
+  const birthCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.birthCountryId,
+    model: country,
+    relation: RELATION.birthCountry,
+    option: { optional: true },
+  });
+  const addressCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.addressCountryId,
+    model: country,
+    relation: RELATION.addressCountry,
+    option: { optional: true },
+  });
+  const answersRelation = oneToMany({
+    model: answer,
+    relation: RELATION.answers,
+  });
+  const changeRequestsRelation = oneToMany({
+    model: changeRequest,
+    relation: RELATION.changeRequests,
+  });
+  const companyInterestsRelation = oneToMany({
+    model: companyInterest,
+    relation: RELATION.companyInterests,
+  });
+  const companyCorporationInterestsRelation = oneToMany({
+    model: companyInterest,
+    relation: RELATION.companyCorporationInterests,
+  });
+  const businessActivitiesRelation = oneToMany({
+    model: businessActivity,
+    relation: RELATION.businessActivities,
+  });
+  const operationCountriesRelation = oneToMany({
+    model: country,
+    relation: RELATION.operationCountries,
+  });
+  const companyMemberReferencesRelation = oneToMany({
+    model: companyMemberReference,
+    relation: RELATION.companyMemberReferences,
+  });
+  const companyOwnershipsRelation = oneToMany({
+    model: companyOwnership,
+    relation: RELATION.companyOwnerships,
+  });
+  const companyCorporationOwnershipsRelation = oneToMany({
+    model: companyOwnership,
+    relation: RELATION.companyCorporationOwnerships,
+  });
+  const companyPositionsRelation = oneToMany({
+    model: companyPosition,
+    relation: RELATION.companyPositions,
+  });
+  const companyCorporationPositionsRelation = oneToMany({
+    model: companyPosition,
+    relation: RELATION.companyCorporationPositions,
+  });
+  const companySharesRelation = oneToMany({
+    model: companyShare,
+    relation: RELATION.companyShares,
+  });
+  const companyCorporationSharesRelation = oneToMany({
+    model: companyShare,
+    relation: RELATION.companyCorporationShares,
+  });
+  const emailsRelation = oneToMany({
+    model: email,
+    relation: RELATION.emails,
+  });
+  const fatcasRelation = oneToMany({
+    model: fatca,
+    relation: RELATION.fatcas,
+  });
+  const filesRelation = oneToMany({
+    model: file,
+    relation: RELATION.files,
+  });
+  const filesFilledRelation = oneToMany({
+    model: file,
+    relation: RELATION.filesFilled,
+  });
+  const notesRelation = oneToMany({
+    model: note,
+    relation: RELATION.notes,
+  });
+  const paymentsInformationRelation = oneToMany({
+    model: paymentInformation,
+    relation: RELATION.paymentsInformation,
+  });
+  const processLogsRelation = oneToMany({
+    model: processLog,
+    relation: RELATION.processLogs,
+  });
+  const processLogsBelongToCompanyMemberRelation = oneToMany({
+    model: processLog,
+    relation: RELATION.processLogsBelongToCompanyMember,
+  });
+  const tasksAppointedDirectorRelation = oneToMany({
+    model: task,
+    relation: RELATION.tasksAppointedDirector,
+  });
+  const tasksAppointedPresidentRelation = oneToMany({
+    model: task,
+    relation: RELATION.tasksAppointedPresident,
+  });
+  const tasksAppointedShareholderRelation = oneToMany({
+    model: task,
+    relation: RELATION.tasksAppointedShareholder,
+  });
+  const tasksAppointedUboRelation = oneToMany({
+    model: task,
+    relation: RELATION.tasksAppointedUbo,
+  });
+  const tokensRelation = oneToMany({
+    model: token,
+    relation: RELATION.tokens,
+  });
+  const tokensToCompanyMemberRelation = oneToMany({
+    model: token,
+    relation: RELATION.tokensToCompanyMember,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -241,6 +420,42 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(companyRelation)
+      .mixin(genderRelation)
+      .mixin(typeMemberRelation)
+      .mixin(countryRelation)
+      .mixin(phoneCountryRelation)
+      .mixin(birthCountryRelation)
+      .mixin(addressCountryRelation)
+      .mixin(answersRelation)
+      .mixin(changeRequestsRelation)
+      .mixin(companyInterestsRelation)
+      .mixin(companyCorporationInterestsRelation)
+      .mixin(businessActivitiesRelation)
+      .mixin(operationCountriesRelation)
+      .mixin(companyMemberReferencesRelation)
+      .mixin(companyOwnershipsRelation)
+      .mixin(companyCorporationOwnershipsRelation)
+      .mixin(companyPositionsRelation)
+      .mixin(companyCorporationPositionsRelation)
+      .mixin(companySharesRelation)
+      .mixin(companyCorporationSharesRelation)
+      .mixin(emailsRelation)
+      .mixin(fatcasRelation)
+      .mixin(filesRelation)
+      .mixin(filesFilledRelation)
+      .mixin(notesRelation)
+      .mixin(paymentsInformationRelation)
+      .mixin(processLogsRelation)
+      .mixin(processLogsBelongToCompanyMemberRelation)
+      .mixin(tasksAppointedDirectorRelation)
+      .mixin(tasksAppointedPresidentRelation)
+      .mixin(tasksAppointedShareholderRelation)
+      .mixin(tasksAppointedUboRelation)
+      .mixin(tokensRelation)
+      .mixin(tokensToCompanyMemberRelation)
 
       // table name
       .map(TABLE_NAME.COMPANY_MEMBER);
