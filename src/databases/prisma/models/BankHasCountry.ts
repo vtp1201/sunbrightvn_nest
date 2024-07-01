@@ -3,8 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/BankHasCountry';
 import { oneToOne } from '../mixins';
-import Bank from './Bank';
-import Country from './Country';
+import { bank, country } from './';
 
 export default createModel(
   MODEL_NAME.BANK_HAS_COUNTRY,
@@ -12,13 +11,13 @@ export default createModel(
     // defined Relation
     const bankRelation = oneToOne({
       attribute: ATTRIBUTE.bankId,
-      model: Bank,
+      model: bank,
       relation: RELATION.bank,
     });
     // defined Relation
     const countryRelation = oneToOne({
       attribute: ATTRIBUTE.countryId,
-      model: Country,
+      model: country,
       relation: RELATION.country,
     });
 

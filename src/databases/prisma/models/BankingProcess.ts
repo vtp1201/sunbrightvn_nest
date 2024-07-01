@@ -9,12 +9,14 @@ import {
   oneToOne,
   updatedTime,
 } from '../mixins';
-import Bank from './Bank';
-import BankBranch from './BankBranch';
-import Country from './Country';
-import Task from './Task';
-import Process from './Process';
-import ProposedTime from './ProposedTime';
+import {
+  bank,
+  bankBranch,
+  country,
+  task,
+  process as Process,
+  proposedTime,
+} from './';
 
 export default createModel(
   MODEL_NAME.BANKING_PROCESS,
@@ -41,25 +43,25 @@ export default createModel(
     // defined Relation
     const bankRelation = oneToOne({
       attribute: ATTRIBUTE.bankId,
-      model: Bank,
+      model: bank,
       relation: RELATION.bank,
       option: { optional: true },
     });
     const bankBranchRelation = oneToOne({
       attribute: ATTRIBUTE.bankBranchId,
-      model: BankBranch,
+      model: bankBranch,
       relation: RELATION.bankBranch,
       option: { optional: true },
     });
     const phoneCountryRelation = oneToOne({
       attribute: ATTRIBUTE.phoneCountryId,
-      model: Country,
+      model: country,
       relation: RELATION.phoneCountry,
       option: { optional: true },
     });
     const taskRelation = oneToOne({
       attribute: ATTRIBUTE.taskId,
-      model: Task,
+      model: task,
       relation: RELATION.task,
       option: { optional: true },
     });
@@ -68,7 +70,7 @@ export default createModel(
       relation: RELATION.processes,
     });
     const proposedTimesRelation = oneToMany({
-      model: ProposedTime,
+      model: proposedTime,
       relation: RELATION.proposedTimes,
     });
 

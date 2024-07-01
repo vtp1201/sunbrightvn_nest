@@ -3,8 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ApiGroup';
 import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
-import ApiExample from './ApiExample';
-import ApiHasGroup from './ApiHasGroup';
+import { apiExample, apiHasGroup } from './';
 
 export default createModel(MODEL_NAME.API_GROUP, (ApiGroupModel) => {
   const initCreatedTime = createdTime({
@@ -28,11 +27,11 @@ export default createModel(MODEL_NAME.API_GROUP, (ApiGroupModel) => {
 
   // defined Relations
   const apiExamplesRelation = oneToMany({
-    model: ApiExample,
+    model: apiExample,
     relation: RELATION.apiExamples,
   });
   const apiHasGroupsRelation = oneToMany({
-    model: ApiHasGroup,
+    model: apiHasGroup,
     relation: RELATION.apiHasGroups,
   });
 

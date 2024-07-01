@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ApiStatus';
 import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
-import ApiExample from './ApiExample';
+import { apiExample } from './';
 
 export default createModel(MODEL_NAME.API_STATUS, (ApiStatusModel) => {
   const initCreatedTime = createdTime({
@@ -26,7 +26,7 @@ export default createModel(MODEL_NAME.API_STATUS, (ApiStatusModel) => {
   );
   // defined Relations
   const apiExamplesRelation = oneToMany({
-    model: ApiExample,
+    model: apiExample,
     relation: RELATION.apiExamples,
   });
 

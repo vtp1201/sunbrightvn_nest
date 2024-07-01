@@ -3,9 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ActionStepType';
 import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
-import ActionProcessStep from './ActionProcessStep';
-import HistoryLogCDC from './HistoryLogCDC';
-import NotificationTemplate from './NotificationTemplate';
+import { actionProcessStep, historyLogCDC, notificationTemplate } from './';
 
 export default createModel(
   MODEL_NAME.ACTION_STEP_TYPE,
@@ -31,15 +29,15 @@ export default createModel(
 
     // relations defined
     const actionProcessStepsRelation = oneToMany({
-      model: ActionProcessStep,
+      model: actionProcessStep,
       relation: RELATION.actionProcessSteps,
     });
     const historyLogCDCsRelation = oneToMany({
-      model: HistoryLogCDC,
+      model: historyLogCDC,
       relation: RELATION.historyLogCDCs,
     });
     const notificationTemplatesRelation = oneToMany({
-      model: NotificationTemplate,
+      model: notificationTemplate,
       relation: RELATION.notificationTemplates,
     });
 

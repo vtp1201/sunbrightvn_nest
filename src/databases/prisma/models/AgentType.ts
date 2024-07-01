@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/AgentType';
 import { deleted, oneToMany } from '../mixins';
-import Agent from './Agent';
+import { agent } from './';
 
 export default createModel(MODEL_NAME.AGENT_TYPE, (AgentTypeModel) => {
   const initDeleted = deleted(
@@ -19,7 +19,7 @@ export default createModel(MODEL_NAME.AGENT_TYPE, (AgentTypeModel) => {
 
   // defined Relation
   const agentsRelation = oneToMany({
-    model: Agent,
+    model: agent,
     relation: RELATION.agents,
   });
 

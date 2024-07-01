@@ -3,10 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/BusinessActivity';
 import { deleted, oneToMany, oneToOne } from '../mixins';
-import BusinessActivityIndustry from './BusinessActivityIndustry';
-import Country from './Country';
-import Company from './Company';
-import CompanyMember from './CompanyMember';
+import { businessActivityIndustry, country, company, companyMember } from './';
 
 export default createModel(
   MODEL_NAME.BUSINESS_ACTIVITY,
@@ -25,22 +22,22 @@ export default createModel(
     // defined Relation
     const businessActivityIndustryRelation = oneToOne({
       attribute: ATTRIBUTE.businessActivityIndustryId,
-      model: BusinessActivityIndustry,
+      model: businessActivityIndustry,
       relation: RELATION.businessActivityIndustry,
       option: { optional: true },
     });
     const countryRelation = oneToOne({
       attribute: ATTRIBUTE.countryId,
-      model: Country,
+      model: country,
       relation: RELATION.country,
       option: { optional: true },
     });
     const companiesRelation = oneToMany({
-      model: Company,
+      model: company,
       relation: RELATION.companies,
     });
     const companyMembersRelation = oneToMany({
-      model: CompanyMember,
+      model: companyMember,
       relation: RELATION.companyMembers,
     });
 

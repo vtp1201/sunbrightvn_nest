@@ -3,11 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_NUMBER } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ActionProcessStep';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
-import ProcessStep from './ProcessStep';
-import Country from './Country';
-import Bank from './Bank';
-import ActionStepType from './ActionStepType';
-import ServiceType from './ServiceType';
+import { processStep, country, bank, actionStepType, serviceType } from './';
 
 export default createModel(
   MODEL_NAME.ACTION_PROCESS_STEP,
@@ -33,17 +29,17 @@ export default createModel(
 
     const processStepParentRelation = oneToOne({
       attribute: ATTRIBUTE.processStepId,
-      model: ProcessStep,
+      model: processStep,
       relation: RELATION.processStepParent,
     });
     const processStepChildrenRelation = oneToOne({
       attribute: ATTRIBUTE.nextProcessStepId,
-      model: ProcessStep,
+      model: processStep,
       relation: RELATION.processStepChildren,
     });
     const countryRelation = oneToOne({
       attribute: ATTRIBUTE.countryId,
-      model: Country,
+      model: country,
       relation: RELATION.country,
       option: {
         optional: true,
@@ -51,7 +47,7 @@ export default createModel(
     });
     const bankRelation = oneToOne({
       attribute: ATTRIBUTE.bankId,
-      model: Bank,
+      model: bank,
       relation: RELATION.bank,
       option: {
         optional: true,
@@ -59,7 +55,7 @@ export default createModel(
     });
     const serviceTypeRelation = oneToOne({
       attribute: ATTRIBUTE.serviceTypeId,
-      model: ServiceType,
+      model: serviceType,
       relation: RELATION.serviceType,
       option: {
         optional: true,
@@ -67,7 +63,7 @@ export default createModel(
     });
     const actionStepTypeRelation = oneToOne({
       attribute: ATTRIBUTE.actionStepTypeId,
-      model: ActionStepType,
+      model: actionStepType,
       relation: RELATION.actionStepType,
     });
 

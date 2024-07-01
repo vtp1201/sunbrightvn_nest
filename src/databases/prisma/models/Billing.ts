@@ -9,13 +9,15 @@ import {
   oneToOne,
   updatedTime,
 } from '../mixins';
-import AdditionProcess from './AdditionProcess';
-import Country from './Country';
-import Customer from './Customer';
-import User from './User';
-import Company from './Company';
-import HistoryCompany from './HistoryCompany';
-import Order from './Order';
+import {
+  additionProcess,
+  country,
+  customer,
+  user,
+  company,
+  historyCompany,
+  order,
+} from './';
 
 export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
   const initCreatedTime = createdTime({
@@ -40,44 +42,44 @@ export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
   // defined Relation
   const additionProcessRelation = oneToOne({
     attribute: ATTRIBUTE.additionProcessId,
-    model: AdditionProcess,
+    model: additionProcess,
     relation: RELATION.additionProcess,
     option: { optional: true },
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
-    model: Country,
+    model: country,
     relation: RELATION.country,
     option: { optional: true },
   });
   const customerRelation = oneToOne({
     attribute: ATTRIBUTE.customerId,
-    model: Customer,
+    model: customer,
     relation: RELATION.customer,
     option: { optional: true },
   });
   const phoneCountryRelation = oneToOne({
     attribute: ATTRIBUTE.phoneCountryId,
-    model: Country,
+    model: country,
     relation: RELATION.phoneCountry,
     option: { optional: true },
   });
   const userRelation = oneToOne({
     attribute: ATTRIBUTE.userId,
-    model: User,
+    model: user,
     relation: RELATION.user,
     option: { optional: true },
   });
   const companiesRelation = oneToMany({
-    model: Company,
+    model: company,
     relation: RELATION.companies,
   });
   const historyCompaniesRelation = oneToMany({
-    model: HistoryCompany,
+    model: historyCompany,
     relation: RELATION.historyCompanies,
   });
   const ordersRelation = oneToMany({
-    model: Order,
+    model: order,
     relation: RELATION.orders,
   });
 

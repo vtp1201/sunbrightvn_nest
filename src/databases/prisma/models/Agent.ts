@@ -9,14 +9,16 @@ import {
   oneToOne,
   updatedTime,
 } from '../mixins';
-import Agency from './Agency';
-import Country from './Country';
-import AgentType from './AgentType';
-import Bank from './Bank';
-import ProcessLog from './ProcessLog';
-import Token from './Token';
-import Email from './Email';
-import Task from './Task';
+import {
+  agency,
+  country,
+  agentType,
+  bank,
+  processLog,
+  token,
+  email,
+  task,
+} from './';
 
 export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
   const initCreatedTime = createdTime({
@@ -41,40 +43,40 @@ export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
   // defined Relations
   const agencyRelation = oneToOne({
     attribute: ATTRIBUTE.agencyId,
-    model: Agency,
+    model: agency,
     relation: RELATION.agency,
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
-    model: Country,
+    model: country,
     relation: RELATION.country,
     option: { optional: true },
   });
   const agentTypeRelation = oneToOne({
     attribute: ATTRIBUTE.agentTypeId,
-    model: AgentType,
+    model: agentType,
     relation: RELATION.agentType,
   });
   const bankRelation = oneToOne({
     attribute: ATTRIBUTE.bankId,
-    model: Bank,
+    model: bank,
     relation: RELATION.bank,
     option: { optional: true },
   });
   const processLogsRelation = oneToMany({
-    model: ProcessLog,
+    model: processLog,
     relation: RELATION.processLogs,
   });
   const tokensRelation = oneToMany({
-    model: Token,
+    model: token,
     relation: RELATION.tokens,
   });
   const emailsRelation = oneToMany({
-    model: Email,
+    model: email,
     relation: RELATION.emails,
   });
   const tasksRelation = oneToMany({
-    model: Task,
+    model: task,
     relation: RELATION.tasks,
   });
 

@@ -3,9 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Airport';
 import { deleted, oneToMany } from '../mixins';
-import Customer from './Customer';
-import Service from './Service';
-import VisaOrder from './VisaOrder';
+import { customer, service, visaOrder } from './';
 
 export default createModel(MODEL_NAME.AIRPORT, (AirportModel) => {
   const initDeleted = deleted(
@@ -21,15 +19,15 @@ export default createModel(MODEL_NAME.AIRPORT, (AirportModel) => {
 
   // defined Relations
   const customersRelation = oneToMany({
-    model: Customer,
+    model: customer,
     relation: RELATION.customers,
   });
   const servicesRelation = oneToMany({
-    model: Service,
+    model: service,
     relation: RELATION.services,
   });
   const visaOrdersRelation = oneToMany({
-    model: VisaOrder,
+    model: visaOrder,
     relation: RELATION.visaOrders,
   });
 

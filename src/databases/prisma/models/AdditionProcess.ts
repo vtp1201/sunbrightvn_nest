@@ -9,10 +9,7 @@ import {
   oneToOne,
   updatedTime,
 } from '../mixins';
-import Task from './Task';
-import Process from './Process';
-import Billing from './Billing';
-import Agent from './Agent';
+import { task, process as Process, billing, agent } from './';
 
 export default createModel(
   MODEL_NAME.ADDITION_PROCESS,
@@ -39,7 +36,7 @@ export default createModel(
     // defined Relation
     const taskRelation = oneToOne({
       attribute: ATTRIBUTE.taskId,
-      model: Task,
+      model: task,
       relation: RELATION.task,
     });
     const processesRelation = oneToMany({
@@ -47,11 +44,11 @@ export default createModel(
       relation: RELATION.processes,
     });
     const billingsRelation = oneToMany({
-      model: Billing,
+      model: billing,
       relation: RELATION.billings,
     });
     const agentsRelation = oneToMany({
-      model: Agent,
+      model: agent,
       relation: RELATION.agents,
     });
 

@@ -3,8 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/BankBranch';
 import { deleted, oneToMany, oneToOne } from '../mixins';
-import Bank from './Bank';
-import BankingProcess from './BankingProcess';
+import { bank, bankingProcess } from './';
 
 export default createModel(MODEL_NAME.BANK_BRANCH, (BankBranchModel) => {
   const initDeleted = deleted(
@@ -21,12 +20,12 @@ export default createModel(MODEL_NAME.BANK_BRANCH, (BankBranchModel) => {
   // defined Model
   const bankRelation = oneToOne({
     attribute: ATTRIBUTE.bankId,
-    model: Bank,
+    model: bank,
     relation: RELATION.bank,
     option: { optional: true },
   });
   const bankingProcessesRelation = oneToMany({
-    model: BankingProcess,
+    model: bankingProcess,
     relation: RELATION.bankingProcesses,
   });
 

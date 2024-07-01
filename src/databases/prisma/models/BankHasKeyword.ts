@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/bankHasKeyword';
 import { oneToOne } from '../mixins';
-import Bank from './Bank';
+import { bank } from './';
 
 export default createModel(
   MODEL_NAME.BANK_HAS_KEYWORD,
@@ -11,7 +11,7 @@ export default createModel(
     // defined Relation
     const bankRelation = oneToOne({
       attribute: ATTRIBUTE.bankId,
-      model: Bank,
+      model: bank,
       relation: RELATION.bank,
       option: { optional: true },
     });

@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ActionLog';
 import { createdTime, deleted, oneToOne } from '../mixins';
-import User from './User';
+import { user } from './';
 
 export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
   const initCreatedTime = createdTime({
@@ -24,7 +24,7 @@ export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
   // init relations
   const userRelation = oneToOne({
     attribute: ATTRIBUTE.userId,
-    model: User,
+    model: user,
     relation: RELATION.user,
     option: {
       optional: true,

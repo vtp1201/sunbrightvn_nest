@@ -3,8 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ApiMethod';
 import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
-import Api from './Api';
-import Syslog from './Syslog';
+import { api, syslog } from './';
 
 export default createModel(MODEL_NAME.API_METHOD, (ApiMethodModel) => {
   const initCreatedTime = createdTime({
@@ -27,11 +26,11 @@ export default createModel(MODEL_NAME.API_METHOD, (ApiMethodModel) => {
   );
   // defined Relations
   const apisRelation = oneToMany({
-    model: Api,
+    model: api,
     relation: RELATION.apis,
   });
   const syslogsRelation = oneToMany({
-    model: Syslog,
+    model: syslog,
     relation: RELATION.syslogs,
   });
 

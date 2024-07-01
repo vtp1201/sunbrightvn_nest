@@ -9,10 +9,7 @@ import {
   oneToOne,
   updatedTime,
 } from '../mixins';
-import ApiStatus from './ApiStatus';
-import Api from './Api';
-import ApiGroup from './ApiGroup';
-import File from './File';
+import { apiStatus, api, apiGroup, file } from './';
 
 export default createModel(MODEL_NAME.API_EXAMPLE, (ApiExampleModel) => {
   const initCreatedTime = createdTime({
@@ -37,22 +34,22 @@ export default createModel(MODEL_NAME.API_EXAMPLE, (ApiExampleModel) => {
   // defined Relations
   const apiStatusRelation = oneToOne({
     attribute: ATTRIBUTE.apiStatusId,
-    model: ApiStatus,
+    model: apiStatus,
     relation: RELATION.apiStatus,
   });
   const apiRelation = oneToOne({
     attribute: ATTRIBUTE.apiId,
-    model: Api,
+    model: api,
     relation: RELATION.api,
   });
   const apiGroupRelation = oneToOne({
     attribute: ATTRIBUTE.apiGroupId,
-    model: ApiGroup,
+    model: apiGroup,
     relation: RELATION.apiGroup,
     option: { optional: true },
   });
   const filesRelation = oneToMany({
-    model: File,
+    model: file,
     relation: RELATION.files,
   });
 

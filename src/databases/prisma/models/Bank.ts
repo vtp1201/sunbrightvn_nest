@@ -3,16 +3,18 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Bank';
 import { deleted, oneToMany, oneToOne } from '../mixins';
-import Country from './Country';
-import BankBranch from './BankBranch';
-import ActionProcessStep from './ActionProcessStep';
-import Agent from './Agent';
-import BankHasCountry from './BankHasCountry';
-import FileTemplate from './FileTemplate';
-import BankHasKeyword from './BankHasKeyword';
-import BankingProcess from './BankingProcess';
-import Customer from './Customer';
-import Order from './Order';
+import {
+  country,
+  bankBranch,
+  actionProcessStep,
+  agent,
+  bankHasCountry,
+  fileTemplate,
+  bankHasKeyword,
+  bankingProcess,
+  customer,
+  order,
+} from './';
 
 export default createModel(MODEL_NAME.BANK, (BankModel) => {
   const initDeleted = deleted(
@@ -29,44 +31,44 @@ export default createModel(MODEL_NAME.BANK, (BankModel) => {
   // defined Model
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
-    model: Country,
+    model: country,
     relation: RELATION.country,
     option: { optional: true },
   });
   const bankBranchesRelation = oneToMany({
-    model: BankBranch,
+    model: bankBranch,
     relation: RELATION.bankBranches,
   });
   const actionProcessStepsRelation = oneToMany({
-    model: ActionProcessStep,
+    model: actionProcessStep,
     relation: RELATION.actionProcessSteps,
   });
   const agentsRelation = oneToMany({
-    model: Agent,
+    model: agent,
     relation: RELATION.agents,
   });
   const bankHasCountriesRelation = oneToMany({
-    model: BankHasCountry,
+    model: bankHasCountry,
     relation: RELATION.bankHasCountries,
   });
   const fileTemplatesRelation = oneToMany({
-    model: FileTemplate,
+    model: fileTemplate,
     relation: RELATION.fileTemplates,
   });
   const bankHasKeywordsRelation = oneToMany({
-    model: BankHasKeyword,
+    model: bankHasKeyword,
     relation: RELATION.bankHasKeywords,
   });
   const bankingProcessesRelation = oneToMany({
-    model: BankingProcess,
+    model: bankingProcess,
     relation: RELATION.bankingProcesses,
   });
   const customersRelation = oneToMany({
-    model: Customer,
+    model: customer,
     relation: RELATION.customers,
   });
   const ordersRelation = oneToMany({
-    model: Order,
+    model: order,
     relation: RELATION.orders,
   });
 

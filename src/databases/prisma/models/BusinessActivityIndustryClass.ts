@@ -7,7 +7,7 @@ import {
   RELATION,
 } from '../utils/enums/BusinessActivityIndustryClass';
 import { deleted, oneToMany } from '../mixins';
-import BusinessActivityIndustry from './BusinessActivityIndustry';
+import { businessActivityIndustry } from './';
 
 export default createModel(
   MODEL_NAME.BUSINESS_ACTIVITY_INDUSTRY_CLASS,
@@ -25,7 +25,7 @@ export default createModel(
 
     // defined Relation
     const businessActivityIndustriesRelation = oneToMany({
-      model: BusinessActivityIndustry,
+      model: businessActivityIndustry,
       relation: RELATION.businessActivityIndustries,
     });
 
