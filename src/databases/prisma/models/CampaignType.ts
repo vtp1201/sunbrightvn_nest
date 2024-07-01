@@ -41,7 +41,7 @@ export default createModel(MODEL_NAME.CAMPAIGN_TYPE, (CampaignTypeModel) => {
       .mixin(initDeleted)
 
       // relations
-      .mixin(campaign)
+      .mixin(campaignsRelation)
 
       // table name
       .map(TABLE_NAME.CAMPAIGN_TYPE);

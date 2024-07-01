@@ -54,7 +54,7 @@ export default createModel(
 
         // relations
         .mixin(campaignRelation)
-        .mixin(voucherType)
+        .mixin(voucherTypeRelation)
 
         // table name
         .map(TABLE_NAME.CAMPAIGN_HAS_VOUCHER_TYPE);
