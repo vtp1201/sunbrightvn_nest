@@ -186,3 +186,4 @@ export { default as E_VOUCHER } from './Voucher';
 export { default as E_WEBSITE } from './Website';
 export { default as E_XERO_ACCOUNT } from './XeroAccount';
 export { default as E_XERO_INVOICE_STATUS } from './XeroInvoiceStatus';
+export { default as E_CURRENCY } from './Currency';

@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Click';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Click';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { voucherType } from '.';
 
 export default createModel(MODEL_NAME.CLICK, (ClickModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,13 @@ export default createModel(MODEL_NAME.CLICK, (ClickModel) => {
       column: COLUMN.isDeleted,
     },
   );
+  // defined Relations
+  const voucherTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.voucherTypeId,
+    model: voucherType,
+    relation: RELATION.voucherType,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -52,6 +60,9 @@ export default createModel(MODEL_NAME.CLICK, (ClickModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(voucherTypeRelation)
 
       // table name
       .map(TABLE_NAME.CLICK);

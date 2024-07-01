@@ -1,8 +1,23 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/ChangeRequest';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ChangeRequest';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  changeRequestItem,
+  changeRequestStatus,
+  company,
+  companyMember,
+  companyPosition,
+  file,
+  task,
+} from '.';
 
 export default createModel(MODEL_NAME.CHANGE_REQUEST, (ChangeRequestModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +38,54 @@ export default createModel(MODEL_NAME.CHANGE_REQUEST, (ChangeRequestModel) => {
       column: COLUMN.isDeleted,
     },
   );
+  // defined Relations
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: company,
+    relation: RELATION.company,
+  });
+  const companyMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.companyMemberId,
+    model: companyMember,
+    relation: RELATION.companyMember,
+    option: { optional: true },
+  });
+  const companyPositionRelation = oneToOne({
+    attribute: ATTRIBUTE.companyPositionId,
+    model: companyPosition,
+    relation: RELATION.companyPosition,
+    option: { optional: true },
+  });
+  const toCompanyMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.toCompanyMemberId,
+    model: companyMember,
+    relation: RELATION.toCompanyMember,
+    option: { optional: true },
+  });
+  const toCompanyPositionRelation = oneToOne({
+    attribute: ATTRIBUTE.toCompanyPositionId,
+    model: companyPosition,
+    relation: RELATION.toCompanyPosition,
+    option: { optional: true },
+  });
+  const changeRequestStatusRelation = oneToOne({
+    attribute: ATTRIBUTE.changeRequestStatusId,
+    model: changeRequestStatus,
+    relation: RELATION.changeRequestStatus,
+  });
+  const taskRelation = oneToOne({
+    attribute: ATTRIBUTE.taskId,
+    model: task,
+    relation: RELATION.task,
+  });
+  const changeRequestItemsRelation = oneToMany({
+    model: changeRequestItem,
+    relation: RELATION.changeRequestItems,
+  });
+  const filesRelation = oneToMany({
+    model: file,
+    relation: RELATION.files,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -71,6 +134,17 @@ export default createModel(MODEL_NAME.CHANGE_REQUEST, (ChangeRequestModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(companyRelation)
+      .mixin(companyMemberRelation)
+      .mixin(companyPositionRelation)
+      .mixin(toCompanyMemberRelation)
+      .mixin(toCompanyPositionRelation)
+      .mixin(changeRequestStatusRelation)
+      .mixin(taskRelation)
+      .mixin(changeRequestItemsRelation)
+      .mixin(filesRelation)
 
       // table name
       .map(TABLE_NAME.CHANGE_REQUEST);

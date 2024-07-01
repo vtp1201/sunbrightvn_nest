@@ -1,8 +1,37 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING, RAW_DATE_TIME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Company';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Company';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  answer,
+  billing,
+  businessActivity,
+  changeRequest,
+  companyEvent,
+  companyInterest,
+  companyMember,
+  companyOwnership,
+  companyShare,
+  companyStatus,
+  companySuffix,
+  country,
+  currency,
+  email,
+  entityType,
+  file,
+  historyLogCDC,
+  note,
+  order,
+  proposedName,
+  task,
+} from '.';
 
 export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +52,118 @@ export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const answersRelation = oneToMany({
+    model: answer,
+    relation: RELATION.answers,
+  });
+  const changeRequestsRelation = oneToMany({
+    model: changeRequest,
+    relation: RELATION.changeRequests,
+  });
+  const billingRelation = oneToOne({
+    attribute: ATTRIBUTE.billingId,
+    model: billing,
+    relation: RELATION.billing,
+    option: { optional: true },
+  });
+  const companyStatusRelation = oneToOne({
+    attribute: ATTRIBUTE.companyStatusId,
+    model: companyStatus,
+    relation: RELATION.companyStatus,
+    option: { optional: true },
+  });
+  const companySuffixRelation = oneToOne({
+    attribute: ATTRIBUTE.companySuffixId,
+    model: companySuffix,
+    relation: RELATION.companySuffix,
+    option: { optional: true },
+  });
+  const businessCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.businessCountryId,
+    model: country,
+    relation: RELATION.businessCountry,
+    option: { optional: true },
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: country,
+    relation: RELATION.country,
+    option: { optional: true },
+  });
+  const entityTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.entityTypeId,
+    model: entityType,
+    relation: RELATION.entityType,
+    option: { optional: true },
+  });
+  const operatingCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.operatingCountryId,
+    model: country,
+    relation: RELATION.operatingCountry,
+    option: { optional: true },
+  });
+  const companyEventsRelation = oneToMany({
+    model: companyEvent,
+    relation: RELATION.companyEvents,
+  });
+  const businessActivitiesRelation = oneToMany({
+    model: businessActivity,
+    relation: RELATION.businessActivities,
+  });
+  const currenciesRelation = oneToMany({
+    model: currency,
+    relation: RELATION.currencies,
+  });
+  const operationCountriesRelation = oneToMany({
+    model: country,
+    relation: RELATION.operationCountries,
+  });
+  const companyInterestsRelation = oneToMany({
+    model: companyInterest,
+    relation: RELATION.companyInterests,
+  });
+  const companyMembersRelation = oneToMany({
+    model: companyMember,
+    relation: RELATION.companyMembers,
+  });
+  const companyOwnershipsRelation = oneToMany({
+    model: companyOwnership,
+    relation: RELATION.companyOwnerships,
+  });
+  const companySharesRelation = oneToMany({
+    model: companyShare,
+    relation: RELATION.companyShares,
+  });
+  const emailsRelation = oneToMany({
+    model: email,
+    relation: RELATION.emails,
+  });
+  const filesRelation = oneToMany({
+    model: file,
+    relation: RELATION.files,
+  });
+  const historiesLogCdcRelation = oneToMany({
+    model: historyLogCDC,
+    relation: RELATION.historiesLogCdc,
+  });
+  const notesRelation = oneToMany({
+    model: note,
+    relation: RELATION.notes,
+  });
+  const ordersRelation = oneToMany({
+    model: order,
+    relation: RELATION.orders,
+  });
+  const proposedNamesRelation = oneToMany({
+    model: proposedName,
+    relation: RELATION.proposedNames,
+  });
+  const tasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.tasks,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -306,6 +447,32 @@ export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(answersRelation)
+      .mixin(changeRequestsRelation)
+      .mixin(billingRelation)
+      .mixin(companyStatusRelation)
+      .mixin(companySuffixRelation)
+      .mixin(businessCountryRelation)
+      .mixin(countryRelation)
+      .mixin(entityTypeRelation)
+      .mixin(operatingCountryRelation)
+      .mixin(companyEventsRelation)
+      .mixin(businessActivitiesRelation)
+      .mixin(currenciesRelation)
+      .mixin(operationCountriesRelation)
+      .mixin(companyInterestsRelation)
+      .mixin(companyMembersRelation)
+      .mixin(companyOwnershipsRelation)
+      .mixin(companySharesRelation)
+      .mixin(emailsRelation)
+      .mixin(filesRelation)
+      .mixin(historiesLogCdcRelation)
+      .mixin(notesRelation)
+      .mixin(ordersRelation)
+      .mixin(proposedNamesRelation)
+      .mixin(tasksRelation)
 
       // table name
       .map(TABLE_NAME.COMPANY);

@@ -41,6 +41,7 @@ export { default as companyMemberIssueReference } from './CompanyMemberIssueRefe
 export { default as companyMemberReference } from './CompanyMemberReference';
 export { default as companyMember } from './CompanyMember';
 export { default as companyMemberType } from './CompanyMemberType';
+export { default as companyInterest } from './CompanyInterest';
 export { default as companyOwnership } from './CompanyOwnership';
 export { default as companyPosition } from './CompanyPosition';
 export { default as companyShare } from './CompanyShare';
@@ -60,6 +61,7 @@ export { default as countryHasEntityType } from './CountryHasEntityType';
 export { default as countryHasEntityTypeHasFileTemplate } from './CountryHasEntityTypeHasFileTemplate';
 export { default as countryHasQuestion } from './CountryHasQuestion';
 export { default as countryHasService } from './CountryHasService';
+export { default as currency } from './Currency';
 export { default as declarationTax } from './DeclarationTax';
 export { default as emailTemplate } from './EmailTemplate';
 export { default as department } from './Department';

@@ -17,6 +17,10 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  operationCountries = 'operationCountries',
+  currencies = 'currencies',
+  toCompanyMember = 'toCompanyMember',
+  toCompanyPosition = 'toCompanyPosition',
   proposedTimes = 'proposedTimes',
   processStepChildren = 'processStepChildren',
   processStepParent = 'processStepParent',

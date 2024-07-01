@@ -1,38 +1,63 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CampaignHasVoucherType';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  RELATION,
+} from '../utils/enums/CampaignHasVoucherType';
+import { oneToOne } from '../mixins';
+import { campaign, voucherType } from '.';
 
 export default createModel(
   MODEL_NAME.CAMPAIGN_HAS_VOUCHER_TYPE,
   (CampaignHasVoucherTypeModel) => {
-    CampaignHasVoucherTypeModel.int(ATTRIBUTE.campaignId, {
-      map: COLUMN.campaignId,
-    })
-      .int(ATTRIBUTE.voucherTypeId, {
-        map: COLUMN.voucherTypeId,
-      })
-      .int(ATTRIBUTE.totalQuantity, {
-        map: COLUMN.totalQuantity,
-        optional: true,
-      })
-      .int(ATTRIBUTE.remainingQuantity, {
-        map: COLUMN.remainingQuantity,
-        optional: true,
-      })
-      .int(ATTRIBUTE.percent, {
-        map: COLUMN.percent,
-        optional: true,
-      })
-      .json(ATTRIBUTE.config, {
-        map: COLUMN.config,
-        optional: true,
-      })
-      .id({
-        fields: [ATTRIBUTE.campaignId, ATTRIBUTE.voucherTypeId],
-      })
+    // defined Relations
+    const campaignRelation = oneToOne({
+      attribute: ATTRIBUTE.campaignId,
+      model: campaign,
+      relation: RELATION.campaign,
+    });
+    const voucherTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.voucherTypeId,
+      model: voucherType,
+      relation: RELATION.voucherType,
+    });
 
-      // table name
-      .map(TABLE_NAME.CAMPAIGN_HAS_VOUCHER_TYPE);
+    // defined Model
+    process.nextTick(() => {
+      CampaignHasVoucherTypeModel.int(ATTRIBUTE.campaignId, {
+        map: COLUMN.campaignId,
+      })
+        .int(ATTRIBUTE.voucherTypeId, {
+          map: COLUMN.voucherTypeId,
+        })
+        .int(ATTRIBUTE.totalQuantity, {
+          map: COLUMN.totalQuantity,
+          optional: true,
+        })
+        .int(ATTRIBUTE.remainingQuantity, {
+          map: COLUMN.remainingQuantity,
+          optional: true,
+        })
+        .int(ATTRIBUTE.percent, {
+          map: COLUMN.percent,
+          optional: true,
+        })
+        .json(ATTRIBUTE.config, {
+          map: COLUMN.config,
+          optional: true,
+        })
+        .id({
+          fields: [ATTRIBUTE.campaignId, ATTRIBUTE.voucherTypeId],
+        })
+
+        // relations
+        .mixin(campaignRelation)
+        .mixin(voucherType)
+
+        // table name
+        .map(TABLE_NAME.CAMPAIGN_HAS_VOUCHER_TYPE);
+    });
   },
 );

@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Campaign';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Campaign';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import { campaignHasVoucherType, campaignType, customer } from '.';
 
 export default createModel(MODEL_NAME.CAMPAIGN, (CampaignModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,22 @@ export default createModel(MODEL_NAME.CAMPAIGN, (CampaignModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const campaignTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.campaignTypeId,
+    model: campaignType,
+    relation: RELATION.campaignType,
+    option: { optional: true },
+  });
+  const campaignHasVoucherTypesRelation = oneToMany({
+    model: campaignHasVoucherType,
+    relation: RELATION.campaignHasVoucherTypes,
+  });
+  const customersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.customers,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -42,6 +59,11 @@ export default createModel(MODEL_NAME.CAMPAIGN, (CampaignModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(campaignTypeRelation)
+      .mixin(campaignHasVoucherTypesRelation)
+      .mixin(customersRelation)
 
       // table name
       .map(TABLE_NAME.CAMPAIGN);

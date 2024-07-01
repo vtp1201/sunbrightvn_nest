@@ -1,8 +1,13 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/ChangeRequestStatus';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  RELATION,
+} from '../utils/enums/ChangeRequestStatus';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { changeRequest, serviceChangeOfficer } from '.';
 
 export default createModel(
   MODEL_NAME.CHANGE_REQUEST_STATUS,
@@ -25,6 +30,15 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+    // defined Relations
+    const changeRequestsRelation = oneToMany({
+      model: changeRequest,
+      relation: RELATION.changeRequests,
+    });
+    const serviceChangeOfficersRelation = oneToMany({
+      model: serviceChangeOfficer,
+      relation: RELATION.serviceChangeOfficers,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -44,6 +58,10 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(changeRequestsRelation)
+        .mixin(serviceChangeOfficersRelation)
 
         // table name
         .map(TABLE_NAME.CHANGE_REQUEST_STATUS);
