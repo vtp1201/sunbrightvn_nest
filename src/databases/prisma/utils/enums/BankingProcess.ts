@@ -49,10 +49,10 @@ export enum COLUMN {
 export enum RELATION {
   bankBranch = RELATION_DEFAULT.bankBranch,
   bank = RELATION_DEFAULT.bank,
-  country = RELATION_DEFAULT.country,
+  phoneCountry = RELATION_DEFAULT.phoneCountry,
   task = RELATION_DEFAULT.task,
-  process = RELATION_DEFAULT.process,
-  proposedTime = RELATION_DEFAULT.proposedTime,
+  processes = RELATION_DEFAULT.processes,
+  proposedTimes = RELATION_DEFAULT.proposedTimes,
 }
 export default {
   ATTRIBUTE,

@@ -33,8 +33,8 @@ export enum COLUMN {
 export enum RELATION {
   businessActivityIndustry = RELATION_DEFAULT.businessActivityIndustry,
   country = RELATION_DEFAULT.country,
-  companyHasBusinessActivities = RELATION_DEFAULT.companyHasBusinessActivities,
-  companyMemberHasBusinessActivities = RELATION_DEFAULT.companyMemberHasBusinessActivities,
+  companies = RELATION_DEFAULT.companies,
+  companyMembers = RELATION_DEFAULT.companyMembers,
 }
 
 export default {

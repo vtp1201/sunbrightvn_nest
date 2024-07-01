@@ -1,8 +1,20 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/BankingProcess';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/BankingProcess';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import Bank from './Bank';
+import BankBranch from './BankBranch';
+import Country from './Country';
+import Task from './Task';
+import Process from './Process';
+import ProposedTime from './ProposedTime';
 
 export default createModel(
   MODEL_NAME.BANKING_PROCESS,
@@ -25,6 +37,40 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relation
+    const bankRelation = oneToOne({
+      attribute: ATTRIBUTE.bankId,
+      model: Bank,
+      relation: RELATION.bank,
+      option: { optional: true },
+    });
+    const bankBranchRelation = oneToOne({
+      attribute: ATTRIBUTE.bankBranchId,
+      model: BankBranch,
+      relation: RELATION.bankBranch,
+      option: { optional: true },
+    });
+    const phoneCountryRelation = oneToOne({
+      attribute: ATTRIBUTE.phoneCountryId,
+      model: Country,
+      relation: RELATION.phoneCountry,
+      option: { optional: true },
+    });
+    const taskRelation = oneToOne({
+      attribute: ATTRIBUTE.taskId,
+      model: Task,
+      relation: RELATION.task,
+      option: { optional: true },
+    });
+    const processesRelation = oneToMany({
+      model: Process,
+      relation: RELATION.processes,
+    });
+    const proposedTimesRelation = oneToMany({
+      model: ProposedTime,
+      relation: RELATION.proposedTimes,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -109,6 +155,14 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(bankRelation)
+        .mixin(bankBranchRelation)
+        .mixin(phoneCountryRelation)
+        .mixin(taskRelation)
+        .mixin(processesRelation)
+        .mixin(proposedTimesRelation)
 
         // table name
         .map(TABLE_NAME.BANKING_PROCESS);
