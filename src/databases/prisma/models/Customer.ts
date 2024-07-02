@@ -7,8 +7,37 @@ import {
   RAW_NUMBER,
   RAW_DATE_TIME,
 } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Customer';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Customer';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  airport,
+  billing,
+  businessActivityIndustry,
+  campaign,
+  companySuffix,
+  contactFrom,
+  contactFromHistory,
+  country,
+  customerStatus,
+  customerType,
+  entityType,
+  gaChannel,
+  gender,
+  order,
+  package as Package,
+  person,
+  titleName,
+  user,
+  visaPurpose,
+  visaType,
+  website,
+} from '.';
 
 export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
   const initCreatedTime = createdTime({
@@ -29,6 +58,202 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const billingsRelation = oneToMany({
+    model: billing,
+    relation: RELATION.billings,
+  });
+  const contactFromHistoriesRelation = oneToMany({
+    model: contactFromHistory,
+    relation: RELATION.contactFromHistories,
+  });
+  const customerStatusRelation = oneToOne({
+    attribute: ATTRIBUTE.customerStatusId,
+    model: customerStatus,
+    relation: RELATION.customerStatus,
+    option: { optional: true },
+  });
+  const accountantLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.accountantLeaderId,
+    model: user,
+    relation: RELATION.accountantLeader,
+    option: { optional: true },
+  });
+  const accountantMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.accountantMemberId,
+    model: user,
+    relation: RELATION.accountantMember,
+    option: { optional: true },
+  });
+  const complianceLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.complianceLeaderId,
+    model: user,
+    relation: RELATION.complianceLeader,
+    option: { optional: true },
+  });
+  const complianceMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.complianceMemberId,
+    model: user,
+    relation: RELATION.complianceMember,
+    option: { optional: true },
+  });
+  const csLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.csLeaderId,
+    model: user,
+    relation: RELATION.csLeader,
+    option: { optional: true },
+  });
+  const csMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.csMemberId,
+    model: user,
+    relation: RELATION.csMember,
+    option: { optional: true },
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: country,
+    relation: RELATION.country,
+    option: { optional: true },
+  });
+  const personRelation = oneToOne({
+    attribute: ATTRIBUTE.personId,
+    model: person,
+    relation: RELATION.person,
+    option: { optional: true },
+  });
+  const campaignAdsRelation = oneToOne({
+    attribute: ATTRIBUTE.campaignAdsId,
+    model: campaign,
+    relation: RELATION.campaignAds,
+    option: { optional: true },
+  });
+  const gaChannelRelation = oneToOne({
+    attribute: ATTRIBUTE.gaChannelId,
+    model: gaChannel,
+    relation: RELATION.gaChannel,
+    option: { optional: true },
+  });
+  const contactFromRelation = oneToOne({
+    attribute: ATTRIBUTE.contactFromId,
+    model: contactFrom,
+    relation: RELATION.contactFrom,
+    option: { optional: true },
+  });
+  const entityTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.entityTypeId,
+    model: entityType,
+    relation: RELATION.entityType,
+    option: { optional: true },
+  });
+  const companySuffixRelation = oneToOne({
+    attribute: ATTRIBUTE.companySuffixId,
+    model: companySuffix,
+    relation: RELATION.companySuffix,
+    option: { optional: true },
+  });
+  const companyCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.companyCountryId,
+    model: country,
+    relation: RELATION.companyCountry,
+    option: { optional: true },
+  });
+  const titleNameRelation = oneToOne({
+    attribute: ATTRIBUTE.titleNameId,
+    model: titleName,
+    relation: RELATION.titleName,
+    option: { optional: true },
+  });
+  const internalBookeepingLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.internalBookeepingLeaderId,
+    model: user,
+    relation: RELATION.internalBookeepingLeader,
+    option: { optional: true },
+  });
+  const internalBookeepingMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.internalBookeepingMemberId,
+    model: user,
+    relation: RELATION.internalBookeepingMember,
+    option: { optional: true },
+  });
+  const legalLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.legalLeaderId,
+    model: user,
+    relation: RELATION.legalLeader,
+    option: { optional: true },
+  });
+  const legalMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.legalMemberId,
+    model: user,
+    relation: RELATION.legalMember,
+    option: { optional: true },
+  });
+  const phoneCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.phoneCountryId,
+    model: country,
+    relation: RELATION.phoneCountry,
+    option: { optional: true },
+  });
+  const websiteRelation = oneToOne({
+    attribute: ATTRIBUTE.websiteId,
+    model: website,
+    relation: RELATION.website,
+    option: { optional: true },
+  });
+  const airportRelation = oneToOne({
+    attribute: ATTRIBUTE.airportId,
+    model: airport,
+    relation: RELATION.airport,
+    option: { optional: true },
+  });
+  const businessActivityIndustryRelation = oneToOne({
+    attribute: ATTRIBUTE.businessActivityIndustryId,
+    model: businessActivityIndustry,
+    relation: RELATION.businessActivityIndustry,
+    option: { optional: true },
+  });
+  const customerTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.customerTypeId,
+    model: customerType,
+    relation: RELATION.customerType,
+    option: { optional: true },
+  });
+  const genderRelation = oneToOne({
+    attribute: ATTRIBUTE.genderId,
+    model: gender,
+    relation: RELATION.gender,
+    option: { optional: true },
+  });
+  const orderRelation = oneToOne({
+    attribute: ATTRIBUTE.orderId,
+    model: order,
+    relation: RELATION.order,
+    option: { optional: true },
+  });
+  const packageRelation = oneToOne({
+    attribute: ATTRIBUTE.packageId,
+    model: Package,
+    relation: RELATION.package,
+    option: { optional: true },
+  });
+  const testerLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.testerLeaderId,
+    model: user,
+    relation: RELATION.testerLeader,
+    option: { optional: true },
+  });
+  const visaPurposeRelation = oneToOne({
+    attribute: ATTRIBUTE.visaPurposeId,
+    model: visaPurpose,
+    relation: RELATION.visaPurpose,
+    option: { optional: true },
+  });
+  const visaTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.visaTypeId,
+    model: visaType,
+    relation: RELATION.visaType,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {

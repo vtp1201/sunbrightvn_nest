@@ -1,18 +1,11 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Currency';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Currency';
+import { deleted, oneToMany } from '../mixins';
+import { company, website } from '.';
 
 export default createModel(MODEL_NAME.CURRENCY, (CurrencyModel) => {
-  const initCreatedTime = createdTime({
-    attribute: ATTRIBUTE.createdTime,
-    column: COLUMN.createdTime,
-  });
-  const initUpdatedTime = updatedTime({
-    attribute: ATTRIBUTE.updatedTime,
-    column: COLUMN.updatedTime,
-  });
   const initDeleted = deleted(
     {
       attribute: ATTRIBUTE.deletedTime,
@@ -24,6 +17,16 @@ export default createModel(MODEL_NAME.CURRENCY, (CurrencyModel) => {
     },
   );
 
+  // defined Relations
+  const companiesRelation = oneToMany({
+    model: company,
+    relation: RELATION.companies,
+  });
+  const websitesRelation = oneToMany({
+    model: website,
+    relation: RELATION.websites,
+  });
+
   // defined Model
   process.nextTick(() => {
     CurrencyModel.int(ATTRIBUTE.id, {
@@ -33,14 +36,32 @@ export default createModel(MODEL_NAME.CURRENCY, (CurrencyModel) => {
         autoincrement: true,
       },
     })
+      .string(ATTRIBUTE.name, {
+        map: COLUMN.name,
+        raw: RAW_STRING.LENGTH_45,
+      })
+      .string(ATTRIBUTE.code, {
+        map: COLUMN.code,
+        raw: RAW_STRING.LENGTH_45,
+        optional: true,
+      })
+      .string(ATTRIBUTE.symbol, {
+        map: COLUMN.symbol,
+        raw: RAW_STRING.LENGTH_45,
+        optional: true,
+      })
+      .int(ATTRIBUTE.exchangeRate, {
+        map: COLUMN.exchangeRate,
+        raw: RAW_NUMBER.FLOAT,
+        optional: true,
+      })
 
       // dateTime marks
-      .mixin(initCreatedTime)
-      .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
-      // indexes
-      // .raw()
+      // relations
+      .mixin(companiesRelation)
+      .mixin(websitesRelation)
 
       // table name
       .map(TABLE_NAME.CURRENCY);
