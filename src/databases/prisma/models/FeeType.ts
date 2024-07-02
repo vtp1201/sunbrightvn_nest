@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/FeeType';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/FeeType';
+import { deleted, oneToMany } from '../mixins';
+import { fee } from '.';
 
 export default createModel(MODEL_NAME.FEE_TYPE, (FeeTypeModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,12 @@ export default createModel(MODEL_NAME.FEE_TYPE, (FeeTypeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const feesRelation = oneToMany({
+    model: fee,
+    relation: RELATION.fees,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -52,6 +59,9 @@ export default createModel(MODEL_NAME.FEE_TYPE, (FeeTypeModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(feesRelation)
 
       // table name
       .map(TABLE_NAME.FEE_TYPE);

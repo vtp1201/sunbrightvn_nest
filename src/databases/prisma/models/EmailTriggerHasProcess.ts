@@ -5,8 +5,10 @@ import {
   ATTRIBUTE,
   COLUMN,
   INDEX,
+  RELATION,
 } from '../utils/enums/EmailTriggerHasProcess';
-import { createdTime, updatedTime } from '../mixins';
+import { createdTime, oneToOne, updatedTime } from '../mixins';
+import { emailTemplate, emailTrigger, process as Process } from '.';
 
 export default createModel(
   MODEL_NAME.EMAIL_TRIGGER_HAS_PROCESS,
@@ -18,6 +20,23 @@ export default createModel(
     const initUpdatedTime = updatedTime({
       attribute: ATTRIBUTE.updatedTime,
       column: COLUMN.updatedTime,
+    });
+
+    // defined relations
+    const emailTemplateRelation = oneToOne({
+      attribute: ATTRIBUTE.emailTemplateId,
+      model: emailTemplate,
+      relation: RELATION.emailTemplate,
+    });
+    const emailTriggerRelation = oneToOne({
+      attribute: ATTRIBUTE.emailTriggerId,
+      model: emailTrigger,
+      relation: RELATION.emailTrigger,
+    });
+    const processRelation = oneToOne({
+      attribute: ATTRIBUTE.processId,
+      model: Process,
+      relation: RELATION.process,
     });
 
     // defined Model
@@ -38,6 +57,11 @@ export default createModel(
         // dateTime marks
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
+
+        // relations
+        .mixin(emailTemplateRelation)
+        .mixin(emailTriggerRelation)
+        .mixin(processRelation)
 
         // ids
         .id({

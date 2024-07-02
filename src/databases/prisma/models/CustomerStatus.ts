@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CustomerStatus';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CustomerStatus';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { customer } from '.';
 
 export default createModel(
   MODEL_NAME.CUSTOMER_STATUS,
@@ -26,6 +27,12 @@ export default createModel(
       },
     );
 
+    // defined relations
+    const customersRelation = oneToMany({
+      model: customer,
+      relation: RELATION.customers,
+    });
+
     // defined Model
     process.nextTick(() => {
       CustomerStatusModel.int(ATTRIBUTE.id, {
@@ -48,6 +55,9 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(customersRelation)
 
         // table name
         .map(TABLE_NAME.CUSTOMER_STATUS);

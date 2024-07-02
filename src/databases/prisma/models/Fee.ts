@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_NUMBER, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Fee';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Fee';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { feeType, service } from '.';
 
 export default createModel(MODEL_NAME.FEE, (FeeModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,19 @@ export default createModel(MODEL_NAME.FEE, (FeeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const feeTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.feeTypeId,
+    model: feeType,
+    relation: RELATION.feeType,
+  });
+  const serviceRelation = oneToOne({
+    attribute: ATTRIBUTE.serviceId,
+    model: service,
+    relation: RELATION.service,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -50,6 +64,10 @@ export default createModel(MODEL_NAME.FEE, (FeeModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(feeTypeRelation)
+      .mixin(serviceRelation)
 
       // indexes
       // .raw(INDEX.feeTypeId)

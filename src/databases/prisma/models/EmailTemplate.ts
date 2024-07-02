@@ -1,8 +1,27 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/EmailTemplate';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/EmailTemplate';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  email,
+  emailTemplate,
+  emailTemplateHasReceiver,
+  emailTriggerHasProcess,
+  emailType,
+  processStep,
+} from '.';
 
 export default createModel(MODEL_NAME.EMAIL_TEMPLATE, (EmailTemplateModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +42,42 @@ export default createModel(MODEL_NAME.EMAIL_TEMPLATE, (EmailTemplateModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined relations
+  const emailsRelation = oneToMany({
+    model: email,
+    relation: RELATION.emails,
+  });
+  const emailTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.emailTypeId,
+    model: emailType,
+    relation: RELATION.emailType,
+    option: { optional: true },
+  });
+  const nextEmailTemplateRelation = oneToOne({
+    attribute: ATTRIBUTE.nextEmailTemplateId,
+    model: emailTemplate,
+    relation: RELATION.nextEmailTemplate,
+    option: { optional: true },
+  });
+  const otherEmailTemplatesRelation = oneToMany({
+    model: emailTemplate,
+    relation: RELATION.otherEmailTemplates,
+  });
+  const processStepRelation = oneToOne({
+    attribute: ATTRIBUTE.processStepId,
+    model: processStep,
+    relation: RELATION.processStep,
+    option: { optional: true },
+  });
+  const emailTemplateHasReceiversRelation = oneToMany({
+    model: emailTemplateHasReceiver,
+    relation: RELATION.emailTemplateHasReceivers,
+  });
+  const emailTriggerHasProcessesRelation = oneToMany({
+    model: emailTriggerHasProcess,
+    relation: RELATION.emailTriggerHasProcesses,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -86,6 +141,15 @@ export default createModel(MODEL_NAME.EMAIL_TEMPLATE, (EmailTemplateModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(emailsRelation)
+      .mixin(emailTypeRelation)
+      .mixin(nextEmailTemplateRelation)
+      .mixin(otherEmailTemplatesRelation)
+      .mixin(processStepRelation)
+      .mixin(emailTemplateHasReceiversRelation)
+      .mixin(emailTriggerHasProcessesRelation)
 
       // indexes
       // .raw(INDEX.emailTypeId)

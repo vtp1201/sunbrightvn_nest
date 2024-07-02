@@ -5,8 +5,10 @@ import {
   ATTRIBUTE,
   COLUMN,
   INDEX,
+  RELATION,
 } from '../utils/enums/EmailTemplateHasReceiver';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { emailTemplate, role, teamGroup, user } from '.';
 
 export default createModel(
   MODEL_NAME.EMAIL_TEMPLATE_HAS_RECEIVER,
@@ -29,6 +31,31 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const emailTemplateRelation = oneToOne({
+      attribute: ATTRIBUTE.emailTemplateId,
+      model: emailTemplate,
+      relation: RELATION.emailTemplate,
+    });
+    const groupRelation = oneToOne({
+      attribute: ATTRIBUTE.groupId,
+      model: teamGroup,
+      relation: RELATION.group,
+      option: { optional: true },
+    });
+    const roleRelation = oneToOne({
+      attribute: ATTRIBUTE.roleId,
+      model: role,
+      relation: RELATION.role,
+      option: { optional: true },
+    });
+    const userRelation = oneToOne({
+      attribute: ATTRIBUTE.userId,
+      model: user,
+      relation: RELATION.user,
+      option: { optional: true },
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -80,6 +107,12 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(emailTemplateRelation)
+        .mixin(groupRelation)
+        .mixin(roleRelation)
+        .mixin(userRelation)
 
         // indexes
         // .raw(INDEX.emailTemplateId)

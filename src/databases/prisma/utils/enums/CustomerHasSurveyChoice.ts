@@ -25,6 +25,11 @@ export enum RELATION {
   surveyChoice = RELATION_DEFAULT.surveyChoice,
 }
 
+export enum INDEX {
+  customerId = `@@index([${ATTRIBUTE.customerId}])`,
+  surveyChoiceId = `@@index([${ATTRIBUTE.surveyChoiceId}])`,
+}
+
 export default {
   ATTRIBUTE,
   RELATION,

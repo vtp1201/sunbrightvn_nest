@@ -1,8 +1,13 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CustomerHasSurveyChoice';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  RELATION,
+} from '../utils/enums/CustomerHasSurveyChoice';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { customer, surveyChoice } from '.';
 
 export default createModel(
   MODEL_NAME.CUSTOMER_HAS_SURVEY_CHOICE,
@@ -26,6 +31,18 @@ export default createModel(
       },
     );
 
+    // defined relations
+    const customerRelation = oneToOne({
+      attribute: ATTRIBUTE.customerId,
+      model: customer,
+      relation: RELATION.customer,
+    });
+    const surveyChoiceRelation = oneToOne({
+      attribute: ATTRIBUTE.surveyChoiceId,
+      model: surveyChoice,
+      relation: RELATION.surveyChoice,
+    });
+
     // defined Model
     process.nextTick(() => {
       CustomerHasSurveyChoiceModel.int(ATTRIBUTE.customerId, {
@@ -45,13 +62,17 @@ export default createModel(
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
 
+        // relations
+        .mixin(customerRelation)
+        .mixin(surveyChoiceRelation)
+
         // ids
         .id({
           fields: [ATTRIBUTE.customerId, ATTRIBUTE.surveyChoiceId],
         })
 
         // indexes
-        .raw('@@index([customerId])')
+        // .raw('@@index([customerId])')
 
         // table name
         .map(TABLE_NAME.CUSTOMER_HAS_SURVEY_CHOICE);

@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Fatca';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Fatca';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import { companyMember, country, customer, declarationTax, task } from '.';
 
 export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,47 @@ export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const declarationTaxesRelation = oneToMany({
+    model: declarationTax,
+    relation: RELATION.declarationTaxes,
+  });
+  const companyMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.companyMemberId,
+    model: companyMember,
+    relation: RELATION.companyMember,
+    option: { optional: true },
+  });
+  const customerRelation = oneToOne({
+    attribute: ATTRIBUTE.customerId,
+    model: customer,
+    relation: RELATION.customer,
+    option: { optional: true },
+  });
+  const holderCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.holderCountryId,
+    model: country,
+    relation: RELATION.holderCountry,
+    option: { optional: true },
+  });
+  const mailingCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.mailingCountryId,
+    model: country,
+    relation: RELATION.mailingCountry,
+    option: { optional: true },
+  });
+  const residentCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.residentCountryId,
+    model: country,
+    relation: RELATION.residentCountry,
+    option: { optional: true },
+  });
+  const taskRelation = oneToOne({
+    attribute: ATTRIBUTE.taskId,
+    model: task,
+    relation: RELATION.task,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -108,6 +150,15 @@ export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(declarationTaxesRelation)
+      .mixin(companyMemberRelation)
+      .mixin(customerRelation)
+      .mixin(holderCountryRelation)
+      .mixin(mailingCountryRelation)
+      .mixin(residentCountryRelation)
+      .mixin(taskRelation)
 
       // indexes
       // .raw(INDEX.companyMemberId)

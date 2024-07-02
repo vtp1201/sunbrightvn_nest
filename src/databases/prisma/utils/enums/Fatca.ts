@@ -52,9 +52,9 @@ export enum RELATION {
   declarationTaxes = RELATION_DEFAULT.declarationTaxes,
   companyMember = RELATION_DEFAULT.companyMember,
   customer = RELATION_DEFAULT.customer,
-  countryHolderCountry = RELATION_DEFAULT.countryHolderCountry,
-  countryMailingCountry = RELATION_DEFAULT.countryMailingCountry,
-  countryResidentCountry = RELATION_DEFAULT.countryResidentCountry,
+  holderCountry = RELATION_DEFAULT.holderCountry,
+  mailingCountry = RELATION_DEFAULT.mailingCountry,
+  residentCountry = RELATION_DEFAULT.residentCountry,
   task = RELATION_DEFAULT.task,
 }
 

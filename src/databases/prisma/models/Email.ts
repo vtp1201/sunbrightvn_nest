@@ -1,8 +1,22 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Email';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Email';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  agent,
+  company,
+  companyMember,
+  emailTemplate,
+  emailTemplateHasReceiver,
+  process as Process,
+} from '.';
 
 export default createModel(MODEL_NAME.EMAIL, (EmailModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +37,42 @@ export default createModel(MODEL_NAME.EMAIL, (EmailModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined relations
+  const agentRelation = oneToOne({
+    attribute: ATTRIBUTE.agentId,
+    model: agent,
+    relation: RELATION.agent,
+    option: { optional: true },
+  });
+  const companyMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.companyMemberId,
+    model: companyMember,
+    relation: RELATION.companyMember,
+    option: { optional: true },
+  });
+  const emailTemplateRelation = oneToOne({
+    attribute: ATTRIBUTE.emailTemplateId,
+    model: emailTemplate,
+    relation: RELATION.emailTemplate,
+    option: { optional: true },
+  });
+  const processRelation = oneToOne({
+    attribute: ATTRIBUTE.processId,
+    model: Process,
+    relation: RELATION.process,
+    option: { optional: true },
+  });
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: company,
+    relation: RELATION.company,
+    option: { optional: true },
+  });
+  const emailTemplateHasReceiversRelation = oneToMany({
+    model: emailTemplateHasReceiver,
+    relation: RELATION.emailTemplateHasReceivers,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -108,6 +158,14 @@ export default createModel(MODEL_NAME.EMAIL, (EmailModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(agentRelation)
+      .mixin(companyMemberRelation)
+      .mixin(emailTemplateRelation)
+      .mixin(processRelation)
+      .mixin(companyRelation)
+      .mixin(emailTemplateHasReceiversRelation)
 
       // indexes
       // .raw(INDEX.agentId)

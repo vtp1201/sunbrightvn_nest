@@ -17,6 +17,7 @@ import {
 } from '../mixins';
 import {
   airport,
+  bank,
   billing,
   businessActivityIndustry,
   campaign,
@@ -24,18 +25,22 @@ import {
   contactFrom,
   contactFromHistory,
   country,
+  customerHasSurveyChoice,
   customerStatus,
   customerType,
   entityType,
+  fatca,
   gaChannel,
   gender,
   order,
   package as Package,
   person,
+  task,
   titleName,
   user,
   visaPurpose,
   visaType,
+  voucher,
   website,
 } from '.';
 
@@ -253,6 +258,35 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     model: visaType,
     relation: RELATION.visaType,
     option: { optional: true },
+  });
+
+  const banksRelation = oneToMany({
+    model: bank,
+    relation: RELATION.banks,
+  });
+  const customerHasSurveyChoicesRelation = oneToMany({
+    model: customerHasSurveyChoice,
+    relation: RELATION.customerHasSurveyChoices,
+  });
+  const fatcasRelation = oneToMany({
+    model: fatca,
+    relation: RELATION.fatcas,
+  });
+  const ordersRelation = oneToMany({
+    model: order,
+    relation: RELATION.orders,
+  });
+  const tasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.tasks,
+  });
+  const usersRelation = oneToMany({
+    model: user,
+    relation: RELATION.users,
+  });
+  const vouchersRelation = oneToMany({
+    model: voucher,
+    relation: RELATION.vouchers,
   });
 
   // defined Model
@@ -600,6 +634,48 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(billingsRelation)
+      .mixin(contactFromHistoriesRelation)
+      .mixin(customerStatusRelation)
+      .mixin(accountantLeaderRelation)
+      .mixin(accountantMemberRelation)
+      .mixin(complianceLeaderRelation)
+      .mixin(complianceMemberRelation)
+      .mixin(csLeaderRelation)
+      .mixin(csMemberRelation)
+      .mixin(countryRelation)
+      .mixin(personRelation)
+      .mixin(campaignAdsRelation)
+      .mixin(gaChannelRelation)
+      .mixin(contactFromRelation)
+      .mixin(entityTypeRelation)
+      .mixin(companySuffixRelation)
+      .mixin(companyCountryRelation)
+      .mixin(titleNameRelation)
+      .mixin(internalBookeepingLeaderRelation)
+      .mixin(internalBookeepingMemberRelation)
+      .mixin(legalLeaderRelation)
+      .mixin(legalMemberRelation)
+      .mixin(phoneCountryRelation)
+      .mixin(websiteRelation)
+      .mixin(airportRelation)
+      .mixin(businessActivityIndustryRelation)
+      .mixin(customerTypeRelation)
+      .mixin(genderRelation)
+      .mixin(orderRelation)
+      .mixin(packageRelation)
+      .mixin(testerLeaderRelation)
+      .mixin(visaPurposeRelation)
+      .mixin(visaTypeRelation)
+      .mixin(banksRelation)
+      .mixin(customerHasSurveyChoicesRelation)
+      .mixin(fatcasRelation)
+      .mixin(ordersRelation)
+      .mixin(tasksRelation)
+      .mixin(usersRelation)
+      .mixin(vouchersRelation)
 
       // indexes
       // .raw(INDEX.accountantLeaderId)
