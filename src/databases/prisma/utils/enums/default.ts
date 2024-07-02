@@ -17,6 +17,10 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  entityTypes = 'entityTypes',
+  issuedFile = 'issuedFile',
+  children = 'children',
+  parent = 'parent',
   tasksAppointedPresident = 'tasksAppointedPresident',
   tasksAppointedShareholder = 'tasksAppointedShareholder',
   tasksAppointedUbo = 'tasksAppointedUbo',

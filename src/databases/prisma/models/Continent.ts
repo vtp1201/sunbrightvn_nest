@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Continent';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Continent';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { country } from '.';
 
 export default createModel(MODEL_NAME.CONTINENT, (ContinentModel) => {
   const initCreatedTime = createdTime({
@@ -24,6 +25,12 @@ export default createModel(MODEL_NAME.CONTINENT, (ContinentModel) => {
     },
   );
 
+  // defined relations
+  const countriesRelation = oneToMany({
+    model: country,
+    relation: RELATION.countries,
+  });
+
   // defined Model
   process.nextTick(() => {
     ContinentModel.int(ATTRIBUTE.id, {
@@ -42,6 +49,9 @@ export default createModel(MODEL_NAME.CONTINENT, (ContinentModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(countriesRelation)
 
       // table name
       .map(TABLE_NAME.CONTINENT);

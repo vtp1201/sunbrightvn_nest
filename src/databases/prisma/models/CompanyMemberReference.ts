@@ -1,8 +1,13 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyMemberReference';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  RELATION,
+} from '../utils/enums/CompanyMemberReference';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { companyMember, companyMemberIssueReference, country } from '.';
 
 export default createModel(
   MODEL_NAME.COMPANY_MEMBER_REFERENCES,
@@ -25,6 +30,25 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined relations
+    const companyMemberRelation = oneToOne({
+      attribute: ATTRIBUTE.companyMemberId,
+      model: companyMember,
+      relation: RELATION.companyMember,
+    });
+    const companyMemberIssueReferenceRelation = oneToOne({
+      attribute: ATTRIBUTE.companyMemberIssueReferenceId,
+      model: companyMemberIssueReference,
+      relation: RELATION.companyMemberIssueReference,
+      option: { optional: true },
+    });
+    const phoneCountryRelation = oneToOne({
+      attribute: ATTRIBUTE.phoneCountryId,
+      model: country,
+      relation: RELATION.phoneCountry,
+      option: { optional: true },
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -76,6 +100,11 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(companyMemberRelation)
+        .mixin(companyMemberIssueReferenceRelation)
+        .mixin(phoneCountryRelation)
 
         // table name
         .map(TABLE_NAME.COMPANY_MEMBER_REFERENCES);

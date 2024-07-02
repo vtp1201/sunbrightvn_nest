@@ -1,8 +1,14 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyMemberType';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyMemberType';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import {
+  companyMemberType,
+  companyPosition,
+  fileTemplateHasCompanyMemberType,
+  serviceChangeOfficer,
+} from '.';
 
 export default createModel(
   MODEL_NAME.COMPANY_MEMBER_TYPE,
@@ -17,6 +23,30 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined relations
+    const parentRelation = oneToOne({
+      attribute: ATTRIBUTE.parentId,
+      model: companyMemberType,
+      relation: RELATION.parent,
+      option: { optional: true },
+    });
+    const childrenRelation = oneToMany({
+      model: companyMemberType,
+      relation: RELATION.children,
+    });
+    const companyPositionsRelation = oneToMany({
+      model: companyPosition,
+      relation: RELATION.companyPositions,
+    });
+    const fileTemplateHasCompanyMemberTypesRelation = oneToMany({
+      model: fileTemplateHasCompanyMemberType,
+      relation: RELATION.fileTemplateHasCompanyMemberTypes,
+    });
+    const serviceChangeOfficersRelation = oneToMany({
+      model: serviceChangeOfficer,
+      relation: RELATION.serviceChangeOfficers,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -47,6 +77,13 @@ export default createModel(
 
         // dateTime marks
         .mixin(initDeleted)
+
+        // relations
+        .mixin(parentRelation)
+        .mixin(childrenRelation)
+        .mixin(companyPositionsRelation)
+        .mixin(fileTemplateHasCompanyMemberTypesRelation)
+        .mixin(serviceChangeOfficersRelation)
 
         // table name
         .map(TABLE_NAME.COMPANY_MEMBER_TYPE);

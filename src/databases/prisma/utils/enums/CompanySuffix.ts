@@ -20,12 +20,12 @@ export enum COLUMN {
 
 export enum RELATION {
   companies = RELATION_DEFAULT.companies,
-  countryHasCompanySuffixes = RELATION_DEFAULT.countryHasCompanySuffixes,
+  countries = RELATION_DEFAULT.countries,
   customers = RELATION_DEFAULT.customers,
-  entityTypeHasCompanySuffixes = RELATION_DEFAULT.entityTypeHasCompanySuffixes,
+  entityTypes = RELATION_DEFAULT.entityTypes,
   historyCompanies = RELATION_DEFAULT.historyCompanies,
   proposedNames = RELATION_DEFAULT.proposedNames,
-  serviceHasCompanySuffixes = RELATION_DEFAULT.serviceHasCompanySuffixes,
+  services = RELATION_DEFAULT.services,
 }
 
 export default {

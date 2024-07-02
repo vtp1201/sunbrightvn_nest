@@ -16,4 +16,5 @@ export type ONE_ONE_MIXIN = {
 export type ONE_MANY_MIXIN = {
   relation: string;
   model: PrismaModel;
+  name?: string;
 };
