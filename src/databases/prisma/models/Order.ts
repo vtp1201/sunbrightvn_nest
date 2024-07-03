@@ -1,8 +1,34 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Order';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Order';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  bank,
+  billing,
+  company,
+  companyEvent,
+  country,
+  customer,
+  file,
+  orderFrom,
+  orderItem,
+  orderStatus,
+  paymentGateway,
+  paymentInformation,
+  supportCase,
+  task,
+  visaOrder,
+  voucher,
+  website,
+  xeroInvoiceStatus,
+} from '.';
 
 export default createModel(MODEL_NAME.ORDER, (OrderModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +49,105 @@ export default createModel(MODEL_NAME.ORDER, (OrderModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const companyEventsRelation = oneToMany({
+    model: companyEvent,
+    relation: RELATION.companyEvents,
+  });
+  const customersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.customers,
+  });
+  const filesRelation = oneToMany({
+    model: file,
+    relation: RELATION.files,
+  });
+  const billingRelation = oneToOne({
+    attribute: ATTRIBUTE.billingId,
+    model: billing,
+    relation: RELATION.billing,
+    option: { optional: true },
+  });
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: company,
+    relation: RELATION.company,
+    option: { optional: true },
+  });
+  const customerRelation = oneToOne({
+    attribute: ATTRIBUTE.customerId,
+    model: customer,
+    relation: RELATION.customer,
+    option: { optional: true },
+  });
+  const orderStatusRelation = oneToOne({
+    attribute: ATTRIBUTE.orderStatusId,
+    model: orderStatus,
+    relation: RELATION.orderStatus,
+  });
+  const paymentGatewayRelation = oneToOne({
+    attribute: ATTRIBUTE.paymentGatewayId,
+    model: paymentGateway,
+    relation: RELATION.paymentGateway,
+    option: { optional: true },
+  });
+  const websiteRelation = oneToOne({
+    attribute: ATTRIBUTE.websiteId,
+    model: website,
+    relation: RELATION.website,
+    option: { optional: true },
+  });
+  const xeroInvoiceStatusRelation = oneToOne({
+    attribute: ATTRIBUTE.xeroInvoiceStatusId,
+    model: xeroInvoiceStatus,
+    relation: RELATION.xeroInvoiceStatus,
+    option: { optional: true },
+  });
+  const countryCardRelation = oneToOne({
+    attribute: ATTRIBUTE.countryCardId,
+    model: country,
+    relation: RELATION.countryCard,
+    option: { optional: true },
+  });
+  const orderFromRelation = oneToOne({
+    attribute: ATTRIBUTE.orderFromId,
+    model: orderFrom,
+    relation: RELATION.orderFrom,
+    option: { optional: true },
+  });
+  const banksRelation = oneToMany({
+    model: bank,
+    relation: RELATION.banks,
+  });
+  const orderItemsRelation = oneToMany({
+    model: orderItem,
+    relation: RELATION.orderItems,
+  });
+  const paymentsInformationRelation = oneToMany({
+    model: paymentInformation,
+    relation: RELATION.paymentsInformation,
+  });
+  const supportCasesRelation = oneToMany({
+    model: supportCase,
+    relation: RELATION.supportCases,
+  });
+  const tasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.tasks,
+  });
+  const taskUpgradeOrdersRelation = oneToMany({
+    model: task,
+    relation: RELATION.taskUpgradeOrders,
+  });
+  const visaOrdersRelation = oneToMany({
+    model: visaOrder,
+    relation: RELATION.visaOrders,
+  });
+  const vouchersRelation = oneToMany({
+    model: voucher,
+    relation: RELATION.vouchers,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -163,6 +288,28 @@ export default createModel(MODEL_NAME.ORDER, (OrderModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(companyEventsRelation)
+      .mixin(customersRelation)
+      .mixin(filesRelation)
+      .mixin(billingRelation)
+      .mixin(companyRelation)
+      .mixin(customerRelation)
+      .mixin(orderStatusRelation)
+      .mixin(paymentGatewayRelation)
+      .mixin(websiteRelation)
+      .mixin(xeroInvoiceStatusRelation)
+      .mixin(countryCardRelation)
+      .mixin(orderFromRelation)
+      .mixin(banksRelation)
+      .mixin(orderItemsRelation)
+      .mixin(paymentsInformationRelation)
+      .mixin(supportCasesRelation)
+      .mixin(tasksRelation)
+      .mixin(taskUpgradeOrdersRelation)
+      .mixin(visaOrdersRelation)
+      .mixin(vouchersRelation)
 
       // indexes
       // .raw(INDEX.billingId)

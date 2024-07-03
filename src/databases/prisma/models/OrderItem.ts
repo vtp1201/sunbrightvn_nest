@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/OrderItem';
-import { createdTime, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/OrderItem';
+import { createdTime, oneToOne, updatedTime } from '../mixins';
+import { order, orderItemStatus, service, Package } from '.';
 
 export default createModel(MODEL_NAME.ORDER_ITEM, (OrderItemModel) => {
   const initCreatedTime = createdTime({
@@ -12,6 +13,29 @@ export default createModel(MODEL_NAME.ORDER_ITEM, (OrderItemModel) => {
   const initUpdatedTime = updatedTime({
     attribute: ATTRIBUTE.updatedTime,
     column: COLUMN.updatedTime,
+  });
+
+  // defined Relations
+  const orderRelation = oneToOne({
+    attribute: ATTRIBUTE.orderId,
+    model: order,
+    relation: RELATION.order,
+  });
+  const orderItemStatusRelation = oneToOne({
+    attribute: ATTRIBUTE.orderItemStatusId,
+    model: orderItemStatus,
+    relation: RELATION.orderItemStatus,
+  });
+  const serviceRelation = oneToOne({
+    attribute: ATTRIBUTE.serviceId,
+    model: service,
+    relation: RELATION.service,
+  });
+  const packageRelation = oneToOne({
+    attribute: ATTRIBUTE.packageId,
+    model: Package,
+    relation: RELATION.package,
+    option: { optional: true },
   });
 
   // defined Model
@@ -80,6 +104,12 @@ export default createModel(MODEL_NAME.ORDER_ITEM, (OrderItemModel) => {
       // dateTime marks
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
+
+      // relations
+      .mixin(orderRelation)
+      .mixin(orderItemStatusRelation)
+      .mixin(serviceRelation)
+      .mixin(packageRelation)
 
       // indexes
       // .raw(INDEX.orderId)

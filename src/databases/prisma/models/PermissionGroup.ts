@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/PermissionGroup';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/PermissionGroup';
+import { deleted, oneToMany } from '../mixins';
+import { limit, permission } from '.';
 
 export default createModel(
   MODEL_NAME.PERMISSION_GROUP,
@@ -17,6 +18,16 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const limitsRelation = oneToMany({
+      model: limit,
+      relation: RELATION.limits,
+    });
+    const permissionsRelation = oneToMany({
+      model: permission,
+      relation: RELATION.permissions,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -34,6 +45,10 @@ export default createModel(
 
         // dateTime marks
         .mixin(initDeleted)
+
+        // relations
+        .mixin(limitsRelation)
+        .mixin(permissionsRelation)
 
         // table name
         .map(TABLE_NAME.PERMISSION_GROUP);

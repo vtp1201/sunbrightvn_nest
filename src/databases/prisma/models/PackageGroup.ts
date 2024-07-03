@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/PackageGroup';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/PackageGroup';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { Package } from './';
 
 export default createModel(MODEL_NAME.PACKAGE_GROUP, (PackageGroupModel) => {
   const initCreatedTime = createdTime({
@@ -24,6 +25,12 @@ export default createModel(MODEL_NAME.PACKAGE_GROUP, (PackageGroupModel) => {
     },
   );
 
+  // defined Relations
+  const packagesRelation = oneToMany({
+    model: Package,
+    relation: RELATION.packages,
+  });
+
   // defined Model
   process.nextTick(() => {
     PackageGroupModel.int(ATTRIBUTE.id, {
@@ -42,6 +49,9 @@ export default createModel(MODEL_NAME.PACKAGE_GROUP, (PackageGroupModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(packagesRelation)
 
       // table name
       .map(TABLE_NAME.PACKAGE_GROUP);

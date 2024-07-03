@@ -9,7 +9,7 @@ import {
   oneToOne,
   updatedTime,
 } from '../mixins';
-import { task, process as Process, billing, agent } from './';
+import { task, Process, billing, agent } from './';
 
 export default createModel(
   MODEL_NAME.ADDITION_PROCESS,

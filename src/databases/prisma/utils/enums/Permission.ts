@@ -23,6 +23,7 @@ export enum COLUMN {
 export enum RELATION {
   limits = RELATION_DEFAULT.limits,
   permissionGroup = RELATION_DEFAULT.permissionGroup,
+  roles = RELATION_DEFAULT.roles,
 }
 
 export enum INDEX {

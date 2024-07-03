@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Permission';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Permission';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import { limit, permissionGroup, role } from '.';
 
 export default createModel(MODEL_NAME.PERMISSION, (PermissionModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,21 @@ export default createModel(MODEL_NAME.PERMISSION, (PermissionModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const limitsRelation = oneToMany({
+    model: limit,
+    relation: RELATION.limits,
+  });
+  const permissionGroupRelation = oneToOne({
+    attribute: ATTRIBUTE.permissionGroupId,
+    model: permissionGroup,
+    relation: RELATION.permissionGroup,
+  });
+  const rolesRelation = oneToMany({
+    model: role,
+    relation: RELATION.roles,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -46,6 +62,11 @@ export default createModel(MODEL_NAME.PERMISSION, (PermissionModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(limitsRelation)
+      .mixin(permissionGroupRelation)
+      .mixin(rolesRelation)
 
       // indexes
       // .raw(INDEX.permissionGroupId)

@@ -8,7 +8,7 @@ import {
   RELATION,
 } from '../utils/enums/EmailTriggerHasProcess';
 import { createdTime, oneToOne, updatedTime } from '../mixins';
-import { emailTemplate, emailTrigger, process as Process } from '.';
+import { emailTemplate, emailTrigger, Process } from '.';
 
 export default createModel(
   MODEL_NAME.EMAIL_TRIGGER_HAS_PROCESS,

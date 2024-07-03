@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/PaymentGateway';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/PaymentGateway';
+import { deleted, oneToMany } from '../mixins';
+import { order } from '.';
 
 export default createModel(
   MODEL_NAME.PAYMENT_GATEWAY,
@@ -17,6 +18,12 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const ordersRelation = oneToMany({
+      model: order,
+      relation: RELATION.orders,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -34,6 +41,9 @@ export default createModel(
 
         // dateTime marks
         .mixin(initDeleted)
+
+        // relations
+        .mixin(ordersRelation)
 
         // table name
         .map(TABLE_NAME.PAYMENT_GATEWAY);

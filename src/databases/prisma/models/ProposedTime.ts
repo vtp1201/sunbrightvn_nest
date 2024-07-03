@@ -1,8 +1,14 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/ProposedTime';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/ProposedTime';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { bankingProcess } from '.';
 
 export default createModel(MODEL_NAME.PROPOSED_TIME, (ProposedTimeModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +29,13 @@ export default createModel(MODEL_NAME.PROPOSED_TIME, (ProposedTimeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const bankingProcessRelation = oneToOne({
+    attribute: ATTRIBUTE.bankingProcessId,
+    model: bankingProcess,
+    relation: RELATION.bankingProcess,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -47,6 +60,9 @@ export default createModel(MODEL_NAME.PROPOSED_TIME, (ProposedTimeModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(bankingProcessRelation)
 
       // indexes
       // .raw(INDEX.bankingProcessId)

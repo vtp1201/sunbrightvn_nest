@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/ProcessStepType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ProcessStepType';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { processStep } from '.';
 
 export default createModel(
   MODEL_NAME.PROCESS_STEP_TYPE,
@@ -25,6 +26,12 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const processStepsRelation = oneToMany({
+      model: processStep,
+      relation: RELATION.processSteps,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -52,6 +59,9 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(processStepsRelation)
 
         // table name
         .map(TABLE_NAME.PROCESS_STEP_TYPE);

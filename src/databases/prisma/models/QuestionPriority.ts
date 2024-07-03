@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/QuestionPriority';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/QuestionPriority';
+import { deleted, oneToMany } from '../mixins';
+import { question } from '.';
 
 export default createModel(
   MODEL_NAME.QUESTION_PRIORITY,
@@ -17,6 +18,12 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const questionsRelation = oneToMany({
+      model: question,
+      relation: RELATION.questions,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -39,6 +46,9 @@ export default createModel(
 
         // dateTime marks
         .mixin(initDeleted)
+
+        // relations
+        .mixin(questionsRelation)
 
         // table name
         .map(TABLE_NAME.QUESTION_PRIORITY);

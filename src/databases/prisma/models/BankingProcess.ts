@@ -9,14 +9,7 @@ import {
   oneToOne,
   updatedTime,
 } from '../mixins';
-import {
-  bank,
-  bankBranch,
-  country,
-  task,
-  process as Process,
-  proposedTime,
-} from './';
+import { bank, bankBranch, country, task, Process, proposedTime } from './';
 
 export default createModel(
   MODEL_NAME.BANKING_PROCESS,

@@ -17,7 +17,7 @@ import {
   processStep,
   task,
   user,
-  process as Process,
+  Process,
 } from '.';
 
 export default createModel(MODEL_NAME.NOTE, (NoteModel) => {

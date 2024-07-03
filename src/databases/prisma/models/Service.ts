@@ -1,8 +1,35 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Service';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Service';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  airport,
+  carSeat,
+  carType,
+  companyEvent,
+  companyMemberType,
+  companySuffix,
+  countryHasService,
+  fee,
+  orderItem,
+  packageHasService,
+  service,
+  serviceHasFileTemplate,
+  serviceType,
+  serviceUnit,
+  subscription,
+  visaPurpose,
+  visaType,
+  website,
+  xeroAccount,
+} from '.';
 
 export default createModel(MODEL_NAME.SERVICE, (ServiceModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +50,117 @@ export default createModel(MODEL_NAME.SERVICE, (ServiceModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const companyEventsRelation = oneToMany({
+    model: companyEvent,
+    relation: RELATION.companyEvents,
+  });
+  const countryHasServicesRelation = oneToMany({
+    model: countryHasService,
+    relation: RELATION.countryHasServices,
+  });
+  const feesRelation = oneToMany({
+    model: fee,
+    relation: RELATION.fees,
+  });
+  const orderItemsRelation = oneToMany({
+    model: orderItem,
+    relation: RELATION.orderItems,
+  });
+  const packageHasServicesRelation = oneToMany({
+    model: packageHasService,
+    relation: RELATION.packageHasServices,
+  });
+  const discountServiceRelation = oneToOne({
+    attribute: ATTRIBUTE.discountServiceId,
+    model: service,
+    relation: RELATION.discountService,
+    option: { optional: true },
+  });
+  const discountForServicesRelation = oneToMany({
+    model: service,
+    relation: RELATION.discountForServices,
+  });
+  const airportRelation = oneToOne({
+    attribute: ATTRIBUTE.airportId,
+    model: airport,
+    relation: RELATION.airport,
+    option: { optional: true },
+  });
+  const carSeatRelation = oneToOne({
+    attribute: ATTRIBUTE.carSeatId,
+    model: carSeat,
+    relation: RELATION.carSeat,
+    option: { optional: true },
+  });
+  const carTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.carTypeId,
+    model: carType,
+    relation: RELATION.carType,
+    option: { optional: true },
+  });
+  const serviceTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.serviceTypeId,
+    model: serviceType,
+    relation: RELATION.serviceType,
+  });
+  const serviceUnitRelation = oneToOne({
+    attribute: ATTRIBUTE.serviceUnitId,
+    model: serviceUnit,
+    relation: RELATION.serviceUnit,
+    option: { optional: true },
+  });
+  const visaPurposeRelation = oneToOne({
+    attribute: ATTRIBUTE.visaPurposeId,
+    model: visaPurpose,
+    relation: RELATION.visaPurpose,
+    option: { optional: true },
+  });
+  const visaTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.visaTypeId,
+    model: visaType,
+    relation: RELATION.visaType,
+    option: { optional: true },
+  });
+  const websiteRelation = oneToOne({
+    attribute: ATTRIBUTE.websiteId,
+    model: website,
+    relation: RELATION.website,
+    option: { optional: true },
+  });
+  const upgradeServiceRelation = oneToOne({
+    attribute: ATTRIBUTE.upgradeServiceId,
+    model: service,
+    relation: RELATION.upgradeService,
+    option: { optional: true },
+  });
+  const upgradeForServicesRelation = oneToMany({
+    model: service,
+    relation: RELATION.upgradeForServices,
+  });
+  const xeroAccountRelation = oneToOne({
+    attribute: ATTRIBUTE.xeroAccountId,
+    model: xeroAccount,
+    relation: RELATION.xeroAccount,
+    option: { optional: true },
+  });
+  const companyMemberTypesRelation = oneToMany({
+    model: companyMemberType,
+    relation: RELATION.companyMemberTypes,
+  });
+  const companySuffixesRelation = oneToMany({
+    model: companySuffix,
+    relation: RELATION.companySuffixes,
+  });
+  const serviceHasFileTemplatesRelation = oneToMany({
+    model: serviceHasFileTemplate,
+    relation: RELATION.serviceHasFileTemplates,
+  });
+  const subscriptionsRelation = oneToMany({
+    model: subscription,
+    relation: RELATION.subscriptions,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -124,6 +262,30 @@ export default createModel(MODEL_NAME.SERVICE, (ServiceModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(companyEventsRelation)
+      .mixin(countryHasServicesRelation)
+      .mixin(feesRelation)
+      .mixin(orderItemsRelation)
+      .mixin(packageHasServicesRelation)
+      .mixin(discountServiceRelation)
+      .mixin(discountForServicesRelation)
+      .mixin(airportRelation)
+      .mixin(carSeatRelation)
+      .mixin(carTypeRelation)
+      .mixin(serviceTypeRelation)
+      .mixin(serviceUnitRelation)
+      .mixin(visaPurposeRelation)
+      .mixin(visaTypeRelation)
+      .mixin(websiteRelation)
+      .mixin(upgradeServiceRelation)
+      .mixin(upgradeForServicesRelation)
+      .mixin(xeroAccountRelation)
+      .mixin(companyMemberTypesRelation)
+      .mixin(companySuffixesRelation)
+      .mixin(serviceHasFileTemplatesRelation)
+      .mixin(subscriptionsRelation)
 
       // indexes
       // .raw(INDEX.airportId)

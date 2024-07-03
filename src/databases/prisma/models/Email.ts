@@ -15,7 +15,7 @@ import {
   companyMember,
   emailTemplate,
   emailTemplateHasReceiver,
-  process as Process,
+  Process,
 } from '.';
 
 export default createModel(MODEL_NAME.EMAIL, (EmailModel) => {

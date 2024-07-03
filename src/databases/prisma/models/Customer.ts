@@ -33,7 +33,7 @@ import {
   gaChannel,
   gender,
   order,
-  package as Package,
+  Package,
   person,
   task,
   titleName,

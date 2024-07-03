@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/OrderStatus';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/OrderStatus';
+import { deleted, oneToMany } from '../mixins';
+import { order } from '.';
 
 export default createModel(MODEL_NAME.ORDER_STATUS, (OrderStatusModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,12 @@ export default createModel(MODEL_NAME.ORDER_STATUS, (OrderStatusModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const ordersRelation = oneToMany({
+    model: order,
+    relation: RELATION.orders,
+  });
 
   // defined Model
   process.nextTick(() => {

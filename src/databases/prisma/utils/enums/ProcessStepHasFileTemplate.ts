@@ -5,6 +5,7 @@ export enum ATTRIBUTE {
   fileTemplateId = 'fileTemplateId',
   order = 'order',
   isBegin = 'isBegin',
+  questionId = 'questionId',
 }
 
 export enum COLUMN {

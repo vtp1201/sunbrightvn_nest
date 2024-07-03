@@ -1,11 +1,11 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CarSeat';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CarType';
 import { deleted, oneToMany } from '../mixins';
 import { service } from '.';
 
-export default createModel(MODEL_NAME.CAR_SEAT, (CarSeatModel) => {
+export default createModel(MODEL_NAME.CAR_TYPE, (CarTypeModel) => {
   const initDeleted = deleted(
     {
       attribute: ATTRIBUTE.deletedTime,
@@ -25,7 +25,7 @@ export default createModel(MODEL_NAME.CAR_SEAT, (CarSeatModel) => {
 
   // defined Model
   process.nextTick(() => {
-    CarSeatModel.int(ATTRIBUTE.id, {
+    CarTypeModel.int(ATTRIBUTE.id, {
       id: true,
       map: COLUMN.id,
       default: {
@@ -35,17 +35,6 @@ export default createModel(MODEL_NAME.CAR_SEAT, (CarSeatModel) => {
       .string(ATTRIBUTE.name, {
         map: COLUMN.name,
         raw: RAW_STRING.TEXT,
-        optional: true,
-      })
-      .int(ATTRIBUTE.babyMax, {
-        map: COLUMN.babyMax,
-        optional: true,
-        default: 0,
-      })
-      .int(ATTRIBUTE.value, {
-        map: COLUMN.value,
-        optional: true,
-        default: 0,
       })
 
       // dateTime marks
@@ -55,6 +44,6 @@ export default createModel(MODEL_NAME.CAR_SEAT, (CarSeatModel) => {
       .mixin(servicesRelation)
 
       // table name
-      .map(TABLE_NAME.CAR_SEAT);
+      .map(TABLE_NAME.CAR_TYPE);
   });
 });

@@ -1,8 +1,15 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Person';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Person';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import { Process, answer, country, customer, gender, titleName, user } from '.';
 
 export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +30,44 @@ export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const customersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.customers,
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: country,
+    relation: RELATION.country,
+    option: { optional: true },
+  });
+  const genderRelation = oneToOne({
+    attribute: ATTRIBUTE.genderId,
+    model: gender,
+    relation: RELATION.gender,
+    option: { optional: true },
+  });
+  const phoneCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.phoneCountryId,
+    model: country,
+    relation: RELATION.phoneCountry,
+    option: { optional: true },
+  });
+  const titleNameRelation = oneToOne({
+    attribute: ATTRIBUTE.titleNameId,
+    model: titleName,
+    relation: RELATION.titleName,
+    option: { optional: true },
+  });
+  const processesRelation = oneToMany({
+    model: Process,
+    relation: RELATION.processes,
+  });
+  const usersRelation = oneToMany({
+    model: user,
+    relation: RELATION.users,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -104,6 +149,15 @@ export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(customersRelation)
+      .mixin(countryRelation)
+      .mixin(genderRelation)
+      .mixin(phoneCountryRelation)
+      .mixin(titleNameRelation)
+      .mixin(processesRelation)
+      .mixin(usersRelation)
 
       // indexes
       // .raw(INDEX.countryId)

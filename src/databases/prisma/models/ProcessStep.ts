@@ -1,8 +1,20 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/ProcessStep';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/ProcessStep';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import {
+  Process,
+  actionProcessStep,
+  emailTemplate,
+  emailTrigger,
+  note,
+  notificationTemplate,
+  processStep,
+  processStepHasFileTemplate,
+  processStepHasRole,
+  processStepType,
+} from '.';
 
 export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
   const initDeleted = deleted(
@@ -15,6 +27,58 @@ export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const nextActionProcessStepsRelation = oneToMany({
+    model: actionProcessStep,
+    relation: RELATION.nextActionProcessSteps,
+  });
+  const actionProcessStepsRelation = oneToMany({
+    model: actionProcessStep,
+    relation: RELATION.actionProcessSteps,
+  });
+  const emailTemplatesRelation = oneToMany({
+    model: emailTemplate,
+    relation: RELATION.emailTemplates,
+  });
+  const emailTriggersRelation = oneToMany({
+    model: emailTrigger,
+    relation: RELATION.emailTriggers,
+  });
+  const notesRelation = oneToMany({
+    model: note,
+    relation: RELATION.notes,
+  });
+  const notificationTemplatesRelation = oneToMany({
+    model: notificationTemplate,
+    relation: RELATION.notificationTemplates,
+  });
+  const processesRelation = oneToMany({
+    model: Process,
+    relation: RELATION.processes,
+  });
+  const processStepTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.processStepTypeId,
+    model: processStepType,
+    relation: RELATION.processStepType,
+  });
+  const parentRelation = oneToOne({
+    attribute: ATTRIBUTE.parentId,
+    model: processStep,
+    relation: RELATION.parent,
+  });
+  const childrenRelation = oneToMany({
+    model: processStep,
+    relation: RELATION.children,
+  });
+  const processStepHasFileTemplatesRelation = oneToMany({
+    model: processStepHasFileTemplate,
+    relation: RELATION.processStepHasFileTemplates,
+  });
+  const processStepHasRolesRelation = oneToMany({
+    model: processStepHasRole,
+    relation: RELATION.processStepHasRoles,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -74,6 +138,20 @@ export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(nextActionProcessStepsRelation)
+      .mixin(actionProcessStepsRelation)
+      .mixin(emailTemplatesRelation)
+      .mixin(emailTriggersRelation)
+      .mixin(notesRelation)
+      .mixin(notificationTemplatesRelation)
+      .mixin(processesRelation)
+      .mixin(processStepTypeRelation)
+      .mixin(parentRelation)
+      .mixin(childrenRelation)
+      .mixin(processStepHasFileTemplatesRelation)
+      .mixin(processStepHasRolesRelation)
 
       // indexes
       // .raw(INDEX.parentId)

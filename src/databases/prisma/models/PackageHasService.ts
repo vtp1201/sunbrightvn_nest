@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/PackageHasService';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/PackageHasService';
+import { deleted, oneToOne } from '../mixins';
+import { Package, service } from '.';
 
 export default createModel(
   MODEL_NAME.PACKAGE_HAS_SERVICE,
@@ -17,6 +18,18 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const packageRelation = oneToOne({
+      attribute: ATTRIBUTE.packageId,
+      model: Package,
+      relation: RELATION.package,
+    });
+    const serviceRelation = oneToOne({
+      attribute: ATTRIBUTE.serviceId,
+      model: service,
+      relation: RELATION.service,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -33,6 +46,10 @@ export default createModel(
 
         // dateTime marks
         .mixin(initDeleted)
+
+        // relations
+        .mixin(packageRelation)
+        .mixin(serviceRelation)
 
         // ids
         .id({

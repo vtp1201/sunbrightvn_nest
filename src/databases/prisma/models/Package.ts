@@ -1,8 +1,26 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Package';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Package';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  country,
+  customer,
+  entityType,
+  orderItem,
+  Package,
+  packageGroup,
+  packageHasService,
+  packageType,
+  serviceType,
+  website,
+} from '.';
 
 export default createModel(MODEL_NAME.PACKAGE, (PackageModel) => {
   const initCreatedTime = createdTime({
@@ -24,6 +42,63 @@ export default createModel(MODEL_NAME.PACKAGE, (PackageModel) => {
     },
   );
 
+  // defined Relations
+  const customersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.customers,
+  });
+  const orderItemsRelation = oneToMany({
+    model: orderItem,
+    relation: RELATION.orderItems,
+  });
+  const packageAnnualRelation = oneToOne({
+    attribute: ATTRIBUTE.packageAnnualId,
+    model: Package,
+    relation: RELATION.packageAnnual,
+    option: { optional: true },
+  });
+  const belongPackageAnnualsRelation = oneToMany({
+    model: Package,
+    relation: RELATION.belongPackageAnnuals,
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: country,
+    relation: RELATION.country,
+  });
+  const entityTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.entityTypeId,
+    model: entityType,
+    relation: RELATION.entityType,
+    option: { optional: true },
+  });
+  const packageGroupRelation = oneToOne({
+    attribute: ATTRIBUTE.packageGroupId,
+    model: packageGroup,
+    relation: RELATION.packageGroup,
+    option: { optional: true },
+  });
+  const packageTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.packageTypeId,
+    model: packageType,
+    relation: RELATION.packageType,
+  });
+  const serviceTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.serviceTypeId,
+    model: serviceType,
+    relation: RELATION.serviceType,
+    option: { optional: true },
+  });
+  const websiteRelation = oneToOne({
+    attribute: ATTRIBUTE.websiteId,
+    model: website,
+    relation: RELATION.website,
+  });
+  const packageHasServicesRelation = oneToMany({
+    model: packageHasService,
+    relation: RELATION.packageHasServices,
+  });
+
   // defined Model
   process.nextTick(() => {
     PackageModel.int(ATTRIBUTE.id, {
@@ -35,6 +110,7 @@ export default createModel(MODEL_NAME.PACKAGE, (PackageModel) => {
     })
       .int(ATTRIBUTE.serviceTypeId, {
         map: COLUMN.serviceTypeId,
+        optional: true,
       })
       .int(ATTRIBUTE.packageTypeId, {
         map: COLUMN.packageTypeId,
@@ -47,6 +123,7 @@ export default createModel(MODEL_NAME.PACKAGE, (PackageModel) => {
       })
       .int(ATTRIBUTE.entityTypeId, {
         map: COLUMN.entityTypeId,
+        optional: true,
       })
       .string(ATTRIBUTE.name, {
         map: COLUMN.name,
@@ -69,6 +146,7 @@ export default createModel(MODEL_NAME.PACKAGE, (PackageModel) => {
       })
       .int(ATTRIBUTE.packageGroupId, {
         map: COLUMN.packageGroupId,
+        optional: true,
       })
       .int(ATTRIBUTE.packageAnnualId, {
         map: COLUMN.packageAnnualId,
@@ -80,6 +158,18 @@ export default createModel(MODEL_NAME.PACKAGE, (PackageModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(customersRelation)
+      .mixin(orderItemsRelation)
+      .mixin(packageAnnualRelation)
+      .mixin(belongPackageAnnualsRelation)
+      .mixin(countryRelation)
+      .mixin(entityTypeRelation)
+      .mixin(packageGroupRelation)
+      .mixin(packageTypeRelation)
+      .mixin(serviceTypeRelation)
+      .mixin(websiteRelation)
+      .mixin(packageHasServicesRelation)
       // indexes
       // .raw(INDEX.countryId)
       // .raw(INDEX.entityTypeId)

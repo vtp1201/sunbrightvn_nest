@@ -10,7 +10,7 @@ import {
   countryHasService,
   customer,
   historyCompany,
-  package as Package,
+  Package,
   task,
 } from '.';
 

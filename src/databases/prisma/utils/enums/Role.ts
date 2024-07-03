@@ -33,7 +33,14 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  parentRole = RELATION_DEFAULT.parentRole,
+  emailTemplateHasReceivers = RELATION_DEFAULT.emailTemplateHasReceivers,
+  notificationTemplates = RELATION_DEFAULT.notificationTemplates,
+  processStepHasRoles = RELATION_DEFAULT.processStepHasRoles,
+  parent = RELATION_DEFAULT.parent,
+  children = RELATION_DEFAULT.children,
+  limits = RELATION_DEFAULT.limits,
+  permissions = RELATION_DEFAULT.permissions,
+  users = RELATION_DEFAULT.users,
 }
 
 export enum INDEX {
