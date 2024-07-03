@@ -1,8 +1,14 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/HistoryCompanyMember';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/HistoryCompanyMember';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { country, gender, typeMember } from '.';
 
 export default createModel(
   MODEL_NAME.HISTORY_COMPANY_MEMBER,
@@ -25,6 +31,44 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const genderRelation = oneToOne({
+      attribute: ATTRIBUTE.genderId,
+      model: gender,
+      relation: RELATION.gender,
+      option: { optional: true },
+    });
+    const typeMemberRelation = oneToOne({
+      attribute: ATTRIBUTE.typeMemberId,
+      model: typeMember,
+      relation: RELATION.typeMember,
+      option: { optional: true },
+    });
+    const countryRelation = oneToOne({
+      attribute: ATTRIBUTE.countryId,
+      model: country,
+      relation: RELATION.country,
+      option: { optional: true },
+    });
+    const phoneCountryRelation = oneToOne({
+      attribute: ATTRIBUTE.phoneCountryId,
+      model: country,
+      relation: RELATION.phoneCountry,
+      option: { optional: true },
+    });
+    const birthCountryRelation = oneToOne({
+      attribute: ATTRIBUTE.birthCountryId,
+      model: country,
+      relation: RELATION.birthCountry,
+      option: { optional: true },
+    });
+    const addressCountryRelation = oneToOne({
+      attribute: ATTRIBUTE.addressCountryId,
+      model: country,
+      relation: RELATION.addressCountry,
+      option: { optional: true },
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -277,6 +321,14 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(countryRelation)
+        .mixin(typeMemberRelation)
+        .mixin(genderRelation)
+        .mixin(birthCountryRelation)
+        .mixin(phoneCountryRelation)
+        .mixin(addressCountryRelation)
 
         // Indexes
         // .raw(INDEX.addressCountryId)

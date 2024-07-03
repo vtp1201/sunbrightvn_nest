@@ -4,6 +4,7 @@ import { MODEL_NAME, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/FileTemplateHasNationality';
 import { createdTime, deleted, updatedTime } from '../mixins';
 
+// TODO: xem sét xóa
 export default createModel(
   MODEL_NAME.FILE_TEMPLATE_HAS_NATIONALITY,
   (FileTemplateHasNationalityModel) => {

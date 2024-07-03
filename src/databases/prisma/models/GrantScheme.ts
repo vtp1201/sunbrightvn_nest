@@ -1,8 +1,15 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/GrantScheme';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/GrantScheme';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import { country, grantSchemeHasGrantTypeAttribute } from '.';
 
 export default createModel(MODEL_NAME.GRANT_SCHEME, (GrantSchemeModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +30,18 @@ export default createModel(MODEL_NAME.GRANT_SCHEME, (GrantSchemeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const grantSchemeHasGrantTypeAttributesRelation = oneToMany({
+    model: grantSchemeHasGrantTypeAttribute,
+    relation: RELATION.grantSchemeHasGrantTypeAttributes,
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: country,
+    relation: RELATION.country,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -76,6 +95,10 @@ export default createModel(MODEL_NAME.GRANT_SCHEME, (GrantSchemeModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(countryRelation)
+      .mixin(grantSchemeHasGrantTypeAttributesRelation)
 
       // indexes
       // .raw(INDEX.countryId)

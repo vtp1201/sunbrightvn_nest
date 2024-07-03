@@ -28,6 +28,7 @@ export enum RELATION {
   historyFiles = RELATION_DEFAULT.historyFiles,
   actionStepType = RELATION_DEFAULT.actionStepType,
   company = RELATION_DEFAULT.company,
+  task = RELATION_DEFAULT.task,
   user = RELATION_DEFAULT.user,
 }
 

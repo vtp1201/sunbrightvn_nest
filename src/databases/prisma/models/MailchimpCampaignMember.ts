@@ -5,8 +5,10 @@ import {
   ATTRIBUTE,
   COLUMN,
   INDEX,
+  RELATION,
 } from '../utils/enums/MailchimpCampaignMember';
-import { createdTime } from '../mixins';
+import { createdTime, oneToOne } from '../mixins';
+import { mailchimpCampaign, mailchimpMember } from '.';
 
 export default createModel(
   MODEL_NAME.MAILCHIMP_CAMPAIGN_MEMBER,
@@ -14,6 +16,19 @@ export default createModel(
     const initCreatedTime = createdTime({
       attribute: ATTRIBUTE.createdTime,
       column: COLUMN.createdTime,
+    });
+
+    // defined Relations
+    const mailchimpMemberRelation = oneToOne({
+      attribute: ATTRIBUTE.mailchimpMemberEmailId,
+      model: mailchimpMember,
+      relation: RELATION.mailchimpMember,
+    });
+    const mailchimpCampaignRelation = oneToOne({
+      attribute: ATTRIBUTE.mailchimpCampaignId,
+      model: mailchimpCampaign,
+      relation: RELATION.mailchimpCampaign,
+      option: { optional: true },
     });
 
     // defined Model
@@ -28,7 +43,6 @@ export default createModel(
         .string(ATTRIBUTE.mailchimpMemberEmailId, {
           map: COLUMN.mailchimpMemberEmailId,
           raw: RAW_STRING.LENGTH_255,
-          optional: true,
         })
         .int(ATTRIBUTE.mailchimpCampaignId, {
           map: COLUMN.mailchimpCampaignId,
@@ -51,6 +65,10 @@ export default createModel(
 
         // dateTime marks
         .mixin(initCreatedTime)
+
+        // relations
+        .mixin(mailchimpCampaignRelation)
+        .mixin(mailchimpMemberRelation)
 
         // indexes
         // .raw(INDEX.mailchimpCampaignId)

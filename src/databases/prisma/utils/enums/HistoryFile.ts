@@ -1,7 +1,7 @@
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
-  historyLogCdcId = 'historyLogCdcId',
+  historyLogCDCId = 'historyLogCdcId',
   fileId = 'fileId',
   createdTime = ATTRIBUTE_DEFAULT.createdTime,
   updatedTime = ATTRIBUTE_DEFAULT.updatedTime,
@@ -10,7 +10,7 @@ export enum ATTRIBUTE {
 }
 
 export enum COLUMN {
-  historyLogCdcId = 'history_log_cdc_id',
+  historyLogCDCId = 'history_log_cdc_id',
   fileId = 'file_id',
   createdTime = COLUMN_DEFAULT.createdTime,
   updatedTime = COLUMN_DEFAULT.updatedTime,
@@ -20,7 +20,7 @@ export enum COLUMN {
 
 export enum RELATION {
   file = RELATION_DEFAULT.file,
-  historyLogCdc = RELATION_DEFAULT.historyLogCdc,
+  historyLogCDC = RELATION_DEFAULT.historyLogCDC,
 }
 
 export enum INDEX {}

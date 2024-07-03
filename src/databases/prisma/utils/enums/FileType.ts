@@ -24,7 +24,8 @@ export enum COLUMN {
 
 export enum RELATION {
   files = RELATION_DEFAULT.files,
-  fileType = RELATION_DEFAULT.fileType,
+  parent = RELATION_DEFAULT.parent,
+  children = RELATION_DEFAULT.children,
 }
 
 export enum INDEX {

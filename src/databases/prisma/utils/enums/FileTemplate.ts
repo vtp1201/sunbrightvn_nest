@@ -39,21 +39,22 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  bankHasFileTemplates = RELATION_DEFAULT.bankHasFileTemplates,
-  countryHasEntityTypeHasFileTemplates = RELATION_DEFAULT.countryHasEntityTypeHasFileTemplates,
+  banks = RELATION_DEFAULT.banks,
+  countryHasEntityTypes = RELATION_DEFAULT.countryHasEntityTypes,
   files = RELATION_DEFAULT.files,
-  // fileTemplateCollectSameIdToFileTemplate = RELATION_DEFAULT.fileTemplateCollectSameIdToFileTemplate,
-  // otherFileTemplateCollectSameIdToFileTemplate = RELATION_DEFAULT.otherFileTemplateCollectSameIdToFileTemplate,
-  // fileTemplateParentIdToFileTemplate = RELATION_DEFAULT.fileTemplateParentIdToFileTemplate,
-  // otherFileTemplateParentIdToFileTemplate = RELATION_DEFAULT.otherFileTemplateParentIdToFileTemplate,
-  // fileTemplateHasCompanyMemberType = RELATION_DEFAULT.fileTemplateHasCompanyMemberType,
-  // fileTemplateHasNationality = RELATION_DEFAULT.fileTemplateHasNationality,
-  // fileTemplateHasRankingPartnerType = RELATION_DEFAULT.fileTemplateHasRankingPartnerType,
-  // processLog = RELATION_DEFAULT.processLog,
-  // processStepHasFileTemplates = RELATION_DEFAULT.processStepHasFileTemplates,
-  // serviceChangeOfficerHasFileTemplate = RELATION_DEFAULT.serviceChangeOfficerHasFileTemplate,
-  // serviceHasFileTemplate = RELATION_DEFAULT.serviceHasFileTemplate,
-  // token = RELATION_DEFAULT.token,
+  fileTemplateType = RELATION_DEFAULT.fileTemplateType,
+  collectSameFileTemplate = RELATION_DEFAULT.collectSameFileTemplate,
+  collectSameFileTemplates = RELATION_DEFAULT.collectSameFileTemplates,
+  parent = RELATION_DEFAULT.parent,
+  children = RELATION_DEFAULT.children,
+  fileTemplateHasCompanyMemberTypes = RELATION_DEFAULT.fileTemplateHasCompanyMemberTypes,
+  fileTemplateHasNationalities = RELATION_DEFAULT.fileTemplateHasNationalities,
+  rankingPartnerTypes = RELATION_DEFAULT.rankingPartnerTypes,
+  processLogs = RELATION_DEFAULT.processLogs,
+  processStepHasFileTemplates = RELATION_DEFAULT.processStepHasFileTemplates,
+  serviceChangeOfficers = RELATION_DEFAULT.serviceChangeOfficers,
+  serviceHasFileTemplates = RELATION_DEFAULT.serviceHasFileTemplates,
+  tokens = RELATION_DEFAULT.tokens,
 }
 
 export enum INDEX {

@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/GrantType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/GrantType';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { grantTypeAttribute } from '.';
 
 export default createModel(MODEL_NAME.GRANT_TYPE, (GrantTypeModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,12 @@ export default createModel(MODEL_NAME.GRANT_TYPE, (GrantTypeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const grantTypeAttributesRelation = oneToMany({
+    model: grantTypeAttribute,
+    relation: RELATION.grantTypeAttributes,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -47,6 +54,9 @@ export default createModel(MODEL_NAME.GRANT_TYPE, (GrantTypeModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(grantTypeAttributesRelation)
 
       // table name
       .map(TABLE_NAME.GRANT_TYPE);

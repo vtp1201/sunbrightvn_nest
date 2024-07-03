@@ -5,9 +5,11 @@ import {
   ATTRIBUTE,
   COLUMN,
   INDEX,
+  RELATION,
 } from '../utils/enums/FileTemplateHasCompanyMemberType';
-import { deleted } from '../mixins';
+import { deleted, oneToOne } from '../mixins';
 import { generatedForEnum } from '../enums';
+import { companyMemberType, fileTemplate, typeMember } from '.';
 
 export default createModel(
   MODEL_NAME.FILE_TEMPLATE_HAS_COMPANY_MEMBER_TYPE,
@@ -22,6 +24,24 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const companyMemberTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.companyMemberTypeId,
+      model: companyMemberType,
+      relation: RELATION.companyMemberType,
+    });
+    const fileTemplateRelation = oneToOne({
+      attribute: ATTRIBUTE.fileTemplateId,
+      model: fileTemplate,
+      relation: RELATION.fileTemplate,
+    });
+    const typeMemberRelation = oneToOne({
+      attribute: ATTRIBUTE.typeMemberId,
+      model: typeMember,
+      relation: RELATION.typeMember,
+      option: { optional: true },
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -70,6 +90,11 @@ export default createModel(
 
         // dateTime marks
         .mixin(initDeleted)
+
+        // relations
+        .mixin(companyMemberTypeRelation)
+        .mixin(fileTemplateRelation)
+        .mixin(typeMemberRelation)
 
         // indexes
         // .raw(INDEX.typeMemberId)

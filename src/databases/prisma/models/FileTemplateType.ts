@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/FileTemplateType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/FileTemplateType';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { fileTemplate } from '.';
 
 export default createModel(
   MODEL_NAME.FILE_TEMPLATE_TYPE,
@@ -26,6 +27,12 @@ export default createModel(
       },
     );
 
+    // defined Relations
+    const fileTemplatesRelation = oneToMany({
+      model: fileTemplate,
+      relation: RELATION.fileTemplates,
+    });
+
     // defined Model
     process.nextTick(() => {
       FileTemplateTypeModel.int(ATTRIBUTE.id, {
@@ -44,6 +51,9 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(fileTemplatesRelation)
 
         // table name
         .map(TABLE_NAME.FILE_TEMPLATE_TYPE);

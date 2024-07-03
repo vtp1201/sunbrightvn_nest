@@ -1,8 +1,15 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Limit';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Limit';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import { limitType, limitValue, permission, permissionGroup, role } from '.';
 
 export default createModel(MODEL_NAME.LIMIT, (LimitModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +30,33 @@ export default createModel(MODEL_NAME.LIMIT, (LimitModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const limitTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.limitTypeId,
+    model: limitType,
+    relation: RELATION.limitType,
+  });
+  const permissionGroupRelation = oneToOne({
+    attribute: ATTRIBUTE.permissionGroupId,
+    model: permissionGroup,
+    relation: RELATION.permissionGroup,
+    option: { optional: true },
+  });
+  const permissionRelation = oneToOne({
+    attribute: ATTRIBUTE.permissionId,
+    model: permission,
+    relation: RELATION.permission,
+    option: { optional: true },
+  });
+  const limitValuesRelation = oneToMany({
+    model: limitValue,
+    relation: RELATION.limitValues,
+  });
+  const rolesRelation = oneToMany({
+    model: role,
+    relation: RELATION.roles,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -56,6 +90,13 @@ export default createModel(MODEL_NAME.LIMIT, (LimitModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(limitTypeRelation)
+      .mixin(permissionGroupRelation)
+      .mixin(permissionRelation)
+      .mixin(limitValuesRelation)
+      .mixin(rolesRelation)
 
       // indexes
       // .raw(INDEX.limitTypeId)

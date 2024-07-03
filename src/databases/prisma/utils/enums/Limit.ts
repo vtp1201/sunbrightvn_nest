@@ -31,7 +31,7 @@ export enum RELATION {
   permissionGroup = RELATION_DEFAULT.permissionGroup,
   permission = RELATION_DEFAULT.permission,
   limitValues = RELATION_DEFAULT.limitValues,
-  roleHasLimits = RELATION_DEFAULT.roleHasLimits,
+  roles = RELATION_DEFAULT.roles,
 }
 
 export enum INDEX {

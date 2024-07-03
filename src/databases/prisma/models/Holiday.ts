@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Holiday';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Holiday';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { country } from '.';
 
 export default createModel(MODEL_NAME.HOLIDAY, (HolidayModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,14 @@ export default createModel(MODEL_NAME.HOLIDAY, (HolidayModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: country,
+    relation: RELATION.country,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -58,6 +67,9 @@ export default createModel(MODEL_NAME.HOLIDAY, (HolidayModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(countryRelation)
 
       // indexes
       // .raw(INDEX.countryId)

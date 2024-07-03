@@ -36,18 +36,18 @@ export enum COLUMN {
   isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
-export enum RELATION {}
-// grantScheme = RELATION_DEFAULT.grantScheme,
-// grantTypeAttributeAgency = RELATION_DEFAULT.grantTypeAttributeAgency,
-// grantTypeAttributeBusinessSize = RELATION_DEFAULT.grantTypeAttributeBusinessSize,
-// grantTypeAttributeBusinessStage = RELATION_DEFAULT.grantTypeAttributeBusinessStage,
-// grantTypeAttributeIndustry = RELATION_DEFAULT.grantTypeAttributeIndustry,
-// grantTypeAttributeLocalShareholding = RELATION_DEFAULT.grantTypeAttributeLocalShareholding,
-// grantTypeAttributeNeedsBased = RELATION_DEFAULT.grantTypeAttributeNeedsBased,
-// grantTypeAttributeNumberEmployees = RELATION_DEFAULT.grantTypeAttributeNumberEmployees,
-// grantTypeAttributeType = RELATION_DEFAULT.grantTypeAttributeType,
-// grantTypeAttributeYearsOperation = RELATION_DEFAULT.grantTypeAttributeYearsOperation,
-
+export enum RELATION {
+  grantScheme = RELATION_DEFAULT.grantScheme,
+  grantTypeAttributeAgency = RELATION_DEFAULT.grantTypeAttributeAgency,
+  grantTypeAttributeBusinessSize = RELATION_DEFAULT.grantTypeAttributeBusinessSize,
+  grantTypeAttributeBusinessStage = RELATION_DEFAULT.grantTypeAttributeBusinessStage,
+  grantTypeAttributeIndustry = RELATION_DEFAULT.grantTypeAttributeIndustry,
+  grantTypeAttributeLocalShareholding = RELATION_DEFAULT.grantTypeAttributeLocalShareholding,
+  grantTypeAttributeNeedsBased = RELATION_DEFAULT.grantTypeAttributeNeedsBased,
+  grantTypeAttributeNumberEmployees = RELATION_DEFAULT.grantTypeAttributeNumberEmployees,
+  grantTypeAttributeType = RELATION_DEFAULT.grantTypeAttributeType,
+  grantTypeAttributeYearsOperation = RELATION_DEFAULT.grantTypeAttributeYearsOperation,
+}
 export enum INDEX {
   agencyId = `@@index([${ATTRIBUTE.agencyId}])`,
   businessSizeId = `@@index([${ATTRIBUTE.businessSizeId}])`,

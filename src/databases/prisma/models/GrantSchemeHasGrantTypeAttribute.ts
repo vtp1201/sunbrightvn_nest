@@ -5,8 +5,10 @@ import {
   ATTRIBUTE,
   COLUMN,
   INDEX,
+  RELATION,
 } from '../utils/enums/GrantSchemeHasGrantTypeAttribute';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { grantScheme, grantTypeAttribute } from '.';
 
 export default createModel(
   MODEL_NAME.GRANT_SCHEME_HAS_GRANT_TYPE_ATTRIBUTE,
@@ -29,6 +31,68 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const grantSchemeRelation = oneToOne({
+      attribute: ATTRIBUTE.grantSchemeId,
+      model: grantScheme,
+      relation: RELATION.grantScheme,
+    });
+    const grantTypeAttributeAgencyRelation = oneToOne({
+      attribute: ATTRIBUTE.agencyId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeAgency,
+      option: { optional: true },
+    });
+    const grantTypeAttributeBusinessSizeRelation = oneToOne({
+      attribute: ATTRIBUTE.businessSizeId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeBusinessSize,
+      option: { optional: true },
+    });
+
+    const grantTypeAttributeBusinessStageRelation = oneToOne({
+      attribute: ATTRIBUTE.businessStageId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeBusinessStage,
+      option: { optional: true },
+    });
+    const grantTypeAttributeIndustryRelation = oneToOne({
+      attribute: ATTRIBUTE.industryId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeIndustry,
+      option: { optional: true },
+    });
+    const grantTypeAttributeLocalShareholdingRelation = oneToOne({
+      attribute: ATTRIBUTE.localShareholdingId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeLocalShareholding,
+      option: { optional: true },
+    });
+    const grantTypeAttributeNeedsBasedRelation = oneToOne({
+      attribute: ATTRIBUTE.needsBasedId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeNeedsBased,
+      option: { optional: true },
+    });
+    const grantTypeAttributeNumberEmployeesRelation = oneToOne({
+      attribute: ATTRIBUTE.numberEmployeesId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeNumberEmployees,
+      option: { optional: true },
+    });
+    const grantTypeAttributeTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.typeId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeType,
+      option: { optional: true },
+    });
+    const grantTypeAttributeYearsOperationRelation = oneToOne({
+      attribute: ATTRIBUTE.yearsOperationId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeYearsOperation,
+      option: { optional: true },
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -83,6 +147,18 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(grantSchemeRelation)
+        .mixin(grantTypeAttributeAgencyRelation)
+        .mixin(grantTypeAttributeBusinessSizeRelation)
+        .mixin(grantTypeAttributeBusinessStageRelation)
+        .mixin(grantTypeAttributeIndustryRelation)
+        .mixin(grantTypeAttributeLocalShareholdingRelation)
+        .mixin(grantTypeAttributeNeedsBasedRelation)
+        .mixin(grantTypeAttributeNumberEmployeesRelation)
+        .mixin(grantTypeAttributeTypeRelation)
+        .mixin(grantTypeAttributeYearsOperationRelation)
 
         // indexes
         // .raw(INDEX.agencyId)

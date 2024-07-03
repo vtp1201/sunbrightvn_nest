@@ -1,4 +1,4 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
@@ -20,7 +20,9 @@ export enum COLUMN {
   isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
-export enum RELATION {}
+export enum RELATION {
+  limits = RELATION_DEFAULT.limits,
+}
 
 export enum INDEX {}
 

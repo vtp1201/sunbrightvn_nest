@@ -1,8 +1,28 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/FileTemplate';
-import { deleted } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/FileTemplate';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import {
+  bank,
+  countryHasEntityType,
+  file,
+  fileTemplate,
+  fileTemplateHasCompanyMemberType,
+  fileTemplateHasNationality,
+  fileTemplateType,
+  processLog,
+  processStepHasFileTemplate,
+  rankingPartnerType,
+  serviceChangeOfficer,
+  serviceHasFileTemplate,
+  token,
+} from '.';
 
 export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
   const initDeleted = deleted(
@@ -15,6 +35,78 @@ export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const banksRelation = oneToMany({
+    model: bank,
+    relation: RELATION.banks,
+  });
+  const countryHasEntityTypesRelation = oneToMany({
+    model: countryHasEntityType,
+    relation: RELATION.countryHasEntityTypes,
+  });
+  const filesRelation = oneToMany({
+    model: file,
+    relation: RELATION.files,
+  });
+  const fileTemplateTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.collectSameId,
+    model: fileTemplateType,
+    relation: RELATION.fileTemplateType,
+    option: { optional: true },
+  });
+  const collectSameFileTemplateRelation = oneToOne({
+    attribute: ATTRIBUTE.collectSameId,
+    model: fileTemplate,
+    relation: RELATION.collectSameFileTemplate,
+    option: { optional: true },
+  });
+  const collectSameFileTemplatesRelation = oneToMany({
+    model: fileTemplate,
+    relation: RELATION.collectSameFileTemplates,
+  });
+  const parentRelation = oneToOne({
+    attribute: ATTRIBUTE.collectSameId,
+    model: fileTemplate,
+    relation: RELATION.parent,
+    option: { optional: true },
+  });
+  const childrenRelation = oneToMany({
+    model: fileTemplate,
+    relation: RELATION.children,
+  });
+  const fileTemplateHasCompanyMemberTypesRelation = oneToMany({
+    model: fileTemplateHasCompanyMemberType,
+    relation: RELATION.fileTemplateHasCompanyMemberTypes,
+  });
+  const fileTemplateHasNationalitiesRelation = oneToMany({
+    model: fileTemplateHasNationality,
+    relation: RELATION.fileTemplateHasNationalities,
+  });
+  const rankingPartnerTypesRelation = oneToMany({
+    model: rankingPartnerType,
+    relation: RELATION.rankingPartnerTypes,
+  });
+  const processLogsRelation = oneToMany({
+    model: processLog,
+    relation: RELATION.processLogs,
+  });
+  const processStepHasFileTemplatesRelation = oneToMany({
+    model: processStepHasFileTemplate,
+    relation: RELATION.processStepHasFileTemplates,
+  });
+  const serviceChangeOfficersRelation = oneToMany({
+    model: serviceChangeOfficer,
+    relation: RELATION.serviceChangeOfficers,
+  });
+  const serviceHasFileTemplatesRelation = oneToMany({
+    model: serviceHasFileTemplate,
+    relation: RELATION.serviceHasFileTemplates,
+  });
+  const tokensRelation = oneToMany({
+    model: token,
+    relation: RELATION.tokens,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -82,6 +174,23 @@ export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(banksRelation)
+      .mixin(countryHasEntityTypesRelation)
+      .mixin(filesRelation)
+      .mixin(collectSameFileTemplateRelation)
+      .mixin(collectSameFileTemplatesRelation)
+      .mixin(parentRelation)
+      .mixin(childrenRelation)
+      .mixin(fileTemplateHasCompanyMemberTypesRelation)
+      .mixin(fileTemplateHasNationalitiesRelation)
+      .mixin(rankingPartnerTypesRelation)
+      .mixin(processLogsRelation)
+      .mixin(processStepHasFileTemplatesRelation)
+      .mixin(serviceChangeOfficersRelation)
+      .mixin(serviceHasFileTemplatesRelation)
+      .mixin(tokensRelation)
 
       // indexes
       // .raw(INDEX.collectSameId)

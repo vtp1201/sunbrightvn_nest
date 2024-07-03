@@ -17,7 +17,7 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  mailchimpCampaignMember = RELATION_DEFAULT.mailchimpCampaignMember,
+  mailchimpCampaignMembers = RELATION_DEFAULT.mailchimpCampaignMembers,
   mailchimpSummaries = RELATION_DEFAULT.mailchimpSummaries,
 }
 
