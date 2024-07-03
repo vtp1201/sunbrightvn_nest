@@ -4,8 +4,11 @@ import { UserRepository } from './user.repository';
 import { MODEL_NAME } from '@utilities';
 
 @Injectable()
-export class UserService extends AbstractService<MODEL_NAME.USER> {
-  constructor(public readonly repository: UserRepository) {
+export class UserService extends AbstractService<
+  MODEL_NAME.USER,
+  UserRepository
+> {
+  constructor(repository: UserRepository) {
     super(repository);
   }
 
