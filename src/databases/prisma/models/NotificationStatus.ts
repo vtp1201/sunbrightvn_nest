@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/NotificationStatus';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/NotificationStatus';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { notificationTemplate } from '.';
 
 export default createModel(
   MODEL_NAME.NOTIFICATION_STATUS,
@@ -26,6 +27,12 @@ export default createModel(
       },
     );
 
+    // defined Relations
+    const notificationTemplatesRelation = oneToMany({
+      model: notificationTemplate,
+      relation: RELATION.notificationTemplates,
+    });
+
     // defined Model
     process.nextTick(() => {
       NotificationStatusModel.int(ATTRIBUTE.id, {
@@ -44,6 +51,9 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(notificationTemplatesRelation)
 
         // table name
         .map(TABLE_NAME.NOTIFICATION_STATUS);

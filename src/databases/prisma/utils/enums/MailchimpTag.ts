@@ -23,7 +23,7 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  mailchimpCampaign = RELATION_DEFAULT.mailchimpCampaign,
+  contactFrom = RELATION_DEFAULT.contactFrom,
 }
 
 export enum INDEX {

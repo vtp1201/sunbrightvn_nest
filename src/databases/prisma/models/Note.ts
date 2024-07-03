@@ -1,8 +1,24 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Note';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Note';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  company,
+  companyMember,
+  file,
+  noteType,
+  processStep,
+  task,
+  user,
+  process as Process,
+} from '.';
 
 export default createModel(MODEL_NAME.NOTE, (NoteModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +39,52 @@ export default createModel(MODEL_NAME.NOTE, (NoteModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const filesRelation = oneToMany({
+    model: file,
+    relation: RELATION.files,
+  });
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: company,
+    relation: RELATION.company,
+    option: { optional: true },
+  });
+  const companyMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.companyMemberId,
+    model: companyMember,
+    relation: RELATION.companyMember,
+    option: { optional: true },
+  });
+  const noteTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.noteTypeId,
+    model: noteType,
+    relation: RELATION.noteType,
+    option: { optional: true },
+  });
+  const taskRelation = oneToOne({
+    attribute: ATTRIBUTE.taskId,
+    model: task,
+    relation: RELATION.task,
+    option: { optional: true },
+  });
+  const userRelation = oneToOne({
+    attribute: ATTRIBUTE.userId,
+    model: user,
+    relation: RELATION.user,
+    option: { optional: true },
+  });
+  const processStepRelation = oneToOne({
+    attribute: ATTRIBUTE.processStepId,
+    model: processStep,
+    relation: RELATION.processStep,
+    option: { optional: true },
+  });
+  const processesRelation = oneToMany({
+    model: Process,
+    relation: RELATION.processes,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -88,6 +150,16 @@ export default createModel(MODEL_NAME.NOTE, (NoteModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(filesRelation)
+      .mixin(companyRelation)
+      .mixin(companyMemberRelation)
+      .mixin(noteTypeRelation)
+      .mixin(taskRelation)
+      .mixin(userRelation)
+      .mixin(processStepRelation)
+      .mixin(processesRelation)
 
       // indexes
       // .raw(INDEX.companyId)

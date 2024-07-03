@@ -48,7 +48,7 @@ export enum RELATION {
   user = RELATION_DEFAULT.user,
   processStep = RELATION_DEFAULT.processStep,
   files = RELATION_DEFAULT.files,
-  processHasNotes = RELATION_DEFAULT.processHasNotes,
+  processes = RELATION_DEFAULT.processes,
 }
 
 export enum INDEX {

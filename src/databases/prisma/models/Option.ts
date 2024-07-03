@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Option';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Option';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import { answer, question, toolBusinessEntity } from '.';
 
 export default createModel(MODEL_NAME.OPTION, (OptionModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,21 @@ export default createModel(MODEL_NAME.OPTION, (OptionModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const answersRelation = oneToMany({
+    model: answer,
+    relation: RELATION.answers,
+  });
+  const questionRelation = oneToOne({
+    attribute: ATTRIBUTE.questionId,
+    model: question,
+    relation: RELATION.question,
+  });
+  const toolBusinessEntitiesRelation = oneToMany({
+    model: toolBusinessEntity,
+    relation: RELATION.toolBusinessEntities,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -40,6 +56,11 @@ export default createModel(MODEL_NAME.OPTION, (OptionModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(answersRelation)
+      .mixin(questionRelation)
+      .mixin(toolBusinessEntitiesRelation)
 
       // indexes
       // .raw(INDEX.questionId)

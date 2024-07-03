@@ -1,8 +1,14 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/MailchimpSummary';
-import { createdTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/MailchimpSummary';
+import { createdTime, oneToOne } from '../mixins';
+import { mailchimpCampaign } from '.';
 
 export default createModel(
   MODEL_NAME.MAILCHIMP_SUMMARY,
@@ -10,6 +16,13 @@ export default createModel(
     const initCreatedTime = createdTime({
       attribute: ATTRIBUTE.createdTime,
       column: COLUMN.createdTime,
+    });
+
+    // defined Relations
+    const mailchimpCampaignRelation = oneToOne({
+      attribute: ATTRIBUTE.mailchimpCampaignId,
+      model: mailchimpCampaign,
+      relation: RELATION.mailchimpCampaign,
     });
 
     // defined Model
@@ -55,11 +68,13 @@ export default createModel(
         })
         .int(ATTRIBUTE.mailchimpCampaignId, {
           map: COLUMN.mailchimpCampaignId,
-          optional: true,
         })
 
         // dateTime marks
         .mixin(initCreatedTime)
+
+        // relations
+        .mixin(mailchimpCampaignRelation)
 
         // indexes
         // .raw(INDEX.mailchimpCampaignId)

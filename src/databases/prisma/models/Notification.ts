@@ -1,8 +1,14 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Notification';
-import { createdTime, deleted } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/Notification';
+import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
+import { notificationType, userHasNotification } from '.';
 
 export default createModel(MODEL_NAME.NOTIFICATION, (NotificationModel) => {
   const initCreatedTime = createdTime({
@@ -19,6 +25,17 @@ export default createModel(MODEL_NAME.NOTIFICATION, (NotificationModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const userHasNotificationsRelation = oneToMany({
+    model: userHasNotification,
+    relation: RELATION.userHasNotifications,
+  });
+  const notificationTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.notificationTypeId,
+    model: notificationType,
+    relation: RELATION.notificationType,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -68,6 +85,10 @@ export default createModel(MODEL_NAME.NOTIFICATION, (NotificationModel) => {
       // dateTime marks
       .mixin(initCreatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(notificationTypeRelation)
+      .mixin(userHasNotificationsRelation)
 
       // indexes
       // .raw(INDEX.notificationTypeId)

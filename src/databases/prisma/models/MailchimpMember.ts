@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/MailchimpMember';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/MailchimpMember';
+import { deleted, oneToMany } from '../mixins';
+import { mailchimpCampaignMember } from '.';
 
 export default createModel(
   MODEL_NAME.MAILCHIMP_MEMBER,
@@ -17,6 +18,12 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const mailchimpCampaignMembersRelation = oneToMany({
+      model: mailchimpCampaignMember,
+      relation: RELATION.mailchimpCampaignMembers,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -36,6 +43,9 @@ export default createModel(
 
         // dateTime marks
         .mixin(initDeleted)
+
+        // relations
+        .mixin(mailchimpCampaignMembersRelation)
 
         // table name
         .map(TABLE_NAME.MAILCHIMP_MEMBER);
