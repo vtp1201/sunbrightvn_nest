@@ -1,5 +1,4 @@
 export * from './constants';
 export * from './functions';
 export * from './enums';
-export * from '@databases/prisma/enums';
 export * from '@databases/prisma/utils';
