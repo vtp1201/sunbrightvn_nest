@@ -1,8 +1,14 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/VisaVietnamArrival';
-import { deleted } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/VisaVietnamArrival';
+import { deleted, oneToOne } from '../mixins';
+import { country } from '.';
 
 export default createModel(
   MODEL_NAME.VISA_VIETNAM_ARRIVAL,
@@ -17,6 +23,14 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const countryRelation = oneToOne({
+      attribute: ATTRIBUTE.countryId,
+      model: country,
+      relation: RELATION.country,
+      option: { optional: true },
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -38,6 +52,9 @@ export default createModel(
 
         // dateTime marks
         .mixin(initDeleted)
+
+        // relations
+        .mixin(countryRelation)
 
         // indexes
         // .raw(INDEX.countryId)

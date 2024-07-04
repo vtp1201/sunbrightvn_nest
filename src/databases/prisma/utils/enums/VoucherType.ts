@@ -25,6 +25,7 @@ export enum COLUMN {
 }
 
 export enum RELATION {
+  campaignHasVoucherTypes = RELATION_DEFAULT.campaignHasVoucherTypes,
   clicks = RELATION_DEFAULT.clicks,
   vouchers = RELATION_DEFAULT.vouchers,
 }

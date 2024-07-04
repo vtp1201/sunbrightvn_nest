@@ -1,8 +1,17 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Website';
-import { createdTime, deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Website';
+import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
+import {
+  Package,
+  currency,
+  customer,
+  order,
+  service,
+  serviceType,
+  token,
+} from '.';
 
 export default createModel(MODEL_NAME.WEBSITE, (WebsiteModel) => {
   const initCreatedTime = createdTime({
@@ -19,6 +28,38 @@ export default createModel(MODEL_NAME.WEBSITE, (WebsiteModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // relations defined
+  const customersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.customers,
+  });
+  const ordersRelation = oneToMany({
+    model: order,
+    relation: RELATION.orders,
+  });
+  const packagesRelation = oneToMany({
+    model: Package,
+    relation: RELATION.packages,
+  });
+  const servicesRelation = oneToMany({
+    model: service,
+    relation: RELATION.services,
+  });
+  const serviceTypesRelation = oneToMany({
+    model: serviceType,
+    relation: RELATION.serviceTypes,
+  });
+  const tokensRelation = oneToMany({
+    model: token,
+    relation: RELATION.tokens,
+  });
+  const currencyRelation = oneToOne({
+    attribute: ATTRIBUTE.currencyId,
+    model: currency,
+    relation: RELATION.currency,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -181,6 +222,15 @@ export default createModel(MODEL_NAME.WEBSITE, (WebsiteModel) => {
       // dateTime marks
       .mixin(initCreatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(customersRelation)
+      .mixin(ordersRelation)
+      .mixin(packagesRelation)
+      .mixin(servicesRelation)
+      .mixin(serviceTypesRelation)
+      .mixin(tokensRelation)
+      .mixin(currencyRelation)
 
       // indexes
       // .raw(INDEX.currencyId)

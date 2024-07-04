@@ -2,9 +2,15 @@ import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/User';
-import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
-import Role from './Role';
 import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  Process,
   actionLog,
   billing,
   customer,
@@ -13,7 +19,15 @@ import {
   historyLogCDC,
   message,
   note,
+  supportCase,
+  syslog,
+  task,
   teamGroup,
+  role,
+  token,
+  person,
+  subscription,
+  userHasNotification,
 } from '.';
 
 export default createModel(MODEL_NAME.USER, (UserModel) => {
@@ -77,6 +91,10 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
     model: customer,
     relation: RELATION.internalBookeepingMemberForCustomers,
   });
+  const legalLeaderForCustomersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.legalLeaderForCustomers,
+  });
   const legalMemberForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.legalMemberForCustomers,
@@ -109,9 +127,90 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
     model: note,
     relation: RELATION.notes,
   });
-
+  const processesRelation = oneToMany({
+    model: Process,
+    relation: RELATION.processes,
+  });
+  const supportCasesRelation = oneToMany({
+    model: supportCase,
+    relation: RELATION.supportCases,
+  });
+  const syslogsRelation = oneToMany({
+    model: syslog,
+    relation: RELATION.syslogs,
+  });
+  const accountantLeaderForTasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.accountantLeaderForTasks,
+  });
+  const accountantMemberForTasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.accountantMemberForTasks,
+  });
+  const complianceLeaderForTasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.complianceLeaderForTasks,
+  });
+  const complianceMemberForTasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.complianceMemberForTasks,
+  });
+  const csLeaderForTasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.csLeaderForTasks,
+  });
+  const csMemberForTasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.csMemberForTasks,
+  });
+  const internalBookeepingLeaderForTasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.internalBookeepingLeaderForTasks,
+  });
+  const internalBookeepingMemberForTasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.internalBookeepingMemberForTasks,
+  });
+  const legalLeaderForTasksRelation = oneToMany({
+    model: customer,
+    relation: RELATION.legalLeaderForTasks,
+  });
+  const legalMemberForTasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.legalMemberForTasks,
+  });
+  const testerLeaderForTasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.testerLeaderForTasks,
+  });
+  const tokensRelation = oneToMany({
+    model: token,
+    relation: RELATION.tokens,
+  });
+  const customerRelation = oneToOne({
+    attribute: ATTRIBUTE.customerId,
+    model: customer,
+    relation: RELATION.customer,
+    option: { optional: true },
+  });
+  const personRelation = oneToOne({
+    attribute: ATTRIBUTE.personId,
+    model: person,
+    relation: RELATION.person,
+    option: { optional: true },
+  });
+  const subscriptionRelation = oneToOne({
+    attribute: ATTRIBUTE.subscriptionId,
+    model: subscription,
+    relation: RELATION.subscription,
+    option: { optional: true },
+  });
+  const userHasNotificationsRelation = oneToMany({
+    model: userHasNotification,
+    relation: RELATION.userHasNotifications,
+  });
   const rolesRelation = oneToMany({
-    model: Role,
+    model: role,
     relation: RELATION.roles,
   });
 
@@ -188,6 +287,44 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
       .mixin(initDeleted)
 
       // relations
+      .mixin(actionLogsRelation)
+      .mixin(billingsRelation)
+      .mixin(accountantLeaderForCustomersRelation)
+      .mixin(accountantMemberForCustomersRelation)
+      .mixin(complianceLeaderForCustomersRelation)
+      .mixin(complianceMemberForCustomersRelation)
+      .mixin(csLeaderForCustomersRelation)
+      .mixin(csMemberForCustomersRelation)
+      .mixin(internalBookeepingLeaderForCustomersRelation)
+      .mixin(internalBookeepingMemberForCustomersRelation)
+      .mixin(legalLeaderForCustomersRelation)
+      .mixin(legalMemberForCustomersRelation)
+      .mixin(testerLeaderForCustomersRelation)
+      .mixin(emailTemplateHasReceiversRelation)
+      .mixin(filesRelation)
+      .mixin(teamGroupsRelation)
+      .mixin(historyLogCDCsRelation)
+      .mixin(messagesRelation)
+      .mixin(notesRelation)
+      .mixin(processesRelation)
+      .mixin(supportCasesRelation)
+      .mixin(syslogsRelation)
+      .mixin(accountantLeaderForTasksRelation)
+      .mixin(accountantMemberForTasksRelation)
+      .mixin(complianceLeaderForTasksRelation)
+      .mixin(complianceMemberForTasksRelation)
+      .mixin(csLeaderForTasksRelation)
+      .mixin(csMemberForTasksRelation)
+      .mixin(internalBookeepingLeaderForTasksRelation)
+      .mixin(internalBookeepingMemberForTasksRelation)
+      .mixin(legalLeaderForTasksRelation)
+      .mixin(legalMemberForTasksRelation)
+      .mixin(testerLeaderForTasksRelation)
+      .mixin(tokensRelation)
+      .mixin(customerRelation)
+      .mixin(personRelation)
+      .mixin(subscriptionRelation)
+      .mixin(userHasNotificationsRelation)
       .mixin(rolesRelation)
 
       // indexes

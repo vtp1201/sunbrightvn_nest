@@ -1,4 +1,4 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
@@ -32,8 +32,17 @@ export enum COLUMN {
   isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
-export enum RELATION {}
-// Define your relations here if needed
+export enum RELATION {
+  actionProcessSteps = RELATION_DEFAULT.actionProcessSteps,
+  agents = RELATION_DEFAULT.agents,
+  answers = RELATION_DEFAULT.answers,
+  banks = RELATION_DEFAULT.banks,
+  bankHasCountries = RELATION_DEFAULT.bankHasCountries,
+  bankingProcesses = RELATION_DEFAULT.bankingProcesses,
+  billings = RELATION_DEFAULT.billings,
+  phoneBillings = RELATION_DEFAULT.phoneBillings,
+  businessActivities = RELATION_DEFAULT.businessActivities,
+}
 
 export default {
   ATTRIBUTE,

@@ -1,8 +1,8 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Country';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Country';
+import { deleted, oneToMany } from '../mixins';
 
 export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
   const initDeleted = deleted(
@@ -15,6 +15,16 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // relations defined
+  // const actionLogsRelation = oneToMany({
+  //   model: actionLog,
+  //   relation: RELATION.actionLogs,
+  // });
+  // const billingsRelation = oneToMany({
+  //   model: billing,
+  //   relation: RELATION.billings,
+  // });
 
   // defined Model
   process.nextTick(() => {

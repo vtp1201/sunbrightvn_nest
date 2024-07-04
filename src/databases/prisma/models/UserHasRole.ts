@@ -7,17 +7,17 @@ import Role from './Role';
 import User from './User';
 
 export default createModel(MODEL_NAME.USER_HAS_ROLE, (UserHasRoleModel) => {
-  // relations defined
-  const roleRelation = oneToOne({
-    attribute: ATTRIBUTE.roleId,
-    model: Role,
-    relation: RELATION.role,
-  });
-  const userRelation = oneToOne({
-    attribute: ATTRIBUTE.userId,
-    model: User,
-    relation: RELATION.user,
-  });
+  // // relations defined
+  // const roleRelation = oneToOne({
+  //   attribute: ATTRIBUTE.roleId,
+  //   model: Role,
+  //   relation: RELATION.role,
+  // });
+  // const userRelation = oneToOne({
+  //   attribute: ATTRIBUTE.userId,
+  //   model: User,
+  //   relation: RELATION.user,
+  // });
 
   // defined Model
   process.nextTick(() => {
@@ -28,9 +28,9 @@ export default createModel(MODEL_NAME.USER_HAS_ROLE, (UserHasRoleModel) => {
         map: COLUMN.roleId,
       })
 
-      // relations
-      .mixin(roleRelation)
-      .mixin(userRelation)
+      // // relations
+      // .mixin(roleRelation)
+      // .mixin(userRelation)
 
       // ids
       .id({

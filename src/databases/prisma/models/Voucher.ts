@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Voucher';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Voucher';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { customer, order, voucherType } from '.';
 
 export default createModel(MODEL_NAME.VOUCHER, (VoucherModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,26 @@ export default createModel(MODEL_NAME.VOUCHER, (VoucherModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const customerRelation = oneToOne({
+    attribute: ATTRIBUTE.customerId,
+    model: customer,
+    relation: RELATION.customer,
+    option: { optional: true },
+  });
+  const orderRelation = oneToOne({
+    attribute: ATTRIBUTE.orderId,
+    model: order,
+    relation: RELATION.order,
+    option: { optional: true },
+  });
+  const voucherTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.voucherTypeId,
+    model: voucherType,
+    relation: RELATION.voucherType,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -91,6 +112,11 @@ export default createModel(MODEL_NAME.VOUCHER, (VoucherModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(customerRelation)
+      .mixin(orderRelation)
+      .mixin(voucherTypeRelation)
 
       // indexes
       // .raw(INDEX.customerId)

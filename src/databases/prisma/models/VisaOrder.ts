@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/VisaOrder';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/VisaOrder';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { airport, order, visaPurpose, visaType } from '.';
 
 export default createModel(MODEL_NAME.VISA_ORDER, (VisaOrderModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,31 @@ export default createModel(MODEL_NAME.VISA_ORDER, (VisaOrderModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const airportRelation = oneToOne({
+    attribute: ATTRIBUTE.airportId,
+    model: airport,
+    relation: RELATION.airport,
+    option: { optional: true },
+  });
+  const orderRelation = oneToOne({
+    attribute: ATTRIBUTE.orderId,
+    model: order,
+    relation: RELATION.order,
+  });
+  const visaPurposeRelation = oneToOne({
+    attribute: ATTRIBUTE.visaPurposeId,
+    model: visaPurpose,
+    relation: RELATION.visaPurpose,
+    option: { optional: true },
+  });
+  const visaTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.visaTypeId,
+    model: visaType,
+    relation: RELATION.visaType,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -74,6 +100,12 @@ export default createModel(MODEL_NAME.VISA_ORDER, (VisaOrderModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(airportRelation)
+      .mixin(orderRelation)
+      .mixin(visaPurposeRelation)
+      .mixin(visaTypeRelation)
 
       // indexes
       // .raw(INDEX.airportId)
