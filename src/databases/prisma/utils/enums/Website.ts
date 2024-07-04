@@ -79,7 +79,7 @@ export enum RELATION {
   customers = RELATION_DEFAULT.customers,
   packages = RELATION_DEFAULT.packages,
   orders = RELATION_DEFAULT.orders,
-  portalTypes = RELATION_DEFAULT.portalTypes,
+  // portalTypes = RELATION_DEFAULT.portalTypes,
   services = RELATION_DEFAULT.services,
   serviceTypes = RELATION_DEFAULT.serviceTypes,
   tokens = RELATION_DEFAULT.tokens,
