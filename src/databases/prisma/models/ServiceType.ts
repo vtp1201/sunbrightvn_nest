@@ -1,8 +1,22 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/ServiceType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/ServiceType';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  Package,
+  actionProcessStep,
+  service,
+  serviceType,
+  serviceTypeHasDepartment,
+  website,
+} from '.';
 
 export default createModel(MODEL_NAME.SERVICE_TYPE, (ServiceTypeModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +37,39 @@ export default createModel(MODEL_NAME.SERVICE_TYPE, (ServiceTypeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const actionProcessStepsRelation = oneToMany({
+    model: actionProcessStep,
+    relation: RELATION.actionProcessSteps,
+  });
+  const packagesRelation = oneToMany({
+    model: Package,
+    relation: RELATION.packages,
+  });
+  const servicesRelation = oneToMany({
+    model: service,
+    relation: RELATION.services,
+  });
+  const websiteRelation = oneToOne({
+    attribute: ATTRIBUTE.websiteId,
+    model: website,
+    relation: RELATION.website,
+  });
+  const parentRelation = oneToOne({
+    attribute: ATTRIBUTE.parentId,
+    model: serviceType,
+    relation: RELATION.parent,
+    option: { optional: true },
+  });
+  const childrenRelation = oneToMany({
+    model: serviceType,
+    relation: RELATION.children,
+  });
+  const serviceTypeHasDepartmentsRelation = oneToMany({
+    model: serviceTypeHasDepartment,
+    relation: RELATION.serviceTypeHasDepartments,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -56,7 +103,6 @@ export default createModel(MODEL_NAME.SERVICE_TYPE, (ServiceTypeModel) => {
       })
       .int(ATTRIBUTE.websiteId, {
         map: COLUMN.websiteId,
-        optional: true,
       })
       .boolean(ATTRIBUTE.isActive, {
         map: COLUMN.isActive,
@@ -83,6 +129,15 @@ export default createModel(MODEL_NAME.SERVICE_TYPE, (ServiceTypeModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(actionProcessStepsRelation)
+      .mixin(packagesRelation)
+      .mixin(servicesRelation)
+      .mixin(websiteRelation)
+      .mixin(parentRelation)
+      .mixin(childrenRelation)
+      .mixin(serviceTypeHasDepartmentsRelation)
 
       // indexes
       // .raw(INDEX.parentId)

@@ -1,13 +1,40 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Syslog';
-import { createdTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Syslog';
+import { createdTime, oneToOne } from '../mixins';
+import { apiMethod, country, syslogType, user } from '.';
 
 export default createModel(MODEL_NAME.SYSLOG, (SyslogModel) => {
   const initCreatedTime = createdTime({
     attribute: ATTRIBUTE.createdTime,
     column: COLUMN.createdTime,
+  });
+
+  // defined Relations
+  const apiMethodRelation = oneToOne({
+    attribute: ATTRIBUTE.apiMethodId,
+    model: apiMethod,
+    relation: RELATION.apiMethod,
+    option: { optional: true },
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: country,
+    relation: RELATION.country,
+    option: { optional: true },
+  });
+  const syslogTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.syslogTypeId,
+    model: syslogType,
+    relation: RELATION.syslogType,
+    option: { optional: true },
+  });
+  const userRelation = oneToOne({
+    attribute: ATTRIBUTE.userId,
+    model: user,
+    relation: RELATION.user,
+    option: { optional: true },
   });
 
   // defined Model
@@ -36,9 +63,8 @@ export default createModel(MODEL_NAME.SYSLOG, (SyslogModel) => {
         raw: RAW_STRING.LENGTH_255,
         optional: true,
       })
-      .string(ATTRIBUTE.bodyReq, {
+      .json(ATTRIBUTE.bodyReq, {
         map: COLUMN.bodyReq,
-        raw: RAW_STRING.LONG_TEXT,
         optional: true,
       })
       .int(ATTRIBUTE.apiMethodId, {
@@ -119,6 +145,12 @@ export default createModel(MODEL_NAME.SYSLOG, (SyslogModel) => {
 
       // dateTime marks
       .mixin(initCreatedTime)
+
+      // relations
+      .mixin(apiMethodRelation)
+      .mixin(countryRelation)
+      .mixin(syslogTypeRelation)
+      .mixin(userRelation)
 
       // indexes
       // .raw(INDEX.apiMethodId)

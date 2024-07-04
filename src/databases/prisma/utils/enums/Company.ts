@@ -152,7 +152,7 @@ export enum RELATION {
   companyShares = RELATION_DEFAULT.companyShares,
   emails = RELATION_DEFAULT.emails,
   files = RELATION_DEFAULT.files,
-  historiesLogCdc = RELATION_DEFAULT.historiesLogCdc,
+  historyLogCDCs = RELATION_DEFAULT.historyLogCDCs,
   notes = RELATION_DEFAULT.notes,
   orders = RELATION_DEFAULT.orders,
   proposedNames = RELATION_DEFAULT.proposedNames,

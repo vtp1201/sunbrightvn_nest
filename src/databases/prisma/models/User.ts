@@ -4,6 +4,17 @@ import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/User';
 import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
 import Role from './Role';
+import {
+  actionLog,
+  billing,
+  customer,
+  emailTemplateHasReceiver,
+  file,
+  historyLogCDC,
+  message,
+  note,
+  teamGroup,
+} from '.';
 
 export default createModel(MODEL_NAME.USER, (UserModel) => {
   const initCreatedTime = createdTime({
@@ -26,6 +37,79 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
   );
 
   // relations defined
+  const actionLogsRelation = oneToMany({
+    model: actionLog,
+    relation: RELATION.actionLogs,
+  });
+  const billingsRelation = oneToMany({
+    model: billing,
+    relation: RELATION.billings,
+  });
+  const accountantLeaderForCustomersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.accountantLeaderForCustomers,
+  });
+  const accountantMemberForCustomersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.accountantMemberForCustomers,
+  });
+  const complianceLeaderForCustomersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.complianceLeaderForCustomers,
+  });
+  const complianceMemberForCustomersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.complianceMemberForCustomers,
+  });
+  const csLeaderForCustomersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.csLeaderForCustomers,
+  });
+  const csMemberForCustomersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.csMemberForCustomers,
+  });
+  const internalBookeepingLeaderForCustomersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.internalBookeepingLeaderForCustomers,
+  });
+  const internalBookeepingMemberForCustomersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.internalBookeepingMemberForCustomers,
+  });
+  const legalMemberForCustomersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.legalMemberForCustomers,
+  });
+  const testerLeaderForCustomersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.testerLeaderForCustomers,
+  });
+  const emailTemplateHasReceiversRelation = oneToMany({
+    model: emailTemplateHasReceiver,
+    relation: RELATION.emailTemplateHasReceivers,
+  });
+  const filesRelation = oneToMany({
+    model: file,
+    relation: RELATION.files,
+  });
+  const teamGroupsRelation = oneToMany({
+    model: teamGroup,
+    relation: RELATION.teamGroups,
+  });
+  const historyLogCDCsRelation = oneToMany({
+    model: historyLogCDC,
+    relation: RELATION.historyLogCDCs,
+  });
+  const messagesRelation = oneToMany({
+    model: message,
+    relation: RELATION.messages,
+  });
+  const notesRelation = oneToMany({
+    model: note,
+    relation: RELATION.notes,
+  });
+
   const rolesRelation = oneToMany({
     model: Role,
     relation: RELATION.roles,

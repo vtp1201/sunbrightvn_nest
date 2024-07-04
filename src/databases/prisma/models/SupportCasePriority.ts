@@ -1,8 +1,13 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/SupportCasePriority';
-import { deleted } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  RELATION,
+} from '../utils/enums/SupportCasePriority';
+import { deleted, oneToMany } from '../mixins';
+import { supportCase } from '.';
 
 export default createModel(
   MODEL_NAME.SUPPORT_CASE_PRIORITY,
@@ -17,6 +22,12 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const supportCasesRelation = oneToMany({
+      model: supportCase,
+      relation: RELATION.supportCases,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -39,6 +50,9 @@ export default createModel(
 
         // dateTime marks
         .mixin(initDeleted)
+
+        // relations
+        .mixin(supportCasesRelation)
 
         // table name
         .map(TABLE_NAME.SUPPORT_CASE_PRIORITY);

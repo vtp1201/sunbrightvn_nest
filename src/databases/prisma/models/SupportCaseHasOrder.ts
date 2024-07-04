@@ -2,15 +2,15 @@ import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/SupportCaseHasOrder';
-import { updatedTime } from '../mixins';
+// import { updatedTime } from '../mixins';
 
 export default createModel(
   MODEL_NAME.SUPPORT_CASE_HAS_ORDER,
   (SupportCaseHasOrderModel) => {
-    const initUpdatedTime = updatedTime({
-      attribute: ATTRIBUTE.updatedTime,
-      column: COLUMN.updatedTime,
-    });
+    // const initUpdatedTime = updatedTime({
+    //   attribute: ATTRIBUTE.updatedTime,
+    //   column: COLUMN.updatedTime,
+    // });
 
     // defined Model
     process.nextTick(() => {
@@ -22,7 +22,7 @@ export default createModel(
         })
 
         // dateTime marks
-        .mixin(initUpdatedTime)
+        // .mixin(initUpdatedTime)
 
         // ids
         .id({

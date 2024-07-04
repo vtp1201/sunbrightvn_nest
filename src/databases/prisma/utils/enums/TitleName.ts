@@ -16,6 +16,7 @@ export enum COLUMN {
 
 export enum RELATION {
   customers = RELATION_DEFAULT.customers,
+  users = RELATION_DEFAULT.users,
 }
 
 export default {

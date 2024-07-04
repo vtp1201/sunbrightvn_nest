@@ -42,9 +42,12 @@ export enum COLUMN {
 
 export enum RELATION {
   actionProcessSteps = RELATION_DEFAULT.actionProcessSteps,
-  renamedPackages = RELATION_DEFAULT.renamedPackages,
+  packages = RELATION_DEFAULT.packages,
   services = RELATION_DEFAULT.services,
   website = RELATION_DEFAULT.website,
+  parent = RELATION_DEFAULT.parent,
+  children = RELATION_DEFAULT.children,
+  serviceTypeHasDepartments = RELATION_DEFAULT.serviceTypeHasDepartments,
 }
 
 export enum INDEX {

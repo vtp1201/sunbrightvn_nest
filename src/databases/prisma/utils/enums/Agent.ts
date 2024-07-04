@@ -31,14 +31,13 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  tasks = RELATION_DEFAULT.tasks,
   agency = RELATION_DEFAULT.agency,
   bank = RELATION_DEFAULT.bank,
   country = RELATION_DEFAULT.country,
   agentType = RELATION_DEFAULT.agentType,
   emails = RELATION_DEFAULT.emails,
   processLogs = RELATION_DEFAULT.processLogs,
-  // taskHasAgents = RELATION_DEFAULT.taskHasAgents,
+  taskHasAgents = RELATION_DEFAULT.taskHasAgents,
   tokens = RELATION_DEFAULT.tokens,
 }
 

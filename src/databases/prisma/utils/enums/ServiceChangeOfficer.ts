@@ -27,6 +27,7 @@ export enum COLUMN {
 export enum RELATION {
   changeRequestStatus = RELATION_DEFAULT.changeRequestStatus,
   companyMemberType = RELATION_DEFAULT.companyMemberType,
+  fileTemplates = RELATION_DEFAULT.fileTemplates,
 }
 
 export enum INDEX {

@@ -144,9 +144,9 @@ export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
     model: file,
     relation: RELATION.files,
   });
-  const historiesLogCdcRelation = oneToMany({
+  const historyLogCDCsRelation = oneToMany({
     model: historyLogCDC,
-    relation: RELATION.historiesLogCdc,
+    relation: RELATION.historyLogCDCs,
   });
   const notesRelation = oneToMany({
     model: note,
@@ -468,7 +468,7 @@ export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
       .mixin(companySharesRelation)
       .mixin(emailsRelation)
       .mixin(filesRelation)
-      .mixin(historiesLogCdcRelation)
+      .mixin(historyLogCDCsRelation)
       .mixin(notesRelation)
       .mixin(ordersRelation)
       .mixin(proposedNamesRelation)

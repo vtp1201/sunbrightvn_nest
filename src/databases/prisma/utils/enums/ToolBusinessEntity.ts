@@ -28,6 +28,7 @@ export enum COLUMN {
 
 export enum RELATION {
   option = RELATION_DEFAULT.options,
+  entityType = RELATION_DEFAULT.entityType,
 }
 
 export enum INDEX {

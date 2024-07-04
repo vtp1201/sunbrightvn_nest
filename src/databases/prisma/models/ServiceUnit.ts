@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/ServiceUnit';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ServiceUnit';
+import { deleted, oneToMany } from '../mixins';
+import { service } from '.';
 
 export default createModel(MODEL_NAME.SERVICE_UNIT, (ServiceUnitModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,12 @@ export default createModel(MODEL_NAME.SERVICE_UNIT, (ServiceUnitModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const servicesRelation = oneToMany({
+    model: service,
+    relation: RELATION.services,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -34,6 +41,9 @@ export default createModel(MODEL_NAME.SERVICE_UNIT, (ServiceUnitModel) => {
         raw: RAW_STRING.LENGTH_45,
         optional: true,
       })
+
+      // relations
+      .mixin(servicesRelation)
 
       // dateTime marks
       .mixin(initDeleted)

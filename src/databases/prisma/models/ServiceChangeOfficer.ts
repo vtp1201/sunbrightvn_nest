@@ -1,8 +1,20 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/ServiceChangeOfficer';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/ServiceChangeOfficer';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import { changeRequestStatus, companyMemberType, fileTemplate } from '.';
 
 export default createModel(
   MODEL_NAME.SERVICE_CHANGE_OFFICER,
@@ -25,6 +37,24 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const changeRequestStatusRelation = oneToOne({
+      attribute: ATTRIBUTE.changeRequestStatusId,
+      model: changeRequestStatus,
+      relation: RELATION.changeRequestStatus,
+      option: { optional: true },
+    });
+    const companyMemberTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.companyMemberTypeId,
+      model: companyMemberType,
+      relation: RELATION.companyMemberType,
+      option: { optional: true },
+    });
+    const fileTemplatesRelation = oneToMany({
+      model: fileTemplate,
+      relation: RELATION.fileTemplates,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -55,6 +85,11 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(changeRequestStatusRelation)
+        .mixin(companyMemberTypeRelation)
+        .mixin(fileTemplatesRelation)
 
         // indexes
         // .raw(INDEX.changeRequestStatusId)

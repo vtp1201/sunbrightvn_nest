@@ -18,6 +18,7 @@ import {
   token,
   email,
   task,
+  taskHasAgent,
 } from './';
 
 export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
@@ -75,9 +76,9 @@ export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
     model: email,
     relation: RELATION.emails,
   });
-  const tasksRelation = oneToMany({
-    model: task,
-    relation: RELATION.tasks,
+  const taskHasAgentsRelation = oneToMany({
+    model: taskHasAgent,
+    relation: RELATION.taskHasAgents,
   });
 
   // defined Model
@@ -132,7 +133,7 @@ export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
       .mixin(processLogsRelation)
       .mixin(tokensRelation)
       .mixin(emailsRelation)
-      .mixin(tasksRelation)
+      .mixin(taskHasAgentsRelation)
 
       // table name
       .map(TABLE_NAME.AGENT);

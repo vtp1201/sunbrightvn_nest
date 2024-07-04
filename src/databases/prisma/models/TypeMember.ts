@@ -1,8 +1,13 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/TypeMember';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/TypeMember';
+import { deleted, oneToMany } from '../mixins';
+import {
+  companyMember,
+  fileTemplateHasCompanyMemberType,
+  historyCompanyMember,
+} from '.';
 
 export default createModel(MODEL_NAME.TYPE_MEMBER, (TypeMemberModel) => {
   const initDeleted = deleted(
@@ -15,6 +20,20 @@ export default createModel(MODEL_NAME.TYPE_MEMBER, (TypeMemberModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const companyMembersRelation = oneToMany({
+    model: companyMember,
+    relation: RELATION.companyMembers,
+  });
+  const fileTemplateHasCompanyMemberTypesRelation = oneToMany({
+    model: fileTemplateHasCompanyMemberType,
+    relation: RELATION.fileTemplateHasCompanyMemberTypes,
+  });
+  const historyCompanyMembersRelation = oneToMany({
+    model: historyCompanyMember,
+    relation: RELATION.historyCompanyMembers,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -32,6 +51,11 @@ export default createModel(MODEL_NAME.TYPE_MEMBER, (TypeMemberModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(companyMembersRelation)
+      .mixin(fileTemplateHasCompanyMemberTypesRelation)
+      .mixin(historyCompanyMembersRelation)
 
       // table name
       .map(TABLE_NAME.TYPE_MEMBER);

@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/UrlListType';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/UrlListType';
+import { deleted, oneToMany } from '../mixins';
+import { urlList } from '.';
 
 export default createModel(MODEL_NAME.URL_LIST_TYPE, (UrlListTypeModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,12 @@ export default createModel(MODEL_NAME.URL_LIST_TYPE, (UrlListTypeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const urlListsRelation = oneToMany({
+    model: urlList,
+    relation: RELATION.urlLists,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -32,6 +39,9 @@ export default createModel(MODEL_NAME.URL_LIST_TYPE, (UrlListTypeModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(urlListsRelation)
 
       // table name
       .map(TABLE_NAME.URL_LIST_TYPE);

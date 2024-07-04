@@ -21,7 +21,9 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  user = RELATION_DEFAULT.user,
+  emailTemplateHasReceivers = RELATION_DEFAULT.emailTemplateHasReceivers,
+  users = RELATION_DEFAULT.users,
+  leaderUser = RELATION_DEFAULT.leaderUser,
 }
 
 export enum INDEX {
