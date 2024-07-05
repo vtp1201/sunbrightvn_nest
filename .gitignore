@@ -16,6 +16,8 @@ lerna-debug.log*
 # OS
 .DS_Store
 
+mysql_bind_folder
+
 # Tests
 /coverage
 /.nyc_output
