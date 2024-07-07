@@ -29,11 +29,13 @@ export default createModel(
       attribute: ATTRIBUTE.parentId,
       model: companyMemberType,
       relation: RELATION.parent,
+      isNeedName: true,
       option: { optional: true },
     });
     const childrenRelation = oneToMany({
       model: companyMemberType,
       relation: RELATION.children,
+      fromRelation: RELATION.parent,
     });
     const companyPositionsRelation = oneToMany({
       model: companyPosition,

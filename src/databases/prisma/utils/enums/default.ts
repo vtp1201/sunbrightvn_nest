@@ -17,6 +17,8 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  toCompanyMemberForChangeRequests = 'toCompanyMemberForChangeRequests',
+  toCompanyPositionForChangeRequests = 'toCompanyPositionForChangeRequests',
   visaVietnamArrivals = 'visaVietnamArrivals',
   incorporationCountryForTasks = 'incorporationCountryForTasks',
   countryForTasks = 'countryForTasks',
@@ -83,7 +85,7 @@ export enum RELATION_DEFAULT {
   survey = 'survey',
   belongPackageAnnuals = 'belongPackageAnnuals',
   countryCard = 'countryCard',
-  taskUpgradeOrders = 'taskUpgradeOrders',
+  upgradeOrderTasks = 'upgradeOrderTasks',
   orderFrom = 'orderFrom',
   xeroInvoiceStatus = 'xeroInvoiceStatus',
   paymentGateway = 'paymentGateway',

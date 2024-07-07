@@ -58,11 +58,13 @@ export default createModel(MODEL_NAME.EMAIL_TEMPLATE, (EmailTemplateModel) => {
     attribute: ATTRIBUTE.nextEmailTemplateId,
     model: emailTemplate,
     relation: RELATION.nextEmailTemplate,
+    isNeedName: true,
     option: { optional: true },
   });
   const otherEmailTemplatesRelation = oneToMany({
     model: emailTemplate,
     relation: RELATION.otherEmailTemplates,
+    fromRelation: RELATION.nextEmailTemplate,
   });
   const processStepRelation = oneToOne({
     attribute: ATTRIBUTE.processStepId,

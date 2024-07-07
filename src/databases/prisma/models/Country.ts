@@ -35,6 +35,7 @@ import {
   task,
   visaVietnamArrival,
 } from '.';
+import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
   const initDeleted = deleted(
@@ -76,10 +77,12 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
   const billingsRelation = oneToMany({
     model: billing,
     relation: RELATION.billings,
+    fromRelation: RELATION_DEFAULT.country,
   });
   const phoneBillingsRelation = oneToMany({
     model: billing,
     relation: RELATION.phoneBillings,
+    fromRelation: RELATION_DEFAULT.phoneCountry,
   });
   const businessActivitiesRelation = oneToMany({
     model: businessActivity,
@@ -88,34 +91,42 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
   const businessCountryForCompaniesRelation = oneToMany({
     model: company,
     relation: RELATION.businessCountryForCompanies,
+    fromRelation: RELATION_DEFAULT.businessCountry,
   });
   const companiesRelation = oneToMany({
     model: company,
     relation: RELATION.companies,
+    fromRelation: RELATION_DEFAULT.country,
   });
   const operatingCountryForCompaniesRelation = oneToMany({
     model: company,
     relation: RELATION.operatingCountryForCompanies,
+    fromRelation: RELATION_DEFAULT.operatingCountry,
   });
   const birthCountryForCompanyMembersRelation = oneToMany({
     model: companyMember,
     relation: RELATION.birthCountryForCompanyMembers,
+    fromRelation: RELATION_DEFAULT.birthCountry,
   });
   const addressCountryForCompanyMembersRelation = oneToMany({
     model: companyMember,
     relation: RELATION.addressCountryForCompanyMembers,
+    fromRelation: RELATION_DEFAULT.addressCountry,
   });
   const countryForCompanyMembersRelation = oneToMany({
     model: companyMember,
     relation: RELATION.countryForCompanyMembers,
+    fromRelation: RELATION_DEFAULT.country,
   });
   const phoneCountryForCompanyMembersRelation = oneToMany({
     model: companyMember,
     relation: RELATION.phoneCountryForCompanyMembers,
+    fromRelation: RELATION_DEFAULT.phoneCountry,
   });
   const operatingCountryForCompanyMembersRelation = oneToMany({
     model: companyMember,
     relation: RELATION.operatingCountryForCompanyMembers,
+    fromRelation: RELATION_DEFAULT.operatingCountry,
   });
   const companyMemberReferencesRelation = oneToMany({
     model: companyMemberReference,
@@ -146,14 +157,17 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
   const phoneCountryForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.phoneCountryForCustomers,
+    fromRelation: RELATION_DEFAULT.phoneCountry,
   });
   const countryForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.countryForCustomers,
+    fromRelation: RELATION_DEFAULT.country,
   });
   const companyCountryForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.companyCountryForCustomers,
+    fromRelation: RELATION_DEFAULT.companyCountry,
   });
   const declarationTaxesRelation = oneToMany({
     model: declarationTax,
@@ -162,14 +176,17 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
   const holderCountryForFatcasRelation = oneToMany({
     model: fatca,
     relation: RELATION.holderCountryForFatcas,
+    fromRelation: RELATION_DEFAULT.holderCountry,
   });
   const mailingCountryForFatcasRelation = oneToMany({
     model: fatca,
     relation: RELATION.mailingCountryForFatcas,
+    fromRelation: RELATION_DEFAULT.mailingCountry,
   });
   const residentCountryForFatcasRelation = oneToMany({
     model: fatca,
     relation: RELATION.residentCountryForFatcas,
+    fromRelation: RELATION_DEFAULT.residentCountry,
   });
   const fileTemplateHasNationalitiesRelation = oneToMany({
     model: fileTemplateHasNationality,
@@ -186,18 +203,22 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
   const birthCountryForHistoryCompanyMembersRelation = oneToMany({
     model: historyCompanyMember,
     relation: RELATION.birthCountryForHistoryCompanyMembers,
+    fromRelation: RELATION_DEFAULT.birthCountry,
   });
   const addressCountryForHistoryCompanyMembersRelation = oneToMany({
     model: historyCompanyMember,
     relation: RELATION.addressCountryForHistoryCompanyMembers,
+    fromRelation: RELATION_DEFAULT.addressCountry,
   });
   const countryForHistoryCompanyMembersRelation = oneToMany({
     model: historyCompanyMember,
     relation: RELATION.countryForHistoryCompanyMembers,
+    fromRelation: RELATION_DEFAULT.country,
   });
   const phoneCountryForHistoryCompanyMembersRelation = oneToMany({
     model: historyCompanyMember,
     relation: RELATION.phoneCountryForHistoryCompanyMembers,
+    fromRelation: RELATION_DEFAULT.phoneCountry,
   });
   const holidaysRelation = oneToMany({
     model: holiday,
@@ -214,10 +235,12 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
   const phoneCountryForPersonsRelation = oneToMany({
     model: person,
     relation: RELATION.phoneCountryForPersons,
+    fromRelation: RELATION_DEFAULT.phoneCountry,
   });
   const countryForPersonsRelation = oneToMany({
     model: person,
     relation: RELATION.countryForPersons,
+    fromRelation: RELATION_DEFAULT.country,
   });
   const syslogsRelation = oneToMany({
     model: syslog,
@@ -226,14 +249,17 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
   const countryForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.countryForTasks,
+    fromRelation: RELATION_DEFAULT.country,
   });
   const incorporationCountryForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.incorporationCountryForTasks,
+    fromRelation: RELATION_DEFAULT.incorporationCountry,
   });
   const phoneCountryForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.phoneCountryForTasks,
+    fromRelation: RELATION_DEFAULT.phoneCountry,
   });
   const visaVietnamArrivalsRelation = oneToMany({
     model: visaVietnamArrival,

@@ -50,6 +50,7 @@ export enum RELATION {
   companyMemberType = RELATION_DEFAULT.companyMemberType,
   corporationCompanyMember = RELATION_DEFAULT.corporationCompanyMember,
   changeRequests = RELATION_DEFAULT.changeRequests,
+  toCompanyPositionForChangeRequests = RELATION_DEFAULT.toCompanyPositionForChangeRequests,
   companyInterests = RELATION_DEFAULT.companyInterests,
   companyOwnerships = RELATION_DEFAULT.companyOwnerships,
   companyShares = RELATION_DEFAULT.companyShares,

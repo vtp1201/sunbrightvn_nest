@@ -29,6 +29,7 @@ import {
   subscription,
   userHasNotification,
 } from '.';
+import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.USER, (UserModel) => {
   const initCreatedTime = createdTime({
@@ -62,46 +63,57 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
   const accountantLeaderForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.accountantLeaderForCustomers,
+    fromRelation: RELATION_DEFAULT.accountantLeader,
   });
   const accountantMemberForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.accountantMemberForCustomers,
+    fromRelation: RELATION_DEFAULT.accountantMember,
   });
   const complianceLeaderForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.complianceLeaderForCustomers,
+    fromRelation: RELATION_DEFAULT.complianceLeader,
   });
   const complianceMemberForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.complianceMemberForCustomers,
+    fromRelation: RELATION_DEFAULT.complianceMember,
   });
   const csLeaderForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.csLeaderForCustomers,
+    fromRelation: RELATION_DEFAULT.csLeader,
   });
   const csMemberForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.csMemberForCustomers,
+    fromRelation: RELATION_DEFAULT.csMember,
   });
   const internalBookeepingLeaderForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.internalBookeepingLeaderForCustomers,
+    fromRelation: RELATION_DEFAULT.internalBookeepingLeader,
   });
   const internalBookeepingMemberForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.internalBookeepingMemberForCustomers,
+    fromRelation: RELATION_DEFAULT.internalBookeepingMember,
   });
   const legalLeaderForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.legalLeaderForCustomers,
+    fromRelation: RELATION_DEFAULT.legalLeader,
   });
   const legalMemberForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.legalMemberForCustomers,
+    fromRelation: RELATION_DEFAULT.legalMember,
   });
   const testerLeaderForCustomersRelation = oneToMany({
     model: customer,
     relation: RELATION.testerLeaderForCustomers,
+    fromRelation: RELATION_DEFAULT.testerLeader,
   });
   const emailTemplateHasReceiversRelation = oneToMany({
     model: emailTemplateHasReceiver,
@@ -142,46 +154,57 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
   const accountantLeaderForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.accountantLeaderForTasks,
+    fromRelation: RELATION_DEFAULT.accountantLeader,
   });
   const accountantMemberForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.accountantMemberForTasks,
+    fromRelation: RELATION_DEFAULT.accountantMember,
   });
   const complianceLeaderForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.complianceLeaderForTasks,
+    fromRelation: RELATION_DEFAULT.complianceLeader,
   });
   const complianceMemberForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.complianceMemberForTasks,
+    fromRelation: RELATION_DEFAULT.complianceMember,
   });
   const csLeaderForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.csLeaderForTasks,
+    fromRelation: RELATION_DEFAULT.csLeader,
   });
   const csMemberForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.csMemberForTasks,
+    fromRelation: RELATION_DEFAULT.csMember,
   });
   const internalBookeepingLeaderForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.internalBookeepingLeaderForTasks,
+    fromRelation: RELATION_DEFAULT.internalBookeepingLeader,
   });
   const internalBookeepingMemberForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.internalBookeepingMemberForTasks,
+    fromRelation: RELATION_DEFAULT.internalBookeepingMember,
   });
   const legalLeaderForTasksRelation = oneToMany({
-    model: customer,
+    model: task,
     relation: RELATION.legalLeaderForTasks,
+    fromRelation: RELATION_DEFAULT.legalLeader,
   });
   const legalMemberForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.legalMemberForTasks,
+    fromRelation: RELATION_DEFAULT.legalMember,
   });
   const testerLeaderForTasksRelation = oneToMany({
     model: task,
     relation: RELATION.testerLeaderForTasks,
+    fromRelation: RELATION_DEFAULT.testerLeader,
   });
   const tokensRelation = oneToMany({
     model: token,

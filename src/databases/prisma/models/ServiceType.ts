@@ -60,11 +60,13 @@ export default createModel(MODEL_NAME.SERVICE_TYPE, (ServiceTypeModel) => {
     attribute: ATTRIBUTE.parentId,
     model: serviceType,
     relation: RELATION.parent,
+    isNeedName: true,
     option: { optional: true },
   });
   const childrenRelation = oneToMany({
     model: serviceType,
     relation: RELATION.children,
+    fromRelation: RELATION.parent,
   });
   const serviceTypeHasDepartmentsRelation = oneToMany({
     model: serviceTypeHasDepartment,

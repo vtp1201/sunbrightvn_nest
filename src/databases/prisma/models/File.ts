@@ -69,6 +69,7 @@ export default createModel(MODEL_NAME.FILE, (FileModel) => {
     attribute: ATTRIBUTE.companyMemberId,
     model: companyMember,
     relation: RELATION.companyMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const fileTemplateRelation = oneToOne({
@@ -87,6 +88,7 @@ export default createModel(MODEL_NAME.FILE, (FileModel) => {
     attribute: ATTRIBUTE.filledByCompanyMemberId,
     model: companyMember,
     relation: RELATION.filledByCompanyMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const messageRelation = oneToOne({

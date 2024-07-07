@@ -121,36 +121,42 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
     attribute: ATTRIBUTE.accountantLeaderId,
     model: user,
     relation: RELATION.accountantLeader,
+    isNeedName: true,
     option: { optional: true },
   });
   const accountantMemberRelation = oneToOne({
     attribute: ATTRIBUTE.accountantMemberId,
     model: user,
     relation: RELATION.accountantMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const appointedDirectorRelation = oneToOne({
     attribute: ATTRIBUTE.appointedDirectorCompanyMemberId,
     model: companyMember,
     relation: RELATION.appointedDirector,
+    isNeedName: true,
     option: { optional: true },
   });
   const appointedPresidentRelation = oneToOne({
     attribute: ATTRIBUTE.appointedPresidentCompanyMemberId,
     model: companyMember,
     relation: RELATION.appointedPresident,
+    isNeedName: true,
     option: { optional: true },
   });
   const appointedShareholderRelation = oneToOne({
     attribute: ATTRIBUTE.appointedShareholderCompanyMemberId,
     model: companyMember,
     relation: RELATION.appointedShareholder,
+    isNeedName: true,
     option: { optional: true },
   });
   const appointedUboRelation = oneToOne({
     attribute: ATTRIBUTE.appointedUboCompanyMemberId,
     model: companyMember,
     relation: RELATION.appointedUbo,
+    isNeedName: true,
     option: { optional: true },
   });
   const companyRelation = oneToOne({
@@ -163,6 +169,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
     attribute: ATTRIBUTE.complianceLeaderId,
     model: user,
     relation: RELATION.complianceLeader,
+    isNeedName: true,
     option: { optional: true },
   });
   const complianceMemberRelation = oneToOne({
@@ -175,18 +182,21 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    isNeedName: true,
     option: { optional: true },
   });
   const csLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.csLeaderId,
     model: user,
     relation: RELATION.csLeader,
+    isNeedName: true,
     option: { optional: true },
   });
   const csMemberRelation = oneToOne({
     attribute: ATTRIBUTE.csMemberId,
     model: user,
     relation: RELATION.csMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const customerRelation = oneToOne({
@@ -205,54 +215,63 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
     attribute: ATTRIBUTE.incorporationCountryId,
     model: country,
     relation: RELATION.incorporationCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const internalBookeepingLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.internalBookeepingLeaderId,
     model: user,
     relation: RELATION.internalBookeepingLeader,
+    isNeedName: true,
     option: { optional: true },
   });
   const internalBookeepingMemberRelation = oneToOne({
     attribute: ATTRIBUTE.internalBookeepingMemberId,
     model: user,
     relation: RELATION.internalBookeepingMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const legalLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.legalLeaderId,
     model: user,
     relation: RELATION.legalLeader,
+    isNeedName: true,
     option: { optional: true },
   });
   const legalMemberRelation = oneToOne({
     attribute: ATTRIBUTE.legalMemberId,
     model: user,
     relation: RELATION.legalMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const orderRelation = oneToOne({
     attribute: ATTRIBUTE.orderId,
     model: order,
     relation: RELATION.order,
+    isNeedName: true,
     option: { optional: true },
   });
   const phoneCountryRelation = oneToOne({
     attribute: ATTRIBUTE.phoneCountryId,
     relation: RELATION.phoneCountry,
     model: country,
+    isNeedName: true,
     option: { optional: true },
   });
   const upgradeOrderRelation = oneToOne({
     attribute: ATTRIBUTE.upgradeOrderId,
-    relation: RELATION.upgradeOrder,
     model: order,
+    relation: RELATION.upgradeOrder,
+    isNeedName: true,
     option: { optional: true },
   });
   const testerLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.testerLeaderId,
     model: user,
     relation: RELATION.testerLeader,
+    isNeedName: true,
     option: { optional: true },
   });
   const taskHasAgentsRelation = oneToMany({

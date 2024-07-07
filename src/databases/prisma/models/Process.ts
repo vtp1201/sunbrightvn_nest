@@ -90,14 +90,6 @@ export default createModel(MODEL_NAME.PROCESS, (ProcessModel) => {
     model: note,
     relation: RELATION.notes,
   });
-  const parentsRelation = oneToMany({
-    model: Process,
-    relation: RELATION.parents,
-  });
-  const childrenRelation = oneToMany({
-    model: Process,
-    relation: RELATION.children,
-  });
   const processLogsRelation = oneToMany({
     model: processLog,
     relation: RELATION.processLogs,
@@ -199,8 +191,6 @@ export default createModel(MODEL_NAME.PROCESS, (ProcessModel) => {
       .mixin(taskRelation)
       .mixin(userRelation)
       .mixin(notesRelation)
-      .mixin(parentsRelation)
-      .mixin(childrenRelation)
       .mixin(processLogsRelation)
 
       // indexes

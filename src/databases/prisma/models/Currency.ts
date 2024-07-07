@@ -50,7 +50,7 @@ export default createModel(MODEL_NAME.CURRENCY, (CurrencyModel) => {
         raw: RAW_STRING.LENGTH_45,
         optional: true,
       })
-      .int(ATTRIBUTE.exchangeRate, {
+      .float(ATTRIBUTE.exchangeRate, {
         map: COLUMN.exchangeRate,
         raw: RAW_NUMBER.FLOAT,
         optional: true,

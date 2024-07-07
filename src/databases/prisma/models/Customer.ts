@@ -83,42 +83,49 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.accountantLeaderId,
     model: user,
     relation: RELATION.accountantLeader,
+    isNeedName: true,
     option: { optional: true },
   });
   const accountantMemberRelation = oneToOne({
     attribute: ATTRIBUTE.accountantMemberId,
     model: user,
     relation: RELATION.accountantMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const complianceLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.complianceLeaderId,
     model: user,
     relation: RELATION.complianceLeader,
+    isNeedName: true,
     option: { optional: true },
   });
   const complianceMemberRelation = oneToOne({
     attribute: ATTRIBUTE.complianceMemberId,
     model: user,
     relation: RELATION.complianceMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const csLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.csLeaderId,
     model: user,
     relation: RELATION.csLeader,
+    isNeedName: true,
     option: { optional: true },
   });
   const csMemberRelation = oneToOne({
     attribute: ATTRIBUTE.csMemberId,
     model: user,
     relation: RELATION.csMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    isNeedName: true,
     option: { optional: true },
   });
   const personRelation = oneToOne({
@@ -161,6 +168,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.companyCountryId,
     model: country,
     relation: RELATION.companyCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const titleNameRelation = oneToOne({
@@ -173,30 +181,35 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.internalBookeepingLeaderId,
     model: user,
     relation: RELATION.internalBookeepingLeader,
+    isNeedName: true,
     option: { optional: true },
   });
   const internalBookeepingMemberRelation = oneToOne({
     attribute: ATTRIBUTE.internalBookeepingMemberId,
     model: user,
     relation: RELATION.internalBookeepingMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const legalLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.legalLeaderId,
     model: user,
     relation: RELATION.legalLeader,
+    isNeedName: true,
     option: { optional: true },
   });
   const legalMemberRelation = oneToOne({
     attribute: ATTRIBUTE.legalMemberId,
     model: user,
     relation: RELATION.legalMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const phoneCountryRelation = oneToOne({
     attribute: ATTRIBUTE.phoneCountryId,
     model: country,
     relation: RELATION.phoneCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const websiteRelation = oneToOne({
@@ -233,6 +246,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.orderId,
     model: order,
     relation: RELATION.order,
+    isNeedName: true,
     option: { optional: true },
   });
   const packageRelation = oneToOne({
@@ -245,6 +259,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.testerLeaderId,
     model: user,
     relation: RELATION.testerLeader,
+    isNeedName: true,
     option: { optional: true },
   });
   const visaPurposeRelation = oneToOne({

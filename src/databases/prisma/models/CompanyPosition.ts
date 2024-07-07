@@ -23,6 +23,7 @@ import {
   companyOwnership,
   companyShare,
 } from '.';
+import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(
   MODEL_NAME.COMPANY_POSITION,
@@ -56,16 +57,24 @@ export default createModel(
       attribute: ATTRIBUTE.companyMemberId,
       model: companyMember,
       relation: RELATION.companyMember,
+      isNeedName: true,
     });
     const corporationCompanyMemberRelation = oneToOne({
       attribute: ATTRIBUTE.corporationCompanyMemberId,
       model: companyMember,
       relation: RELATION.corporationCompanyMember,
+      isNeedName: true,
       option: { optional: true },
     });
     const changeRequestsRelation = oneToMany({
       model: changeRequest,
       relation: RELATION.changeRequests,
+      fromRelation: RELATION_DEFAULT.companyPosition,
+    });
+    const toCompanyPositionForChangeRequestsRelation = oneToMany({
+      model: changeRequest,
+      relation: RELATION.toCompanyPositionForChangeRequests,
+      fromRelation: RELATION_DEFAULT.toCompanyPosition,
     });
     const companyInterestsRelation = oneToMany({
       model: companyInterest,
@@ -159,6 +168,7 @@ export default createModel(
         .mixin(companyMemberRelation)
         .mixin(corporationCompanyMemberRelation)
         .mixin(changeRequestsRelation)
+        .mixin(toCompanyPositionForChangeRequestsRelation)
         .mixin(companyInterestsRelation)
         .mixin(companyOwnershipsRelation)
         .mixin(companySharesRelation)

@@ -42,12 +42,14 @@ export default createModel(
       attribute: ATTRIBUTE.agencyId,
       model: grantTypeAttribute,
       relation: RELATION.grantTypeAttributeAgency,
+      isNeedName: true,
       option: { optional: true },
     });
     const grantTypeAttributeBusinessSizeRelation = oneToOne({
       attribute: ATTRIBUTE.businessSizeId,
       model: grantTypeAttribute,
       relation: RELATION.grantTypeAttributeBusinessSize,
+      isNeedName: true,
       option: { optional: true },
     });
 
@@ -55,42 +57,49 @@ export default createModel(
       attribute: ATTRIBUTE.businessStageId,
       model: grantTypeAttribute,
       relation: RELATION.grantTypeAttributeBusinessStage,
+      isNeedName: true,
       option: { optional: true },
     });
     const grantTypeAttributeIndustryRelation = oneToOne({
       attribute: ATTRIBUTE.industryId,
       model: grantTypeAttribute,
       relation: RELATION.grantTypeAttributeIndustry,
+      isNeedName: true,
       option: { optional: true },
     });
     const grantTypeAttributeLocalShareholdingRelation = oneToOne({
       attribute: ATTRIBUTE.localShareholdingId,
       model: grantTypeAttribute,
       relation: RELATION.grantTypeAttributeLocalShareholding,
+      isNeedName: true,
       option: { optional: true },
     });
     const grantTypeAttributeNeedsBasedRelation = oneToOne({
       attribute: ATTRIBUTE.needsBasedId,
       model: grantTypeAttribute,
       relation: RELATION.grantTypeAttributeNeedsBased,
+      isNeedName: true,
       option: { optional: true },
     });
     const grantTypeAttributeNumberEmployeesRelation = oneToOne({
       attribute: ATTRIBUTE.numberEmployeesId,
       model: grantTypeAttribute,
       relation: RELATION.grantTypeAttributeNumberEmployees,
+      isNeedName: true,
       option: { optional: true },
     });
     const grantTypeAttributeTypeRelation = oneToOne({
       attribute: ATTRIBUTE.typeId,
       model: grantTypeAttribute,
       relation: RELATION.grantTypeAttributeType,
+      isNeedName: true,
       option: { optional: true },
     });
     const grantTypeAttributeYearsOperationRelation = oneToOne({
       attribute: ATTRIBUTE.yearsOperationId,
       model: grantTypeAttribute,
       relation: RELATION.grantTypeAttributeYearsOperation,
+      isNeedName: true,
       option: { optional: true },
     });
 

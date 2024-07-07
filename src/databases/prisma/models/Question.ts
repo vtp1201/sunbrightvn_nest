@@ -67,11 +67,13 @@ export default createModel(MODEL_NAME.QUESTION, (QuestionModel) => {
     attribute: ATTRIBUTE.questionParentId,
     model: question,
     relation: RELATION.questionParent,
+    isNeedName: true,
     option: { optional: true },
   });
   const children = oneToMany({
     model: question,
     relation: RELATION.children,
+    fromRelation: RELATION.questionParent,
   });
   const questionGroups = oneToMany({
     model: questionGroup,

@@ -2,6 +2,7 @@ import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_DATE_TIME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyMember';
+import { RELATION_DEFAULT } from '../utils/enums/default';
 import {
   createdTime,
   deleted,
@@ -74,24 +75,28 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    isNeedName: true,
     option: { optional: true },
   });
   const phoneCountryRelation = oneToOne({
     attribute: ATTRIBUTE.phoneCountryId,
     model: country,
     relation: RELATION.phoneCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const birthCountryRelation = oneToOne({
     attribute: ATTRIBUTE.birthCountryId,
     model: country,
     relation: RELATION.birthCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const addressCountryRelation = oneToOne({
     attribute: ATTRIBUTE.addressCountryId,
     model: country,
     relation: RELATION.addressCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const answersRelation = oneToMany({
@@ -101,14 +106,22 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
   const changeRequestsRelation = oneToMany({
     model: changeRequest,
     relation: RELATION.changeRequests,
+    fromRelation: RELATION_DEFAULT.companyMember,
+  });
+  const toCompanyMemberForChangeRequestsRelation = oneToMany({
+    model: changeRequest,
+    relation: RELATION.toCompanyMemberForChangeRequests,
+    fromRelation: RELATION_DEFAULT.toCompanyMember,
   });
   const companyInterestsRelation = oneToMany({
     model: companyInterest,
     relation: RELATION.companyInterests,
+    fromRelation: RELATION_DEFAULT.companyMember,
   });
   const companyCorporationInterestsRelation = oneToMany({
     model: companyInterest,
     relation: RELATION.companyCorporationInterests,
+    fromRelation: RELATION_DEFAULT.corporationCompanyMember,
   });
   const businessActivitiesRelation = oneToMany({
     model: businessActivity,
@@ -125,26 +138,32 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
   const companyOwnershipsRelation = oneToMany({
     model: companyOwnership,
     relation: RELATION.companyOwnerships,
+    fromRelation: RELATION_DEFAULT.companyMember,
   });
   const companyCorporationOwnershipsRelation = oneToMany({
     model: companyOwnership,
     relation: RELATION.companyCorporationOwnerships,
+    fromRelation: RELATION_DEFAULT.corporationCompanyMember,
   });
   const companyPositionsRelation = oneToMany({
     model: companyPosition,
     relation: RELATION.companyPositions,
+    fromRelation: RELATION_DEFAULT.companyMember,
   });
   const companyCorporationPositionsRelation = oneToMany({
     model: companyPosition,
     relation: RELATION.companyCorporationPositions,
+    fromRelation: RELATION_DEFAULT.corporationCompanyMember,
   });
   const companySharesRelation = oneToMany({
     model: companyShare,
     relation: RELATION.companyShares,
+    fromRelation: RELATION_DEFAULT.companyMember,
   });
   const companyCorporationSharesRelation = oneToMany({
     model: companyShare,
     relation: RELATION.companyCorporationShares,
+    fromRelation: RELATION_DEFAULT.corporationCompanyMember,
   });
   const emailsRelation = oneToMany({
     model: email,
@@ -157,10 +176,12 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
   const filesRelation = oneToMany({
     model: file,
     relation: RELATION.files,
+    fromRelation: RELATION_DEFAULT.companyMember,
   });
   const filesFilledRelation = oneToMany({
     model: file,
     relation: RELATION.filesFilled,
+    fromRelation: RELATION_DEFAULT.filledByCompanyMember,
   });
   const notesRelation = oneToMany({
     model: note,
@@ -173,34 +194,42 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
   const processLogsRelation = oneToMany({
     model: processLog,
     relation: RELATION.processLogs,
+    fromRelation: RELATION_DEFAULT.companyMember,
   });
   const processLogsBelongToCompanyMemberRelation = oneToMany({
     model: processLog,
     relation: RELATION.processLogsBelongToCompanyMember,
+    fromRelation: RELATION_DEFAULT.belongToCompanyMember,
   });
   const tasksAppointedDirectorRelation = oneToMany({
     model: task,
     relation: RELATION.tasksAppointedDirector,
+    fromRelation: RELATION_DEFAULT.appointedDirector,
   });
   const tasksAppointedPresidentRelation = oneToMany({
     model: task,
     relation: RELATION.tasksAppointedPresident,
+    fromRelation: RELATION_DEFAULT.appointedPresident,
   });
   const tasksAppointedShareholderRelation = oneToMany({
     model: task,
     relation: RELATION.tasksAppointedShareholder,
+    fromRelation: RELATION_DEFAULT.appointedShareholder,
   });
   const tasksAppointedUboRelation = oneToMany({
     model: task,
     relation: RELATION.tasksAppointedUbo,
+    fromRelation: RELATION_DEFAULT.appointedUbo,
   });
   const tokensRelation = oneToMany({
     model: token,
     relation: RELATION.tokens,
+    fromRelation: RELATION_DEFAULT.companyMember,
   });
   const tokensToCompanyMemberRelation = oneToMany({
     model: token,
     relation: RELATION.tokensToCompanyMember,
+    fromRelation: RELATION_DEFAULT.belongToCompanyMember,
   });
 
   // defined Model
@@ -431,6 +460,7 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
       .mixin(addressCountryRelation)
       .mixin(answersRelation)
       .mixin(changeRequestsRelation)
+      .mixin(toCompanyMemberForChangeRequestsRelation)
       .mixin(companyInterestsRelation)
       .mixin(companyCorporationInterestsRelation)
       .mixin(businessActivitiesRelation)

@@ -48,24 +48,28 @@ export default createModel(MODEL_NAME.CHANGE_REQUEST, (ChangeRequestModel) => {
     attribute: ATTRIBUTE.companyMemberId,
     model: companyMember,
     relation: RELATION.companyMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const companyPositionRelation = oneToOne({
     attribute: ATTRIBUTE.companyPositionId,
     model: companyPosition,
     relation: RELATION.companyPosition,
+    isNeedName: true,
     option: { optional: true },
   });
   const toCompanyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.toCompanyMemberId,
     model: companyMember,
     relation: RELATION.toCompanyMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const toCompanyPositionRelation = oneToOne({
     attribute: ATTRIBUTE.toCompanyPositionId,
     model: companyPosition,
     relation: RELATION.toCompanyPosition,
+    isNeedName: true,
     option: { optional: true },
   });
   const changeRequestStatusRelation = oneToOne({

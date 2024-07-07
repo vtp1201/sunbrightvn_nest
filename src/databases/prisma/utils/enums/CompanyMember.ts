@@ -107,6 +107,7 @@ export enum COLUMN {
 export enum RELATION {
   answers = RELATION_DEFAULT.answers,
   changeRequests = RELATION_DEFAULT.changeRequests,
+  toCompanyMemberForChangeRequests = RELATION_DEFAULT.toCompanyMemberForChangeRequests,
   companyInterests = RELATION_DEFAULT.companyInterests,
   companyCorporationInterests = RELATION_DEFAULT.companyCorporationInterests,
   company = RELATION_DEFAULT.company,

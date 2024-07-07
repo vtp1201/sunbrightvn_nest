@@ -31,11 +31,13 @@ export default createModel(
       attribute: ATTRIBUTE.processStepId,
       model: processStep,
       relation: RELATION.processStepParent,
+      isNeedName: true,
     });
     const processStepChildrenRelation = oneToOne({
       attribute: ATTRIBUTE.nextProcessStepId,
       model: processStep,
       relation: RELATION.processStepChildren,
+      isNeedName: true,
     });
     const countryRelation = oneToOne({
       attribute: ATTRIBUTE.countryId,

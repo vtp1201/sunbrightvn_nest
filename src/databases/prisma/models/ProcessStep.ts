@@ -15,6 +15,7 @@ import {
   processStepHasRole,
   processStepType,
 } from '.';
+import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
   const initDeleted = deleted(
@@ -32,10 +33,12 @@ export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
   const nextActionProcessStepsRelation = oneToMany({
     model: actionProcessStep,
     relation: RELATION.nextActionProcessSteps,
+    fromRelation: RELATION_DEFAULT.processStepChildren,
   });
   const actionProcessStepsRelation = oneToMany({
     model: actionProcessStep,
     relation: RELATION.actionProcessSteps,
+    fromRelation: RELATION_DEFAULT.processStepParent,
   });
   const emailTemplatesRelation = oneToMany({
     model: emailTemplate,
@@ -66,10 +69,13 @@ export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
     attribute: ATTRIBUTE.parentId,
     model: processStep,
     relation: RELATION.parent,
+    isNeedName: true,
+    option: { optional: true },
   });
   const childrenRelation = oneToMany({
     model: processStep,
     relation: RELATION.children,
+    fromRelation: RELATION.parent,
   });
   const processStepHasFileTemplatesRelation = oneToMany({
     model: processStepHasFileTemplate,

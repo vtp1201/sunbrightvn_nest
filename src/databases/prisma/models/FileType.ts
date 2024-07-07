@@ -40,11 +40,13 @@ export default createModel(MODEL_NAME.FILE_TYPE, (FileTypeModel) => {
     attribute: ATTRIBUTE.parentId,
     model: fileType,
     relation: RELATION.parent,
+    isNeedName: true,
     option: { optional: true },
   });
   const childrenRelation = oneToMany({
     model: fileType,
     relation: RELATION.children,
+    fromRelation: RELATION.parent,
   });
 
   // defined Model

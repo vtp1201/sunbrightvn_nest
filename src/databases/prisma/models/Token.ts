@@ -26,12 +26,14 @@ export default createModel(MODEL_NAME.TOKEN, (TokenModel) => {
     attribute: ATTRIBUTE.companyMemberId,
     model: companyMember,
     relation: RELATION.companyMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const belongToCompanyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.belongToCompanyMemberId,
     model: companyMember,
     relation: RELATION.belongToCompanyMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const fileTemplateRelation = oneToOne({

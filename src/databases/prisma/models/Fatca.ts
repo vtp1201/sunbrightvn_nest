@@ -38,18 +38,21 @@ export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
     attribute: ATTRIBUTE.holderCountryId,
     model: country,
     relation: RELATION.holderCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const mailingCountryRelation = oneToOne({
     attribute: ATTRIBUTE.mailingCountryId,
     model: country,
     relation: RELATION.mailingCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const residentCountryRelation = oneToOne({
     attribute: ATTRIBUTE.residentCountryId,
     model: country,
     relation: RELATION.residentCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const taskRelation = oneToOne({

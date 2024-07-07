@@ -50,6 +50,7 @@ export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    isNeedName: true,
     option: { optional: true },
   });
   const customerRelation = oneToOne({
@@ -62,6 +63,7 @@ export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
     attribute: ATTRIBUTE.phoneCountryId,
     model: country,
     relation: RELATION.phoneCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const userRelation = oneToOne({

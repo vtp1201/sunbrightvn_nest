@@ -56,11 +56,13 @@ export default createModel(MODEL_NAME.ROLE, (RoleModel) => {
     attribute: ATTRIBUTE.parentId,
     model: role,
     relation: RELATION.parent,
+    isNeedName: true,
     option: { optional: true },
   });
   const childrenRelation = oneToMany({
     model: role,
     relation: RELATION.children,
+    fromRelation: RELATION.parent,
   });
   const limitsRelation = oneToMany({
     model: limit,

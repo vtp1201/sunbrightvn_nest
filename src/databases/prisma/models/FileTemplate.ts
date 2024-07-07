@@ -59,21 +59,25 @@ export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
     attribute: ATTRIBUTE.collectSameId,
     model: fileTemplate,
     relation: RELATION.collectSameFileTemplate,
+    isNeedName: true,
     option: { optional: true },
   });
   const collectSameFileTemplatesRelation = oneToMany({
     model: fileTemplate,
     relation: RELATION.collectSameFileTemplates,
+    fromRelation: RELATION.collectSameFileTemplate,
   });
   const parentRelation = oneToOne({
     attribute: ATTRIBUTE.collectSameId,
     model: fileTemplate,
     relation: RELATION.parent,
+    isNeedName: true,
     option: { optional: true },
   });
   const childrenRelation = oneToMany({
     model: fileTemplate,
     relation: RELATION.children,
+    fromRelation: RELATION.parent,
   });
   const fileTemplateHasCompanyMemberTypesRelation = oneToMany({
     model: fileTemplateHasCompanyMemberType,
@@ -185,6 +189,7 @@ export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
       .mixin(childrenRelation)
       .mixin(fileTemplateHasCompanyMemberTypesRelation)
       .mixin(fileTemplateHasNationalitiesRelation)
+      .mixin(fileTemplateTypeRelation)
       .mixin(rankingPartnerTypesRelation)
       .mixin(processLogsRelation)
       .mixin(processStepHasFileTemplatesRelation)

@@ -37,11 +37,13 @@ export default createModel(
       attribute: ATTRIBUTE.companyMemberId,
       model: companyMember,
       relation: RELATION.companyMember,
+      isNeedName: true,
     });
     const corporationCompanyMemberRelation = oneToOne({
       attribute: ATTRIBUTE.corporationCompanyMemberId,
       model: companyMember,
       relation: RELATION.corporationCompanyMember,
+      isNeedName: true,
       option: { optional: true },
     });
     const companyPositionRelation = oneToOne({

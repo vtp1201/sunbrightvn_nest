@@ -76,11 +76,13 @@ export default createModel(MODEL_NAME.SERVICE, (ServiceModel) => {
     attribute: ATTRIBUTE.discountServiceId,
     model: service,
     relation: RELATION.discountService,
+    isNeedName: true,
     option: { optional: true },
   });
   const discountForServicesRelation = oneToMany({
     model: service,
     relation: RELATION.discountForServices,
+    fromRelation: RELATION.discountService,
   });
   const airportRelation = oneToOne({
     attribute: ATTRIBUTE.airportId,
@@ -133,11 +135,13 @@ export default createModel(MODEL_NAME.SERVICE, (ServiceModel) => {
     attribute: ATTRIBUTE.upgradeServiceId,
     model: service,
     relation: RELATION.upgradeService,
+    isNeedName: true,
     option: { optional: true },
   });
   const upgradeForServicesRelation = oneToMany({
     model: service,
     relation: RELATION.upgradeForServices,
+    fromRelation: RELATION.upgradeService,
   });
   const xeroAccountRelation = oneToOne({
     attribute: ATTRIBUTE.xeroAccountId,

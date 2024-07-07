@@ -84,12 +84,14 @@ export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
     attribute: ATTRIBUTE.businessCountryId,
     model: country,
     relation: RELATION.businessCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    isNeedName: true,
     option: { optional: true },
   });
   const entityTypeRelation = oneToOne({
@@ -102,6 +104,7 @@ export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
     attribute: ATTRIBUTE.operatingCountryId,
     model: country,
     relation: RELATION.operatingCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const companyEventsRelation = oneToMany({

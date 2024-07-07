@@ -55,11 +55,13 @@ export default createModel(MODEL_NAME.PACKAGE, (PackageModel) => {
     attribute: ATTRIBUTE.packageAnnualId,
     model: Package,
     relation: RELATION.packageAnnual,
+    isNeedName: true,
     option: { optional: true },
   });
   const belongPackageAnnualsRelation = oneToMany({
     model: Package,
     relation: RELATION.belongPackageAnnuals,
+    fromRelation: RELATION.packageAnnual,
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,

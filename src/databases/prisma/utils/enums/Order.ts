@@ -88,7 +88,7 @@ export enum RELATION {
   paymentsInformation = RELATION_DEFAULT.paymentsInformation,
   supportCases = RELATION_DEFAULT.supportCases,
   tasks = RELATION_DEFAULT.tasks,
-  taskUpgradeOrders = RELATION_DEFAULT.taskUpgradeOrders,
+  upgradeOrderTasks = RELATION_DEFAULT.upgradeOrderTasks,
   visaOrders = RELATION_DEFAULT.visaOrders,
   vouchers = RELATION_DEFAULT.vouchers,
 }

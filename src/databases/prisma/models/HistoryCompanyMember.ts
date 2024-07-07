@@ -49,24 +49,28 @@ export default createModel(
       attribute: ATTRIBUTE.countryId,
       model: country,
       relation: RELATION.country,
+      isNeedName: true,
       option: { optional: true },
     });
     const phoneCountryRelation = oneToOne({
       attribute: ATTRIBUTE.phoneCountryId,
       model: country,
       relation: RELATION.phoneCountry,
+      isNeedName: true,
       option: { optional: true },
     });
     const birthCountryRelation = oneToOne({
       attribute: ATTRIBUTE.birthCountryId,
       model: country,
       relation: RELATION.birthCountry,
+      isNeedName: true,
       option: { optional: true },
     });
     const addressCountryRelation = oneToOne({
       attribute: ATTRIBUTE.addressCountryId,
       model: country,
       relation: RELATION.addressCountry,
+      isNeedName: true,
       option: { optional: true },
     });
 

@@ -29,6 +29,7 @@ import {
   website,
   xeroInvoiceStatus,
 } from '.';
+import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.ORDER, (OrderModel) => {
   const initCreatedTime = createdTime({
@@ -79,6 +80,7 @@ export default createModel(MODEL_NAME.ORDER, (OrderModel) => {
     attribute: ATTRIBUTE.customerId,
     model: customer,
     relation: RELATION.customer,
+    isNeedName: true,
     option: { optional: true },
   });
   const orderStatusRelation = oneToOne({
@@ -135,10 +137,12 @@ export default createModel(MODEL_NAME.ORDER, (OrderModel) => {
   const tasksRelation = oneToMany({
     model: task,
     relation: RELATION.tasks,
+    fromRelation: RELATION_DEFAULT.order,
   });
   const taskUpgradeOrdersRelation = oneToMany({
     model: task,
-    relation: RELATION.taskUpgradeOrders,
+    relation: RELATION.upgradeOrderTasks,
+    fromRelation: RELATION_DEFAULT.upgradeOrder,
   });
   const visaOrdersRelation = oneToMany({
     model: visaOrder,

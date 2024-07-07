@@ -40,6 +40,7 @@ export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    isNeedName: true,
     option: { optional: true },
   });
   const genderRelation = oneToOne({
@@ -52,6 +53,7 @@ export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
     attribute: ATTRIBUTE.phoneCountryId,
     model: country,
     relation: RELATION.phoneCountry,
+    isNeedName: true,
     option: { optional: true },
   });
   const titleNameRelation = oneToOne({
