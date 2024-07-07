@@ -1,22 +1,25 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyHasBusinessActivity';
+import {
+  ATTRIBUTE,
+  COLUMN,
+} from '../utils/enums/CompanyMemberHasBusinessActivity';
 
 export default createModel(
-  MODEL_NAME.COMPANY_HAS_BUSINESS_ACTIVITY,
-  (CompanyHasBusinessActivityModel) => {
-    CompanyHasBusinessActivityModel.int(ATTRIBUTE.companyId, {
-      map: COLUMN.companyId,
+  MODEL_NAME.COMPANY_MEMBER_HAS_BUSINESS_ACTIVITY,
+  (CompanyMemberHasBusinessActivityModel) => {
+    CompanyMemberHasBusinessActivityModel.int(ATTRIBUTE.companyMemberId, {
+      map: COLUMN.companyMemberId,
     })
       .int(ATTRIBUTE.businessActivityId, {
         map: COLUMN.businessActivityId,
       })
       .id({
-        fields: [ATTRIBUTE.companyId, ATTRIBUTE.businessActivityId],
+        fields: [ATTRIBUTE.companyMemberId, ATTRIBUTE.businessActivityId],
       })
 
       // table name
-      .map(TABLE_NAME.COMPANY_HAS_BUSINESS_ACTIVITY);
+      .map(TABLE_NAME.COMPANY_MEMBER_HAS_BUSINESS_ACTIVITY);
   },
 );

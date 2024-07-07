@@ -7,6 +7,7 @@ import {
   INDEX,
   RELATION,
 } from '../utils/enums/MailchimpCampaignMember';
+import { ATTRIBUTE as ATTRIBUTE_MAILCHIMP_MEMBER } from '../utils/enums/MailchimpMember';
 import { createdTime, oneToOne } from '../mixins';
 import { mailchimpCampaign, mailchimpMember } from '.';
 
@@ -23,6 +24,9 @@ export default createModel(
       attribute: ATTRIBUTE.mailchimpMemberEmailId,
       model: mailchimpMember,
       relation: RELATION.mailchimpMember,
+      option: {
+        references: [ATTRIBUTE_MAILCHIMP_MEMBER.emailId],
+      },
     });
     const mailchimpCampaignRelation = oneToOne({
       attribute: ATTRIBUTE.mailchimpCampaignId,

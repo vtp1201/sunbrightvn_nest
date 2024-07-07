@@ -34,6 +34,7 @@ export default createModel(
       attribute: ATTRIBUTE.entityTypeId,
       model: entityType,
       relation: RELATION.entityType,
+      option: { optional: true },
     });
 
     process.nextTick(() => {

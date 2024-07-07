@@ -6,8 +6,9 @@ export default ({ attribute, relation, model, option = {} }: ONE_ONE_MIXIN) => {
   return createMixin((oneToOneMixin) => {
     oneToOneMixin.relation(relation, model, {
       ...option,
+      name: relation,
       fields: [attribute],
-      references: [ATTRIBUTE_DEFAULT.id],
+      references: option?.references ?? [ATTRIBUTE_DEFAULT.id],
     });
   });
 };
