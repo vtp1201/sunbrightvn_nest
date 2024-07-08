@@ -1,16 +1,19 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/SupportCaseHasOrder';
-// import { updatedTime } from '../mixins';
+import { manyToMany } from '../mixins';
 
 export default createModel(
   MODEL_NAME.SUPPORT_CASE_HAS_ORDER,
   (SupportCaseHasOrderModel) => {
-    // const initUpdatedTime = updatedTime({
-    //   attribute: ATTRIBUTE.updatedTime,
-    //   column: COLUMN.updatedTime,
-    // });
+    // relations
+    const supportCaseHasOrder = manyToMany({
+      attributeA: ATTRIBUTE.supportCaseId,
+      attributeB: ATTRIBUTE.orderId,
+      modelNameA: MODEL_NAME.SUPPORT_CASE,
+      modelNameB: MODEL_NAME.ORDER,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -21,16 +24,7 @@ export default createModel(
           map: COLUMN.orderId,
         })
 
-        // dateTime marks
-        // .mixin(initUpdatedTime)
-
-        // ids
-        .id({
-          fields: [ATTRIBUTE.supportCaseId, ATTRIBUTE.orderId],
-        })
-
-        // table name
-        .map(TABLE_NAME.SUPPORT_CASE_HAS_ORDER);
+        .mixin(supportCaseHasOrder);
     });
   },
 );

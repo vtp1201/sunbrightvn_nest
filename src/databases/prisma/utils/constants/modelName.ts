@@ -156,6 +156,7 @@ export enum MODEL_NAME {
   ROLE_HAS_PERMISSION = 'roleHasPermission',
   ROLE = 'role',
   SERVICE_CHANGE_OFFICER = 'serviceChangeOfficer',
+  SERVICE_CHANGE_OFFICER_HAS_FILE_TEMPLATE = 'serviceChangeOfficerHasFileTemplate',
   SERVICE_HAS_COMPANY_MEMBER_TYPE = 'serviceHasCompanyMemberType',
   SERVICE_HAS_COMPANY_SUFFIX = 'serviceHasCompanySuffix',
   SERVICE_HAS_FILE_TEMPLATE = 'serviceHasFileTemplate',
@@ -406,7 +407,7 @@ export const TABLE_NAME = {
 };
 
 export enum TABLE_NAME_N_M {
-  BANK_HAS_FILE_TEMPLATE = 'bankHasFileTemplate',
+  BANK_HAS_FILE_TEMPLATE = '_bankTofileTemplate',
   COMPANY_HAS_BUSINESS_ACTIVITY = 'companyHasBusinessActivity',
   COMPANY_HAS_CURRENCY = 'companyHasCurrency',
   COMPANY_HAS_OPERATION_COUNTRY = 'companyHasOperationCountry',
@@ -425,6 +426,7 @@ export enum TABLE_NAME_N_M {
   ROLE_HAS_LIMIT = 'roleHasLimit',
   ROLE_HAS_PERMISSION = 'roleHasPermission',
   SERVICE_HAS_COMPANY_MEMBER_TYPE = 'serviceHasCompanyMemberType',
+  SERVICE_CHANGE_OFFICER_HAS_FILE_TEMPLATE = '',
   SERVICE_HAS_COMPANY_SUFFIX = 'serviceHasCompanySuffix',
   SUPPORT_CASE_HAS_ORDER = 'supportCaseHasOrder',
   USER_HAS_ROLE = 'userHasRole',

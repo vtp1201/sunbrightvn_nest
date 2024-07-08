@@ -1,11 +1,20 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/QuestionGroupHasQuestion';
+import { manyToMany } from '../mixins';
 
 export default createModel(
   MODEL_NAME.QUESTION_GROUP_HAS_QUESTION,
   (QuestionGroupHasQuestionModel) => {
+    // relations
+    const questionGroupHasQuestion = manyToMany({
+      attributeA: ATTRIBUTE.questionGroupId,
+      attributeB: ATTRIBUTE.questionId,
+      modelNameA: MODEL_NAME.QUESTION_GROUP,
+      modelNameB: MODEL_NAME.QUESTION,
+    });
+
     // defined Model
     process.nextTick(() => {
       QuestionGroupHasQuestionModel.int(ATTRIBUTE.questionGroupId, {
@@ -15,13 +24,7 @@ export default createModel(
           map: COLUMN.questionId,
         })
 
-        // indexes
-        .id({
-          fields: [ATTRIBUTE.questionGroupId, ATTRIBUTE.questionId],
-        })
-
-        // table name
-        .map(TABLE_NAME.QUESTION_GROUP_HAS_QUESTION);
+        .mixin(questionGroupHasQuestion);
     });
   },
 );

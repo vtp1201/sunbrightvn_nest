@@ -21,13 +21,8 @@ export type ONE_MANY_MIXIN = {
 };
 
 export type MANY_MANY_MIXIN = {
-  A: {
-    attribute: string;
-    model: PrismaModel;
-  };
-  B: {
-    attribute: string;
-    model: PrismaModel;
-  };
-  uniqueIndex: string;
+  attributeA: string;
+  attributeB: string;
+  modelNameA: string;
+  modelNameB: string;
 };

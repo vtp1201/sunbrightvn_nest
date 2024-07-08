@@ -1,22 +1,27 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/CountryHasQuestion';
+import { manyToMany } from '../mixins';
 
 export default createModel(
   MODEL_NAME.COUNTRY_HAS_QUESTION,
   (CountryHasQuestionModel) => {
-    CountryHasQuestionModel.int(ATTRIBUTE.countryId, {
-      map: COLUMN.countryId,
-    })
-      .int(ATTRIBUTE.questionId, {
-        map: COLUMN.questionId,
+    // relations
+    const countryHasQuestion = manyToMany({
+      attributeA: ATTRIBUTE.countryId,
+      attributeB: ATTRIBUTE.questionId,
+      modelNameA: MODEL_NAME.COUNTRY,
+      modelNameB: MODEL_NAME.QUESTION,
+    });
+    process.nextTick(() => {
+      CountryHasQuestionModel.int(ATTRIBUTE.countryId, {
+        map: COLUMN.countryId,
       })
-      .id({
-        fields: [ATTRIBUTE.countryId, ATTRIBUTE.questionId],
-      })
-
-      // table name
-      .map(TABLE_NAME.COUNTRY_HAS_QUESTION);
+        .int(ATTRIBUTE.questionId, {
+          map: COLUMN.questionId,
+        })
+        .mixin(countryHasQuestion);
+    });
   },
 );

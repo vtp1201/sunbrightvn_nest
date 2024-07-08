@@ -1,9 +1,18 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/RoleHasLimit';
+import { manyToMany } from '../mixins';
 
 export default createModel(MODEL_NAME.ROLE_HAS_LIMIT, (RoleHasLimitModel) => {
+  // relations
+  const roleHasLimit = manyToMany({
+    attributeA: ATTRIBUTE.roleId,
+    attributeB: ATTRIBUTE.limitId,
+    modelNameA: MODEL_NAME.ROLE,
+    modelNameB: MODEL_NAME.LIMIT,
+  });
+
   // defined Model
   process.nextTick(() => {
     RoleHasLimitModel.int(ATTRIBUTE.roleId, {
@@ -13,12 +22,6 @@ export default createModel(MODEL_NAME.ROLE_HAS_LIMIT, (RoleHasLimitModel) => {
         map: COLUMN.limitId,
       })
 
-      // ids
-      .id({
-        fields: [ATTRIBUTE.limitId, ATTRIBUTE.roleId],
-      })
-
-      // table name
-      .map(TABLE_NAME.ROLE_HAS_LIMIT);
+      .mixin(roleHasLimit);
   });
 });
