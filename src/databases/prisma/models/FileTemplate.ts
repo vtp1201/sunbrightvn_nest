@@ -18,6 +18,7 @@ import {
   fileTemplateType,
   processLog,
   processStepHasFileTemplate,
+  questionGroup,
   rankingPartnerType,
   serviceChangeOfficer,
   serviceHasFileTemplate,
@@ -50,7 +51,7 @@ export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
     relation: RELATION.files,
   });
   const fileTemplateTypeRelation = oneToOne({
-    attribute: ATTRIBUTE.collectSameId,
+    attribute: ATTRIBUTE.fileTemplateTypeId,
     model: fileTemplateType,
     relation: RELATION.fileTemplateType,
     option: { optional: true },
@@ -68,7 +69,7 @@ export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
     fromRelation: RELATION.collectSameFileTemplate,
   });
   const parentRelation = oneToOne({
-    attribute: ATTRIBUTE.collectSameId,
+    attribute: ATTRIBUTE.parentId,
     model: fileTemplate,
     relation: RELATION.parent,
     isNeedName: true,
@@ -106,6 +107,10 @@ export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
   const serviceHasFileTemplatesRelation = oneToMany({
     model: serviceHasFileTemplate,
     relation: RELATION.serviceHasFileTemplates,
+  });
+  const questionGroupsRelation = oneToMany({
+    model: questionGroup,
+    relation: RELATION.questionGroups,
   });
   const tokensRelation = oneToMany({
     model: token,
@@ -195,6 +200,7 @@ export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
       .mixin(processStepHasFileTemplatesRelation)
       .mixin(serviceChangeOfficersRelation)
       .mixin(serviceHasFileTemplatesRelation)
+      .mixin(questionGroupsRelation)
       .mixin(tokensRelation)
 
       // indexes

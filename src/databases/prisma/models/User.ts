@@ -127,6 +127,11 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
     model: teamGroup,
     relation: RELATION.teamGroups,
   });
+  const leaderForTeamGroupsRelation = oneToMany({
+    model: teamGroup,
+    relation: RELATION.leaderForTeamGroups,
+    fromRelation: RELATION_DEFAULT.leaderUser,
+  });
   const historyLogCDCsRelation = oneToMany({
     model: historyLogCDC,
     relation: RELATION.historyLogCDCs,
@@ -326,6 +331,7 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
       .mixin(emailTemplateHasReceiversRelation)
       .mixin(filesRelation)
       .mixin(teamGroupsRelation)
+      .mixin(leaderForTeamGroupsRelation)
       .mixin(historyLogCDCsRelation)
       .mixin(messagesRelation)
       .mixin(notesRelation)

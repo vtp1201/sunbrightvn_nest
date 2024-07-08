@@ -45,7 +45,7 @@ export default createModel(MODEL_NAME.OPTION, (OptionModel) => {
         map: COLUMN.content,
         raw: RAW_STRING.TEXT,
       })
-      .string(ATTRIBUTE.questionId, {
+      .int(ATTRIBUTE.questionId, {
         map: COLUMN.questionId,
       })
       .string(ATTRIBUTE.description, {

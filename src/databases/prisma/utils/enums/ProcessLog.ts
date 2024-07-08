@@ -39,7 +39,7 @@ export enum COLUMN {
 export enum RELATION {
   agent = RELATION_DEFAULT.agent,
   belongToCompanyMember = RELATION_DEFAULT.belongToCompanyMember,
-  companyMember = RELATION_DEFAULT.belongToCompanyMember,
+  companyMember = RELATION_DEFAULT.companyMember,
   fileTemplate = RELATION_DEFAULT.fileTemplate,
   process = RELATION_DEFAULT.process,
 }

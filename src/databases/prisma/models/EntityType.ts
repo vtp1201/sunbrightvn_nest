@@ -12,6 +12,7 @@ import {
   historyCompany,
   Package,
   task,
+  toolBusinessEntity,
 } from '.';
 
 export default createModel(MODEL_NAME.ENTITY_TYPE, (EntityTypeModel) => {
@@ -55,6 +56,10 @@ export default createModel(MODEL_NAME.ENTITY_TYPE, (EntityTypeModel) => {
     model: Package,
     relation: RELATION.packages,
   });
+  const toolBusinessEntitiesRelation = oneToMany({
+    model: toolBusinessEntity,
+    relation: RELATION.toolBusinessEntities,
+  });
   const tasksRelation = oneToMany({
     model: task,
     relation: RELATION.tasks,
@@ -96,6 +101,7 @@ export default createModel(MODEL_NAME.ENTITY_TYPE, (EntityTypeModel) => {
       .mixin(companySuffixesRelation)
       .mixin(historyCompaniesRelation)
       .mixin(packagesRelation)
+      .mixin(toolBusinessEntitiesRelation)
       .mixin(tasksRelation)
 
       // table name

@@ -30,6 +30,7 @@ export default createModel(MODEL_NAME.QUESTION_GROUP, (QuestionGroupModel) => {
     attribute: ATTRIBUTE.fileTemplateId,
     model: fileTemplate,
     relation: RELATION.fileTemplate,
+    option: { optional: true },
   });
 
   // defined Model

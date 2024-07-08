@@ -69,10 +69,6 @@ export default createModel(MODEL_NAME.EMAIL, (EmailModel) => {
     relation: RELATION.company,
     option: { optional: true },
   });
-  const emailTemplateHasReceiversRelation = oneToMany({
-    model: emailTemplateHasReceiver,
-    relation: RELATION.emailTemplateHasReceivers,
-  });
 
   // defined Model
   process.nextTick(() => {
@@ -165,7 +161,6 @@ export default createModel(MODEL_NAME.EMAIL, (EmailModel) => {
       .mixin(emailTemplateRelation)
       .mixin(processRelation)
       .mixin(companyRelation)
-      .mixin(emailTemplateHasReceiversRelation)
 
       // indexes
       // .raw(INDEX.agentId)

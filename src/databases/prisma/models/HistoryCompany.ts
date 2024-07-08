@@ -7,13 +7,7 @@ import {
   INDEX,
   RELATION,
 } from '../utils/enums/HistoryCompany';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { billing, companyStatus, companySuffix, country, entityType } from '.';
 
 export default createModel(
@@ -68,6 +62,13 @@ export default createModel(
       attribute: ATTRIBUTE.countryId,
       model: country,
       relation: RELATION.country,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const contactCountryRelation = oneToOne({
+      attribute: ATTRIBUTE.contactPhoneCountryId,
+      model: country,
+      relation: RELATION.contactPhoneCountry,
       isNeedName: true,
       option: { optional: true },
     });
@@ -372,6 +373,7 @@ export default createModel(
         // relations
         .mixin(countryRelation)
         .mixin(companyStatusRelation)
+        .mixin(contactCountryRelation)
         .mixin(entityTypeRelation)
         .mixin(companySuffixRelation)
         .mixin(businessCountryRelation)

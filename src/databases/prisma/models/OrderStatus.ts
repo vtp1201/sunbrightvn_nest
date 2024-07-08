@@ -39,6 +39,9 @@ export default createModel(MODEL_NAME.ORDER_STATUS, (OrderStatusModel) => {
       // dateTime marks
       .mixin(initDeleted)
 
+      // relations
+      .mixin(ordersRelation)
+
       // table name
       .map(TABLE_NAME.ORDER_STATUS);
   });

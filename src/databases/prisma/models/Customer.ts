@@ -43,6 +43,7 @@ import {
   voucher,
   website,
 } from '.';
+import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
   const initCreatedTime = createdTime({
@@ -290,6 +291,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
   const ordersRelation = oneToMany({
     model: order,
     relation: RELATION.orders,
+    fromRelation: RELATION_DEFAULT.customer,
   });
   const tasksRelation = oneToMany({
     model: task,

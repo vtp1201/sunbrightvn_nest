@@ -54,6 +54,7 @@ export enum RELATION {
   processStepHasFileTemplates = RELATION_DEFAULT.processStepHasFileTemplates,
   serviceChangeOfficers = RELATION_DEFAULT.serviceChangeOfficers,
   serviceHasFileTemplates = RELATION_DEFAULT.serviceHasFileTemplates,
+  questionGroups = RELATION_DEFAULT.questionGroups,
   tokens = RELATION_DEFAULT.tokens,
 }
 

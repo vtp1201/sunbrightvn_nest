@@ -26,6 +26,7 @@ export enum RELATION {
   companySuffixes = RELATION_DEFAULT.companySuffixes,
   historyCompanies = RELATION_DEFAULT.historyCompanies,
   packages = RELATION_DEFAULT.packages,
+  toolBusinessEntities = RELATION_DEFAULT.toolBusinessEntities,
   tasks = RELATION_DEFAULT.tasks,
 }
 

@@ -2,8 +2,14 @@ import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Api';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
-import { apiMethod } from './';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import { apiMethod, apiExample, apiHasGroup } from './';
 
 export default createModel(MODEL_NAME.API, (ApiModel) => {
   const initCreatedTime = createdTime({
@@ -30,6 +36,14 @@ export default createModel(MODEL_NAME.API, (ApiModel) => {
     attribute: ATTRIBUTE.apiMethodId,
     model: apiMethod,
     relation: RELATION.apiMethod,
+  });
+  const apiExampleRelation = oneToMany({
+    relation: RELATION.apiExamples,
+    model: apiExample,
+  });
+  const apiHasGroupRelation = oneToMany({
+    relation: RELATION.apiHasGroups,
+    model: apiHasGroup,
   });
 
   // defined Model
@@ -75,6 +89,8 @@ export default createModel(MODEL_NAME.API, (ApiModel) => {
 
       // relations
       .mixin(apiMethodRelation)
+      .mixin(apiExampleRelation)
+      .mixin(apiHasGroupRelation)
 
       // table name
       .map(TABLE_NAME.API);

@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Answer';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
-import { companyMember, option, question, country, company } from './';
+import { companyMember, option, question, country, company, task } from './';
 
 export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
   const initCreatedTime = createdTime({
@@ -30,6 +30,12 @@ export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
     attribute: ATTRIBUTE.optionId,
     model: option,
     relation: RELATION.option,
+  });
+  const taskRelation = oneToOne({
+    attribute: ATTRIBUTE.taskId,
+    model: task,
+    relation: RELATION.task,
+    option: { optional: true },
   });
   const companyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.companyMemberId,
@@ -110,6 +116,7 @@ export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
       // relations
       .mixin(optionRelation)
       .mixin(companyMemberRelation)
+      .mixin(taskRelation)
       .mixin(questionRelation)
       .mixin(countryRelation)
       .mixin(companyRelation)

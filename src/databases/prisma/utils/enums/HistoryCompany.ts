@@ -142,6 +142,7 @@ export enum RELATION {
   billing = RELATION_DEFAULT.billing,
   operatingCountry = RELATION_DEFAULT.operatingCountry,
   businessCountry = RELATION_DEFAULT.businessCountry,
+  contactPhoneCountry = RELATION_DEFAULT.contactPhoneCountry,
 }
 
 export enum INDEX {

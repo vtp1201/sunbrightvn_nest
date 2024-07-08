@@ -9,7 +9,7 @@ import {
   oneToOne,
   updatedTime,
 } from '../mixins';
-import { task, Process, billing, agent } from './';
+import { task, Process, billing, agent, taskHasAgent } from './';
 
 export default createModel(
   MODEL_NAME.ADDITION_PROCESS,
@@ -47,9 +47,9 @@ export default createModel(
       model: billing,
       relation: RELATION.billings,
     });
-    const agentsRelation = oneToMany({
-      model: agent,
-      relation: RELATION.agents,
+    const taskHasAgentsRelation = oneToMany({
+      model: taskHasAgent,
+      relation: RELATION.taskHasAgents,
     });
 
     // defined Model
@@ -88,7 +88,7 @@ export default createModel(
         .mixin(taskRelation)
         .mixin(processesRelation)
         .mixin(billingsRelation)
-        .mixin(agentsRelation)
+        .mixin(taskHasAgentsRelation)
 
         // table name
         .map(TABLE_NAME.ADDITION_PROCESS);

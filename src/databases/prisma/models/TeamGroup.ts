@@ -45,6 +45,7 @@ export default createModel(MODEL_NAME.TEAM_GROUP, (TeamGroupModel) => {
     model: user,
     relation: RELATION.leaderUser,
     isNeedName: true,
+    option: { optional: true },
   });
 
   // defined Model

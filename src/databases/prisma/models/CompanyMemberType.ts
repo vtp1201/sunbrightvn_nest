@@ -7,6 +7,7 @@ import {
   companyMemberType,
   companyPosition,
   fileTemplateHasCompanyMemberType,
+  service,
   serviceChangeOfficer,
 } from '.';
 
@@ -49,6 +50,10 @@ export default createModel(
       model: serviceChangeOfficer,
       relation: RELATION.serviceChangeOfficers,
     });
+    const servicesRelation = oneToMany({
+      model: service,
+      relation: RELATION.services,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -86,6 +91,7 @@ export default createModel(
         .mixin(companyPositionsRelation)
         .mixin(fileTemplateHasCompanyMemberTypesRelation)
         .mixin(serviceChangeOfficersRelation)
+        .mixin(servicesRelation)
 
         // table name
         .map(TABLE_NAME.COMPANY_MEMBER_TYPE);

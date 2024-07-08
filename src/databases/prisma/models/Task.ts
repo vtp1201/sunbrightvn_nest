@@ -176,6 +176,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
     attribute: ATTRIBUTE.complianceMemberId,
     model: user,
     relation: RELATION.complianceMember,
+    isNeedName: true,
     option: { optional: true },
   });
   const countryRelation = oneToOne({

@@ -59,6 +59,7 @@ export enum RELATION {
   emailTemplateHasReceivers = RELATION_DEFAULT.emailTemplateHasReceivers,
   files = RELATION_DEFAULT.files,
   teamGroups = RELATION_DEFAULT.teamGroups,
+  leaderForTeamGroups = RELATION_DEFAULT.leaderForTeamGroups,
   historyLogCDCs = RELATION_DEFAULT.historyLogCDCs,
   messages = RELATION_DEFAULT.messages,
   notes = RELATION_DEFAULT.notes,

@@ -59,6 +59,7 @@ export default createModel(MODEL_NAME.ORDER, (OrderModel) => {
   const customersRelation = oneToMany({
     model: customer,
     relation: RELATION.customers,
+    fromRelation: RELATION_DEFAULT.order,
   });
   const filesRelation = oneToMany({
     model: file,

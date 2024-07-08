@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/TitleName';
 import { deleted, oneToMany } from '../mixins';
-import { customer, user } from '.';
+import { customer, person } from '.';
 
 export default createModel(MODEL_NAME.TITLE_NAME, (TitleNameModel) => {
   const initDeleted = deleted(
@@ -22,9 +22,9 @@ export default createModel(MODEL_NAME.TITLE_NAME, (TitleNameModel) => {
     model: customer,
     relation: RELATION.customers,
   });
-  const usersRelation = oneToMany({
-    model: user,
-    relation: RELATION.users,
+  const personsRelation = oneToMany({
+    model: person,
+    relation: RELATION.persons,
   });
 
   // defined Model
@@ -46,7 +46,7 @@ export default createModel(MODEL_NAME.TITLE_NAME, (TitleNameModel) => {
 
       // relations
       .mixin(customersRelation)
-      .mixin(usersRelation)
+      .mixin(personsRelation)
 
       // table name
       .map(TABLE_NAME.TITLE_NAME);

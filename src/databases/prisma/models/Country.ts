@@ -26,12 +26,14 @@ import {
   fileTemplateHasNationality,
   grantScheme,
   grantTypeAttribute,
+  historyCompany,
   historyCompanyMember,
   holiday,
   order,
   person,
   question,
   syslog,
+  target,
   task,
   visaVietnamArrival,
 } from '.';
@@ -93,10 +95,14 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
     relation: RELATION.businessCountryForCompanies,
     fromRelation: RELATION_DEFAULT.businessCountry,
   });
+  const countryForCompaniesRelation = oneToMany({
+    model: company,
+    relation: RELATION.countryForCompanies,
+    fromRelation: RELATION_DEFAULT.country,
+  });
   const companiesRelation = oneToMany({
     model: company,
     relation: RELATION.companies,
-    fromRelation: RELATION_DEFAULT.country,
   });
   const operatingCountryForCompaniesRelation = oneToMany({
     model: company,
@@ -123,10 +129,9 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
     relation: RELATION.phoneCountryForCompanyMembers,
     fromRelation: RELATION_DEFAULT.phoneCountry,
   });
-  const operatingCountryForCompanyMembersRelation = oneToMany({
+  const companyMembersRelation = oneToMany({
     model: companyMember,
-    relation: RELATION.operatingCountryForCompanyMembers,
-    fromRelation: RELATION_DEFAULT.operatingCountry,
+    relation: RELATION.companyMembers,
   });
   const companyMemberReferencesRelation = oneToMany({
     model: companyMemberReference,
@@ -200,6 +205,26 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
     model: grantTypeAttribute,
     relation: RELATION.grantTypeAttributes,
   });
+  const businessCountryForHistoryCompaniesRelation = oneToMany({
+    model: historyCompany,
+    relation: RELATION.businessCountryForHistoryCompanies,
+    fromRelation: RELATION_DEFAULT.businessCountry,
+  });
+  const operatingCountryForHistoryCompaniesRelation = oneToMany({
+    model: historyCompany,
+    relation: RELATION.operatingCountryForHistoryCompanies,
+    fromRelation: RELATION_DEFAULT.operatingCountry,
+  });
+  const countryForHistoryCompaniesRelation = oneToMany({
+    model: historyCompany,
+    relation: RELATION.countryForHistoryCompanies,
+    fromRelation: RELATION_DEFAULT.country,
+  });
+  const contactPhoneCountryForHistoryCompaniesRelation = oneToMany({
+    model: historyCompany,
+    relation: RELATION.contactPhoneCountryForHistoryCompanies,
+    fromRelation: RELATION_DEFAULT.contactPhoneCountry,
+  });
   const birthCountryForHistoryCompanyMembersRelation = oneToMany({
     model: historyCompanyMember,
     relation: RELATION.birthCountryForHistoryCompanyMembers,
@@ -260,6 +285,10 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
     model: task,
     relation: RELATION.phoneCountryForTasks,
     fromRelation: RELATION_DEFAULT.phoneCountry,
+  });
+  const targetsRelation = oneToMany({
+    model: target,
+    relation: RELATION.targets,
   });
   const visaVietnamArrivalsRelation = oneToMany({
     model: visaVietnamArrival,
@@ -325,13 +354,14 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
       .mixin(phoneBillingsRelation)
       .mixin(businessActivitiesRelation)
       .mixin(businessCountryForCompaniesRelation)
+      .mixin(countryForCompaniesRelation)
       .mixin(companiesRelation)
       .mixin(operatingCountryForCompaniesRelation)
       .mixin(birthCountryForCompanyMembersRelation)
       .mixin(addressCountryForCompanyMembersRelation)
       .mixin(countryForCompanyMembersRelation)
       .mixin(phoneCountryForCompanyMembersRelation)
-      .mixin(operatingCountryForCompanyMembersRelation)
+      .mixin(companyMembersRelation)
       .mixin(companyMemberReferencesRelation)
       .mixin(continentRelation)
       .mixin(companySuffixesRelation)
@@ -352,6 +382,10 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
       .mixin(addressCountryForHistoryCompanyMembersRelation)
       .mixin(countryForHistoryCompanyMembersRelation)
       .mixin(phoneCountryForHistoryCompanyMembersRelation)
+      .mixin(businessCountryForHistoryCompaniesRelation)
+      .mixin(operatingCountryForHistoryCompaniesRelation)
+      .mixin(countryForHistoryCompaniesRelation)
+      .mixin(contactPhoneCountryForHistoryCompaniesRelation)
       .mixin(holidaysRelation)
       .mixin(ordersRelation)
       .mixin(packagesRelation)
@@ -361,6 +395,7 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
       .mixin(countryForTasksRelation)
       .mixin(incorporationCountryForTasksRelation)
       .mixin(phoneCountryForTasksRelation)
+      .mixin(targetsRelation)
       .mixin(visaVietnamArrivalsRelation)
 
       // table name
