@@ -8,8 +8,8 @@ export class UserService extends AbstractService<
   MODEL_NAME.USER,
   UserRepository
 > {
-  constructor(repository: UserRepository) {
-    super(repository);
+  constructor(userRepository: UserRepository) {
+    super(userRepository);
   }
 
   async getUserByUsername(username: string) {
