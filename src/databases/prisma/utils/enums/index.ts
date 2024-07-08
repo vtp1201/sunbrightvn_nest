@@ -188,3 +188,4 @@ export { default as E_XERO_ACCOUNT } from './XeroAccount';
 export { default as E_XERO_INVOICE_STATUS } from './XeroInvoiceStatus';
 export { default as E_CURRENCY } from './Currency';
 export { default as E_CAR_TYPE } from './CarType';
+export { default as E_SERVICE_CHANGE_OFFICER_HAS_FILE_TEMPLATE } from './ServiceChangeOfficerHasFileTemplate';

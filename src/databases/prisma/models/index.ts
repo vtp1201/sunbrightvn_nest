@@ -190,3 +190,4 @@ export { default as voucher } from './Voucher';
 export { default as website } from './Website';
 export { default as xeroAccount } from './XeroAccount';
 export { default as xeroInvoiceStatus } from './XeroInvoiceStatus';
+export { default as ServiceChangeOfficerHasFileTemplate } from './ServiceChangeOfficerHasFileTemplate';
