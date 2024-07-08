@@ -7,7 +7,7 @@ import { MODEL_NAME, E_USER } from '@utilities';
 export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
   attributes = E_USER.ATTRIBUTE;
   relations = E_USER.RELATION;
-  constructor(prismaService: PrismaService) {
+  constructor(private prismaService: PrismaService) {
     super(prismaService);
   }
   async test() {

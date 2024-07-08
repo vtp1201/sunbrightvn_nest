@@ -6,7 +6,7 @@ export abstract class AbstractService<
   M extends ModelName,
   T extends AbstractRepository<M>,
 > {
-  constructor(protected readonly repository: T) {}
+  constructor(public readonly repository: T) {}
   findUnique<A extends ModelArgs<M, 'findUnique'>>(
     args: Prisma.SelectSubset<A, ModelArgs<M, 'findUnique'>>,
   ) {
