@@ -19,3 +19,15 @@ export type ONE_MANY_MIXIN = {
   model: PrismaModel;
   fromRelation?: string;
 };
+
+export type MANY_MANY_MIXIN = {
+  A: {
+    attribute: string;
+    model: PrismaModel;
+  };
+  B: {
+    attribute: string;
+    model: PrismaModel;
+  };
+  uniqueIndex: string;
+};

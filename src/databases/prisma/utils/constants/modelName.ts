@@ -426,7 +426,6 @@ export enum TABLE_NAME_N_M {
   ROLE_HAS_PERMISSION = 'roleHasPermission',
   SERVICE_HAS_COMPANY_MEMBER_TYPE = 'serviceHasCompanyMemberType',
   SERVICE_HAS_COMPANY_SUFFIX = 'serviceHasCompanySuffix',
-  SERVICE_HAS_FILE_TEMPLATE = 'serviceHasFileTemplate',
   SUPPORT_CASE_HAS_ORDER = 'supportCaseHasOrder',
   USER_HAS_ROLE = 'userHasRole',
 }

@@ -1,13 +1,8 @@
 import { createMixin } from 'schemix';
-import { ATTRIBUTE_DEFAULT } from '../utils/enums/default';
-import { ONE_ONE_MIXIN } from '../types';
+import { MANY_MANY_MIXIN } from '../types';
 
-export default ({ attribute, relation, model, option = {} }: ONE_ONE_MIXIN) => {
-  return createMixin((oneToOneMixin) => {
-    oneToOneMixin.relation(relation, model, {
-      ...option,
-      fields: [attribute],
-      references: [ATTRIBUTE_DEFAULT.id],
-    });
+export default ({ A, B, uniqueIndex }: MANY_MANY_MIXIN) => {
+  return createMixin((manyToManyMixin) => {
+    manyToManyMixin;
   });
 };
