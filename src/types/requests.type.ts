@@ -6,3 +6,9 @@ export interface RequestWithUser extends Request {
   roles: role[];
   permissions: permission[];
 }
+
+export type jwtVerify = {
+  iat: number;
+  exp: number;
+  data: string;
+};

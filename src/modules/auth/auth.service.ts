@@ -81,4 +81,10 @@ export class AuthService {
       throw new BadRequestException('');
     }
   }
+
+  generatePassport(user) {
+    const passport = {
+      user: {},
+    };
+  }
 }
