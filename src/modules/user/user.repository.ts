@@ -11,14 +11,36 @@ export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
     super(prismaService);
   }
   async test() {
-    const user = await this.findFirst({
+    const user = await this.prismaService.user.findFirst({
       select: {
+        id: true,
         username: true,
-        roles: true,
+        status: true,
+        createdTime: true,
+        personId: true,
+        customerId: true,
+        roles: {
+          select: {
+            id: true,
+            name: true,
+            left: true,
+            right: true,
+            parentId: true,
+            permissions: {
+              select: {
+                id: true,
+                value: true,
+                name: true,
+              },
+            },
+            limits: true,
+          },
+        },
       },
       where: {
-        id: 9,
+        id: 98,
       },
+      // include: {},
     });
     return 'test';
   }

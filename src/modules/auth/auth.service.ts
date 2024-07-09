@@ -77,6 +77,12 @@ export class AuthService {
           id: token.id,
         },
       });
+
+      if (!user) {
+        throw new BadRequestException('');
+      }
+
+      return this.generatePassport(user);
     } catch (error) {
       throw new BadRequestException('');
     }
