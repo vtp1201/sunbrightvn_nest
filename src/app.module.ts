@@ -4,7 +4,12 @@ import { ENV_PATH } from '@utilities';
 import { validate } from '@configs/config.validate';
 import { RedisModule } from '@nestjs-modules/ioredis';
 import * as path from 'path';
-import { I18nModule } from 'nestjs-i18n';
+import {
+  AcceptLanguageResolver,
+  HeaderResolver,
+  I18nModule,
+  QueryResolver,
+} from 'nestjs-i18n';
 
 @Module({
   imports: [
@@ -23,6 +28,11 @@ import { I18nModule } from 'nestjs-i18n';
         path: path.join(__dirname, '/i18n/'),
         watch: true,
       },
+      resolvers: [
+        { use: QueryResolver, options: ['lang'] },
+        AcceptLanguageResolver,
+        new HeaderResolver(['x-lang']),
+      ],
     }),
   ],
   controllers: [],
