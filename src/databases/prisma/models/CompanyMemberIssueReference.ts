@@ -1,8 +1,13 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyMemberIssueReference';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  RELATION,
+} from '../utils/enums/CompanyMemberIssueReference';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { companyMemberReference } from '.';
 
 export default createModel(
   MODEL_NAME.COMPANY_MEMBER_ISSUE_REFERENCE,
@@ -26,6 +31,12 @@ export default createModel(
       },
     );
 
+    // defined relations
+    const companyMemberReferencesRelation = oneToMany({
+      model: companyMemberReference,
+      relation: RELATION.companyMemberReferences,
+    });
+
     // defined Model
     process.nextTick(() => {
       CompanyMemberIssueReferenceModel.int(ATTRIBUTE.id, {
@@ -44,6 +55,9 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(companyMemberReferencesRelation)
 
         // table name
         .map(TABLE_NAME.COMPANY_MEMBER_ISSUE_REFERENCE);

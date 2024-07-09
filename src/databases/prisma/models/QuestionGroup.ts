@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/QuestionGroup';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/QuestionGroup';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import { file, fileTemplate, question } from '.';
 
 export default createModel(MODEL_NAME.QUESTION_GROUP, (QuestionGroupModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,22 @@ export default createModel(MODEL_NAME.QUESTION_GROUP, (QuestionGroupModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const filesRelation = oneToMany({
+    model: file,
+    relation: RELATION.files,
+  });
+  const questionsRelation = oneToMany({
+    model: question,
+    relation: RELATION.questions,
+  });
+  const fileTemplateRelation = oneToOne({
+    attribute: ATTRIBUTE.fileTemplateId,
+    model: fileTemplate,
+    relation: RELATION.fileTemplate,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -48,6 +65,11 @@ export default createModel(MODEL_NAME.QUESTION_GROUP, (QuestionGroupModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(filesRelation)
+      .mixin(questionsRelation)
+      .mixin(fileTemplateRelation)
 
       // table name
       .map(TABLE_NAME.QUESTION_GROUP);

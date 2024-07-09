@@ -23,9 +23,10 @@ export enum RELATION {
   countryHasEntityTypes = RELATION_DEFAULT.countryHasEntityTypes,
   countryHasServices = RELATION_DEFAULT.countryHasServices,
   customers = RELATION_DEFAULT.customers,
-  entityTypeHasCompanySuffixes = RELATION_DEFAULT.entityTypeHasCompanySuffixes,
+  companySuffixes = RELATION_DEFAULT.companySuffixes,
   historyCompanies = RELATION_DEFAULT.historyCompanies,
-  renamedPackages = RELATION_DEFAULT.renamedPackages,
+  packages = RELATION_DEFAULT.packages,
+  toolBusinessEntities = RELATION_DEFAULT.toolBusinessEntities,
   tasks = RELATION_DEFAULT.tasks,
 }
 

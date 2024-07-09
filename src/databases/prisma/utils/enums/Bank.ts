@@ -28,11 +28,11 @@ export enum RELATION {
   country = RELATION_DEFAULT.country,
   bankBranches = RELATION_DEFAULT.bankBranches,
   bankHasCountries = RELATION_DEFAULT.bankHasCountries,
-  bankHasFileTemplates = RELATION_DEFAULT.bankHasFileTemplates,
+  fileTemplates = RELATION_DEFAULT.fileTemplates,
   bankHasKeywords = RELATION_DEFAULT.bankHasKeywords,
   bankingProcesses = RELATION_DEFAULT.bankingProcesses,
-  customerHasBanks = RELATION_DEFAULT.customerHasBanks,
-  orderHasBanks = RELATION_DEFAULT.orderHasBanks,
+  customers = RELATION_DEFAULT.customers,
+  orders = RELATION_DEFAULT.orders,
 }
 
 export default {

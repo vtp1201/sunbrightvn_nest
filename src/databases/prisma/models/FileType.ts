@@ -1,8 +1,15 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/FileType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/FileType';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import { file, fileType } from '.';
 
 export default createModel(MODEL_NAME.FILE_TYPE, (FileTypeModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +30,24 @@ export default createModel(MODEL_NAME.FILE_TYPE, (FileTypeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const filesRelation = oneToMany({
+    model: file,
+    relation: RELATION.files,
+  });
+  const parentRelation = oneToOne({
+    attribute: ATTRIBUTE.parentId,
+    model: fileType,
+    relation: RELATION.parent,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const childrenRelation = oneToMany({
+    model: fileType,
+    relation: RELATION.children,
+    fromRelation: RELATION.parent,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -51,8 +76,13 @@ export default createModel(MODEL_NAME.FILE_TYPE, (FileTypeModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(filesRelation)
+      .mixin(parentRelation)
+      .mixin(childrenRelation)
+
       // indexes
-      .raw(INDEX.parentId)
+      // .raw(INDEX.parentId)
 
       // table name
       .map(TABLE_NAME.FILE_TYPE);

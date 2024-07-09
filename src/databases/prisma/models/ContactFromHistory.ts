@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/ContactFromHistory';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ContactFromHistory';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { contactFrom, customer } from '.';
 
 export default createModel(
   MODEL_NAME.CONTACT_FROM_HISTORY,
@@ -25,6 +26,18 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined relations
+    const contactFromRelation = oneToOne({
+      attribute: ATTRIBUTE.contactFromId,
+      model: contactFrom,
+      relation: RELATION.contactFrom,
+    });
+    const customerRelation = oneToOne({
+      attribute: ATTRIBUTE.customerId,
+      model: customer,
+      relation: RELATION.customer,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -51,6 +64,10 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(contactFromRelation)
+        .mixin(customerRelation)
 
         // table name
         .map(TABLE_NAME.CONTACT_FROM_HISTORY);

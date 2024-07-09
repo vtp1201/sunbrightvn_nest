@@ -1,8 +1,20 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/RankingPartner';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/RankingPartner';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import { file, rankingPartnerType, task } from '.';
 
 export default createModel(
   MODEL_NAME.RANKING_PARTNER,
@@ -26,6 +38,22 @@ export default createModel(
       },
     );
 
+    // defined Relations
+    const filesRelation = oneToMany({
+      model: file,
+      relation: RELATION.files,
+    });
+    const rankingPartnerTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.rankingPartnerTypeId,
+      model: rankingPartnerType,
+      relation: RELATION.rankingPartnerType,
+    });
+    const taskRelation = oneToOne({
+      attribute: ATTRIBUTE.taskId,
+      model: task,
+      relation: RELATION.task,
+    });
+
     // defined Model
     process.nextTick(() => {
       RankingPartnerModel.int(ATTRIBUTE.id, {
@@ -48,7 +76,6 @@ export default createModel(
         })
         .int(ATTRIBUTE.rankingPartnerTypeId, {
           map: COLUMN.rankingPartnerTypeId,
-          optional: true,
         })
 
         // dateTime marks
@@ -56,9 +83,14 @@ export default createModel(
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
 
+        // relations
+        .mixin(filesRelation)
+        .mixin(rankingPartnerTypeRelation)
+        .mixin(taskRelation)
+
         // indexes
-        .raw(INDEX.rankingPartnerTypeId)
-        .raw(INDEX.taskId)
+        // .raw(INDEX.rankingPartnerTypeId)
+        // .raw(INDEX.taskId)
 
         // table name
         .map(TABLE_NAME.RANKING_PARTNER);

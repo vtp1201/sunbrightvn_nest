@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CampaignType';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CampaignType';
+import { deleted, oneToMany } from '../mixins';
+import { campaign } from '.';
 
 export default createModel(MODEL_NAME.CAMPAIGN_TYPE, (CampaignTypeModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,11 @@ export default createModel(MODEL_NAME.CAMPAIGN_TYPE, (CampaignTypeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+  // defined Relations
+  const campaignsRelation = oneToMany({
+    model: campaign,
+    relation: RELATION.campaigns,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -33,6 +39,9 @@ export default createModel(MODEL_NAME.CAMPAIGN_TYPE, (CampaignTypeModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(campaignsRelation)
 
       // table name
       .map(TABLE_NAME.CAMPAIGN_TYPE);

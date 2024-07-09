@@ -11,9 +11,18 @@ export type ONE_ONE_MIXIN = {
   relation: string;
   model: PrismaModel;
   option?: RelationalFieldOptions;
+  isNeedName?: boolean;
 };
 
 export type ONE_MANY_MIXIN = {
   relation: string;
   model: PrismaModel;
+  fromRelation?: string;
+};
+
+export type MANY_MANY_MIXIN = {
+  attributeA: string;
+  attributeB: string;
+  modelNameA: string;
+  modelNameB: string;
 };

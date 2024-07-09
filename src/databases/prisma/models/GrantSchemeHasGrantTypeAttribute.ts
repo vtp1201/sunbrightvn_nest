@@ -5,8 +5,10 @@ import {
   ATTRIBUTE,
   COLUMN,
   INDEX,
+  RELATION,
 } from '../utils/enums/GrantSchemeHasGrantTypeAttribute';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { grantScheme, grantTypeAttribute } from '.';
 
 export default createModel(
   MODEL_NAME.GRANT_SCHEME_HAS_GRANT_TYPE_ATTRIBUTE,
@@ -29,6 +31,77 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const grantSchemeRelation = oneToOne({
+      attribute: ATTRIBUTE.grantSchemeId,
+      model: grantScheme,
+      relation: RELATION.grantScheme,
+    });
+    const grantTypeAttributeAgencyRelation = oneToOne({
+      attribute: ATTRIBUTE.agencyId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeAgency,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const grantTypeAttributeBusinessSizeRelation = oneToOne({
+      attribute: ATTRIBUTE.businessSizeId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeBusinessSize,
+      isNeedName: true,
+      option: { optional: true },
+    });
+
+    const grantTypeAttributeBusinessStageRelation = oneToOne({
+      attribute: ATTRIBUTE.businessStageId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeBusinessStage,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const grantTypeAttributeIndustryRelation = oneToOne({
+      attribute: ATTRIBUTE.industryId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeIndustry,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const grantTypeAttributeLocalShareholdingRelation = oneToOne({
+      attribute: ATTRIBUTE.localShareholdingId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeLocalShareholding,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const grantTypeAttributeNeedsBasedRelation = oneToOne({
+      attribute: ATTRIBUTE.needsBasedId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeNeedsBased,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const grantTypeAttributeNumberEmployeesRelation = oneToOne({
+      attribute: ATTRIBUTE.numberEmployeesId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeNumberEmployees,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const grantTypeAttributeTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.typeId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeType,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const grantTypeAttributeYearsOperationRelation = oneToOne({
+      attribute: ATTRIBUTE.yearsOperationId,
+      model: grantTypeAttribute,
+      relation: RELATION.grantTypeAttributeYearsOperation,
+      isNeedName: true,
+      option: { optional: true },
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -84,17 +157,29 @@ export default createModel(
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
 
+        // relations
+        .mixin(grantSchemeRelation)
+        .mixin(grantTypeAttributeAgencyRelation)
+        .mixin(grantTypeAttributeBusinessSizeRelation)
+        .mixin(grantTypeAttributeBusinessStageRelation)
+        .mixin(grantTypeAttributeIndustryRelation)
+        .mixin(grantTypeAttributeLocalShareholdingRelation)
+        .mixin(grantTypeAttributeNeedsBasedRelation)
+        .mixin(grantTypeAttributeNumberEmployeesRelation)
+        .mixin(grantTypeAttributeTypeRelation)
+        .mixin(grantTypeAttributeYearsOperationRelation)
+
         // indexes
-        .raw(INDEX.agencyId)
-        .raw(INDEX.businessSizeId)
-        .raw(INDEX.businessStageId)
-        .raw(INDEX.grantSchemeId)
-        .raw(INDEX.industryId)
-        .raw(INDEX.localShareholdingId)
-        .raw(INDEX.needsBasedId)
-        .raw(INDEX.numberEmployeesId)
-        .raw(INDEX.typeId)
-        .raw(INDEX.yearsOperationId)
+        // .raw(INDEX.agencyId)
+        // .raw(INDEX.businessSizeId)
+        // .raw(INDEX.businessStageId)
+        // .raw(INDEX.grantSchemeId)
+        // .raw(INDEX.industryId)
+        // .raw(INDEX.localShareholdingId)
+        // .raw(INDEX.needsBasedId)
+        // .raw(INDEX.numberEmployeesId)
+        // .raw(INDEX.typeId)
+        // .raw(INDEX.yearsOperationId)
 
         // table name
         .map(TABLE_NAME.GRANT_SCHEME_HAS_GRANT_TYPE_ATTRIBUTE);

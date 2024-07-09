@@ -1,19 +1,18 @@
 import { RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
-  serviceChangeOfficerId = 'serviceChangeOfficerId',
-  fileTemplateId = 'fileTemplateId',
+  serviceId = 'serviceId',
+  companyMemberTypeId = 'companyMemberTypeId',
 }
 
 export enum COLUMN {
-  serviceChangeOfficerId = 'service_change_officer_id',
-  fileTemplateId = 'file_template_id',
+  serviceId = 'service_id',
+  companyMemberTypeId = 'company_member_type_id',
 }
 
-export enum RELATION {
-  serviceChangeOfficer = RELATION_DEFAULT.serviceChangeOfficer,
-  fileTemplate = RELATION_DEFAULT.fileTemplate,
-}
+export enum RELATION {}
+// service = RELATION_DEFAULT.service,
+// companyMemberType = RELATION_DEFAULT.companyMemberType,
 
 export default {
   ATTRIBUTE,

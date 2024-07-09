@@ -7,8 +7,43 @@ import {
   RAW_NUMBER,
   RAW_DATE_TIME,
 } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Customer';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Customer';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  airport,
+  bank,
+  billing,
+  businessActivityIndustry,
+  campaign,
+  companySuffix,
+  contactFrom,
+  contactFromHistory,
+  country,
+  customerHasSurveyChoice,
+  customerStatus,
+  customerType,
+  entityType,
+  fatca,
+  gaChannel,
+  gender,
+  order,
+  Package,
+  person,
+  task,
+  titleName,
+  user,
+  visaPurpose,
+  visaType,
+  voucher,
+  website,
+} from '.';
+import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
   const initCreatedTime = createdTime({
@@ -29,6 +64,247 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const billingsRelation = oneToMany({
+    model: billing,
+    relation: RELATION.billings,
+  });
+  const contactFromHistoriesRelation = oneToMany({
+    model: contactFromHistory,
+    relation: RELATION.contactFromHistories,
+  });
+  const customerStatusRelation = oneToOne({
+    attribute: ATTRIBUTE.customerStatusId,
+    model: customerStatus,
+    relation: RELATION.customerStatus,
+    option: { optional: true },
+  });
+  const accountantLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.accountantLeaderId,
+    model: user,
+    relation: RELATION.accountantLeader,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const accountantMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.accountantMemberId,
+    model: user,
+    relation: RELATION.accountantMember,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const complianceLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.complianceLeaderId,
+    model: user,
+    relation: RELATION.complianceLeader,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const complianceMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.complianceMemberId,
+    model: user,
+    relation: RELATION.complianceMember,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const csLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.csLeaderId,
+    model: user,
+    relation: RELATION.csLeader,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const csMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.csMemberId,
+    model: user,
+    relation: RELATION.csMember,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: country,
+    relation: RELATION.country,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const personRelation = oneToOne({
+    attribute: ATTRIBUTE.personId,
+    model: person,
+    relation: RELATION.person,
+    option: { optional: true },
+  });
+  const campaignAdsRelation = oneToOne({
+    attribute: ATTRIBUTE.campaignAdsId,
+    model: campaign,
+    relation: RELATION.campaignAds,
+    option: { optional: true },
+  });
+  const gaChannelRelation = oneToOne({
+    attribute: ATTRIBUTE.gaChannelId,
+    model: gaChannel,
+    relation: RELATION.gaChannel,
+    option: { optional: true },
+  });
+  const contactFromRelation = oneToOne({
+    attribute: ATTRIBUTE.contactFromId,
+    model: contactFrom,
+    relation: RELATION.contactFrom,
+    option: { optional: true },
+  });
+  const entityTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.entityTypeId,
+    model: entityType,
+    relation: RELATION.entityType,
+    option: { optional: true },
+  });
+  const companySuffixRelation = oneToOne({
+    attribute: ATTRIBUTE.companySuffixId,
+    model: companySuffix,
+    relation: RELATION.companySuffix,
+    option: { optional: true },
+  });
+  const companyCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.companyCountryId,
+    model: country,
+    relation: RELATION.companyCountry,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const titleNameRelation = oneToOne({
+    attribute: ATTRIBUTE.titleNameId,
+    model: titleName,
+    relation: RELATION.titleName,
+    option: { optional: true },
+  });
+  const internalBookeepingLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.internalBookeepingLeaderId,
+    model: user,
+    relation: RELATION.internalBookeepingLeader,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const internalBookeepingMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.internalBookeepingMemberId,
+    model: user,
+    relation: RELATION.internalBookeepingMember,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const legalLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.legalLeaderId,
+    model: user,
+    relation: RELATION.legalLeader,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const legalMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.legalMemberId,
+    model: user,
+    relation: RELATION.legalMember,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const phoneCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.phoneCountryId,
+    model: country,
+    relation: RELATION.phoneCountry,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const websiteRelation = oneToOne({
+    attribute: ATTRIBUTE.websiteId,
+    model: website,
+    relation: RELATION.website,
+    option: { optional: true },
+  });
+  const airportRelation = oneToOne({
+    attribute: ATTRIBUTE.airportId,
+    model: airport,
+    relation: RELATION.airport,
+    option: { optional: true },
+  });
+  const businessActivityIndustryRelation = oneToOne({
+    attribute: ATTRIBUTE.businessActivityIndustryId,
+    model: businessActivityIndustry,
+    relation: RELATION.businessActivityIndustry,
+    option: { optional: true },
+  });
+  const customerTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.customerTypeId,
+    model: customerType,
+    relation: RELATION.customerType,
+    option: { optional: true },
+  });
+  const genderRelation = oneToOne({
+    attribute: ATTRIBUTE.genderId,
+    model: gender,
+    relation: RELATION.gender,
+    option: { optional: true },
+  });
+  const orderRelation = oneToOne({
+    attribute: ATTRIBUTE.orderId,
+    model: order,
+    relation: RELATION.order,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const packageRelation = oneToOne({
+    attribute: ATTRIBUTE.packageId,
+    model: Package,
+    relation: RELATION.package,
+    option: { optional: true },
+  });
+  const testerLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.testerLeaderId,
+    model: user,
+    relation: RELATION.testerLeader,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const visaPurposeRelation = oneToOne({
+    attribute: ATTRIBUTE.visaPurposeId,
+    model: visaPurpose,
+    relation: RELATION.visaPurpose,
+    option: { optional: true },
+  });
+  const visaTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.visaTypeId,
+    model: visaType,
+    relation: RELATION.visaType,
+    option: { optional: true },
+  });
+
+  const banksRelation = oneToMany({
+    model: bank,
+    relation: RELATION.banks,
+  });
+  const customerHasSurveyChoicesRelation = oneToMany({
+    model: customerHasSurveyChoice,
+    relation: RELATION.customerHasSurveyChoices,
+  });
+  const fatcasRelation = oneToMany({
+    model: fatca,
+    relation: RELATION.fatcas,
+  });
+  const ordersRelation = oneToMany({
+    model: order,
+    relation: RELATION.orders,
+    fromRelation: RELATION_DEFAULT.customer,
+  });
+  const tasksRelation = oneToMany({
+    model: task,
+    relation: RELATION.tasks,
+  });
+  const usersRelation = oneToMany({
+    model: user,
+    relation: RELATION.users,
+  });
+  const vouchersRelation = oneToMany({
+    model: voucher,
+    relation: RELATION.vouchers,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -376,39 +652,81 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(billingsRelation)
+      .mixin(contactFromHistoriesRelation)
+      .mixin(customerStatusRelation)
+      .mixin(accountantLeaderRelation)
+      .mixin(accountantMemberRelation)
+      .mixin(complianceLeaderRelation)
+      .mixin(complianceMemberRelation)
+      .mixin(csLeaderRelation)
+      .mixin(csMemberRelation)
+      .mixin(countryRelation)
+      .mixin(personRelation)
+      .mixin(campaignAdsRelation)
+      .mixin(gaChannelRelation)
+      .mixin(contactFromRelation)
+      .mixin(entityTypeRelation)
+      .mixin(companySuffixRelation)
+      .mixin(companyCountryRelation)
+      .mixin(titleNameRelation)
+      .mixin(internalBookeepingLeaderRelation)
+      .mixin(internalBookeepingMemberRelation)
+      .mixin(legalLeaderRelation)
+      .mixin(legalMemberRelation)
+      .mixin(phoneCountryRelation)
+      .mixin(websiteRelation)
+      .mixin(airportRelation)
+      .mixin(businessActivityIndustryRelation)
+      .mixin(customerTypeRelation)
+      .mixin(genderRelation)
+      .mixin(orderRelation)
+      .mixin(packageRelation)
+      .mixin(testerLeaderRelation)
+      .mixin(visaPurposeRelation)
+      .mixin(visaTypeRelation)
+      .mixin(banksRelation)
+      .mixin(customerHasSurveyChoicesRelation)
+      .mixin(fatcasRelation)
+      .mixin(ordersRelation)
+      .mixin(tasksRelation)
+      .mixin(usersRelation)
+      .mixin(vouchersRelation)
+
       // indexes
-      .raw(INDEX.accountantLeaderId)
-      .raw(INDEX.accountantMemberId)
-      .raw(INDEX.airportId)
-      .raw(INDEX.businessActivityIndustryId)
-      .raw(INDEX.campaignAdsId)
-      .raw(INDEX.companyAddressCountryId)
-      .raw(INDEX.companyCountryId)
-      .raw(INDEX.companySuffixId)
-      .raw(INDEX.complianceLeaderId)
-      .raw(INDEX.complianceMemberId)
-      .raw(INDEX.contactFromId)
-      .raw(INDEX.countryId)
-      .raw(INDEX.csLeaderId)
-      .raw(INDEX.csMemberId)
-      .raw(INDEX.customerStatusId)
-      .raw(INDEX.customerTypeId)
-      .raw(INDEX.entityTypeId)
-      .raw(INDEX.gaChannelId)
-      .raw(INDEX.genderId)
-      .raw(INDEX.internalBookeepingLeaderId)
-      .raw(INDEX.internalBookeepingMemberId)
-      .raw(INDEX.legalLeaderId)
-      .raw(INDEX.legalMemberId)
-      .raw(INDEX.orderId)
-      .raw(INDEX.packageId)
-      .raw(INDEX.personId)
-      .raw(INDEX.phoneCountryId)
-      .raw(INDEX.testerLeaderId)
-      .raw(INDEX.titleNameId)
-      .raw(INDEX.visaPurposeId)
-      .raw(INDEX.visaTypeId)
-      .raw(INDEX.websiteId)
+      // .raw(INDEX.accountantLeaderId)
+      // .raw(INDEX.accountantMemberId)
+      // .raw(INDEX.airportId)
+      // .raw(INDEX.businessActivityIndustryId)
+      // .raw(INDEX.campaignAdsId)
+      // .raw(INDEX.companyAddressCountryId)
+      // .raw(INDEX.companyCountryId)
+      // .raw(INDEX.companySuffixId)
+      // .raw(INDEX.complianceLeaderId)
+      // .raw(INDEX.complianceMemberId)
+      // .raw(INDEX.contactFromId)
+      // .raw(INDEX.countryId)
+      // .raw(INDEX.csLeaderId)
+      // .raw(INDEX.csMemberId)
+      // .raw(INDEX.customerStatusId)
+      // .raw(INDEX.customerTypeId)
+      // .raw(INDEX.entityTypeId)
+      // .raw(INDEX.gaChannelId)
+      // .raw(INDEX.genderId)
+      // .raw(INDEX.internalBookeepingLeaderId)
+      // .raw(INDEX.internalBookeepingMemberId)
+      // .raw(INDEX.legalLeaderId)
+      // .raw(INDEX.legalMemberId)
+      // .raw(INDEX.orderId)
+      // .raw(INDEX.packageId)
+      // .raw(INDEX.personId)
+      // .raw(INDEX.phoneCountryId)
+      // .raw(INDEX.testerLeaderId)
+      // .raw(INDEX.titleNameId)
+      // .raw(INDEX.visaPurposeId)
+      // .raw(INDEX.visaTypeId)
+      // .raw(INDEX.websiteId)
 
       // table name
       .map(TABLE_NAME.CUSTOMER);

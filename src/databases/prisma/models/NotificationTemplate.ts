@@ -1,8 +1,27 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/NotificationTemplate';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/NotificationTemplate';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  actionStepType,
+  notificationStatus,
+  notificationType,
+  processStep,
+  role,
+  subscription,
+} from '.';
 
 export default createModel(
   MODEL_NAME.NOTIFICATION_TEMPLATE,
@@ -25,6 +44,40 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const actionStepTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.actionStepTypeId,
+      model: actionStepType,
+      relation: RELATION.actionStepType,
+      option: { optional: true },
+    });
+    const notificationStatusRelation = oneToOne({
+      attribute: ATTRIBUTE.notificationStatusId,
+      model: notificationStatus,
+      relation: RELATION.notificationStatus,
+    });
+    const notificationTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.notificationTypeId,
+      model: notificationType,
+      relation: RELATION.notificationType,
+    });
+    const processStepRelation = oneToOne({
+      attribute: ATTRIBUTE.processStepId,
+      model: processStep,
+      relation: RELATION.processStep,
+      option: { optional: true },
+    });
+    const subscriptionRelation = oneToOne({
+      attribute: ATTRIBUTE.subscriptionId,
+      model: subscription,
+      relation: RELATION.subscription,
+      option: { optional: true },
+    });
+    const rolesRelation = oneToMany({
+      model: role,
+      relation: RELATION.roles,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -54,11 +107,9 @@ export default createModel(
         })
         .int(ATTRIBUTE.notificationStatusId, {
           map: COLUMN.notificationStatusId,
-          optional: true,
         })
         .int(ATTRIBUTE.notificationTypeId, {
           map: COLUMN.notificationTypeId,
-          optional: true,
         })
         .int(ATTRIBUTE.processStepId, {
           map: COLUMN.processStepId,
@@ -78,12 +129,20 @@ export default createModel(
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
 
+        // relations
+        .mixin(actionStepTypeRelation)
+        .mixin(notificationStatusRelation)
+        .mixin(notificationTypeRelation)
+        .mixin(processStepRelation)
+        .mixin(subscriptionRelation)
+        .mixin(rolesRelation)
+
         // indexes
-        .raw(INDEX.actionStepTypeId)
-        .raw(INDEX.notificationTypeId)
-        .raw(INDEX.notificationStatusId)
-        .raw(INDEX.processStepId)
-        .raw(INDEX.subscriptionId)
+        // .raw(INDEX.actionStepTypeId)
+        // .raw(INDEX.notificationTypeId)
+        // .raw(INDEX.notificationStatusId)
+        // .raw(INDEX.processStepId)
+        // .raw(INDEX.subscriptionId)
 
         // table name
         .map(TABLE_NAME.NOTIFICATION_TEMPLATE);

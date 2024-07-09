@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/DeclarationTax';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/DeclarationTax';
+import { deleted, oneToOne } from '../mixins';
+import { country, fatca } from '.';
 
 export default createModel(
   MODEL_NAME.DECLARATION_TAX,
@@ -17,6 +18,18 @@ export default createModel(
         column: COLUMN.deletedTime,
       },
     );
+
+    // defined relations
+    const countryRelation = oneToOne({
+      attribute: ATTRIBUTE.countryId,
+      model: country,
+      relation: RELATION.country,
+    });
+    const fatcaRelation = oneToOne({
+      attribute: ATTRIBUTE.fatcaId,
+      model: fatca,
+      relation: RELATION.fatca,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -42,6 +55,10 @@ export default createModel(
 
         // dateTime marks
         .mixin(initDeleted)
+
+        // relations
+        .mixin(countryRelation)
+        .mixin(fatcaRelation)
 
         // table name
         .map(TABLE_NAME.DECLARATION_TAX);

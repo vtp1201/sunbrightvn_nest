@@ -1,8 +1,15 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/TeamGroup';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/TeamGroup';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import { emailTemplateHasReceiver, user } from '.';
 
 export default createModel(MODEL_NAME.TEAM_GROUP, (TeamGroupModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +30,23 @@ export default createModel(MODEL_NAME.TEAM_GROUP, (TeamGroupModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const emailTemplateHasReceiversRelation = oneToMany({
+    model: emailTemplateHasReceiver,
+    relation: RELATION.emailTemplateHasReceivers,
+  });
+  const usersRelation = oneToMany({
+    model: user,
+    relation: RELATION.users,
+  });
+  const leaderUserRelation = oneToOne({
+    attribute: ATTRIBUTE.leaderUserId,
+    model: user,
+    relation: RELATION.leaderUser,
+    isNeedName: true,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -47,8 +71,13 @@ export default createModel(MODEL_NAME.TEAM_GROUP, (TeamGroupModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(emailTemplateHasReceiversRelation)
+      .mixin(leaderUserRelation)
+      .mixin(usersRelation)
+
       // indexes
-      .raw(INDEX.leaderUserId)
+      // .raw(INDEX.leaderUserId)
 
       // table name
       .map(TABLE_NAME.TEAM_GROUP);

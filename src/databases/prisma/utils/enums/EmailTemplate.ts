@@ -41,11 +41,11 @@ export enum COLUMN {
 export enum RELATION {
   emails = RELATION_DEFAULT.emails,
   emailType = RELATION_DEFAULT.emailType,
-  emailTemplate = RELATION_DEFAULT.emailTemplate,
+  nextEmailTemplate = RELATION_DEFAULT.nextEmailTemplate,
   otherEmailTemplates = RELATION_DEFAULT.otherEmailTemplates,
   processStep = RELATION_DEFAULT.processStep,
-  emailTemplateHasReceiver = RELATION_DEFAULT.emailTemplateHasReceivers,
-  emailTriggerHasProcess = RELATION_DEFAULT.emailTriggerHasProcesses,
+  emailTemplateHasReceivers = RELATION_DEFAULT.emailTemplateHasReceivers,
+  emailTriggerHasProcesses = RELATION_DEFAULT.emailTriggerHasProcesses,
 }
 
 export enum INDEX {

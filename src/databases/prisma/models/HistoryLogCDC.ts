@@ -1,8 +1,20 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/HistoryLogCDC';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/HistoryLogCDC';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import { actionStepType, company, historyFile, task, user } from '.';
 
 export default createModel(MODEL_NAME.HISTORY_LOG_CDC, (HistoryLogCDCModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +35,34 @@ export default createModel(MODEL_NAME.HISTORY_LOG_CDC, (HistoryLogCDCModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const historyFilesRelation = oneToMany({
+    model: historyFile,
+    relation: RELATION.historyFiles,
+  });
+  const actionStepTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.actionStepTypeId,
+    model: actionStepType,
+    relation: RELATION.actionStepType,
+    option: { optional: true },
+  });
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: company,
+    relation: RELATION.company,
+    option: { optional: true },
+  });
+  const taskRelation = oneToOne({
+    attribute: ATTRIBUTE.taskId,
+    model: task,
+    relation: RELATION.task,
+  });
+  const userRelation = oneToOne({
+    attribute: ATTRIBUTE.userId,
+    model: user,
+    relation: RELATION.user,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -53,11 +93,18 @@ export default createModel(MODEL_NAME.HISTORY_LOG_CDC, (HistoryLogCDCModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(historyFilesRelation)
+      .mixin(actionStepTypeRelation)
+      .mixin(companyRelation)
+      .mixin(taskRelation)
+      .mixin(userRelation)
+
       // indexes
-      .raw(INDEX.actionStepTypeId)
-      .raw(INDEX.companyId)
-      .raw(INDEX.taskId)
-      .raw(INDEX.userId)
+      // .raw(INDEX.actionStepTypeId)
+      // .raw(INDEX.companyId)
+      // .raw(INDEX.taskId)
+      // .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.HISTORY_LOG_CDC);

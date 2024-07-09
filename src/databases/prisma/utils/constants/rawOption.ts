@@ -1,5 +1,5 @@
 export const RAW_STRING = {
-  LENGTH_3072: '@database.VarChar(3072)',
+  LENGTH_500: '@database.VarChar(500)',
   LENGTH_320: '@database.VarChar(320)',
   LENGTH_255: '@database.VarChar(255)',
   LENGTH_250: '@database.VarChar(250)',

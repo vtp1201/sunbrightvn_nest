@@ -41,7 +41,7 @@ export enum COLUMN {
 export enum RELATION {
   order = RELATION_DEFAULT.order,
   orderItemStatus = RELATION_DEFAULT.orderItemStatus,
-  renamedPackage = RELATION_DEFAULT.renamedPackage,
+  package = RELATION_DEFAULT.package,
   service = RELATION_DEFAULT.service,
 }
 

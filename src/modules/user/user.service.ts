@@ -1,12 +1,15 @@
-import { AbstractService } from 'src/abstracts';
+import { AbstractService } from '@abstracts';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { MODEL_NAME } from '@utilities';
 
 @Injectable()
-export class UserService extends AbstractService<MODEL_NAME.USER> {
-  constructor(public readonly repository: UserRepository) {
-    super(repository);
+export class UserService extends AbstractService<
+  MODEL_NAME.USER,
+  UserRepository
+> {
+  constructor(userRepository: UserRepository) {
+    super(userRepository);
   }
 
   async getUserByUsername(username: string) {
@@ -18,7 +21,7 @@ export class UserService extends AbstractService<MODEL_NAME.USER> {
       });
       return user;
     } catch (error) {
-      throw new BadRequestException('');
+      throw new BadRequestException(error);
     }
   }
 }

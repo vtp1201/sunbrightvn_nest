@@ -21,11 +21,12 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  companyMemberType = RELATION_DEFAULT.companyMemberType,
-  otherCompanyMemberTypes = RELATION_DEFAULT.otherCompanyMemberTypes,
+  parent = RELATION_DEFAULT.parent,
+  children = RELATION_DEFAULT.children,
   companyPositions = RELATION_DEFAULT.companyPositions,
   fileTemplateHasCompanyMemberTypes = RELATION_DEFAULT.fileTemplateHasCompanyMemberTypes,
   serviceChangeOfficers = RELATION_DEFAULT.serviceChangeOfficers,
+  services = RELATION_DEFAULT.services,
 }
 
 export default {

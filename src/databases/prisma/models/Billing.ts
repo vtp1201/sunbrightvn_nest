@@ -1,8 +1,23 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Billing';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Billing';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  additionProcess,
+  country,
+  customer,
+  user,
+  company,
+  historyCompany,
+  order,
+} from './';
 
 export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +38,52 @@ export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relation
+  const additionProcessRelation = oneToOne({
+    attribute: ATTRIBUTE.additionProcessId,
+    model: additionProcess,
+    relation: RELATION.additionProcess,
+    option: { optional: true },
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: country,
+    relation: RELATION.country,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const customerRelation = oneToOne({
+    attribute: ATTRIBUTE.customerId,
+    model: customer,
+    relation: RELATION.customer,
+    option: { optional: true },
+  });
+  const phoneCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.phoneCountryId,
+    model: country,
+    relation: RELATION.phoneCountry,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const userRelation = oneToOne({
+    attribute: ATTRIBUTE.userId,
+    model: user,
+    relation: RELATION.user,
+    option: { optional: true },
+  });
+  const companiesRelation = oneToMany({
+    model: company,
+    relation: RELATION.companies,
+  });
+  const historyCompaniesRelation = oneToMany({
+    model: historyCompany,
+    relation: RELATION.historyCompanies,
+  });
+  const ordersRelation = oneToMany({
+    model: order,
+    relation: RELATION.orders,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -119,6 +180,16 @@ export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(additionProcessRelation)
+      .mixin(countryRelation)
+      .mixin(customerRelation)
+      .mixin(phoneCountryRelation)
+      .mixin(userRelation)
+      .mixin(companiesRelation)
+      .mixin(historyCompaniesRelation)
+      .mixin(ordersRelation)
 
       // table name
       .map(TABLE_NAME.BILLING);

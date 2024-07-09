@@ -1,8 +1,14 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/PaymentInformation';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/PaymentInformation';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { companyMember, order, task } from '.';
 
 export default createModel(
   MODEL_NAME.PAYMENT_INFORMATION,
@@ -25,6 +31,26 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const companyMemberRelation = oneToOne({
+      attribute: ATTRIBUTE.companyMemberId,
+      model: companyMember,
+      relation: RELATION.companyMember,
+      option: { optional: true },
+    });
+    const orderRelation = oneToOne({
+      attribute: ATTRIBUTE.orderId,
+      model: order,
+      relation: RELATION.order,
+      option: { optional: true },
+    });
+    const taskRelation = oneToOne({
+      attribute: ATTRIBUTE.taskId,
+      model: task,
+      relation: RELATION.task,
+      option: { optional: true },
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -85,10 +111,15 @@ export default createModel(
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
 
+        // relations
+        .mixin(companyMemberRelation)
+        .mixin(orderRelation)
+        .mixin(taskRelation)
+
         // indexes
-        .raw(INDEX.companyMemberId)
-        .raw(INDEX.orderId)
-        .raw(INDEX.taskId)
+        // .raw(INDEX.companyMemberId)
+        // .raw(INDEX.orderId)
+        // .raw(INDEX.taskId)
 
         // table name
         .map(TABLE_NAME.PAYMENT_INFORMATION);

@@ -1,22 +1,30 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyHasBusinessActivity';
+import { MODEL_NAME } from '../utils';
+import {
+  ATTRIBUTE,
+  COLUMN,
+} from '../utils/enums/CompanyMemberHasBusinessActivity';
+import { manyToMany } from '../mixins';
 
 export default createModel(
-  MODEL_NAME.COMPANY_HAS_BUSINESS_ACTIVITY,
-  (CompanyHasBusinessActivityModel) => {
-    CompanyHasBusinessActivityModel.int(ATTRIBUTE.companyId, {
-      map: COLUMN.companyId,
-    })
-      .int(ATTRIBUTE.businessActivityId, {
-        map: COLUMN.businessActivityId,
+  MODEL_NAME.COMPANY_MEMBER_HAS_BUSINESS_ACTIVITY,
+  (CompanyMemberHasBusinessActivityModel) => {
+    // relations
+    const companyMemberHasBusinessActivity = manyToMany({
+      attributeA: ATTRIBUTE.companyMemberId,
+      attributeB: ATTRIBUTE.businessActivityId,
+      modelNameA: MODEL_NAME.COMPANY_MEMBER,
+      modelNameB: MODEL_NAME.BUSINESS_ACTIVITY,
+    });
+    process.nextTick(() => {
+      CompanyMemberHasBusinessActivityModel.int(ATTRIBUTE.companyMemberId, {
+        map: COLUMN.companyMemberId,
       })
-      .id({
-        fields: [ATTRIBUTE.companyId, ATTRIBUTE.businessActivityId],
-      })
-
-      // table name
-      .map(TABLE_NAME.COMPANY_HAS_BUSINESS_ACTIVITY);
+        .int(ATTRIBUTE.businessActivityId, {
+          map: COLUMN.businessActivityId,
+        })
+        .mixin(companyMemberHasBusinessActivity);
+    });
   },
 );

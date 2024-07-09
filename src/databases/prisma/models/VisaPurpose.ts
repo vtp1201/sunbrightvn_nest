@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/VisaPurpose';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/VisaPurpose';
+import { deleted, oneToMany } from '../mixins';
+import { customer, service, visaOrder } from '.';
 
 export default createModel(MODEL_NAME.VISA_PURPOSE, (VisaPurposeModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,20 @@ export default createModel(MODEL_NAME.VISA_PURPOSE, (VisaPurposeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // relations defined
+  const customersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.customers,
+  });
+  const servicesRelation = oneToMany({
+    model: service,
+    relation: RELATION.services,
+  });
+  const visaOrdersRelation = oneToMany({
+    model: visaOrder,
+    relation: RELATION.visaOrders,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -32,6 +47,11 @@ export default createModel(MODEL_NAME.VISA_PURPOSE, (VisaPurposeModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(customersRelation)
+      .mixin(servicesRelation)
+      .mixin(visaOrdersRelation)
 
       // table name
       .map(TABLE_NAME.VISA_PURPOSE);

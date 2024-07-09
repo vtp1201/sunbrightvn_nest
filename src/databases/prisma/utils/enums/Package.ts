@@ -39,13 +39,17 @@ export enum COLUMN {
 }
 
 export enum RELATION {
+  customers = RELATION_DEFAULT.customers,
+  orderItems = RELATION_DEFAULT.orderItems,
   packageAnnual = RELATION_DEFAULT.packageAnnual,
+  belongPackageAnnuals = RELATION_DEFAULT.belongPackageAnnuals,
   country = RELATION_DEFAULT.country,
   entityType = RELATION_DEFAULT.entityType,
   packageGroup = RELATION_DEFAULT.packageGroup,
   packageType = RELATION_DEFAULT.packageType,
   serviceType = RELATION_DEFAULT.serviceType,
   website = RELATION_DEFAULT.website,
+  packageHasServices = RELATION_DEFAULT.packageHasServices,
 }
 
 export enum INDEX {

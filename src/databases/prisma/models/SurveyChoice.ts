@@ -1,8 +1,14 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/SurveyChoice';
-import { deleted } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/SurveyChoice';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import { customerHasSurveyChoice, survey } from '.';
 
 export default createModel(MODEL_NAME.SURVEY_CHOICE, (SurveyChoiceModel) => {
   const initDeleted = deleted(
@@ -15,6 +21,17 @@ export default createModel(MODEL_NAME.SURVEY_CHOICE, (SurveyChoiceModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const customerHasSurveyChoicesRelation = oneToMany({
+    model: customerHasSurveyChoice,
+    relation: RELATION.customerHasSurveyChoices,
+  });
+  const surveyRelation = oneToOne({
+    attribute: ATTRIBUTE.surveyId,
+    model: survey,
+    relation: RELATION.survey,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -40,8 +57,12 @@ export default createModel(MODEL_NAME.SURVEY_CHOICE, (SurveyChoiceModel) => {
       // dateTime marks
       .mixin(initDeleted)
 
+      // relations
+      .mixin(customerHasSurveyChoicesRelation)
+      .mixin(surveyRelation)
+
       // indexes
-      .raw(INDEX.surveyId)
+      // .raw(INDEX.surveyId)
 
       // table name
       .map(TABLE_NAME.SURVEY_CHOICE);

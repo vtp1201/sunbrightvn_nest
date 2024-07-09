@@ -16,6 +16,8 @@ export enum COLUMN {
 
 export enum RELATION {
   companyMembers = RELATION_DEFAULT.companyMembers,
+  fileTemplateHasCompanyMemberTypes = RELATION_DEFAULT.fileTemplateHasCompanyMemberTypes,
+  historyCompanyMembers = RELATION_DEFAULT.historyCompanyMembers,
 }
 
 export default {

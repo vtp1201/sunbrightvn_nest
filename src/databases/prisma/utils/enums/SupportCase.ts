@@ -32,6 +32,7 @@ export enum RELATION {
   supportCaseStatus = RELATION_DEFAULT.supportCaseStatus,
   supportCaseType = RELATION_DEFAULT.supportCaseType,
   user = RELATION_DEFAULT.user,
+  orders = RELATION_DEFAULT.orders,
 }
 
 export enum INDEX {

@@ -77,7 +77,12 @@ export enum COLUMN {
 export enum RELATION {
   currency = RELATION_DEFAULT.currency,
   customers = RELATION_DEFAULT.customers,
+  packages = RELATION_DEFAULT.packages,
   orders = RELATION_DEFAULT.orders,
+  // portalTypes = RELATION_DEFAULT.portalTypes,
+  services = RELATION_DEFAULT.services,
+  serviceTypes = RELATION_DEFAULT.serviceTypes,
+  tokens = RELATION_DEFAULT.tokens,
 }
 
 export enum INDEX {

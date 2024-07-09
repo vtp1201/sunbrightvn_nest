@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/ActionStepType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ActionStepType';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { actionProcessStep, historyLogCDC, notificationTemplate } from './';
 
 export default createModel(
   MODEL_NAME.ACTION_STEP_TYPE,
@@ -26,6 +27,20 @@ export default createModel(
       },
     );
 
+    // relations defined
+    const actionProcessStepsRelation = oneToMany({
+      model: actionProcessStep,
+      relation: RELATION.actionProcessSteps,
+    });
+    const historyLogCDCsRelation = oneToMany({
+      model: historyLogCDC,
+      relation: RELATION.historyLogCDCs,
+    });
+    const notificationTemplatesRelation = oneToMany({
+      model: notificationTemplate,
+      relation: RELATION.notificationTemplates,
+    });
+
     // defined Model
     process.nextTick(() => {
       ActionStepTypeModel.int(ATTRIBUTE.id, {
@@ -45,6 +60,11 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(actionProcessStepsRelation)
+        .mixin(historyLogCDCsRelation)
+        .mixin(notificationTemplatesRelation)
 
         // table name
         .map(TABLE_NAME.ACTION_STEP_TYPE);

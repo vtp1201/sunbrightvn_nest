@@ -4,8 +4,10 @@ import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
 import {
   ATTRIBUTE,
   COLUMN,
+  RELATION,
 } from '../utils/enums/BusinessActivityIndustryClass';
-import { deleted } from '../mixins';
+import { deleted, oneToMany } from '../mixins';
+import { businessActivityIndustry } from './';
 
 export default createModel(
   MODEL_NAME.BUSINESS_ACTIVITY_INDUSTRY_CLASS,
@@ -20,6 +22,12 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relation
+    const businessActivityIndustriesRelation = oneToMany({
+      model: businessActivityIndustry,
+      relation: RELATION.businessActivityIndustries,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -37,6 +45,9 @@ export default createModel(
 
         // dateTime marks
         .mixin(initDeleted)
+
+        // relations
+        .mixin(businessActivityIndustriesRelation)
 
         // table name
         .map(TABLE_NAME.BUSINESS_ACTIVITY_INDUSTRY_CLASS);

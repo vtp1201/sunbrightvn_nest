@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_DATE_TIME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Target';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Target';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { country } from '.';
 
 export default createModel(MODEL_NAME.TARGET, (TargetModel) => {
   const initCreatedTime = createdTime({
@@ -24,6 +25,13 @@ export default createModel(MODEL_NAME.TARGET, (TargetModel) => {
     },
   );
 
+  // defined Relations
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: country,
+    relation: RELATION.country,
+  });
+
   // defined Model
   process.nextTick(() => {
     TargetModel.int(ATTRIBUTE.id, {
@@ -42,7 +50,6 @@ export default createModel(MODEL_NAME.TARGET, (TargetModel) => {
       })
       .int(ATTRIBUTE.targetTypeId, {
         map: COLUMN.targetTypeId,
-        optional: true,
       })
       .dateTime(ATTRIBUTE.dateOfTarget, {
         map: COLUMN.dateOfTarget,
@@ -55,8 +62,11 @@ export default createModel(MODEL_NAME.TARGET, (TargetModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(countryRelation)
+
       // indexes
-      .raw(INDEX.countryId)
+      // .raw(INDEX.countryId)
 
       // table name
       .map(TABLE_NAME.TARGET);

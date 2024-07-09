@@ -1,8 +1,23 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Question';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Question';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  answer,
+  country,
+  option,
+  question,
+  questionGroup,
+  questionPriority,
+  questionType,
+} from '.';
 
 export default createModel(MODEL_NAME.QUESTION, (QuestionModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +38,47 @@ export default createModel(MODEL_NAME.QUESTION, (QuestionModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const answersRelation = oneToMany({
+    model: answer,
+    relation: RELATION.answers,
+  });
+  const countriesRelation = oneToMany({
+    model: country,
+    relation: RELATION.countries,
+  });
+  const optionsRelation = oneToMany({
+    model: option,
+    relation: RELATION.options,
+  });
+  const questionPriorityRelation = oneToOne({
+    attribute: ATTRIBUTE.questionPriorityId,
+    model: questionPriority,
+    relation: RELATION.questionPriority,
+    option: { optional: true },
+  });
+  const questionTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.questionTypeId,
+    model: questionType,
+    relation: RELATION.questionType,
+  });
+  const questionParentRelation = oneToOne({
+    attribute: ATTRIBUTE.questionParentId,
+    model: question,
+    relation: RELATION.questionParent,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const children = oneToMany({
+    model: question,
+    relation: RELATION.children,
+    fromRelation: RELATION.questionParent,
+  });
+  const questionGroups = oneToMany({
+    model: questionGroup,
+    relation: RELATION.questionGroups,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -63,10 +119,20 @@ export default createModel(MODEL_NAME.QUESTION, (QuestionModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(answersRelation)
+      .mixin(countriesRelation)
+      .mixin(optionsRelation)
+      .mixin(questionPriorityRelation)
+      .mixin(questionTypeRelation)
+      .mixin(questionParentRelation)
+      .mixin(children)
+      .mixin(questionGroups)
+
       // indexes
-      .raw(INDEX.questionParentId)
-      .raw(INDEX.questionPriorityId)
-      .raw(INDEX.questionTypeId)
+      // .raw(INDEX.questionParentId)
+      // .raw(INDEX.questionPriorityId)
+      // .raw(INDEX.questionTypeId)
 
       // table name
       .map(TABLE_NAME.QUESTION);

@@ -40,7 +40,7 @@ export enum RELATION {
   notificationType = RELATION_DEFAULT.notificationType,
   processStep = RELATION_DEFAULT.processStep,
   subscription = RELATION_DEFAULT.subscription,
-  notificationTemplateHasRole = RELATION_DEFAULT.notificationTemplateHasRoles,
+  roles = RELATION_DEFAULT.roles,
 }
 
 export enum INDEX {

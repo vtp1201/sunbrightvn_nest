@@ -1,8 +1,15 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING, RAW_DATE_TIME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyEvent';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyEvent';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import { company, companyEventType, file, order, service } from '.';
 
 export default createModel(MODEL_NAME.COMPANY_EVENT, (CompanyEventModel) => {
   const initCreatedTime = createdTime({
@@ -24,6 +31,33 @@ export default createModel(MODEL_NAME.COMPANY_EVENT, (CompanyEventModel) => {
     },
   );
 
+  // defined Relations
+  const companyEventTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.companyEventTypeId,
+    model: companyEventType,
+    relation: RELATION.companyEventType,
+    option: { optional: true },
+  });
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: company,
+    relation: RELATION.company,
+  });
+  const orderRelation = oneToOne({
+    attribute: ATTRIBUTE.orderId,
+    model: order,
+    relation: RELATION.order,
+    option: { optional: true },
+  });
+  const serviceRelation = oneToOne({
+    attribute: ATTRIBUTE.serviceId,
+    model: service,
+    relation: RELATION.service,
+  });
+  const filesRelation = oneToMany({
+    model: file,
+    relation: RELATION.files,
+  });
   // defined Model
   process.nextTick(() => {
     CompanyEventModel.int(ATTRIBUTE.id, {
@@ -84,6 +118,13 @@ export default createModel(MODEL_NAME.COMPANY_EVENT, (CompanyEventModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(companyEventTypeRelation)
+      .mixin(companyRelation)
+      .mixin(orderRelation)
+      .mixin(serviceRelation)
+      .mixin(filesRelation)
 
       // table name
       .map(TABLE_NAME.COMPANY_EVENT);

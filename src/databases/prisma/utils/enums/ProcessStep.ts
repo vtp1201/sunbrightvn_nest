@@ -35,19 +35,18 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  actionProcessStepNext = 'action_process_step_next_process_step_idToprocess_step',
-  actionProcessStep = 'action_process_step_process_step_idToprocess_step',
-  emailTemplate = 'email_template',
-  emailTrigger = 'email_trigger',
-  note = RELATION_DEFAULT.note,
-  notificationTemplate = 'notification_template',
-  process = 'process',
-  processStepType = 'process_step_type',
-  parentProcessStep = 'process_stepToprocess_step',
-  otherProcessStep = 'process_stepToprocess_step',
-  processStepHasFileTemplate = 'process_step_has_file_template',
-  processStepHasRoleProcessStep = 'process_step_has_role_process_step_idToprocess_step',
-  processStepHasRoleRole = 'process_step_has_role_role_idToprocess_step',
+  nextActionProcessSteps = RELATION_DEFAULT.nextActionProcessSteps,
+  actionProcessSteps = RELATION_DEFAULT.actionProcessSteps,
+  emailTemplates = RELATION_DEFAULT.emailTemplates,
+  emailTriggers = RELATION_DEFAULT.emailTriggers,
+  notes = RELATION_DEFAULT.notes,
+  notificationTemplates = RELATION_DEFAULT.notificationTemplates,
+  processes = RELATION_DEFAULT.processes,
+  processStepType = RELATION_DEFAULT.processStepType,
+  parent = RELATION_DEFAULT.parent,
+  children = RELATION_DEFAULT.children,
+  processStepHasFileTemplates = RELATION_DEFAULT.processStepHasFileTemplates,
+  processStepHasRoles = RELATION_DEFAULT.processStepHasRoles,
 }
 
 export enum INDEX {

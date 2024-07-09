@@ -30,10 +30,13 @@ export enum COLUMN {
 
 export enum RELATION {
   answers = RELATION_DEFAULT.answers,
+  countries = RELATION_DEFAULT.countries,
   options = RELATION_DEFAULT.options,
   questionPriority = RELATION_DEFAULT.questionPriority,
   questionType = RELATION_DEFAULT.questionType,
   questionParent = RELATION_DEFAULT.questionParent,
+  children = RELATION_DEFAULT.children,
+  questionGroups = RELATION_DEFAULT.questionGroups,
 }
 
 export enum INDEX {

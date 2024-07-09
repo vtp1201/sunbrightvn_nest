@@ -20,6 +20,7 @@ export enum COLUMN {
 
 export enum RELATION {
   rankingPartners = RELATION_DEFAULT.rankingPartners,
+  fileTemplates = RELATION_DEFAULT.fileTemplates,
 }
 
 export default {

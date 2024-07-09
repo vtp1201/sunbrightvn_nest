@@ -123,12 +123,12 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  // countryHistoryCompanyMemberCountryIdToCountry = RELATION_DEFAULT.countryHistoryCompanyMemberCountryIdToCountry,
+  country = RELATION_DEFAULT.country,
   typeMember = RELATION_DEFAULT.typeMember,
   gender = RELATION_DEFAULT.gender,
-  // countryHistoryCompanyMemberBirthCountryIdToCountry = RELATION_DEFAULT.countryHistoryCompanyMemberBirthCountryIdToCountry,
-  // countryHistoryCompanyMemberPhoneCountryIdToCountry = RELATION_DEFAULT.countryHistoryCompanyMemberPhoneCountryIdToCountry,
-  // countryHistoryCompanyMemberAddressCountryIdToCountry = RELATION_DEFAULT.countryHistoryCompanyMemberAddressCountryIdToCountry,
+  birthCountry = RELATION_DEFAULT.birthCountry,
+  phoneCountry = RELATION_DEFAULT.phoneCountry,
+  addressCountry = RELATION_DEFAULT.addressCountry,
 }
 
 export enum INDEX {

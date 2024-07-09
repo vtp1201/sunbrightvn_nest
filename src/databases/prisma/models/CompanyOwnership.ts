@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_DATE_TIME, RAW_NUMBER } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyOwnership';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyOwnership';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { company, companyMember, companyPosition, task } from '.';
 
 export default createModel(
   MODEL_NAME.COMPANY_OWNERSHIP,
@@ -25,6 +26,38 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined relations
+    const companyRelation = oneToOne({
+      attribute: ATTRIBUTE.companyId,
+      model: company,
+      relation: RELATION.company,
+    });
+    const companyMemberRelation = oneToOne({
+      attribute: ATTRIBUTE.companyMemberId,
+      model: companyMember,
+      relation: RELATION.companyMember,
+      isNeedName: true,
+    });
+    const corporationCompanyMemberRelation = oneToOne({
+      attribute: ATTRIBUTE.corporationCompanyMemberId,
+      model: companyMember,
+      relation: RELATION.corporationCompanyMember,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const companyPositionRelation = oneToOne({
+      attribute: ATTRIBUTE.companyPositionId,
+      model: companyPosition,
+      relation: RELATION.companyPosition,
+      option: { optional: true },
+    });
+    const taskRelation = oneToOne({
+      attribute: ATTRIBUTE.taskId,
+      model: task,
+      relation: RELATION.task,
+      option: { optional: true },
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -87,6 +120,13 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(companyRelation)
+        .mixin(companyMemberRelation)
+        .mixin(corporationCompanyMemberRelation)
+        .mixin(companyPositionRelation)
+        .mixin(taskRelation)
 
         // table name
         .map(TABLE_NAME.COMPANY_OWNERSHIP);

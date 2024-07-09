@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/ActionLog';
-import { createdTime, deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ActionLog';
+import { createdTime, deleted, oneToOne } from '../mixins';
+import { user } from './';
 
 export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
   const initCreatedTime = createdTime({
@@ -19,6 +20,16 @@ export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // init relations
+  const userRelation = oneToOne({
+    attribute: ATTRIBUTE.userId,
+    model: user,
+    relation: RELATION.user,
+    option: {
+      optional: true,
+    },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -47,6 +58,9 @@ export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
       // dateTime marks
       .mixin(initCreatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(userRelation)
 
       // table name
       .map(TABLE_NAME.ACTION_LOG);

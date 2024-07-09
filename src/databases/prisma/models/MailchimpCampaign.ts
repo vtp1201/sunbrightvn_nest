@@ -1,11 +1,23 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/MailchimpCampaign';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/MailchimpCampaign';
+import { oneToMany } from '../mixins';
+import { mailchimpCampaignMember, mailchimpSummary } from '.';
 
 export default createModel(
   MODEL_NAME.MAILCHIMP_CAMPAIGN,
   (MailchimpCampaignModel) => {
+    // defined Relations
+    const mailchimpCampaignMembersRelation = oneToMany({
+      model: mailchimpCampaignMember,
+      relation: RELATION.mailchimpCampaignMembers,
+    });
+    const mailchimpSummariesRelation = oneToMany({
+      model: mailchimpSummary,
+      relation: RELATION.mailchimpSummaries,
+    });
+
     // defined Model
     process.nextTick(() => {
       MailchimpCampaignModel.int(ATTRIBUTE.id, {
@@ -32,6 +44,10 @@ export default createModel(
           map: COLUMN.parentId,
           optional: true,
         })
+
+        // relations
+        .mixin(mailchimpCampaignMembersRelation)
+        .mixin(mailchimpSummariesRelation)
 
         // table name
         .map(TABLE_NAME.MAILCHIMP_CAMPAIGN);

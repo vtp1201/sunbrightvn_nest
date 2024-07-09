@@ -34,19 +34,19 @@ export enum COLUMN {
 
 export enum RELATION {
   country = RELATION_DEFAULT.country,
+  agencyForGrantSchemeHasGrantTypeAttributes = RELATION_DEFAULT.agencyForGrantSchemeHasGrantTypeAttributes,
+  businessSizeForGrantSchemeHasGrantTypeAttributes = RELATION_DEFAULT.businessSizeForGrantSchemeHasGrantTypeAttributes,
+  businessStageForGrantSchemeHasGrantTypeAttributes = RELATION_DEFAULT.businessStageForGrantSchemeHasGrantTypeAttributes,
+  grantSchemeHasGrantTypeAttributes = RELATION_DEFAULT.grantSchemeHasGrantTypeAttributes,
+  localShareholdingForGrantSchemeHasGrantTypeAttributes = RELATION_DEFAULT.localShareholdingForGrantSchemeHasGrantTypeAttributes,
+  needsBasedForGrantSchemeHasGrantTypeAttributes = RELATION_DEFAULT.needsBasedForGrantSchemeHasGrantTypeAttributes,
+  numberEmployeesForGrantSchemeHasGrantTypeAttributes = RELATION_DEFAULT.numberEmployeesForGrantSchemeHasGrantTypeAttributes,
+  industryForGrantSchemeHasGrantTypeAttributes = RELATION_DEFAULT.industryForGrantSchemeHasGrantTypeAttributes,
+  yearsOperationForGrantSchemeHasGrantTypeAttributes = RELATION_DEFAULT.yearsOperationForGrantSchemeHasGrantTypeAttributes,
+  parent = RELATION_DEFAULT.parent,
+  children = RELATION_DEFAULT.children,
+  grantType = RELATION_DEFAULT.grantType,
 }
-// grantSchemeHasGrantTypeAttributeAgency = RELATION_DEFAULT.grantSchemeHasGrantTypeAttributeAgency,
-// grantSchemeHasGrantTypeAttributeBusinessSize = RELATION_DEFAULT.grantSchemeHasGrantTypeAttributeBusinessSize,
-// grantSchemeHasGrantTypeAttributeBusinessStage = RELATION_DEFAULT.grantSchemeHasGrantTypeAttributeBusinessStage,
-// grantSchemeHasGrantTypeAttributeIndustry = RELATION_DEFAULT.grantSchemeHasGrantTypeAttributeIndustry,
-// grantSchemeHasGrantTypeAttributeLocalShareholding = RELATION_DEFAULT.grantSchemeHasGrantTypeAttributeLocalShareholding,
-// grantSchemeHasGrantTypeAttributeNeedsBased = RELATION_DEFAULT.grantSchemeHasGrantTypeAttributeNeedsBased,
-// grantSchemeHasGrantTypeAttributeNumberEmployees = RELATION_DEFAULT.grantSchemeHasGrantTypeAttributeNumberEmployees,
-// grantSchemeHasGrantTypeAttributeType = RELATION_DEFAULT.grantSchemeHasGrantTypeAttributeType,
-// grantSchemeHasGrantTypeAttributeYearsOperation = RELATION_DEFAULT.grantSchemeHasGrantTypeAttributeYearsOperation,
-// grantTypeAttribute = RELATION_DEFAULT.grantTypeAttribute,
-// otherGrantTypeAttribute = RELATION_DEFAULT.otherGrantTypeAttribute,
-// grantType = RELATION_DEFAULT.grantType,
 
 export enum INDEX {
   countryId = `@@index([${ATTRIBUTE.countryId}])`,

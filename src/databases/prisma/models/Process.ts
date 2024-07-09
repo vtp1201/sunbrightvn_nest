@@ -1,8 +1,27 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Process';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Process';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  Process,
+  additionProcess,
+  bankingProcess,
+  email,
+  emailTriggerHasProcess,
+  note,
+  person,
+  processLog,
+  processStep,
+  task,
+  user,
+} from '.';
 
 export default createModel(MODEL_NAME.PROCESS, (ProcessModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +42,58 @@ export default createModel(MODEL_NAME.PROCESS, (ProcessModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const emailsRelation = oneToMany({
+    model: email,
+    relation: RELATION.emails,
+  });
+  const emailTriggerHasProcessesRelation = oneToMany({
+    model: emailTriggerHasProcess,
+    relation: RELATION.emailTriggerHasProcesses,
+  });
+  const additionProcessRelation = oneToOne({
+    attribute: ATTRIBUTE.additionProcessId,
+    model: additionProcess,
+    relation: RELATION.additionProcess,
+    option: { optional: true },
+  });
+  const bankingProcessRelation = oneToOne({
+    attribute: ATTRIBUTE.bankingProcessId,
+    model: bankingProcess,
+    relation: RELATION.bankingProcess,
+    option: { optional: true },
+  });
+  const personRelation = oneToOne({
+    attribute: ATTRIBUTE.personId,
+    model: person,
+    relation: RELATION.person,
+    option: { optional: true },
+  });
+  const processStepRelation = oneToOne({
+    attribute: ATTRIBUTE.processStepId,
+    model: processStep,
+    relation: RELATION.processStep,
+  });
+  const taskRelation = oneToOne({
+    attribute: ATTRIBUTE.taskId,
+    model: task,
+    relation: RELATION.task,
+  });
+  const userRelation = oneToOne({
+    attribute: ATTRIBUTE.userId,
+    model: user,
+    relation: RELATION.user,
+    option: { optional: true },
+  });
+  const notesRelation = oneToMany({
+    model: note,
+    relation: RELATION.notes,
+  });
+  const processLogsRelation = oneToMany({
+    model: processLog,
+    relation: RELATION.processLogs,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -110,13 +181,25 @@ export default createModel(MODEL_NAME.PROCESS, (ProcessModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(emailsRelation)
+      .mixin(emailTriggerHasProcessesRelation)
+      .mixin(additionProcessRelation)
+      .mixin(bankingProcessRelation)
+      .mixin(personRelation)
+      .mixin(processStepRelation)
+      .mixin(taskRelation)
+      .mixin(userRelation)
+      .mixin(notesRelation)
+      .mixin(processLogsRelation)
+
       // indexes
-      .raw(INDEX.additionProcessId)
-      .raw(INDEX.bankingProcessId)
-      .raw(INDEX.personId)
-      .raw(INDEX.processStepId)
-      .raw(INDEX.userId)
-      .raw(INDEX.taskId)
+      // .raw(INDEX.additionProcessId)
+      // .raw(INDEX.bankingProcessId)
+      // .raw(INDEX.personId)
+      // .raw(INDEX.processStepId)
+      // .raw(INDEX.userId)
+      // .raw(INDEX.taskId)
 
       // table name
       .map(TABLE_NAME.PROCESS);

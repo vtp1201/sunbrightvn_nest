@@ -1,8 +1,15 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/ApiExample';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ApiExample';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import { apiStatus, api, apiGroup, file } from './';
 
 export default createModel(MODEL_NAME.API_EXAMPLE, (ApiExampleModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +30,28 @@ export default createModel(MODEL_NAME.API_EXAMPLE, (ApiExampleModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const apiStatusRelation = oneToOne({
+    attribute: ATTRIBUTE.apiStatusId,
+    model: apiStatus,
+    relation: RELATION.apiStatus,
+  });
+  const apiRelation = oneToOne({
+    attribute: ATTRIBUTE.apiId,
+    model: api,
+    relation: RELATION.api,
+  });
+  const apiGroupRelation = oneToOne({
+    attribute: ATTRIBUTE.apiGroupId,
+    model: apiGroup,
+    relation: RELATION.apiGroup,
+    option: { optional: true },
+  });
+  const filesRelation = oneToMany({
+    model: file,
+    relation: RELATION.files,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -69,6 +98,12 @@ export default createModel(MODEL_NAME.API_EXAMPLE, (ApiExampleModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(apiStatusRelation)
+      .mixin(apiRelation)
+      .mixin(apiGroupRelation)
+      .mixin(filesRelation)
 
       // table name
       .map(TABLE_NAME.API_EXAMPLE);

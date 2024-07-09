@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_DATE_TIME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyShare';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyShare';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { company, companyMember, companyPosition, file, task } from '.';
 
 export default createModel(MODEL_NAME.COMPANY_SHARE, (CompanyShareModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,44 @@ export default createModel(MODEL_NAME.COMPANY_SHARE, (CompanyShareModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined relations
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: company,
+    relation: RELATION.company,
+  });
+  const companyMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.companyMemberId,
+    model: companyMember,
+    relation: RELATION.companyMember,
+    isNeedName: true,
+  });
+  const corporationCompanyMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.corporationCompanyMemberId,
+    model: companyMember,
+    relation: RELATION.corporationCompanyMember,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const companyPositionRelation = oneToOne({
+    attribute: ATTRIBUTE.companyPositionId,
+    model: companyPosition,
+    relation: RELATION.companyPosition,
+    option: { optional: true },
+  });
+  const taskRelation = oneToOne({
+    attribute: ATTRIBUTE.taskId,
+    model: task,
+    relation: RELATION.task,
+    option: { optional: true },
+  });
+  const issuedFileRelation = oneToOne({
+    attribute: ATTRIBUTE.issuedFileId,
+    model: file,
+    relation: RELATION.issuedFile,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -92,6 +131,14 @@ export default createModel(MODEL_NAME.COMPANY_SHARE, (CompanyShareModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(companyRelation)
+      .mixin(companyMemberRelation)
+      .mixin(corporationCompanyMemberRelation)
+      .mixin(companyPositionRelation)
+      .mixin(taskRelation)
+      .mixin(issuedFileRelation)
 
       // table name
       .map(TABLE_NAME.COMPANY_SHARE);

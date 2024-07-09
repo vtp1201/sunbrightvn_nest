@@ -45,10 +45,13 @@ export enum COLUMN {
 }
 
 export enum RELATION {
+  customers = RELATION_DEFAULT.customers,
+  country = RELATION_DEFAULT.country,
   gender = RELATION_DEFAULT.gender,
+  phoneCountry = RELATION_DEFAULT.phoneCountry,
   titleName = RELATION_DEFAULT.titleName,
-  customer = RELATION_DEFAULT.customer,
-  user = RELATION_DEFAULT.user,
+  processes = RELATION_DEFAULT.processes,
+  users = RELATION_DEFAULT.users,
 }
 
 export enum INDEX {

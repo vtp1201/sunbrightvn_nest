@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/SyslogType';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/SyslogType';
+import { deleted, oneToMany } from '../mixins';
+import { syslog } from '.';
 
 export default createModel(MODEL_NAME.SYSLOG_TYPE, (SyslogTypeModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,12 @@ export default createModel(MODEL_NAME.SYSLOG_TYPE, (SyslogTypeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const syslogsRelation = oneToMany({
+    model: syslog,
+    relation: RELATION.syslogs,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -32,6 +39,9 @@ export default createModel(MODEL_NAME.SYSLOG_TYPE, (SyslogTypeModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(syslogsRelation)
 
       // table name
       .map(TABLE_NAME.SYSLOG_TYPE);

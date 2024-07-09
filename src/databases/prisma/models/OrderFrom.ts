@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/OrderFrom';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/OrderFrom';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { order } from '.';
 
 export default createModel(MODEL_NAME.ORDER_FROM, (OrderFromModel) => {
   const initCreatedTime = createdTime({
@@ -24,6 +25,12 @@ export default createModel(MODEL_NAME.ORDER_FROM, (OrderFromModel) => {
     },
   );
 
+  // defined Relations
+  const ordersRelation = oneToMany({
+    model: order,
+    relation: RELATION.orders,
+  });
+
   // defined Model
   process.nextTick(() => {
     OrderFromModel.int(ATTRIBUTE.id, {
@@ -42,6 +49,9 @@ export default createModel(MODEL_NAME.ORDER_FROM, (OrderFromModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(ordersRelation)
 
       // table name
       .map(TABLE_NAME.ORDER_FROM);

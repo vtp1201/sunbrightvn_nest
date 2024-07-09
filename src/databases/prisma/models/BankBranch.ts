@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/BankBranch';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/BankBranch';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import { bank, bankingProcess } from './';
 
 export default createModel(MODEL_NAME.BANK_BRANCH, (BankBranchModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,18 @@ export default createModel(MODEL_NAME.BANK_BRANCH, (BankBranchModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Model
+  const bankRelation = oneToOne({
+    attribute: ATTRIBUTE.bankId,
+    model: bank,
+    relation: RELATION.bank,
+    option: { optional: true },
+  });
+  const bankingProcessesRelation = oneToMany({
+    model: bankingProcess,
+    relation: RELATION.bankingProcesses,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -42,6 +55,10 @@ export default createModel(MODEL_NAME.BANK_BRANCH, (BankBranchModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(bankRelation)
+      .mixin(bankingProcessesRelation)
 
       // table name
       .map(TABLE_NAME.BANK_BRANCH);

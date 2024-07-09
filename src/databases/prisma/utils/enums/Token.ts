@@ -54,6 +54,8 @@ export enum COLUMN {
 
 export enum RELATION {
   agent = RELATION_DEFAULT.agent,
+  companyMember = RELATION_DEFAULT.companyMember,
+  belongToCompanyMember = RELATION_DEFAULT.belongToCompanyMember,
   fileTemplate = RELATION_DEFAULT.fileTemplate,
   task = RELATION_DEFAULT.task,
   user = RELATION_DEFAULT.user,

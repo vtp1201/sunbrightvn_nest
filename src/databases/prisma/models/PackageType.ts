@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/PackageType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/PackageType';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import Package from './Package';
 
 export default createModel(MODEL_NAME.PACKAGE_TYPE, (PackageTypeModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,12 @@ export default createModel(MODEL_NAME.PACKAGE_TYPE, (PackageTypeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const packagesRelation = oneToMany({
+    model: Package,
+    relation: RELATION.packages,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -52,6 +59,9 @@ export default createModel(MODEL_NAME.PACKAGE_TYPE, (PackageTypeModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(packagesRelation)
 
       // table name
       .map(TABLE_NAME.PACKAGE_TYPE);

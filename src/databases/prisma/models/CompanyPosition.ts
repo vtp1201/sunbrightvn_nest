@@ -7,8 +7,23 @@ import {
   RAW_NUMBER,
   RAW_STRING,
 } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyPosition';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyPosition';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  changeRequest,
+  companyInterest,
+  companyMember,
+  companyMemberType,
+  companyOwnership,
+  companyShare,
+} from '.';
+import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(
   MODEL_NAME.COMPANY_POSITION,
@@ -31,6 +46,48 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined relations
+    const companyMemberTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.companyMemberTypeId,
+      model: companyMemberType,
+      relation: RELATION.companyMemberType,
+    });
+    const companyMemberRelation = oneToOne({
+      attribute: ATTRIBUTE.companyMemberId,
+      model: companyMember,
+      relation: RELATION.companyMember,
+      isNeedName: true,
+    });
+    const corporationCompanyMemberRelation = oneToOne({
+      attribute: ATTRIBUTE.corporationCompanyMemberId,
+      model: companyMember,
+      relation: RELATION.corporationCompanyMember,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const changeRequestsRelation = oneToMany({
+      model: changeRequest,
+      relation: RELATION.changeRequests,
+      fromRelation: RELATION_DEFAULT.companyPosition,
+    });
+    const toCompanyPositionForChangeRequestsRelation = oneToMany({
+      model: changeRequest,
+      relation: RELATION.toCompanyPositionForChangeRequests,
+      fromRelation: RELATION_DEFAULT.toCompanyPosition,
+    });
+    const companyInterestsRelation = oneToMany({
+      model: companyInterest,
+      relation: RELATION.companyInterests,
+    });
+    const companyOwnershipsRelation = oneToMany({
+      model: companyOwnership,
+      relation: RELATION.companyOwnerships,
+    });
+    const companySharesRelation = oneToMany({
+      model: companyShare,
+      relation: RELATION.companyShares,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -105,6 +162,16 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(companyMemberTypeRelation)
+        .mixin(companyMemberRelation)
+        .mixin(corporationCompanyMemberRelation)
+        .mixin(changeRequestsRelation)
+        .mixin(toCompanyPositionForChangeRequestsRelation)
+        .mixin(companyInterestsRelation)
+        .mixin(companyOwnershipsRelation)
+        .mixin(companySharesRelation)
 
         // table name
         .map(TABLE_NAME.COMPANY_POSITION);

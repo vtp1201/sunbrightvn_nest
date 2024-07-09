@@ -35,7 +35,7 @@ export enum COLUMN {
 export enum RELATION {
   companyMember = RELATION_DEFAULT.companyMember,
   companyMemberIssueReference = RELATION_DEFAULT.companyMemberIssueReference,
-  country = RELATION_DEFAULT.country,
+  phoneCountry = RELATION_DEFAULT.phoneCountry,
 }
 
 export default {

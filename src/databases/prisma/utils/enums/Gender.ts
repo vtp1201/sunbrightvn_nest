@@ -1,4 +1,4 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from './default';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
@@ -16,7 +16,12 @@ export enum COLUMN {
   isDeleted = COLUMN_DEFAULT.isDeleted,
 }
 
-export enum RELATION {}
+export enum RELATION {
+  companyMembers = RELATION_DEFAULT.companyMembers,
+  customers = RELATION_DEFAULT.customers,
+  historyCompanyMembers = RELATION_DEFAULT.historyCompanyMembers,
+  persons = RELATION_DEFAULT.persons,
+}
 
 export default {
   ATTRIBUTE,

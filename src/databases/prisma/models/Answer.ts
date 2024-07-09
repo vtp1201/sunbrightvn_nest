@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Answer';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Answer';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { companyMember, option, question, country, company, task } from './';
 
 export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,43 @@ export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const optionRelation = oneToOne({
+    attribute: ATTRIBUTE.optionId,
+    model: option,
+    relation: RELATION.option,
+  });
+  const taskRelation = oneToOne({
+    attribute: ATTRIBUTE.taskId,
+    model: task,
+    relation: RELATION.task,
+    option: { optional: true },
+  });
+  const companyMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.companyMemberId,
+    model: companyMember,
+    relation: RELATION.companyMember,
+    option: { optional: true },
+  });
+  const questionRelation = oneToOne({
+    attribute: ATTRIBUTE.questionId,
+    model: question,
+    relation: RELATION.question,
+    option: { optional: true },
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.selectCountryId,
+    model: country,
+    relation: RELATION.country,
+    option: { optional: true },
+  });
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: company,
+    relation: RELATION.company,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -74,6 +112,14 @@ export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(optionRelation)
+      .mixin(companyMemberRelation)
+      .mixin(taskRelation)
+      .mixin(questionRelation)
+      .mixin(countryRelation)
+      .mixin(companyRelation)
 
       // table name
       .map(TABLE_NAME.ANSWER);

@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyStatus';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyStatus';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { company, historyCompany } from '.';
 
 export default createModel(MODEL_NAME.COMPANY_STATUS, (CompanyStatusModel) => {
   const initCreatedTime = createdTime({
@@ -24,6 +25,16 @@ export default createModel(MODEL_NAME.COMPANY_STATUS, (CompanyStatusModel) => {
     },
   );
 
+  // defined relations
+  const companiesRelation = oneToMany({
+    model: company,
+    relation: RELATION.companies,
+  });
+  const historyCompaniesRelation = oneToMany({
+    model: historyCompany,
+    relation: RELATION.historyCompanies,
+  });
+
   // defined Model
   process.nextTick(() => {
     CompanyStatusModel.int(ATTRIBUTE.id, {
@@ -42,6 +53,10 @@ export default createModel(MODEL_NAME.COMPANY_STATUS, (CompanyStatusModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(companiesRelation)
+      .mixin(historyCompaniesRelation)
 
       // table name
       .map(TABLE_NAME.COMPANY_STATUS);

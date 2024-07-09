@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Airport';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Airport';
+import { deleted, oneToMany } from '../mixins';
+import { customer, service, visaOrder } from './';
 
 export default createModel(MODEL_NAME.AIRPORT, (AirportModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,20 @@ export default createModel(MODEL_NAME.AIRPORT, (AirportModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const customersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.customers,
+  });
+  const servicesRelation = oneToMany({
+    model: service,
+    relation: RELATION.services,
+  });
+  const visaOrdersRelation = oneToMany({
+    model: visaOrder,
+    relation: RELATION.visaOrders,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -33,6 +48,11 @@ export default createModel(MODEL_NAME.AIRPORT, (AirportModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(customersRelation)
+      .mixin(servicesRelation)
+      .mixin(visaOrdersRelation)
 
       // table name
       .map(TABLE_NAME.AIRPORT);

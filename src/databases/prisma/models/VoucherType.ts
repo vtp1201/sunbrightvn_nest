@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/VoucherType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/VoucherType';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { campaignHasVoucherType, click, voucher } from '.';
 
 export default createModel(MODEL_NAME.VOUCHER_TYPE, (VoucherTypeModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,20 @@ export default createModel(MODEL_NAME.VOUCHER_TYPE, (VoucherTypeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // relations defined
+  const campaignHasVoucherTypesRelation = oneToMany({
+    model: campaignHasVoucherType,
+    relation: RELATION.campaignHasVoucherTypes,
+  });
+  const clicksRelation = oneToMany({
+    model: click,
+    relation: RELATION.clicks,
+  });
+  const vouchersRelation = oneToMany({
+    model: voucher,
+    relation: RELATION.vouchers,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -54,6 +69,11 @@ export default createModel(MODEL_NAME.VOUCHER_TYPE, (VoucherTypeModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(campaignHasVoucherTypesRelation)
+      .mixin(clicksRelation)
+      .mixin(vouchersRelation)
 
       // table name
       .map(TABLE_NAME.VOUCHER_TYPE);

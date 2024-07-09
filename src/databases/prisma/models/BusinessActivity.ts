@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/BusinessActivity';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/BusinessActivity';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import { businessActivityIndustry, country, company, companyMember } from './';
 
 export default createModel(
   MODEL_NAME.BUSINESS_ACTIVITY,
@@ -17,6 +18,28 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relation
+    const businessActivityIndustryRelation = oneToOne({
+      attribute: ATTRIBUTE.businessActivityIndustryId,
+      model: businessActivityIndustry,
+      relation: RELATION.businessActivityIndustry,
+      option: { optional: true },
+    });
+    const countryRelation = oneToOne({
+      attribute: ATTRIBUTE.countryId,
+      model: country,
+      relation: RELATION.country,
+      option: { optional: true },
+    });
+    const companiesRelation = oneToMany({
+      model: company,
+      relation: RELATION.companies,
+    });
+    const companyMembersRelation = oneToMany({
+      model: companyMember,
+      relation: RELATION.companyMembers,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -61,6 +84,12 @@ export default createModel(
 
         // dateTime marks
         .mixin(initDeleted)
+
+        // relations
+        .mixin(businessActivityIndustryRelation)
+        .mixin(countryRelation)
+        .mixin(companiesRelation)
+        .mixin(companyMembersRelation)
 
         // table name
         .map(TABLE_NAME.BUSINESS_ACTIVITY);

@@ -1,8 +1,40 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Task';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Task';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  Process,
+  additionProcess,
+  answer,
+  bankingProcess,
+  changeRequest,
+  company,
+  companyInterest,
+  companyMember,
+  companyOwnership,
+  companyShare,
+  country,
+  customer,
+  entityType,
+  fatca,
+  file,
+  historyLogCDC,
+  note,
+  order,
+  paymentInformation,
+  proposedName,
+  rankingPartner,
+  taskHasAgent,
+  token,
+  user,
+} from '.';
 
 export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +55,234 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const additionProcessesRelation = oneToMany({
+    model: additionProcess,
+    relation: RELATION.additionProcesses,
+  });
+  const answersRelation = oneToMany({
+    model: answer,
+    relation: RELATION.answers,
+  });
+  const bankingProcessesRelation = oneToMany({
+    model: bankingProcess,
+    relation: RELATION.bankingProcesses,
+  });
+  const changeRequestsRelation = oneToMany({
+    model: changeRequest,
+    relation: RELATION.changeRequests,
+  });
+  const companyInterestsRelation = oneToMany({
+    model: companyInterest,
+    relation: RELATION.companyInterests,
+  });
+  const companyOwnershipsRelation = oneToMany({
+    model: companyOwnership,
+    relation: RELATION.companyOwnerships,
+  });
+  const companySharesRelation = oneToMany({
+    model: companyShare,
+    relation: RELATION.companyShares,
+  });
+  const fatcasRelation = oneToMany({
+    model: fatca,
+    relation: RELATION.fatcas,
+  });
+  const filesRelation = oneToMany({
+    model: file,
+    relation: RELATION.files,
+  });
+  const historyLogCDCsRelation = oneToMany({
+    model: historyLogCDC,
+    relation: RELATION.historyLogCDCs,
+  });
+  const notesRelation = oneToMany({
+    model: note,
+    relation: RELATION.notes,
+  });
+  const paymentsInformationRelation = oneToMany({
+    model: paymentInformation,
+    relation: RELATION.paymentsInformation,
+  });
+  const processesRelation = oneToMany({
+    model: Process,
+    relation: RELATION.processes,
+  });
+  const proposedNamesRelation = oneToMany({
+    model: proposedName,
+    relation: RELATION.proposedNames,
+  });
+  const rankingPartnersRelation = oneToMany({
+    model: rankingPartner,
+    relation: RELATION.rankingPartners,
+  });
+  const accountantLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.accountantLeaderId,
+    model: user,
+    relation: RELATION.accountantLeader,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const accountantMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.accountantMemberId,
+    model: user,
+    relation: RELATION.accountantMember,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const appointedDirectorRelation = oneToOne({
+    attribute: ATTRIBUTE.appointedDirectorCompanyMemberId,
+    model: companyMember,
+    relation: RELATION.appointedDirector,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const appointedPresidentRelation = oneToOne({
+    attribute: ATTRIBUTE.appointedPresidentCompanyMemberId,
+    model: companyMember,
+    relation: RELATION.appointedPresident,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const appointedShareholderRelation = oneToOne({
+    attribute: ATTRIBUTE.appointedShareholderCompanyMemberId,
+    model: companyMember,
+    relation: RELATION.appointedShareholder,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const appointedUboRelation = oneToOne({
+    attribute: ATTRIBUTE.appointedUboCompanyMemberId,
+    model: companyMember,
+    relation: RELATION.appointedUbo,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: company,
+    relation: RELATION.company,
+    option: { optional: true },
+  });
+  const complianceLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.complianceLeaderId,
+    model: user,
+    relation: RELATION.complianceLeader,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const complianceMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.complianceMemberId,
+    model: user,
+    relation: RELATION.complianceMember,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const countryRelation = oneToOne({
+    attribute: ATTRIBUTE.countryId,
+    model: country,
+    relation: RELATION.country,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const csLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.csLeaderId,
+    model: user,
+    relation: RELATION.csLeader,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const csMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.csMemberId,
+    model: user,
+    relation: RELATION.csMember,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const customerRelation = oneToOne({
+    attribute: ATTRIBUTE.customerId,
+    model: customer,
+    relation: RELATION.customer,
+    option: { optional: true },
+  });
+  const entityTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.entityTypeId,
+    model: entityType,
+    relation: RELATION.entityType,
+    option: { optional: true },
+  });
+  const incorporationCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.incorporationCountryId,
+    model: country,
+    relation: RELATION.incorporationCountry,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const internalBookeepingLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.internalBookeepingLeaderId,
+    model: user,
+    relation: RELATION.internalBookeepingLeader,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const internalBookeepingMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.internalBookeepingMemberId,
+    model: user,
+    relation: RELATION.internalBookeepingMember,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const legalLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.legalLeaderId,
+    model: user,
+    relation: RELATION.legalLeader,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const legalMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.legalMemberId,
+    model: user,
+    relation: RELATION.legalMember,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const orderRelation = oneToOne({
+    attribute: ATTRIBUTE.orderId,
+    model: order,
+    relation: RELATION.order,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const phoneCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.phoneCountryId,
+    relation: RELATION.phoneCountry,
+    model: country,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const upgradeOrderRelation = oneToOne({
+    attribute: ATTRIBUTE.upgradeOrderId,
+    model: order,
+    relation: RELATION.upgradeOrder,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const testerLeaderRelation = oneToOne({
+    attribute: ATTRIBUTE.testerLeaderId,
+    model: user,
+    relation: RELATION.testerLeader,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const taskHasAgentsRelation = oneToMany({
+    model: taskHasAgent,
+    relation: RELATION.taskHasAgents,
+  });
+  const tokensRelation = oneToMany({
+    model: token,
+    relation: RELATION.tokens,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -269,30 +529,72 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(additionProcessesRelation)
+      .mixin(answersRelation)
+      .mixin(bankingProcessesRelation)
+      .mixin(changeRequestsRelation)
+      .mixin(companyInterestsRelation)
+      .mixin(companyOwnershipsRelation)
+      .mixin(companySharesRelation)
+      .mixin(fatcasRelation)
+      .mixin(filesRelation)
+      .mixin(historyLogCDCsRelation)
+      .mixin(notesRelation)
+      .mixin(paymentsInformationRelation)
+      .mixin(processesRelation)
+      .mixin(proposedNamesRelation)
+      .mixin(rankingPartnersRelation)
+      .mixin(accountantLeaderRelation)
+      .mixin(accountantMemberRelation)
+      .mixin(appointedDirectorRelation)
+      .mixin(appointedPresidentRelation)
+      .mixin(appointedShareholderRelation)
+      .mixin(appointedUboRelation)
+      .mixin(companyRelation)
+      .mixin(complianceLeaderRelation)
+      .mixin(complianceMemberRelation)
+      .mixin(countryRelation)
+      .mixin(csLeaderRelation)
+      .mixin(csMemberRelation)
+      .mixin(customerRelation)
+      .mixin(entityTypeRelation)
+      .mixin(incorporationCountryRelation)
+      .mixin(internalBookeepingLeaderRelation)
+      .mixin(internalBookeepingMemberRelation)
+      .mixin(legalLeaderRelation)
+      .mixin(legalMemberRelation)
+      .mixin(orderRelation)
+      .mixin(phoneCountryRelation)
+      .mixin(upgradeOrderRelation)
+      .mixin(testerLeaderRelation)
+      .mixin(taskHasAgentsRelation)
+      .mixin(tokensRelation)
+
       // indexes
-      .raw(INDEX.accountantLeaderId)
-      .raw(INDEX.accountantMemberId)
-      .raw(INDEX.appointedDirectorCompanyMemberId)
-      .raw(INDEX.appointedPresidentCompanyMemberId)
-      .raw(INDEX.appointedShareholderCompanyMemberId)
-      .raw(INDEX.appointedUboCompanyMemberId)
-      .raw(INDEX.companyId)
-      .raw(INDEX.countryId)
-      .raw(INDEX.complianceLeaderId)
-      .raw(INDEX.complianceMemberId)
-      .raw(INDEX.csLeaderId)
-      .raw(INDEX.csMemberId)
-      .raw(INDEX.customerId)
-      .raw(INDEX.entityTypeId)
-      .raw(INDEX.incorporationCountryId)
-      .raw(INDEX.internalBookeepingLeaderId)
-      .raw(INDEX.internalBookeepingMemberId)
-      .raw(INDEX.legalLeaderId)
-      .raw(INDEX.legalMemberId)
-      .raw(INDEX.orderId)
-      .raw(INDEX.phoneCountryId)
-      .raw(INDEX.upgradeOrderId)
-      .raw(INDEX.testerLeaderId)
+      // .raw(INDEX.accountantLeaderId)
+      // .raw(INDEX.accountantMemberId)
+      // .raw(INDEX.appointedDirectorCompanyMemberId)
+      // .raw(INDEX.appointedPresidentCompanyMemberId)
+      // .raw(INDEX.appointedShareholderCompanyMemberId)
+      // .raw(INDEX.appointedUboCompanyMemberId)
+      // .raw(INDEX.companyId)
+      // .raw(INDEX.countryId)
+      // .raw(INDEX.complianceLeaderId)
+      // .raw(INDEX.complianceMemberId)
+      // .raw(INDEX.csLeaderId)
+      // .raw(INDEX.csMemberId)
+      // .raw(INDEX.customerId)
+      // .raw(INDEX.entityTypeId)
+      // .raw(INDEX.incorporationCountryId)
+      // .raw(INDEX.internalBookeepingLeaderId)
+      // .raw(INDEX.internalBookeepingMemberId)
+      // .raw(INDEX.legalLeaderId)
+      // .raw(INDEX.legalMemberId)
+      // .raw(INDEX.orderId)
+      // .raw(INDEX.phoneCountryId)
+      // .raw(INDEX.upgradeOrderId)
+      // .raw(INDEX.testerLeaderId)
 
       // table name
       .map(TABLE_NAME.TASK);

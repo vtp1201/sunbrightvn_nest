@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_NUMBER } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/ActionProcessStep';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ActionProcessStep';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { processStep, country, bank, actionStepType, serviceType } from './';
 
 export default createModel(
   MODEL_NAME.ACTION_PROCESS_STEP,
@@ -25,6 +26,48 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    const processStepParentRelation = oneToOne({
+      attribute: ATTRIBUTE.processStepId,
+      model: processStep,
+      relation: RELATION.processStepParent,
+      isNeedName: true,
+    });
+    const processStepChildrenRelation = oneToOne({
+      attribute: ATTRIBUTE.nextProcessStepId,
+      model: processStep,
+      relation: RELATION.processStepChildren,
+      isNeedName: true,
+    });
+    const countryRelation = oneToOne({
+      attribute: ATTRIBUTE.countryId,
+      model: country,
+      relation: RELATION.country,
+      option: {
+        optional: true,
+      },
+    });
+    const bankRelation = oneToOne({
+      attribute: ATTRIBUTE.bankId,
+      model: bank,
+      relation: RELATION.bank,
+      option: {
+        optional: true,
+      },
+    });
+    const serviceTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.serviceTypeId,
+      model: serviceType,
+      relation: RELATION.serviceType,
+      option: {
+        optional: true,
+      },
+    });
+    const actionStepTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.actionStepTypeId,
+      model: actionStepType,
+      relation: RELATION.actionStepType,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -67,6 +110,14 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(processStepChildrenRelation)
+        .mixin(processStepParentRelation)
+        .mixin(countryRelation)
+        .mixin(bankRelation)
+        .mixin(serviceTypeRelation)
+        .mixin(actionStepTypeRelation)
 
         // table name
         .map(TABLE_NAME.ACTION_PROCESS_STEP);

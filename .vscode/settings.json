@@ -4,9 +4,11 @@
     "conv",
     "datasource",
     "Fatca",
+    "fatcas",
     "schemix",
     "syslogs",
     "tawk",
+    "trivago",
     "Uncapitalize"
   ],
   "[javascript]": {

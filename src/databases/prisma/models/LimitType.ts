@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/LimitType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/LimitType';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { limit } from '.';
 
 export default createModel(MODEL_NAME.LIMIT_TYPE, (LimitTypeModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,12 @@ export default createModel(MODEL_NAME.LIMIT_TYPE, (LimitTypeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const limitsRelation = oneToMany({
+    model: limit,
+    relation: RELATION.limits,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -47,6 +54,9 @@ export default createModel(MODEL_NAME.LIMIT_TYPE, (LimitTypeModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(limitsRelation)
 
       // table name
       .map(TABLE_NAME.LIMIT_TYPE);

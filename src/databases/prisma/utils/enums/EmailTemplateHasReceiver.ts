@@ -36,7 +36,7 @@ export enum COLUMN {
 
 export enum RELATION {
   emailTemplate = RELATION_DEFAULT.emailTemplate,
-  teamGroup = RELATION_DEFAULT.teamGroup,
+  group = RELATION_DEFAULT.group,
   emails = RELATION_DEFAULT.emails,
   role = RELATION_DEFAULT.role,
   user = RELATION_DEFAULT.user,

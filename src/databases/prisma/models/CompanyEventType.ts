@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyEventType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyEventType';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { companyEvent } from '.';
 
 export default createModel(
   MODEL_NAME.COMPANY_EVENT_TYPE,
@@ -25,6 +26,12 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const companyEventsRelation = oneToMany({
+      model: companyEvent,
+      relation: RELATION.companyEvents,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -49,6 +56,9 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(companyEventsRelation)
 
         // table name
         .map(TABLE_NAME.COMPANY_EVENT_TYPE);

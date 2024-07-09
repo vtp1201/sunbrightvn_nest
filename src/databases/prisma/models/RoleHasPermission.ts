@@ -2,10 +2,19 @@ import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/RoleHasPermission';
+import { manyToMany } from '../mixins';
 
 export default createModel(
   MODEL_NAME.ROLE_HAS_PERMISSION,
   (RoleHasPermissionModel) => {
+    // relations
+    const roleHasPermission = manyToMany({
+      attributeA: ATTRIBUTE.roleId,
+      attributeB: ATTRIBUTE.permissionId,
+      modelNameA: MODEL_NAME.ROLE,
+      modelNameB: MODEL_NAME.PERMISSION,
+    });
+
     // defined Model
     process.nextTick(() => {
       RoleHasPermissionModel.int(ATTRIBUTE.roleId, {
@@ -15,13 +24,7 @@ export default createModel(
           map: COLUMN.permissionId,
         })
 
-        // ids
-        .id({
-          fields: [ATTRIBUTE.roleId, ATTRIBUTE.permissionId],
-        })
-
-        // table name
-        .map(TABLE_NAME.ROLE_HAS_PERMISSION);
+        .mixin(roleHasPermission);
     });
   },
 );

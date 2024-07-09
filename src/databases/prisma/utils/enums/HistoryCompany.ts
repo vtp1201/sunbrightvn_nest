@@ -135,13 +135,14 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  // countryHistoryCompanyCountryIdToCountry = RELATION_DEFAULT.countryHistoryCompanyCountryIdToCountry,
+  country = RELATION_DEFAULT.country,
   companyStatus = RELATION_DEFAULT.companyStatus,
   entityType = RELATION_DEFAULT.entityType,
   companySuffix = RELATION_DEFAULT.companySuffix,
   billing = RELATION_DEFAULT.billing,
-  // countryHistoryCompanyOperatingCountryIdToCountry = RELATION_DEFAULT.countryHistoryCompanyOperatingCountryIdToCountry,
-  // countryHistoryCompanyBusinessCountryIdToCountry = RELATION_DEFAULT.countryHistoryCompanyBusinessCountryIdToCountry,
+  operatingCountry = RELATION_DEFAULT.operatingCountry,
+  businessCountry = RELATION_DEFAULT.businessCountry,
+  contactPhoneCountry = RELATION_DEFAULT.contactPhoneCountry,
 }
 
 export enum INDEX {

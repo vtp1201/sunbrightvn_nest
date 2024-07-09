@@ -1,8 +1,16 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/SupportCase';
-import { createdTime, deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/SupportCase';
+import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
+import {
+  message,
+  order,
+  supportCasePriority,
+  supportCaseStatus,
+  supportCaseType,
+  user,
+} from '.';
 
 export default createModel(MODEL_NAME.SUPPORT_CASE, (SupportCaseModel) => {
   const initCreatedTime = createdTime({
@@ -20,6 +28,36 @@ export default createModel(MODEL_NAME.SUPPORT_CASE, (SupportCaseModel) => {
     },
   );
 
+  // defined Relations
+  const messagesRelation = oneToMany({
+    model: message,
+    relation: RELATION.messages,
+  });
+  const supportCasePriorityRelation = oneToOne({
+    attribute: ATTRIBUTE.supportCasePriorityId,
+    model: supportCasePriority,
+    relation: RELATION.supportCasePriority,
+  });
+  const supportCaseStatusRelation = oneToOne({
+    attribute: ATTRIBUTE.supportCaseStatusId,
+    model: supportCaseStatus,
+    relation: RELATION.supportCaseStatus,
+  });
+  const supportCaseTypeRelation = oneToOne({
+    attribute: ATTRIBUTE.supportCaseTypeId,
+    model: supportCaseType,
+    relation: RELATION.supportCaseType,
+  });
+  const userRelation = oneToOne({
+    attribute: ATTRIBUTE.userId,
+    model: user,
+    relation: RELATION.user,
+  });
+  const ordersRelation = oneToMany({
+    model: order,
+    relation: RELATION.orders,
+  });
+
   // defined Model
   process.nextTick(() => {
     SupportCaseModel.int(ATTRIBUTE.id, {
@@ -35,7 +73,6 @@ export default createModel(MODEL_NAME.SUPPORT_CASE, (SupportCaseModel) => {
       })
       .int(ATTRIBUTE.userId, {
         map: COLUMN.userId,
-        optional: true,
       })
       .int(ATTRIBUTE.supportCaseTypeId, {
         map: COLUMN.supportCaseTypeId,
@@ -54,11 +91,19 @@ export default createModel(MODEL_NAME.SUPPORT_CASE, (SupportCaseModel) => {
       .mixin(initCreatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(messagesRelation)
+      .mixin(supportCasePriorityRelation)
+      .mixin(supportCaseStatusRelation)
+      .mixin(supportCaseTypeRelation)
+      .mixin(userRelation)
+      .mixin(ordersRelation)
+
       // indexes
-      .raw(INDEX.supportCasePriorityId)
-      .raw(INDEX.supportCaseStatusId)
-      .raw(INDEX.supportCaseTypeId)
-      .raw(INDEX.userId)
+      // .raw(INDEX.supportCasePriorityId)
+      // .raw(INDEX.supportCaseStatusId)
+      // .raw(INDEX.supportCaseTypeId)
+      // .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.SUPPORT_CASE);

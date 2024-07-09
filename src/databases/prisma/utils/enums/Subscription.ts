@@ -27,6 +27,7 @@ export enum COLUMN {
 }
 
 export enum RELATION {
+  notificationTemplates = RELATION_DEFAULT.notificationTemplates,
   service = RELATION_DEFAULT.service,
   users = RELATION_DEFAULT.users,
 }

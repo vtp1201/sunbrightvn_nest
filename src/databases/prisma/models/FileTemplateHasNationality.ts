@@ -1,9 +1,15 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/FileTemplateHasNationality';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  RELATION,
+} from '../utils/enums/FileTemplateHasNationality';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { country, fileTemplate } from '.';
 
+// TODO: xem sét xóa
 export default createModel(
   MODEL_NAME.FILE_TEMPLATE_HAS_NATIONALITY,
   (FileTemplateHasNationalityModel) => {
@@ -26,6 +32,18 @@ export default createModel(
       },
     );
 
+    // defined Relations
+    const countryRelation = oneToOne({
+      attribute: ATTRIBUTE.countryId,
+      relation: RELATION.country,
+      model: country,
+    });
+    const fileTemplateRelation = oneToOne({
+      attribute: ATTRIBUTE.fileTemplateId,
+      relation: RELATION.fileTemplate,
+      model: fileTemplate,
+    });
+
     // defined Model
     process.nextTick(() => {
       FileTemplateHasNationalityModel.int(ATTRIBUTE.fileTemplateId, {
@@ -43,6 +61,10 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(countryRelation)
+        .mixin(fileTemplateRelation)
 
         // ids
         .id({

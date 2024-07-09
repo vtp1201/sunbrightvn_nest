@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/NoteType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/NoteType';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { note } from '.';
 
 export default createModel(MODEL_NAME.NOTE_TYPE, (NoteTypeModel) => {
   const initCreatedTime = createdTime({
@@ -24,6 +25,12 @@ export default createModel(MODEL_NAME.NOTE_TYPE, (NoteTypeModel) => {
     },
   );
 
+  // defined Relations
+  const notesRelation = oneToMany({
+    model: note,
+    relation: RELATION.notes,
+  });
+
   // defined Model
   process.nextTick(() => {
     NoteTypeModel.int(ATTRIBUTE.id, {
@@ -42,6 +49,9 @@ export default createModel(MODEL_NAME.NOTE_TYPE, (NoteTypeModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(notesRelation)
 
       // table name
       .map(TABLE_NAME.NOTE_TYPE);

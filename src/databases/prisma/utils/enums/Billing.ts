@@ -56,7 +56,7 @@ export enum RELATION {
   customer = RELATION_DEFAULT.customer,
   phoneCountry = RELATION_DEFAULT.phoneCountry,
   user = RELATION_DEFAULT.user,
-  company = RELATION_DEFAULT.company,
+  companies = RELATION_DEFAULT.companies,
   historyCompanies = RELATION_DEFAULT.historyCompanies,
   orders = RELATION_DEFAULT.orders,
 }

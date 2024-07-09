@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/ChangeRequestItem';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ChangeRequestItem';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { changeRequest } from '.';
 
 export default createModel(
   MODEL_NAME.CHANGE_REQUEST_ITEM,
@@ -25,6 +26,12 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+    // defined Relations
+    const changeRequestRelation = oneToOne({
+      attribute: ATTRIBUTE.changeRequestId,
+      model: changeRequest,
+      relation: RELATION.changeRequest,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -68,6 +75,9 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(changeRequestRelation)
 
         // table name
         .map(TABLE_NAME.CHANGE_REQUEST_ITEM);

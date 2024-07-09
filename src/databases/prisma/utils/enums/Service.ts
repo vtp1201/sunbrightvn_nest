@@ -61,15 +61,27 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  companyEvent = RELATION_DEFAULT.companyEvent,
+  companyEvents = RELATION_DEFAULT.companyEvents,
+  countryHasServices = RELATION_DEFAULT.countryHasServices,
   fees = RELATION_DEFAULT.fees,
   orderItems = RELATION_DEFAULT.orderItems,
+  packageHasServices = RELATION_DEFAULT.packageHasServices,
+  discountService = RELATION_DEFAULT.discountService,
+  discountForServices = RELATION_DEFAULT.discountForServices,
+  airport = RELATION_DEFAULT.airport,
+  carSeat = RELATION_DEFAULT.carSeat,
+  carType = RELATION_DEFAULT.carType,
   serviceType = RELATION_DEFAULT.serviceType,
   serviceUnit = RELATION_DEFAULT.serviceUnit,
   visaPurpose = RELATION_DEFAULT.visaPurpose,
   visaType = RELATION_DEFAULT.visaType,
   website = RELATION_DEFAULT.website,
+  upgradeService = RELATION_DEFAULT.upgradeService,
+  upgradeForServices = RELATION_DEFAULT.upgradeForServices,
   xeroAccount = RELATION_DEFAULT.xeroAccount,
+  companyMemberTypes = RELATION_DEFAULT.companyMemberTypes,
+  companySuffixes = RELATION_DEFAULT.companySuffixes,
+  serviceHasFileTemplates = RELATION_DEFAULT.serviceHasFileTemplates,
   subscriptions = RELATION_DEFAULT.subscriptions,
 }
 

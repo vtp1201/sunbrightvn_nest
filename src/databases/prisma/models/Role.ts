@@ -1,8 +1,23 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Role';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Role';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  emailTemplateHasReceiver,
+  limit,
+  notificationTemplate,
+  permission,
+  processStepHasRole,
+  role,
+  user,
+} from '.';
 
 export default createModel(MODEL_NAME.ROLE, (RoleModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +38,44 @@ export default createModel(MODEL_NAME.ROLE, (RoleModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const emailTemplateHasReceiversRelation = oneToMany({
+    model: emailTemplateHasReceiver,
+    relation: RELATION.emailTemplateHasReceivers,
+  });
+  const notificationTemplatesRelation = oneToMany({
+    model: notificationTemplate,
+    relation: RELATION.notificationTemplates,
+  });
+  const processStepHasRolesRelation = oneToMany({
+    model: processStepHasRole,
+    relation: RELATION.processStepHasRoles,
+  });
+  const parentRelation = oneToOne({
+    attribute: ATTRIBUTE.parentId,
+    model: role,
+    relation: RELATION.parent,
+    isNeedName: true,
+    option: { optional: true },
+  });
+  const childrenRelation = oneToMany({
+    model: role,
+    relation: RELATION.children,
+    fromRelation: RELATION.parent,
+  });
+  const limitsRelation = oneToMany({
+    model: limit,
+    relation: RELATION.limits,
+  });
+  const permissionsRelation = oneToMany({
+    model: permission,
+    relation: RELATION.permissions,
+  });
+  const usersRelation = oneToMany({
+    model: user,
+    relation: RELATION.users,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -73,8 +126,18 @@ export default createModel(MODEL_NAME.ROLE, (RoleModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(emailTemplateHasReceiversRelation)
+      .mixin(notificationTemplatesRelation)
+      .mixin(processStepHasRolesRelation)
+      .mixin(parentRelation)
+      .mixin(childrenRelation)
+      .mixin(limitsRelation)
+      .mixin(permissionsRelation)
+      .mixin(usersRelation)
+
       // indexes
-      .raw(INDEX.parentId)
+      // .raw(INDEX.parentId)
 
       // table name
       .map(TABLE_NAME.ROLE);

@@ -23,7 +23,9 @@ export enum COLUMN {
 }
 
 export enum RELATION {
+  files = RELATION_DEFAULT.files,
   fileTemplate = RELATION_DEFAULT.fileTemplate,
+  questions = RELATION_DEFAULT.questions,
 }
 
 export default {

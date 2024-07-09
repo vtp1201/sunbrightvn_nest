@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/AgentType';
-import { deleted } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/AgentType';
+import { deleted, oneToMany } from '../mixins';
+import { agent } from './';
 
 export default createModel(MODEL_NAME.AGENT_TYPE, (AgentTypeModel) => {
   const initDeleted = deleted(
@@ -15,6 +16,12 @@ export default createModel(MODEL_NAME.AGENT_TYPE, (AgentTypeModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relation
+  const agentsRelation = oneToMany({
+    model: agent,
+    relation: RELATION.agents,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -32,6 +39,9 @@ export default createModel(MODEL_NAME.AGENT_TYPE, (AgentTypeModel) => {
 
       // dateTime marks
       .mixin(initDeleted)
+
+      // relations
+      .mixin(agentsRelation)
 
       // table name
       .map(TABLE_NAME.AGENT_TYPE);

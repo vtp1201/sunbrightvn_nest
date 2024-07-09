@@ -1,8 +1,22 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/Email';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Email';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import {
+  agent,
+  company,
+  companyMember,
+  emailTemplate,
+  emailTemplateHasReceiver,
+  Process,
+} from '.';
 
 export default createModel(MODEL_NAME.EMAIL, (EmailModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +37,38 @@ export default createModel(MODEL_NAME.EMAIL, (EmailModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined relations
+  const agentRelation = oneToOne({
+    attribute: ATTRIBUTE.agentId,
+    model: agent,
+    relation: RELATION.agent,
+    option: { optional: true },
+  });
+  const companyMemberRelation = oneToOne({
+    attribute: ATTRIBUTE.companyMemberId,
+    model: companyMember,
+    relation: RELATION.companyMember,
+    option: { optional: true },
+  });
+  const emailTemplateRelation = oneToOne({
+    attribute: ATTRIBUTE.emailTemplateId,
+    model: emailTemplate,
+    relation: RELATION.emailTemplate,
+    option: { optional: true },
+  });
+  const processRelation = oneToOne({
+    attribute: ATTRIBUTE.processId,
+    model: Process,
+    relation: RELATION.process,
+    option: { optional: true },
+  });
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: company,
+    relation: RELATION.company,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -109,12 +155,19 @@ export default createModel(MODEL_NAME.EMAIL, (EmailModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(agentRelation)
+      .mixin(companyMemberRelation)
+      .mixin(emailTemplateRelation)
+      .mixin(processRelation)
+      .mixin(companyRelation)
+
       // indexes
-      .raw(INDEX.agentId)
-      .raw(INDEX.companyMemberId)
-      .raw(INDEX.emailTemplateId)
-      .raw(INDEX.processId)
-      .raw(INDEX.companyId)
+      // .raw(INDEX.agentId)
+      // .raw(INDEX.companyMemberId)
+      // .raw(INDEX.emailTemplateId)
+      // .raw(INDEX.processId)
+      // .raw(INDEX.companyId)
 
       // table name
       .map(TABLE_NAME.EMAIL);

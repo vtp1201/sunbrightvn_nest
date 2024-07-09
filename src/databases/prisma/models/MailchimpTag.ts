@@ -1,8 +1,14 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/MailchimpTag';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/MailchimpTag';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { contactFrom } from '.';
 
 export default createModel(MODEL_NAME.MAILCHIMP_TAG, (MailchimpTagModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +29,14 @@ export default createModel(MODEL_NAME.MAILCHIMP_TAG, (MailchimpTagModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const contactFromRelation = oneToOne({
+    attribute: ATTRIBUTE.contactFromId,
+    model: contactFrom,
+    relation: RELATION.contactFrom,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -52,8 +66,11 @@ export default createModel(MODEL_NAME.MAILCHIMP_TAG, (MailchimpTagModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(contactFromRelation)
+
       // indexes
-      .raw(INDEX.contactFromId)
+      // .raw(INDEX.contactFromId)
 
       // table name
       .map(TABLE_NAME.MAILCHIMP_TAG);

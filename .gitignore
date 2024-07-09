@@ -16,6 +16,8 @@ lerna-debug.log*
 # OS
 .DS_Store
 
+mysql_bind_folder
+
 # Tests
 /coverage
 /.nyc_output
@@ -28,6 +30,9 @@ lerna-debug.log*
 *.launch
 .settings/
 *.sublime-workspace
+
+/src/databases/prisma/*.prisma
+
 
 # IDE - VSCode
 .vscode/*

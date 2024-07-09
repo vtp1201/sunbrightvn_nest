@@ -45,7 +45,7 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  file = RELATION_DEFAULT.file,
+  issuedFile = RELATION_DEFAULT.issuedFile,
   company = RELATION_DEFAULT.company,
   companyMember = RELATION_DEFAULT.companyMember,
   corporationCompanyMember = RELATION_DEFAULT.corporationCompanyMember,

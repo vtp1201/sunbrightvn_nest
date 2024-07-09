@@ -37,11 +37,11 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  agent = 'agent',
-  companyMemberBelongTo = 'company_member_process_log_belong_to_company_member_idTocompany_member',
-  companyMember = 'company_member_process_log_company_member_idTocompany_member',
-  fileTemplate = 'file_template',
-  process = 'process',
+  agent = RELATION_DEFAULT.agent,
+  belongToCompanyMember = RELATION_DEFAULT.belongToCompanyMember,
+  companyMember = RELATION_DEFAULT.companyMember,
+  fileTemplate = RELATION_DEFAULT.fileTemplate,
+  process = RELATION_DEFAULT.process,
 }
 
 export enum INDEX {

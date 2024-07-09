@@ -49,18 +49,18 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  additionProcess = 'addition_process',
-  bankingProcess = 'banking_process',
+  emails = RELATION_DEFAULT.emails,
+  emailTriggerHasProcesses = RELATION_DEFAULT.emailTriggerHasProcesses,
+  additionProcess = RELATION_DEFAULT.additionProcess,
+  bankingProcess = RELATION_DEFAULT.bankingProcess,
   person = RELATION_DEFAULT.person,
-  processStep = 'process_step',
-  task = 'task',
+  processStep = RELATION_DEFAULT.processStep,
+  task = RELATION_DEFAULT.task,
   user = RELATION_DEFAULT.user,
-  processHasNote = 'process_has_note',
-  processHasParentProcessParent = 'process_has_parent_process_process_has_parent_process_parent_process_idToprocess',
-  processHasParentProcessProcess = 'process_has_parent_process_process_has_parent_process_process_idToprocess',
-  processLog = 'process_log',
-  email = 'email',
-  emailTriggerHasProcess = 'email_trigger_has_process',
+  notes = RELATION_DEFAULT.notes,
+  parents = RELATION_DEFAULT.parents,
+  children = RELATION_DEFAULT.children,
+  processLogs = RELATION_DEFAULT.processLogs,
 }
 
 export enum INDEX {

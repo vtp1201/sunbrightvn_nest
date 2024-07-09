@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/RankingPartnerType';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/RankingPartnerType';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { fileTemplate, rankingPartner } from '.';
 
 export default createModel(
   MODEL_NAME.RANKING_PARTNER_TYPE,
@@ -26,6 +27,16 @@ export default createModel(
       },
     );
 
+    // defined Relations
+    const rankingPartnersRelation = oneToMany({
+      model: rankingPartner,
+      relation: RELATION.rankingPartners,
+    });
+    const fileTemplatesRelation = oneToMany({
+      model: fileTemplate,
+      relation: RELATION.fileTemplates,
+    });
+
     // defined Model
     process.nextTick(() => {
       RankingPartnerTypeModel.int(ATTRIBUTE.id, {
@@ -44,6 +55,10 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(rankingPartnersRelation)
+        .mixin(fileTemplatesRelation)
 
         // table name
         .map(TABLE_NAME.RANKING_PARTNER_TYPE);

@@ -1,8 +1,9 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/Department';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Department';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { serviceTypeHasDepartment } from '.';
 
 export default createModel(MODEL_NAME.DEPARTMENT, (DepartmentModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +24,12 @@ export default createModel(MODEL_NAME.DEPARTMENT, (DepartmentModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined relations
+  const serviceTypeHasDepartmentsRelation = oneToMany({
+    model: serviceTypeHasDepartment,
+    relation: RELATION.serviceTypeHasDepartments,
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -47,6 +54,9 @@ export default createModel(MODEL_NAME.DEPARTMENT, (DepartmentModel) => {
       .mixin(initCreatedTime)
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
+
+      // relations
+      .mixin(serviceTypeHasDepartmentsRelation)
 
       // table name
       .map(TABLE_NAME.DEPARTMENT);

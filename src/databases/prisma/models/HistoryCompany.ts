@@ -1,8 +1,14 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/HistoryCompany';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/HistoryCompany';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { billing, companyStatus, companySuffix, country, entityType } from '.';
 
 export default createModel(
   MODEL_NAME.HISTORY_COMPANY,
@@ -25,6 +31,60 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relations
+    const billingRelation = oneToOne({
+      attribute: ATTRIBUTE.billingId,
+      model: billing,
+      relation: RELATION.billing,
+      option: { optional: true },
+    });
+    const companyStatusRelation = oneToOne({
+      attribute: ATTRIBUTE.companyStatusId,
+      model: companyStatus,
+      relation: RELATION.companyStatus,
+      option: { optional: true },
+    });
+    const companySuffixRelation = oneToOne({
+      attribute: ATTRIBUTE.companySuffixId,
+      model: companySuffix,
+      relation: RELATION.companySuffix,
+      option: { optional: true },
+    });
+    const businessCountryRelation = oneToOne({
+      attribute: ATTRIBUTE.businessCountryId,
+      model: country,
+      relation: RELATION.businessCountry,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const countryRelation = oneToOne({
+      attribute: ATTRIBUTE.countryId,
+      model: country,
+      relation: RELATION.country,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const contactCountryRelation = oneToOne({
+      attribute: ATTRIBUTE.contactPhoneCountryId,
+      model: country,
+      relation: RELATION.contactPhoneCountry,
+      isNeedName: true,
+      option: { optional: true },
+    });
+    const entityTypeRelation = oneToOne({
+      attribute: ATTRIBUTE.entityTypeId,
+      model: entityType,
+      relation: RELATION.entityType,
+      option: { optional: true },
+    });
+    const operatingCountryRelation = oneToOne({
+      attribute: ATTRIBUTE.operatingCountryId,
+      model: country,
+      relation: RELATION.operatingCountry,
+      isNeedName: true,
+      option: { optional: true },
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -310,14 +370,24 @@ export default createModel(
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
 
+        // relations
+        .mixin(countryRelation)
+        .mixin(companyStatusRelation)
+        .mixin(contactCountryRelation)
+        .mixin(entityTypeRelation)
+        .mixin(companySuffixRelation)
+        .mixin(businessCountryRelation)
+        .mixin(billingRelation)
+        .mixin(operatingCountryRelation)
+
         // indexes
-        .raw(INDEX.billingId)
-        .raw(INDEX.businessCountryId)
-        .raw(INDEX.companyStatusId)
-        .raw(INDEX.companySuffixId)
-        .raw(INDEX.countryId)
-        .raw(INDEX.entityTypeId)
-        .raw(INDEX.operatingCountryId)
+        // .raw(INDEX.billingId)
+        // .raw(INDEX.businessCountryId)
+        // .raw(INDEX.companyStatusId)
+        // .raw(INDEX.companySuffixId)
+        // .raw(INDEX.countryId)
+        // .raw(INDEX.entityTypeId)
+        // .raw(INDEX.operatingCountryId)
 
         // table name
         .map(TABLE_NAME.HISTORY_COMPANY);

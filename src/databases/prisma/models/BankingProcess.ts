@@ -1,8 +1,15 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN } from '../utils/enums/BankingProcess';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/BankingProcess';
+import {
+  createdTime,
+  deleted,
+  oneToMany,
+  oneToOne,
+  updatedTime,
+} from '../mixins';
+import { bank, bankBranch, country, task, Process, proposedTime } from './';
 
 export default createModel(
   MODEL_NAME.BANKING_PROCESS,
@@ -25,6 +32,40 @@ export default createModel(
         column: COLUMN.isDeleted,
       },
     );
+
+    // defined Relation
+    const bankRelation = oneToOne({
+      attribute: ATTRIBUTE.bankId,
+      model: bank,
+      relation: RELATION.bank,
+      option: { optional: true },
+    });
+    const bankBranchRelation = oneToOne({
+      attribute: ATTRIBUTE.bankBranchId,
+      model: bankBranch,
+      relation: RELATION.bankBranch,
+      option: { optional: true },
+    });
+    const phoneCountryRelation = oneToOne({
+      attribute: ATTRIBUTE.phoneCountryId,
+      model: country,
+      relation: RELATION.phoneCountry,
+      option: { optional: true },
+    });
+    const taskRelation = oneToOne({
+      attribute: ATTRIBUTE.taskId,
+      model: task,
+      relation: RELATION.task,
+      option: { optional: true },
+    });
+    const processesRelation = oneToMany({
+      model: Process,
+      relation: RELATION.processes,
+    });
+    const proposedTimesRelation = oneToMany({
+      model: proposedTime,
+      relation: RELATION.proposedTimes,
+    });
 
     // defined Model
     process.nextTick(() => {
@@ -109,6 +150,14 @@ export default createModel(
         .mixin(initCreatedTime)
         .mixin(initUpdatedTime)
         .mixin(initDeleted)
+
+        // relations
+        .mixin(bankRelation)
+        .mixin(bankBranchRelation)
+        .mixin(phoneCountryRelation)
+        .mixin(taskRelation)
+        .mixin(processesRelation)
+        .mixin(proposedTimesRelation)
 
         // table name
         .map(TABLE_NAME.BANKING_PROCESS);

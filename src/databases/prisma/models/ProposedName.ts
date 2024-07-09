@@ -1,8 +1,14 @@
 import { createModel } from 'schemix';
 
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX } from '../utils/enums/ProposedName';
-import { createdTime, deleted, updatedTime } from '../mixins';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  RELATION,
+} from '../utils/enums/ProposedName';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { company, companySuffix, task } from '.';
 
 export default createModel(MODEL_NAME.PROPOSED_NAME, (ProposedNameModel) => {
   const initCreatedTime = createdTime({
@@ -23,6 +29,26 @@ export default createModel(MODEL_NAME.PROPOSED_NAME, (ProposedNameModel) => {
       column: COLUMN.isDeleted,
     },
   );
+
+  // defined Relations
+  const companyRelation = oneToOne({
+    attribute: ATTRIBUTE.companyId,
+    model: company,
+    relation: RELATION.company,
+    option: { optional: true },
+  });
+  const companySuffixRelation = oneToOne({
+    attribute: ATTRIBUTE.companySuffixId,
+    model: companySuffix,
+    relation: RELATION.companySuffix,
+    option: { optional: true },
+  });
+  const taskRelation = oneToOne({
+    attribute: ATTRIBUTE.taskId,
+    model: task,
+    relation: RELATION.task,
+    option: { optional: true },
+  });
 
   // defined Model
   process.nextTick(() => {
@@ -70,10 +96,15 @@ export default createModel(MODEL_NAME.PROPOSED_NAME, (ProposedNameModel) => {
       .mixin(initUpdatedTime)
       .mixin(initDeleted)
 
+      // relations
+      .mixin(companyRelation)
+      .mixin(companySuffixRelation)
+      .mixin(taskRelation)
+
       // indexes
-      .raw(INDEX.companyId)
-      .raw(INDEX.companySuffixId)
-      .raw(INDEX.taskId)
+      // .raw(INDEX.companyId)
+      // .raw(INDEX.companySuffixId)
+      // .raw(INDEX.taskId)
 
       // table name
       .map(TABLE_NAME.PROPOSED_NAME);
