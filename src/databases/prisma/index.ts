@@ -9,5 +9,6 @@ createSchema({
   },
   generator: {
     provider: 'prisma-client-js',
+    previewFeatures: ['omitApi'],
   },
 }).export(__dirname, 'schema');

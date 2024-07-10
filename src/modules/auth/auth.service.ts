@@ -48,30 +48,10 @@ export class AuthService {
       }
 
       const user = await this.userService.findFirst({
-        select: {
-          id: true,
+        omit: {
+          password: true,
+          passwordSalt: true,
           username: true,
-          status: true,
-          createdTime: true,
-          personId: true,
-          customerId: true,
-          roles: {
-            select: {
-              id: true,
-              name: true,
-              left: true,
-              right: true,
-              parentId: true,
-              permissions: {
-                select: {
-                  id: true,
-                  value: true,
-                  name: true,
-                },
-              },
-              limits: true,
-            },
-          },
         },
         where: {
           id: token.id,
