@@ -2,6 +2,7 @@ import { UserService } from '@modules/user/user.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { SHA256 } from 'crypto-js';
 import { TokenService } from './token.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -47,16 +48,9 @@ export class AuthService {
         throw new BadRequestException('');
       }
 
-      const user = await this.userService.findFirst({
-        omit: {
-          password: true,
-          passwordSalt: true,
-          username: true,
-        },
-        where: {
-          id: token.id,
-        },
-      });
+      const user = await this.userService.repository.getUserToGeneratePassport(
+        token.userId,
+      );
 
       if (!user) {
         throw new BadRequestException('');
@@ -68,9 +62,35 @@ export class AuthService {
     }
   }
 
-  generatePassport(user) {
+  generatePassport(
+    user: Prisma.PromiseReturnType<
+      typeof this.userService.repository.getUserToGeneratePassport
+    >,
+    token = null,
+  ) {
     const passport = {
-      user: {},
+      user: {
+        id: user.id,
+        username: user.username,
+        status: user.status,
+        createdTime: user.createdTime,
+        personId: user.personId,
+        customerId: user.customerId,
+      },
+      token,
     };
+
+    if (token) {
+      passport.token = {
+        id: token.id,
+        scope: token.scope,
+        access_token: token.access_token,
+        access_token_exp: token.access_token_exp,
+        access_token_iat: token.access_token_iat,
+        refresh_token: token.refresh_token,
+        refresh_token_exp: token.refresh_token_exp,
+        refresh_token_iat: token.refresh_token_iat,
+      };
+    }
   }
 }

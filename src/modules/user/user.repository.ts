@@ -10,6 +10,62 @@ export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
   constructor(private prismaService: PrismaService) {
     super(prismaService);
   }
+  async getUserToGeneratePassport(id: number) {
+    return await this.findUniqueOrThrow({
+      select: {
+        id: true,
+        username: true,
+        status: true,
+        createdTime: true,
+        personId: true,
+        customerId: true,
+        roles: {
+          select: {
+            id: true,
+            name: true,
+            left: true,
+            right: true,
+            parentId: true,
+            permissions: {
+              select: {
+                id: true,
+                value: true,
+                name: true,
+              },
+            },
+            limits: {
+              include: {
+                limitType: true,
+                permission: {
+                  select: {
+                    id: true,
+                    value: true,
+                    name: true,
+                  },
+                },
+                permissionGroup: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
+                },
+                limitValues: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      where: {
+        id,
+      },
+    });
+  }
+
   async test() {
     const user = await this.prismaService.user.findFirst({
       select: {
@@ -38,10 +94,11 @@ export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
         },
       },
       where: {
-        id: 98,
+        username: 'asd',
       },
       // include: {},
     });
+    const customerId = user.customerId;
     return 'test';
   }
 }
