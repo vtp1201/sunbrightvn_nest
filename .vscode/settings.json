@@ -7,6 +7,7 @@
     "fatcas",
     "schemix",
     "syslogs",
+    "tailwindcss",
     "tawk",
     "trivago",
     "Uncapitalize"
@@ -20,6 +21,7 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
+  "files.associations": { "*.scss": "postcss" },
   // "[sh]": {
   //   "editor.defaultFormatter": "foxundermoon.shell-format"
   // },
