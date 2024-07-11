@@ -44,6 +44,9 @@ export class AuthService {
         })
       )
         throw new BadRequestException('');
+
+      if (user.isTwoFactorAuthentication) {
+      }
     } catch (error) {
       throw new BadRequestException('');
     }
