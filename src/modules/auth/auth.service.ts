@@ -1,48 +1,75 @@
 import { UserService } from '@modules/user/user.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { SHA256 } from 'crypto-js';
+import { MD5, SHA256 } from 'crypto-js';
 import { TokenService } from './token.service';
 import { Prisma } from '@prisma/client';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
+  private PASSWORD_SALT_STATIC: string;
   constructor(
     private readonly userService: UserService,
     private readonly tokenService: TokenService,
-  ) {}
+    configService: ConfigService,
+  ) {
+    this.PASSWORD_SALT_STATIC = configService.get('PASSWORD_SALT_STATIC');
+  }
 
   async getAuthenticatedUser(username: string, password: string) {
     try {
-      const user = await this.userService.findFirst({
+      const user = await this.userService.findFirstOrThrow({
         where: {
-          [this.userService.repository.attributes.username]: username,
+          username: username.trim(),
+        },
+        include: {
+          roles: {
+            include: {
+              permissions: true,
+            },
+            where: {
+              status: 1,
+            },
+          },
+          customer: true,
         },
       });
-      return user;
+
+      if (user.status !== 1) throw new BadRequestException('');
+      if (
+        !this.comparePassword({
+          passwordHashed: user.password,
+          passwordSalt: user.passwordSalt,
+          password,
+        })
+      )
+        throw new BadRequestException('');
     } catch (error) {
       throw new BadRequestException('');
     }
   }
 
+  comparePassword({
+    passwordHashed,
+    passwordSalt,
+    password,
+  }: {
+    passwordHashed: string;
+    passwordSalt: string;
+    password: string;
+  }) {
+    return (
+      SHA256(
+        this.PASSWORD_SALT_STATIC + MD5(password) + passwordSalt,
+      ).toString() == passwordHashed
+    );
+  }
+
   async verifyAccessToken(accessToken: string) {
     try {
-      const token = await this.tokenService.findFirst({
-        select: {
-          id: true,
-          scope: true,
-          userId: true,
-          accessToken: true,
-          accessTokenExp: true,
-          refreshToken: true,
-          refreshTokenExp: true,
-        },
-        where: {
-          accessToken,
-          accessTokenExp: {
-            gte: Math.floor(Date.now() / 1000),
-          },
-        },
-      });
+      const token = await this.tokenService.getTokenValidFromAccessToken(
+        accessToken,
+      );
 
       if (!token) {
         throw new BadRequestException('');
@@ -66,9 +93,62 @@ export class AuthService {
     user: Prisma.PromiseReturnType<
       typeof this.userService.repository.getUserToGeneratePassport
     >,
-    token = null,
+    token: null | Prisma.PromiseReturnType<
+      typeof this.tokenService.getTokenValidFromAccessToken
+    > = null,
   ) {
-    const passport = {
+    const roles: {
+      id: number;
+      name: string;
+      left: number;
+      right: number;
+      parentId: number;
+    }[] = [];
+    const permissions = [];
+    const limits = [];
+
+    for (const keyRole in user.roles) {
+      roles.push({
+        id: user.roles[keyRole].id,
+        name: user.roles[keyRole].name,
+        left: user.roles[keyRole].left,
+        right: user.roles[keyRole].right,
+        parentId: user.roles[keyRole].parentId,
+      });
+
+      for (const keyPermission in user.roles[keyRole].permissions) {
+        if (user.roles[keyRole].permissions[keyPermission].id) {
+          permissions[user.roles[keyRole].permissions[keyPermission].id] = {
+            id: user.roles[keyRole].permissions[keyPermission].id,
+            value: user.roles[keyRole].permissions[keyPermission].value,
+            name: user.roles[keyRole].permissions[keyPermission].name,
+          };
+        }
+      }
+
+      for (const keyPermission_1 in user.roles[keyRole].limits) {
+        if (user.roles[keyRole].limits[keyPermission_1].id) {
+          limits[user.roles[keyRole].limits[keyPermission_1].id] = {
+            id: user.roles[keyRole].limits[keyPermission_1].id,
+            name: user.roles[keyRole].limits[keyPermission_1].name,
+            model: user.roles[keyRole].limits[keyPermission_1].model,
+            limitTypeId:
+              user.roles[keyRole].limits[keyPermission_1].limitTypeId,
+            permissionId:
+              user.roles[keyRole].limits[keyPermission_1].permissionId,
+            permissionGroupId:
+              user.roles[keyRole].limits[keyPermission_1].permissionGroupId,
+            permission: user.roles[keyRole].limits[keyPermission_1].permission,
+            permissionGroup:
+              user.roles[keyRole].limits[keyPermission_1].permissionGroup,
+            limitValues:
+              user.roles[keyRole].limits[keyPermission_1].limitValues,
+          };
+        }
+      }
+    }
+
+    return {
       user: {
         id: user.id,
         username: user.username,
@@ -77,20 +157,19 @@ export class AuthService {
         personId: user.personId,
         customerId: user.customerId,
       },
-      token,
+      token: token
+        ? {
+            id: token.id,
+            scope: token.scope,
+            accessToken: token.accessToken,
+            accessTokenExp: token.accessTokenExp,
+            refreshToken: token.refreshToken,
+            refreshTokenExp: token.refreshTokenExp,
+          }
+        : null,
+      roles,
+      permissions,
+      limits,
     };
-
-    if (token) {
-      passport.token = {
-        id: token.id,
-        scope: token.scope,
-        access_token: token.access_token,
-        access_token_exp: token.access_token_exp,
-        access_token_iat: token.access_token_iat,
-        refresh_token: token.refresh_token,
-        refresh_token_exp: token.refresh_token_exp,
-        refresh_token_iat: token.refresh_token_iat,
-      };
-    }
   }
 }

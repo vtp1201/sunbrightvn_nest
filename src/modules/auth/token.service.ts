@@ -11,4 +11,25 @@ export class TokenService extends AbstractService<
   constructor(repository: TokenRepository) {
     super(repository);
   }
+
+  async getTokenValidFromAccessToken(accessToken: string) {
+    const token = await this.findFirst({
+      select: {
+        id: true,
+        scope: true,
+        userId: true,
+        accessToken: true,
+        accessTokenExp: true,
+        refreshToken: true,
+        refreshTokenExp: true,
+      },
+      where: {
+        accessToken,
+        accessTokenExp: {
+          gte: Math.floor(Date.now() / 1000),
+        },
+      },
+    });
+    return token;
+  }
 }
