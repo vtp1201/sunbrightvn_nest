@@ -57,6 +57,12 @@ export class AuthService {
           where: { id: user.id },
           data: paramUpdate,
         });
+
+        return {
+          isTwoFactorAuthentication: 1,
+          username: user.username?.trim(),
+          email: user?.customer?.email,
+        };
       }
     } catch (error) {
       throw new BadRequestException('');
