@@ -1,9 +1,11 @@
 import { UserService } from '@modules/user/user.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { MD5, SHA256 } from 'crypto-js';
+import { randomBytes } from 'crypto';
 import { TokenService } from './token.service';
 import { Prisma } from '@prisma/client';
 import { ConfigService } from '@nestjs/config';
+import { USER_STATUS, ROLE_STATUS, KEY_SET_2FA } from '@utilities';
 
 @Injectable()
 export class AuthService {
@@ -28,14 +30,14 @@ export class AuthService {
               permissions: true,
             },
             where: {
-              status: 1,
+              status: ROLE_STATUS.ACTIVE,
             },
           },
           customer: true,
         },
       });
 
-      if (user.status !== 1) throw new BadRequestException('');
+      if (user.status !== USER_STATUS.ACTIVE) throw new BadRequestException('');
       if (
         !this.comparePassword({
           passwordHashed: user.password,
@@ -46,10 +48,40 @@ export class AuthService {
         throw new BadRequestException('');
 
       if (user.isTwoFactorAuthentication) {
+        const generate2FA = this.generate2FAToken();
+        const paramUpdate = {
+          twoFactorToken: generate2FA.twoFactorToken,
+          twoFactorTokenExp: generate2FA.twoFactorTokenExp,
+        };
+        await this.userService.update({
+          where: { id: user.id },
+          data: paramUpdate,
+        });
       }
     } catch (error) {
       throw new BadRequestException('');
     }
+  }
+
+  generate2FAToken() {
+    const bytes = randomBytes(20);
+    const set = KEY_SET_2FA;
+    let output = '';
+    for (var i = 0, l = bytes.length; i < l; i++) {
+      output += set[Math.floor((bytes[i] / 255.0) * (set.length - 1))];
+    }
+    const User2FAToken = output.substring(8, 14);
+    const twoFactorTokenExp = Math.floor(Date.now() / 1000) + 300;
+    const hashTwoFactorToken = SHA256(
+      process.env.TWO_FACTOR_AUTH_SECRET_KEY +
+        MD5(User2FAToken) +
+        twoFactorTokenExp,
+    ).toString();
+    return {
+      user2FAToken: User2FAToken,
+      twoFactorToken: hashTwoFactorToken,
+      twoFactorTokenExp: twoFactorTokenExp,
+    };
   }
 
   comparePassword({
