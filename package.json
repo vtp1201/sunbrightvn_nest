@@ -9,6 +9,7 @@
     "schemix": "ts-node ./src/databases/prisma",
     "_schemix": "ts-node ./src/databases/prisma && npx prisma format",
     "generate": "npm run schemix && npx prisma generate",
+    "postmigrate": "npx @snaplet/seed sync",
     "deploy": "npx prisma migrate deploy",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -26,7 +27,8 @@
     "tailwind:css": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css"
   },
   "prisma": {
-    "schema": "src/databases/prisma/schema.prisma"
+    "schema": "src/databases/prisma/schema.prisma",
+    "seed": "npx tsx src/databases/prisma/seed/seed.ts"
   },
   "dependencies": {
     "@nestjs-modules/ioredis": "^2.0.2",
