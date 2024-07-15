@@ -17,6 +17,7 @@ import {
       envFilePath: ENV_PATH,
       validate,
       isGlobal: true,
+      cache: true,
     }),
     RedisModule.forRoot({
       type: 'single',

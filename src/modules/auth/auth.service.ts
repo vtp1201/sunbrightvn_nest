@@ -5,37 +5,54 @@ import { randomBytes } from 'crypto';
 import { TokenService } from './token.service';
 import { Prisma } from '@prisma/client';
 import { ConfigService } from '@nestjs/config';
-import { USER_STATUS, ROLE_STATUS, KEY_SET_2FA } from '@utilities';
+import {
+  USER_STATUS,
+  ROLE_STATUS,
+  KEY_SET_2FA,
+  CONFIGURATION,
+} from '@utilities';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  private PASSWORD_SALT_STATIC: string;
+  private passwordSaltStatic: string;
+  private JWTAccessTokenTimeToLive: number;
+  private JWTRefreshTokenTimeToLive: number;
+  private JWTAccessTokenSecretKey: string;
+  private JWTRefreshTokenSecretKey: string;
   constructor(
     private readonly userService: UserService,
     private readonly tokenService: TokenService,
+    private readonly jwtService: JwtService,
     configService: ConfigService,
   ) {
-    this.PASSWORD_SALT_STATIC = configService.get('PASSWORD_SALT_STATIC');
+    this.passwordSaltStatic = configService.get(
+      CONFIGURATION.PASSWORD_SALT_STATIC,
+    );
+    this.JWTAccessTokenTimeToLive = configService.get<number>(
+      CONFIGURATION.JWT_ACCESS_TOKEN_TIME_TO_LIVE,
+    );
+    this.JWTRefreshTokenTimeToLive = configService.get<number>(
+      CONFIGURATION.JWT_REFRESH_TOKEN_TIME_TO_LIVE,
+    );
+    this.JWTAccessTokenSecretKey = configService.get<string>(
+      CONFIGURATION.JWT_ACCESS_TOKEN_SECRET_KEY,
+    );
+    this.JWTRefreshTokenSecretKey = configService.get<string>(
+      CONFIGURATION.JWT_REFRESH_TOKEN_SECRET_KEY,
+    );
   }
 
-  async getAuthenticatedUser(username: string, password: string) {
+  async getAuthenticatedUser(
+    username: string,
+    password: string,
+    ipAddress: string | undefined = undefined,
+  ) {
     try {
-      const user = await this.userService.findFirstOrThrow({
-        where: {
-          username: username.trim(),
-        },
-        include: {
-          roles: {
-            include: {
-              permissions: true,
-            },
-            where: {
-              status: ROLE_STATUS.ACTIVE,
-            },
-          },
-          customer: true,
-        },
-      });
+      const user = await this.userService.repository.getUserToGeneratePassport(
+        undefined,
+        username,
+      );
 
       if (user.status !== USER_STATUS.ACTIVE) throw new BadRequestException('');
       if (
@@ -64,9 +81,71 @@ export class AuthService {
           email: user?.customer?.email,
         };
       }
+
+      const generateToken = this.generateToken();
+      await this.tokenService.create({
+        data: {
+          ...generateToken.token,
+          userId: user.id,
+          ipAddress,
+        },
+      });
+      const passport = this.generatePassport(user);
+      return {
+        ...generateToken.jwtToken,
+        ...passport,
+      };
     } catch (error) {
       throw new BadRequestException('');
     }
+  }
+
+  generateToken() {
+    const accessToken = MD5(
+      Math.random().toString(36).substring(2, 20),
+    ).toString();
+    const refreshToken = MD5(
+      Math.random().toString(36).substring(2, 20),
+    ).toString();
+    const createdTime = Math.floor(Date.now() / 1000);
+    const accessTokenExp = createdTime + this.JWTAccessTokenTimeToLive;
+    const refreshTokenExp = createdTime + this.JWTRefreshTokenTimeToLive;
+    const jwtAccessToken = this.jwtService.sign(
+      {
+        iat: createdTime,
+        exp: accessTokenExp,
+        data: accessToken,
+      },
+      {
+        secret: this.JWTAccessTokenSecretKey,
+      },
+    );
+    const jwtRefreshToken = this.jwtService.sign(
+      {
+        iat: createdTime,
+        exp: refreshTokenExp,
+        data: refreshToken,
+      },
+      {
+        secret: this.JWTRefreshTokenSecretKey,
+      },
+    );
+    return {
+      token: {
+        accessToken: accessToken,
+        accessTokenExp: accessTokenExp,
+        accessTokenIat: createdTime,
+        refreshToken: refreshToken,
+        refreshTokenExp: refreshTokenExp,
+        refreshTokenIat: createdTime,
+      },
+      jwtToken: {
+        accessToken: jwtAccessToken,
+        refreshToken: jwtRefreshToken,
+        accessTokenExp: accessTokenExp,
+        refreshTokenExp: refreshTokenExp,
+      },
+    };
   }
 
   generate2FAToken() {
@@ -101,7 +180,7 @@ export class AuthService {
   }) {
     return (
       SHA256(
-        this.PASSWORD_SALT_STATIC + MD5(password) + passwordSalt,
+        this.passwordSaltStatic + MD5(password) + passwordSalt,
       ).toString() == passwordHashed
     );
   }

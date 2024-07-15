@@ -1,7 +1,7 @@
 import { AbstractRepository } from '@abstracts';
 import { PrismaService } from '@databases/prisma.service';
-import { Injectable } from '@nestjs/common';
-import { MODEL_NAME, E_USER } from '@utilities';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { MODEL_NAME, E_USER, ROLE_STATUS } from '@utilities';
 
 @Injectable()
 export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
@@ -10,11 +10,20 @@ export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
   constructor(private prismaService: PrismaService) {
     super(prismaService);
   }
-  async getUserToGeneratePassport(id: number) {
-    return await this.findUniqueOrThrow({
+  async getUserToGeneratePassport(id?: number, username?: string) {
+    if (!id && !username) throw new BadRequestException('');
+    const query = id
+      ? {
+          id,
+        }
+      : { username };
+    return await this.findFirstOrThrow({
       select: {
         id: true,
         username: true,
+        password: true,
+        passwordSalt: true,
+        isTwoFactorAuthentication: true,
         status: true,
         createdTime: true,
         personId: true,
@@ -58,11 +67,17 @@ export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
               },
             },
           },
+          where: {
+            status: ROLE_STATUS.ACTIVE,
+          },
+        },
+        customer: {
+          select: {
+            email: true,
+          },
         },
       },
-      where: {
-        id,
-      },
+      where: query,
     });
   }
 

@@ -8,6 +8,22 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   ModelName = Prisma.ModelName;
   constructor(private configService: ConfigService) {
     super();
+    this.$extends({
+      model: {
+        $allModels: {
+          async findMany({ args, query }) {
+            args.where = { deletedAt: null, ...args.where };
+
+            return query(args);
+          },
+          async findFirst({ args, query }) {
+            args.where = { deletedAt: null, ...args.where };
+
+            return query(args);
+          },
+        },
+      },
+    });
   }
   async onModuleInit() {
     await this.checkAndLogConnection();
