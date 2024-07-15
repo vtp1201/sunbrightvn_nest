@@ -113,7 +113,6 @@ export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
       },
       // include: {},
     });
-    const customerId = user.customerId;
-    return 'test';
+    return user;
   }
 }

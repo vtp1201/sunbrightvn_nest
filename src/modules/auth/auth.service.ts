@@ -5,12 +5,7 @@ import { randomBytes } from 'crypto';
 import { TokenService } from './token.service';
 import { Prisma } from '@prisma/client';
 import { ConfigService } from '@nestjs/config';
-import {
-  USER_STATUS,
-  ROLE_STATUS,
-  KEY_SET_2FA,
-  CONFIGURATION,
-} from '@utilities';
+import { USER_STATUS, KEY_SET_2FA, CONFIGURATION } from '@utilities';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -152,7 +147,7 @@ export class AuthService {
     const bytes = randomBytes(20);
     const set = KEY_SET_2FA;
     let output = '';
-    for (var i = 0, l = bytes.length; i < l; i++) {
+    for (let i = 0, l = bytes.length; i < l; i++) {
       output += set[Math.floor((bytes[i] / 255.0) * (set.length - 1))];
     }
     const User2FAToken = output.substring(8, 14);
