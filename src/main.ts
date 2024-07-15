@@ -5,6 +5,8 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { configSwagger } from '@configs/apiDocs.config';
 import helmet from 'helmet';
 import { join } from 'path';
+import { ConfigService } from '@nestjs/config';
+import { CONFIGURATION } from '@utilities/enums';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -19,7 +21,9 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, 'views'));
   app.setViewEngine('ejs');
 
-  await app.listen(3000);
+  const configService = app.get(ConfigService);
+  const port = configService.get(CONFIGURATION.PORT);
+  await app.listen(port);
 }
 
 bootstrap();
