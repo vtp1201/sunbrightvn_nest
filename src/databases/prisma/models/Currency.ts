@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { company, website } from '.';
+import { deleted, oneToMany } from '../mixins';
 import { MODEL_NAME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Currency';
-import { deleted, oneToMany } from '../mixins';
-import { company, website } from '.';
 
 export default createModel(MODEL_NAME.CURRENCY, (CurrencyModel) => {
   const initDeleted = deleted(

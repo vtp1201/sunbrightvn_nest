@@ -1,11 +1,8 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-} from '../utils/enums/CompanyMemberHasOperationCountry';
 import { manyToMany } from '../mixins';
+import { MODEL_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/CompanyMemberHasOperationCountry';
 
 export default createModel(
   MODEL_NAME.COMPANY_MEMBER_HAS_OPERATION_COUNTRIES,

@@ -1,11 +1,8 @@
 import { createMixin } from 'schemix';
+
 import { ONE_MANY_MIXIN } from '../types';
 
-export default ({
-  relation,
-  model,
-  fromRelation = undefined,
-}: ONE_MANY_MIXIN) => {
+export default ({ relation, model, fromRelation = undefined }: ONE_MANY_MIXIN) => {
   return createMixin((oneToManyMixin) => {
     oneToManyMixin.relation(
       relation,

@@ -1,17 +1,9 @@
 import { createModel } from 'schemix';
 
+import { Package, currency, customer, order, service, serviceType, token } from '.';
+import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Website';
-import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
-import {
-  Package,
-  currency,
-  customer,
-  order,
-  service,
-  serviceType,
-  token,
-} from '.';
 
 export default createModel(MODEL_NAME.WEBSITE, (WebsiteModel) => {
   const initCreatedTime = createdTime({

@@ -1,14 +1,5 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Role';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
 import {
   emailTemplateHasReceiver,
   limit,
@@ -18,6 +9,9 @@ import {
   role,
   user,
 } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Role';
 
 export default createModel(MODEL_NAME.ROLE, (RoleModel) => {
   const initCreatedTime = createdTime({

@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { urlListType } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/UrlList';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
-import { urlListType } from '.';
 
 export default createModel(MODEL_NAME.URL_LIST, (UrlListModel) => {
   const initCreatedTime = createdTime({

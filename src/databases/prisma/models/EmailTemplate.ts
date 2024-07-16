@@ -1,19 +1,5 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  INDEX,
-  RELATION,
-} from '../utils/enums/EmailTemplate';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
 import {
   email,
   emailTemplate,
@@ -22,6 +8,9 @@ import {
   emailType,
   processStep,
 } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/EmailTemplate';
 
 export default createModel(MODEL_NAME.EMAIL_TEMPLATE, (EmailTemplateModel) => {
   const initCreatedTime = createdTime({

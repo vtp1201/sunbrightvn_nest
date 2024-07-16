@@ -1,15 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING, RAW_DATE_TIME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyEvent';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
 import { company, companyEventType, file, order, service } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyEvent';
 
 export default createModel(MODEL_NAME.COMPANY_EVENT, (CompanyEventModel) => {
   const initCreatedTime = createdTime({

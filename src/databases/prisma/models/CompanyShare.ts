@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_DATE_TIME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyShare';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { company, companyMember, companyPosition, file, task } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_DATE_TIME, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyShare';
 
 export default createModel(MODEL_NAME.COMPANY_SHARE, (CompanyShareModel) => {
   const initCreatedTime = createdTime({

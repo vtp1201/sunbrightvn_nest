@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { feeType, service } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_NUMBER, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Fee';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
-import { feeType, service } from '.';
 
 export default createModel(MODEL_NAME.FEE, (FeeModel) => {
   const initCreatedTime = createdTime({

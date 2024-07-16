@@ -1,8 +1,8 @@
 import { createModel } from 'schemix';
 
+import { createdTime, deleted, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/Rate';
-import { createdTime, deleted, updatedTime } from '../mixins';
 
 export default createModel(MODEL_NAME.RATE, (RateModel) => {
   const initCreatedTime = createdTime({

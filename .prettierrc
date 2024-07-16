@@ -3,23 +3,21 @@
   "trailingComma": "all",
   "endOfLine": "auto",
   "tabWidth": 2,
-  "printWidth": 80,
+  "printWidth": 100,
   "jsxBracketSameLine": true,
   "semi": true,
   "importOrder": [
     "^@nestjs/(.*)$",
-    "^@core/(.*)$",
-    "^@server/(.*)$",
-    "^@ui/(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^@abstracts/(.*)$",
+    "^@module/(.*)$",
+    "^@databases/(.*)$",
+    "^@utilities/(.*)$",
+    "^[../]",
     "^[./]"
   ],
   "importOrderSeparation": true,
-  "experimentalBabelParserPluginsList": ["jsx", "typescript"],
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrderSortSpecifiers": true,
-  "importOrderParserPlugins": [
-    "typescript",
-    "classProperties",
-    "decorators-legacy",
-    "[\"decorators\", { \"decoratorsBeforeExport\": true }]"
-  ]
+  "importOrderParserPlugins": ["typescript", "classProperties", "decorators-legacy"]
 }

@@ -1,11 +1,9 @@
 import { createMixin } from 'schemix';
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from '../utils/enums/default';
-import { INIT_DEFAULT_MIXIN } from '../types';
 
-export default (
-  deletedTime: INIT_DEFAULT_MIXIN,
-  isDeleted: INIT_DEFAULT_MIXIN,
-) => {
+import { INIT_DEFAULT_MIXIN } from '../types';
+import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT } from '../utils/enums/default';
+
+export default (deletedTime: INIT_DEFAULT_MIXIN, isDeleted: INIT_DEFAULT_MIXIN) => {
   return createMixin((deletedMixin) => {
     deletedMixin
       .dateTime(deletedTime.attribute ?? ATTRIBUTE_DEFAULT.deletedTime, {

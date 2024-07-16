@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Answer';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
-import { companyMember, option, question, country, company, task } from './';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Answer';
+import { company, companyMember, country, option, question, task } from './';
 
 export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
   const initCreatedTime = createdTime({

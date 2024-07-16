@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { fee } from '.';
+import { deleted, oneToMany } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/FeeType';
-import { deleted, oneToMany } from '../mixins';
-import { fee } from '.';
 
 export default createModel(MODEL_NAME.FEE_TYPE, (FeeTypeModel) => {
   const initDeleted = deleted(

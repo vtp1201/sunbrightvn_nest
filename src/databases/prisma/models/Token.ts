@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { agent, companyMember, fileTemplate, task, user, website } from '.';
+import { createdTime, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Token';
-import { createdTime, oneToOne, updatedTime } from '../mixins';
-import { agent, companyMember, fileTemplate, task, user, website } from '.';
 
 export default createModel(MODEL_NAME.TOKEN, (TokenModel) => {
   const initCreatedTime = createdTime({

@@ -1,15 +1,9 @@
 import { createModel } from 'schemix';
 
+import { file, fileType } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/FileType';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
-import { file, fileType } from '.';
 
 export default createModel(MODEL_NAME.FILE_TYPE, (FileTypeModel) => {
   const initCreatedTime = createdTime({

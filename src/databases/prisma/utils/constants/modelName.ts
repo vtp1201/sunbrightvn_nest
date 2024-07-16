@@ -241,8 +241,7 @@ export const TABLE_NAME = {
   COMPANY_HAS_CURRENCY: 'company_has_currency',
   COMPANY_HAS_OPERATION_COUNTRY: 'company_has_operation_country',
   COMPANY_MEMBER_HAS_BUSINESS_ACTIVITY: 'company_member_has_business_activity',
-  COMPANY_MEMBER_HAS_OPERATION_COUNTRIES:
-    'company_member_has_operation_countries',
+  COMPANY_MEMBER_HAS_OPERATION_COUNTRIES: 'company_member_has_operation_countries',
   COMPANY_INTEREST: 'company_interest',
   COMPANY_MEMBER_HAS_TYPE: 'company_member_has_type',
   COMPANY_MEMBER_ISSUE_REFERENCE: 'company_member_issue_reference',
@@ -259,8 +258,7 @@ export const TABLE_NAME = {
   CONTACT_FROM: 'contact_from',
   CONTINENT: 'continent',
   COUNTRY_HAS_COMPANY_SUFFIX: 'country_has_company_suffix',
-  COUNTRY_HAS_ENTITY_TYPE_HAS_FILE_TEMPLATE:
-    'country_has_entity_type_has_file_template',
+  COUNTRY_HAS_ENTITY_TYPE_HAS_FILE_TEMPLATE: 'country_has_entity_type_has_file_template',
   COUNTRY_HAS_ENTITY_TYPE: 'country_has_entity_type',
   COUNTRY_HAS_QUESTION: 'country_has_question',
   COUNTRY_HAS_SERVICE: 'country_has_service',
@@ -284,19 +282,16 @@ export const TABLE_NAME = {
   FATCA: 'fatca',
   FEE_TYPE: 'fee_type',
   FEE: 'fee',
-  FILE_TEMPLATE_HAS_COMPANY_MEMBER_TYPE:
-    'file_template_has_company_member_type',
+  FILE_TEMPLATE_HAS_COMPANY_MEMBER_TYPE: 'file_template_has_company_member_type',
   FILE_TEMPLATE_HAS_NATIONALITY: 'file_template_has_nationality',
-  FILE_TEMPLATE_HAS_RANKING_PARTNER_TYPE:
-    'file_template_has_ranking_partner_type',
+  FILE_TEMPLATE_HAS_RANKING_PARTNER_TYPE: 'file_template_has_ranking_partner_type',
   FILE_TEMPLATE_TYPE: 'file_template_type',
   FILE_TEMPLATE: 'file_template',
   FILE_TYPE: 'file_type',
   FILE: 'file',
   GA_CHANNEL: 'ga_channel',
   GENDER: 'gender',
-  GRANT_SCHEME_HAS_GRANT_TYPE_ATTRIBUTE:
-    'grant_scheme_has_grant_type_attribute',
+  GRANT_SCHEME_HAS_GRANT_TYPE_ATTRIBUTE: 'grant_scheme_has_grant_type_attribute',
   GRANT_SCHEME: 'grant_scheme',
   GRANT_TYPE_ATTRIBUTE: 'grant_type_attribute',
   GRANT_TYPE: 'grant_type',

@@ -1,13 +1,12 @@
-import { AbstractService } from '@abstracts';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { UserRepository } from './user.repository';
+
+import { AbstractService } from '@abstracts';
 import { MODEL_NAME } from '@utilities';
 
+import { UserRepository } from './user.repository';
+
 @Injectable()
-export class UserService extends AbstractService<
-  MODEL_NAME.USER,
-  UserRepository
-> {
+export class UserService extends AbstractService<MODEL_NAME.USER, UserRepository> {
   constructor(userRepository: UserRepository) {
     super(userRepository);
   }

@@ -1,8 +1,8 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ActionLog';
 import { createdTime, deleted, oneToOne } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ActionLog';
 import { user } from './';
 
 export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {

@@ -1,12 +1,15 @@
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
+
 import { configSwagger } from '@configs/apiDocs.config';
 import helmet from 'helmet';
 import { join } from 'path';
-import { ConfigService } from '@nestjs/config';
+
 import { CONFIGURATION } from '@utilities/enums';
+
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {

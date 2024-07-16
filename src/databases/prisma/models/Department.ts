@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { serviceTypeHasDepartment } from '.';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Department';
-import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
-import { serviceTypeHasDepartment } from '.';
 
 export default createModel(MODEL_NAME.DEPARTMENT, (DepartmentModel) => {
   const initCreatedTime = createdTime({

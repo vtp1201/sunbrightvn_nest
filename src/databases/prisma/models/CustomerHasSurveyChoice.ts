@@ -1,13 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  RELATION,
-} from '../utils/enums/CustomerHasSurveyChoice';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { customer, surveyChoice } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CustomerHasSurveyChoice';
 
 export default createModel(
   MODEL_NAME.CUSTOMER_HAS_SURVEY_CHOICE,

@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Continent';
-import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
 import { country } from '.';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Continent';
 
 export default createModel(MODEL_NAME.CONTINENT, (ContinentModel) => {
   const initCreatedTime = createdTime({

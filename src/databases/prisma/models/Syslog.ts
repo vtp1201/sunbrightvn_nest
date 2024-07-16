@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { apiMethod, country, syslogType, user } from '.';
+import { createdTime, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Syslog';
-import { createdTime, oneToOne } from '../mixins';
-import { apiMethod, country, syslogType, user } from '.';
 
 export default createModel(MODEL_NAME.SYSLOG, (SyslogModel) => {
   const initCreatedTime = createdTime({

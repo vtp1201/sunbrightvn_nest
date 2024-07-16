@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { customer } from '.';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/GaChannel';
-import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
-import { customer } from '.';
 
 export default createModel(MODEL_NAME.GA_CHANNEL, (GaChannelModel) => {
   const initCreatedTime = createdTime({

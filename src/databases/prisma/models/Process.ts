@@ -1,14 +1,5 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Process';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
 import {
   Process,
   additionProcess,
@@ -22,6 +13,9 @@ import {
   task,
   user,
 } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Process';
 
 export default createModel(MODEL_NAME.PROCESS, (ProcessModel) => {
   const initCreatedTime = createdTime({

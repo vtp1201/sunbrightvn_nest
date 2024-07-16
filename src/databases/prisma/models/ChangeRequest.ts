@@ -1,14 +1,5 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ChangeRequest';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
 import {
   changeRequestItem,
   changeRequestStatus,
@@ -18,6 +9,9 @@ import {
   file,
   task,
 } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ChangeRequest';
 
 export default createModel(MODEL_NAME.CHANGE_REQUEST, (ChangeRequestModel) => {
   const initCreatedTime = createdTime({

@@ -1,7 +1,9 @@
 import { Global, Module } from '@nestjs/common';
-import { WebsiteService } from './website.service';
-import { WebsiteRepository } from './website.repository';
+
 import { AuthModule } from '@modules/auth/auth.module';
+
+import { WebsiteRepository } from './website.repository';
+import { WebsiteService } from './website.service';
 
 @Global()
 @Module({

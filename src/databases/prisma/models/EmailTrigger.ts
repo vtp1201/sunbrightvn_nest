@@ -1,20 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  INDEX,
-  RELATION,
-} from '../utils/enums/EmailTrigger';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
 import { emailTriggerHasProcess, processStep } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/EmailTrigger';
 
 export default createModel(MODEL_NAME.EMAIL_TRIGGER, (EmailTriggerModel) => {
   const initCreatedTime = createdTime({

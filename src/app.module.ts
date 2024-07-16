@@ -1,15 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { ENV_PATH } from '@utilities';
+
 import { validate } from '@configs/config.validate';
 import { RedisModule } from '@nestjs-modules/ioredis';
+import { ENV_PATH } from '@utilities';
+import { AcceptLanguageResolver, HeaderResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
 import * as path from 'path';
-import {
-  AcceptLanguageResolver,
-  HeaderResolver,
-  I18nModule,
-  QueryResolver,
-} from 'nestjs-i18n';
 
 @Module({
   imports: [

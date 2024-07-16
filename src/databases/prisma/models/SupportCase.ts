@@ -1,16 +1,9 @@
 import { createModel } from 'schemix';
 
+import { message, order, supportCasePriority, supportCaseStatus, supportCaseType, user } from '.';
+import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/SupportCase';
-import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
-import {
-  message,
-  order,
-  supportCasePriority,
-  supportCaseStatus,
-  supportCaseType,
-  user,
-} from '.';
 
 export default createModel(MODEL_NAME.SUPPORT_CASE, (SupportCaseModel) => {
   const initCreatedTime = createdTime({

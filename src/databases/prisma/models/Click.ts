@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Click';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { voucherType } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Click';
 
 export default createModel(MODEL_NAME.CLICK, (ClickModel) => {
   const initCreatedTime = createdTime({

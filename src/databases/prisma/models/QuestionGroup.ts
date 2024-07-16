@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { file, fileTemplate, question } from '.';
+import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/QuestionGroup';
-import { deleted, oneToMany, oneToOne } from '../mixins';
-import { file, fileTemplate, question } from '.';
 
 export default createModel(MODEL_NAME.QUESTION_GROUP, (QuestionGroupModel) => {
   const initDeleted = deleted(

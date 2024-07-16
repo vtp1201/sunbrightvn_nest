@@ -1,30 +1,27 @@
 import { createModel } from 'schemix';
 
+import { manyToMany } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/RoleHasPermission';
-import { manyToMany } from '../mixins';
 
-export default createModel(
-  MODEL_NAME.ROLE_HAS_PERMISSION,
-  (RoleHasPermissionModel) => {
-    // relations
-    const roleHasPermission = manyToMany({
-      attributeA: ATTRIBUTE.roleId,
-      attributeB: ATTRIBUTE.permissionId,
-      modelNameA: MODEL_NAME.ROLE,
-      modelNameB: MODEL_NAME.PERMISSION,
-    });
+export default createModel(MODEL_NAME.ROLE_HAS_PERMISSION, (RoleHasPermissionModel) => {
+  // relations
+  const roleHasPermission = manyToMany({
+    attributeA: ATTRIBUTE.roleId,
+    attributeB: ATTRIBUTE.permissionId,
+    modelNameA: MODEL_NAME.ROLE,
+    modelNameB: MODEL_NAME.PERMISSION,
+  });
 
-    // defined Model
-    process.nextTick(() => {
-      RoleHasPermissionModel.int(ATTRIBUTE.roleId, {
-        map: COLUMN.roleId,
+  // defined Model
+  process.nextTick(() => {
+    RoleHasPermissionModel.int(ATTRIBUTE.roleId, {
+      map: COLUMN.roleId,
+    })
+      .int(ATTRIBUTE.permissionId, {
+        map: COLUMN.permissionId,
       })
-        .int(ATTRIBUTE.permissionId, {
-          map: COLUMN.permissionId,
-        })
 
-        .mixin(roleHasPermission);
-    });
-  },
-);
+      .mixin(roleHasPermission);
+  });
+});

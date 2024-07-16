@@ -1,8 +1,8 @@
 import { createModel } from 'schemix';
 
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/PackageGroup';
-import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
 import { Package } from './';
 
 export default createModel(MODEL_NAME.PACKAGE_GROUP, (PackageGroupModel) => {

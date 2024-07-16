@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { service } from '.';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/XeroAccount';
-import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
-import { service } from '.';
 
 export default createModel(MODEL_NAME.XERO_ACCOUNT, (XeroAccountModel) => {
   const initCreatedTime = createdTime({

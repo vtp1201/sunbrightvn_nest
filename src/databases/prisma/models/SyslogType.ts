@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { syslog } from '.';
+import { deleted, oneToMany } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/SyslogType';
-import { deleted, oneToMany } from '../mixins';
-import { syslog } from '.';
 
 export default createModel(MODEL_NAME.SYSLOG_TYPE, (SyslogTypeModel) => {
   const initDeleted = deleted(

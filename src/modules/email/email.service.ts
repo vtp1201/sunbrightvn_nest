@@ -1,13 +1,12 @@
-import { AbstractService } from '@abstracts';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { EmailRepository } from './email.repository';
+
+import { AbstractService } from '@abstracts';
 import { MODEL_NAME } from '@utilities';
 
+import { EmailRepository } from './email.repository';
+
 @Injectable()
-export class EmailService extends AbstractService<
-  MODEL_NAME.EMAIL,
-  EmailRepository
-> {
+export class EmailService extends AbstractService<MODEL_NAME.EMAIL, EmailRepository> {
   constructor(repository: EmailRepository) {
     super(repository);
   }

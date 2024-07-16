@@ -1,14 +1,5 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Question';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
 import {
   answer,
   country,
@@ -18,6 +9,9 @@ import {
   questionPriority,
   questionType,
 } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Question';
 
 export default createModel(MODEL_NAME.QUESTION, (QuestionModel) => {
   const initCreatedTime = createdTime({

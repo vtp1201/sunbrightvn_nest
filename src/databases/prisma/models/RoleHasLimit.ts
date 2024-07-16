@@ -1,8 +1,8 @@
 import { createModel } from 'schemix';
 
+import { manyToMany } from '../mixins';
 import { MODEL_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/RoleHasLimit';
-import { manyToMany } from '../mixins';
 
 export default createModel(MODEL_NAME.ROLE_HAS_LIMIT, (RoleHasLimitModel) => {
   // relations

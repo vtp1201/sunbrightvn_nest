@@ -1,7 +1,9 @@
-import { AbstractRepository } from '@abstracts';
-import { PrismaService } from '@databases/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { MODEL_NAME, E_TOKEN } from '@utilities';
+
+import { AbstractRepository } from '@abstracts';
+import { E_TOKEN, MODEL_NAME } from '@utilities';
+
+import { PrismaService } from '@databases/prisma.service';
 
 @Injectable()
 export class TokenRepository extends AbstractRepository<MODEL_NAME.TOKEN> {

@@ -1,20 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  INDEX,
-  RELATION,
-} from '../utils/enums/HistoryLogCDC';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
 import { actionStepType, company, historyFile, task, user } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/HistoryLogCDC';
 
 export default createModel(MODEL_NAME.HISTORY_LOG_CDC, (HistoryLogCDCModel) => {
   const initCreatedTime = createdTime({

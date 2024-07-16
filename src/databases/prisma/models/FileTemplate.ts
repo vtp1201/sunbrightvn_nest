@@ -1,13 +1,5 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  INDEX,
-  RELATION,
-} from '../utils/enums/FileTemplate';
-import { deleted, oneToMany, oneToOne } from '../mixins';
 import {
   bank,
   countryHasEntityType,
@@ -24,6 +16,9 @@ import {
   serviceHasFileTemplate,
   token,
 } from '.';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/FileTemplate';
 
 export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
   const initDeleted = deleted(

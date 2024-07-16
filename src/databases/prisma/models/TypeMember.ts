@@ -1,13 +1,9 @@
 import { createModel } from 'schemix';
 
+import { companyMember, fileTemplateHasCompanyMemberType, historyCompanyMember } from '.';
+import { deleted, oneToMany } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/TypeMember';
-import { deleted, oneToMany } from '../mixins';
-import {
-  companyMember,
-  fileTemplateHasCompanyMemberType,
-  historyCompanyMember,
-} from '.';
 
 export default createModel(MODEL_NAME.TYPE_MEMBER, (TypeMemberModel) => {
   const initDeleted = deleted(

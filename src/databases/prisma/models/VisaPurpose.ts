@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { customer, service, visaOrder } from '.';
+import { deleted, oneToMany } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/VisaPurpose';
-import { deleted, oneToMany } from '../mixins';
-import { customer, service, visaOrder } from '.';
 
 export default createModel(MODEL_NAME.VISA_PURPOSE, (VisaPurposeModel) => {
   const initDeleted = deleted(

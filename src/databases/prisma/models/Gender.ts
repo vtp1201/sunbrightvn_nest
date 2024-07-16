@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { companyMember, customer, historyCompanyMember, person } from '.';
+import { deleted, oneToMany } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Gender';
-import { deleted, oneToMany } from '../mixins';
-import { companyMember, customer, historyCompanyMember, person } from '.';
 
 export default createModel(MODEL_NAME.GENDER, (GenderModel) => {
   const initDeleted = deleted(

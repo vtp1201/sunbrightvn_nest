@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { companyMember, country, customer, declarationTax, task } from '.';
+import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Fatca';
-import { deleted, oneToMany, oneToOne } from '../mixins';
-import { companyMember, country, customer, declarationTax, task } from '.';
 
 export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
   const initDeleted = deleted(

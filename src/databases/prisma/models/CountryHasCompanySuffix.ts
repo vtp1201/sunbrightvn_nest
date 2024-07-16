@@ -1,8 +1,8 @@
 import { createModel } from 'schemix';
 
+import { manyToMany } from '../mixins';
 import { MODEL_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/CountryHasCompanySuffix';
-import { manyToMany } from '../mixins';
 
 export default createModel(
   MODEL_NAME.COUNTRY_HAS_COMPANY_SUFFIX,

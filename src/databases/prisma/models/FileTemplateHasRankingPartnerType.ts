@@ -1,11 +1,8 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-} from '../utils/enums/FileTemplateHasRankingPartnerType';
 import { manyToMany } from '../mixins';
+import { MODEL_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/FileTemplateHasRankingPartnerType';
 
 export default createModel(
   MODEL_NAME.FILE_TEMPLATE_HAS_RANKING_PARTNER_TYPE,

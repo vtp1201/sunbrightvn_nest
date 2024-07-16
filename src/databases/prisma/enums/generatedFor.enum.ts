@@ -1,4 +1,5 @@
 import { createEnum } from 'schemix';
+
 import { GENERATED_FOR } from '../utils/enums/FileTemplateHasCompanyMemberType';
 
 export default createEnum((StatusEnum) => {

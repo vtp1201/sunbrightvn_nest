@@ -1,8 +1,5 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Country';
-import { deleted, oneToMany, oneToOne } from '../mixins';
 import {
   Package,
   actionProcessStep,
@@ -37,6 +34,9 @@ import {
   task,
   visaVietnamArrival,
 } from '.';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Country';
 import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {

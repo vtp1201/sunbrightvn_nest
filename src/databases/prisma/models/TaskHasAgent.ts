@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { additionProcess, agent, task } from '.';
+import { createdTime, oneToOne } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/TaskHasAgent';
-import { createdTime, oneToOne } from '../mixins';
-import { additionProcess, agent, task } from '.';
 
 export default createModel(MODEL_NAME.TASK_HAS_AGENT, (TaskHasAgentModel) => {
   const initCreatedTime = createdTime({

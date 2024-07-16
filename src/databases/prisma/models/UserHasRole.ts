@@ -1,8 +1,8 @@
 import { createModel } from 'schemix';
 
+import { manyToMany } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/UserHasRole';
-import { manyToMany } from '../mixins';
 
 export default createModel(MODEL_NAME.USER_HAS_ROLE, (UserHasRoleModel) => {
   // relations

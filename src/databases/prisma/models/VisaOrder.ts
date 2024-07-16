@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { airport, order, visaPurpose, visaType } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/VisaOrder';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
-import { airport, order, visaPurpose, visaType } from '.';
 
 export default createModel(MODEL_NAME.VISA_ORDER, (VisaOrderModel) => {
   const initCreatedTime = createdTime({

@@ -1,8 +1,8 @@
 import { createModel } from 'schemix';
 
+import { createdTime, deleted } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/Promotion';
-import { createdTime, deleted } from '../mixins';
 
 export default createModel(MODEL_NAME.PROMOTION, (PromotionModel) => {
   const initCreatedTime = createdTime({

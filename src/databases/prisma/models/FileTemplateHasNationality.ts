@@ -1,13 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  RELATION,
-} from '../utils/enums/FileTemplateHasNationality';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { country, fileTemplate } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/FileTemplateHasNationality';
 
 // TODO: xem sét xóa
 export default createModel(

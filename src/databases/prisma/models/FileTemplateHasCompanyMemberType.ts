@@ -1,5 +1,8 @@
 import { createModel } from 'schemix';
 
+import { companyMemberType, fileTemplate, typeMember } from '.';
+import { generatedForEnum } from '../enums';
+import { deleted, oneToOne } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
 import {
   ATTRIBUTE,
@@ -7,9 +10,6 @@ import {
   INDEX,
   RELATION,
 } from '../utils/enums/FileTemplateHasCompanyMemberType';
-import { deleted, oneToOne } from '../mixins';
-import { generatedForEnum } from '../enums';
-import { companyMemberType, fileTemplate, typeMember } from '.';
 
 export default createModel(
   MODEL_NAME.FILE_TEMPLATE_HAS_COMPANY_MEMBER_TYPE,
@@ -81,11 +81,7 @@ export default createModel(
 
         // ids
         .id({
-          fields: [
-            ATTRIBUTE.fileTemplateId,
-            ATTRIBUTE.companyMemberTypeId,
-            ATTRIBUTE.generatedFor,
-          ],
+          fields: [ATTRIBUTE.fileTemplateId, ATTRIBUTE.companyMemberTypeId, ATTRIBUTE.generatedFor],
         })
 
         // dateTime marks

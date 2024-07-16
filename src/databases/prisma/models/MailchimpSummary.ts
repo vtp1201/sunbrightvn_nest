@@ -1,86 +1,78 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  INDEX,
-  RELATION,
-} from '../utils/enums/MailchimpSummary';
-import { createdTime, oneToOne } from '../mixins';
 import { mailchimpCampaign } from '.';
+import { createdTime, oneToOne } from '../mixins';
+import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/MailchimpSummary';
 
-export default createModel(
-  MODEL_NAME.MAILCHIMP_SUMMARY,
-  (MailchimpSummaryModel) => {
-    const initCreatedTime = createdTime({
-      attribute: ATTRIBUTE.createdTime,
-      column: COLUMN.createdTime,
-    });
+export default createModel(MODEL_NAME.MAILCHIMP_SUMMARY, (MailchimpSummaryModel) => {
+  const initCreatedTime = createdTime({
+    attribute: ATTRIBUTE.createdTime,
+    column: COLUMN.createdTime,
+  });
 
-    // defined Relations
-    const mailchimpCampaignRelation = oneToOne({
-      attribute: ATTRIBUTE.mailchimpCampaignId,
-      model: mailchimpCampaign,
-      relation: RELATION.mailchimpCampaign,
-    });
+  // defined Relations
+  const mailchimpCampaignRelation = oneToOne({
+    attribute: ATTRIBUTE.mailchimpCampaignId,
+    model: mailchimpCampaign,
+    relation: RELATION.mailchimpCampaign,
+  });
 
-    // defined Model
-    process.nextTick(() => {
-      MailchimpSummaryModel.int(ATTRIBUTE.id, {
-        id: true,
-        map: COLUMN.id,
-        default: {
-          autoincrement: true,
-        },
+  // defined Model
+  process.nextTick(() => {
+    MailchimpSummaryModel.int(ATTRIBUTE.id, {
+      id: true,
+      map: COLUMN.id,
+      default: {
+        autoincrement: true,
+      },
+    })
+      .int(ATTRIBUTE.open, {
+        map: COLUMN.open,
+        optional: true,
       })
-        .int(ATTRIBUTE.open, {
-          map: COLUMN.open,
-          optional: true,
-        })
-        .int(ATTRIBUTE.uniqueOpen, {
-          map: COLUMN.uniqueOpen,
-          optional: true,
-        })
-        .int(ATTRIBUTE.click, {
-          map: COLUMN.click,
-          optional: true,
-        })
-        .int(ATTRIBUTE.subscriberClick, {
-          map: COLUMN.subscriberClick,
-          optional: true,
-        })
-        .int(ATTRIBUTE.emailSent, {
-          map: COLUMN.emailSent,
-          optional: true,
-        })
-        .int(ATTRIBUTE.unsubscribed, {
-          map: COLUMN.unsubscribed,
-          optional: true,
-        })
-        .int(ATTRIBUTE.bounced, {
-          map: COLUMN.bounced,
-          optional: true,
-        })
-        .int(ATTRIBUTE.abusedReport, {
-          map: COLUMN.abusedReport,
-          optional: true,
-        })
-        .int(ATTRIBUTE.mailchimpCampaignId, {
-          map: COLUMN.mailchimpCampaignId,
-        })
+      .int(ATTRIBUTE.uniqueOpen, {
+        map: COLUMN.uniqueOpen,
+        optional: true,
+      })
+      .int(ATTRIBUTE.click, {
+        map: COLUMN.click,
+        optional: true,
+      })
+      .int(ATTRIBUTE.subscriberClick, {
+        map: COLUMN.subscriberClick,
+        optional: true,
+      })
+      .int(ATTRIBUTE.emailSent, {
+        map: COLUMN.emailSent,
+        optional: true,
+      })
+      .int(ATTRIBUTE.unsubscribed, {
+        map: COLUMN.unsubscribed,
+        optional: true,
+      })
+      .int(ATTRIBUTE.bounced, {
+        map: COLUMN.bounced,
+        optional: true,
+      })
+      .int(ATTRIBUTE.abusedReport, {
+        map: COLUMN.abusedReport,
+        optional: true,
+      })
+      .int(ATTRIBUTE.mailchimpCampaignId, {
+        map: COLUMN.mailchimpCampaignId,
+      })
 
-        // dateTime marks
-        .mixin(initCreatedTime)
+      // dateTime marks
+      .mixin(initCreatedTime)
 
-        // relations
-        .mixin(mailchimpCampaignRelation)
+      // relations
+      .mixin(mailchimpCampaignRelation)
 
-        // indexes
-        // .raw(INDEX.mailchimpCampaignId)
+      // indexes
+      // .raw(INDEX.mailchimpCampaignId)
 
-        // table name
-        .map(TABLE_NAME.MAILCHIMP_SUMMARY);
-    });
-  },
-);
+      // table name
+      .map(TABLE_NAME.MAILCHIMP_SUMMARY);
+  });
+});

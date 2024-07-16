@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { Process, agent, companyMember, fileTemplate } from '.';
+import { createdTime, deleted, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/ProcessLog';
-import { createdTime, deleted, oneToOne } from '../mixins';
-import { Process, agent, companyMember, fileTemplate } from '.';
 
 export default createModel(MODEL_NAME.PROCESS_LOG, (ProcessLogModel) => {
   const initCreatedTime = createdTime({

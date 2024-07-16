@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
 import { ROUTES } from '@utilities/enums';
 
 export function configSwagger(app: INestApplication) {

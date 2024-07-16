@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { file, historyLogCDC } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/HistoryFile';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
-import { file, historyLogCDC } from '.';
 
 export default createModel(MODEL_NAME.HISTORY_FILE, (HistoryFileModel) => {
   const initCreatedTime = createdTime({

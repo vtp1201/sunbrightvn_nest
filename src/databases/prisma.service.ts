@@ -1,7 +1,8 @@
-import { PrismaClient, Prisma } from '@prisma/client';
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { timeout } from '@utilities';
 import { ConfigService } from '@nestjs/config';
+
+import { Prisma, PrismaClient } from '@prisma/client';
+import { timeout } from '@utilities';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {

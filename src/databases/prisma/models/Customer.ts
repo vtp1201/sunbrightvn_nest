@@ -1,21 +1,7 @@
 import { createModel } from 'schemix';
 
 import {
-  MODEL_NAME,
-  TABLE_NAME,
-  RAW_STRING,
-  RAW_NUMBER,
-  RAW_DATE_TIME,
-} from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Customer';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
-import {
+  Package,
   airport,
   bank,
   billing,
@@ -33,7 +19,6 @@ import {
   gaChannel,
   gender,
   order,
-  Package,
   person,
   task,
   titleName,
@@ -43,6 +28,9 @@ import {
   voucher,
   website,
 } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_DATE_TIME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Customer';
 import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {

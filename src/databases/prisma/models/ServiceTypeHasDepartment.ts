@@ -1,13 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  RELATION,
-} from '../utils/enums/ServiceTypeHasDepartment';
-import { oneToOne } from '../mixins';
 import { department, serviceType } from '.';
+import { oneToOne } from '../mixins';
+import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ServiceTypeHasDepartment';
 
 export default createModel(
   MODEL_NAME.SERVICE_TYPE_HAS_DEPARTMENT,

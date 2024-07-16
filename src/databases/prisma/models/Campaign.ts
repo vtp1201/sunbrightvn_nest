@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Campaign';
-import { deleted, oneToMany, oneToOne } from '../mixins';
 import { campaignHasVoucherType, campaignType, customer } from '.';
+import { deleted, oneToMany, oneToOne } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Campaign';
 
 export default createModel(MODEL_NAME.CAMPAIGN, (CampaignModel) => {
   const initDeleted = deleted(

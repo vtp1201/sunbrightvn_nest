@@ -1,11 +1,9 @@
-import { AbstractRepository } from './abstract.repository';
-import { ModelArgs, ModelName } from './abstract.repository.interface';
 import { Prisma } from '@prisma/client';
 
-export abstract class AbstractService<
-  M extends ModelName,
-  T extends AbstractRepository<M>,
-> {
+import { AbstractRepository } from './abstract.repository';
+import { ModelArgs, ModelName } from './abstract.repository.interface';
+
+export abstract class AbstractService<M extends ModelName, T extends AbstractRepository<M>> {
   constructor(public readonly repository: T) {}
   findUnique<A extends ModelArgs<M, 'findUnique'>>(
     args: Prisma.SelectSubset<A, ModelArgs<M, 'findUnique'>>,
@@ -37,9 +35,7 @@ export abstract class AbstractService<
     return this.repository.findMany(args);
   }
 
-  create<A extends ModelArgs<M, 'create'>>(
-    args: Prisma.SelectSubset<A, ModelArgs<M, 'create'>>,
-  ) {
+  create<A extends ModelArgs<M, 'create'>>(args: Prisma.SelectSubset<A, ModelArgs<M, 'create'>>) {
     return this.repository.create(args);
   }
 
@@ -49,9 +45,7 @@ export abstract class AbstractService<
     return this.repository.createMany(args);
   }
 
-  update<A extends ModelArgs<M, 'update'>>(
-    args: Prisma.SelectSubset<A, ModelArgs<M, 'update'>>,
-  ) {
+  update<A extends ModelArgs<M, 'update'>>(args: Prisma.SelectSubset<A, ModelArgs<M, 'update'>>) {
     return this.repository.update(args);
   }
 
@@ -61,9 +55,7 @@ export abstract class AbstractService<
     return this.repository.updateMany(args);
   }
 
-  delete<A extends ModelArgs<M, 'delete'>>(
-    args: Prisma.SelectSubset<A, ModelArgs<M, 'delete'>>,
-  ) {
+  delete<A extends ModelArgs<M, 'delete'>>(args: Prisma.SelectSubset<A, ModelArgs<M, 'delete'>>) {
     return this.repository.delete(args);
   }
 
@@ -73,9 +65,7 @@ export abstract class AbstractService<
     return this.repository.deleteMany(args);
   }
 
-  upsert<A extends ModelArgs<M, 'upsert'>>(
-    args: Prisma.SelectSubset<A, ModelArgs<M, 'upsert'>>,
-  ) {
+  upsert<A extends ModelArgs<M, 'upsert'>>(args: Prisma.SelectSubset<A, ModelArgs<M, 'upsert'>>) {
     return this.repository.upsert(args);
   }
 }

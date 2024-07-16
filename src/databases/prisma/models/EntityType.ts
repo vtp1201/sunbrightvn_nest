@@ -1,19 +1,19 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/EntityType';
-import { deleted, oneToMany } from '../mixins';
 import {
+  Package,
   company,
   companySuffix,
   countryHasEntityType,
   countryHasService,
   customer,
   historyCompany,
-  Package,
   task,
   toolBusinessEntity,
 } from '.';
+import { deleted, oneToMany } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/EntityType';
 
 export default createModel(MODEL_NAME.ENTITY_TYPE, (EntityTypeModel) => {
   const initDeleted = deleted(

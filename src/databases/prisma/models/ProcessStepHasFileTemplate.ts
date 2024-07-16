@@ -1,13 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  RELATION,
-} from '../utils/enums/ProcessStepHasFileTemplate';
-import { oneToOne } from '../mixins';
 import { fileTemplate, processStep } from '.';
+import { oneToOne } from '../mixins';
+import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ProcessStepHasFileTemplate';
 
 export default createModel(
   MODEL_NAME.PROCESS_STEP_HAS_FILE_TEMPLATE,

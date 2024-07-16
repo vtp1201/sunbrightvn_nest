@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { file, supportCase, user } from '.';
+import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Message';
-import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
-import { file, supportCase, user } from '.';
 
 export default createModel(MODEL_NAME.MESSAGE, (MessageModel) => {
   const initCreatedTime = createdTime({

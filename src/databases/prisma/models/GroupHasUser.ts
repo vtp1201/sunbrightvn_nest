@@ -1,8 +1,8 @@
 import { createModel } from 'schemix';
 
+import { manyToMany } from '../mixins';
 import { MODEL_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/GroupHasUser';
-import { manyToMany } from '../mixins';
 
 export default createModel(MODEL_NAME.GROUP_HAS_USER, (GroupHasUserModel) => {
   // relations

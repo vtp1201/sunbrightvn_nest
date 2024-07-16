@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { surveyChoice } from '.';
+import { deleted, oneToMany } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Survey';
-import { deleted, oneToMany } from '../mixins';
-import { surveyChoice } from '.';
 
 export default createModel(MODEL_NAME.SURVEY, (SurveyModel) => {
   const initDeleted = deleted(

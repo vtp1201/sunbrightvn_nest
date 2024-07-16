@@ -1,15 +1,9 @@
 import { createModel } from 'schemix';
 
+import { Process, answer, country, customer, gender, titleName, user } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Person';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
-import { Process, answer, country, customer, gender, titleName, user } from '.';
 
 export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
   const initCreatedTime = createdTime({

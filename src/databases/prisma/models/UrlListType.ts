@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { urlList } from '.';
+import { deleted, oneToMany } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/UrlListType';
-import { deleted, oneToMany } from '../mixins';
-import { urlList } from '.';
 
 export default createModel(MODEL_NAME.URL_LIST_TYPE, (UrlListTypeModel) => {
   const initDeleted = deleted(

@@ -1,14 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  INDEX,
-  RELATION,
-} from '../utils/enums/MailchimpTag';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { contactFrom } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/MailchimpTag';
 
 export default createModel(MODEL_NAME.MAILCHIMP_TAG, (MailchimpTagModel) => {
   const initCreatedTime = createdTime({

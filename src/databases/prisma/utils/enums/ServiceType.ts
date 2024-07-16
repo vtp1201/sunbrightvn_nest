@@ -1,5 +1,4 @@
 // ServiceTypeEnum.ts
-
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {

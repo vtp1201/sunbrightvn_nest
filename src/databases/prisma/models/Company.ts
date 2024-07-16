@@ -1,14 +1,5 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING, RAW_DATE_TIME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Company';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
 import {
   answer,
   billing,
@@ -32,6 +23,9 @@ import {
   proposedName,
   task,
 } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Company';
 
 export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
   const initCreatedTime = createdTime({

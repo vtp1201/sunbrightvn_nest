@@ -1,15 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ApiExample';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
-import { apiStatus, api, apiGroup, file } from './';
+import { api, apiGroup, apiStatus, file } from './';
 
 export default createModel(MODEL_NAME.API_EXAMPLE, (ApiExampleModel) => {
   const initCreatedTime = createdTime({

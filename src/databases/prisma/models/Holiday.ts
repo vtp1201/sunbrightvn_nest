@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { country } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Holiday';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
-import { country } from '.';
 
 export default createModel(MODEL_NAME.HOLIDAY, (HolidayModel) => {
   const initCreatedTime = createdTime({

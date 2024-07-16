@@ -1,11 +1,8 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-} from '../utils/enums/ServiceChangeOfficerHasFileTemplate';
 import { manyToMany } from '../mixins';
+import { MODEL_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN } from '../utils/enums/ServiceChangeOfficerHasFileTemplate';
 
 export default createModel(
   MODEL_NAME.SERVICE_CHANGE_OFFICER_HAS_FILE_TEMPLATE,
@@ -20,12 +17,9 @@ export default createModel(
 
     // defined Model
     process.nextTick(() => {
-      ServiceChangeOfficerHasFileTemplateModel.int(
-        ATTRIBUTE.serviceChangeOfficerId,
-        {
-          map: COLUMN.serviceChangeOfficerId,
-        },
-      )
+      ServiceChangeOfficerHasFileTemplateModel.int(ATTRIBUTE.serviceChangeOfficerId, {
+        map: COLUMN.serviceChangeOfficerId,
+      })
         .int(ATTRIBUTE.fileTemplateId, {
           map: COLUMN.fileTemplateId,
         })

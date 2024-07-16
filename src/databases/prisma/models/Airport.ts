@@ -1,8 +1,8 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Airport';
 import { deleted, oneToMany } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Airport';
 import { customer, service, visaOrder } from './';
 
 export default createModel(MODEL_NAME.AIRPORT, (AirportModel) => {

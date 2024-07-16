@@ -1,12 +1,14 @@
-import { UserService } from '@modules/user/user.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { MD5, SHA256 } from 'crypto-js';
-import { randomBytes } from 'crypto';
-import { TokenService } from './token.service';
-import { Prisma } from '@prisma/client';
 import { ConfigService } from '@nestjs/config';
-import { USER_STATUS, KEY_SET_2FA, CONFIGURATION } from '@utilities';
 import { JwtService } from '@nestjs/jwt';
+
+import { UserService } from '@modules/user/user.service';
+import { Prisma } from '@prisma/client';
+import { CONFIGURATION, KEY_SET_2FA, USER_STATUS } from '@utilities';
+import { randomBytes } from 'crypto';
+import { MD5, SHA256 } from 'crypto-js';
+
+import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthService {
@@ -21,9 +23,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     configService: ConfigService,
   ) {
-    this.passwordSaltStatic = configService.get(
-      CONFIGURATION.PASSWORD_SALT_STATIC,
-    );
+    this.passwordSaltStatic = configService.get(CONFIGURATION.PASSWORD_SALT_STATIC);
     this.JWTAccessTokenTimeToLive = configService.get<number>(
       CONFIGURATION.JWT_ACCESS_TOKEN_TIME_TO_LIVE,
     );
@@ -44,10 +44,7 @@ export class AuthService {
     ipAddress: string | undefined = undefined,
   ) {
     try {
-      const user = await this.userService.repository.getUserToGeneratePassport(
-        undefined,
-        username,
-      );
+      const user = await this.userService.repository.getUserToGeneratePassport(undefined, username);
 
       if (user.status !== USER_STATUS.ACTIVE) throw new BadRequestException('');
       if (
@@ -96,12 +93,8 @@ export class AuthService {
   }
 
   generateToken() {
-    const accessToken = MD5(
-      Math.random().toString(36).substring(2, 20),
-    ).toString();
-    const refreshToken = MD5(
-      Math.random().toString(36).substring(2, 20),
-    ).toString();
+    const accessToken = MD5(Math.random().toString(36).substring(2, 20)).toString();
+    const refreshToken = MD5(Math.random().toString(36).substring(2, 20)).toString();
     const createdTime = Math.floor(Date.now() / 1000);
     const accessTokenExp = createdTime + this.JWTAccessTokenTimeToLive;
     const refreshTokenExp = createdTime + this.JWTRefreshTokenTimeToLive;
@@ -153,9 +146,7 @@ export class AuthService {
     const User2FAToken = output.substring(8, 14);
     const twoFactorTokenExp = Math.floor(Date.now() / 1000) + 300;
     const hashTwoFactorToken = SHA256(
-      process.env.TWO_FACTOR_AUTH_SECRET_KEY +
-        MD5(User2FAToken) +
-        twoFactorTokenExp,
+      process.env.TWO_FACTOR_AUTH_SECRET_KEY + MD5(User2FAToken) + twoFactorTokenExp,
     ).toString();
     return {
       user2FAToken: User2FAToken,
@@ -174,25 +165,19 @@ export class AuthService {
     password: string;
   }) {
     return (
-      SHA256(
-        this.passwordSaltStatic + MD5(password) + passwordSalt,
-      ).toString() == passwordHashed
+      SHA256(this.passwordSaltStatic + MD5(password) + passwordSalt).toString() == passwordHashed
     );
   }
 
   async verifyAccessToken(accessToken: string) {
     try {
-      const token = await this.tokenService.getTokenValidFromAccessToken(
-        accessToken,
-      );
+      const token = await this.tokenService.getTokenValidFromAccessToken(accessToken);
 
       if (!token) {
         throw new BadRequestException('');
       }
 
-      const user = await this.userService.repository.getUserToGeneratePassport(
-        token.userId,
-      );
+      const user = await this.userService.repository.getUserToGeneratePassport(token.userId);
 
       if (!user) {
         throw new BadRequestException('');
@@ -205,9 +190,7 @@ export class AuthService {
   }
 
   generatePassport(
-    user: Prisma.PromiseReturnType<
-      typeof this.userService.repository.getUserToGeneratePassport
-    >,
+    user: Prisma.PromiseReturnType<typeof this.userService.repository.getUserToGeneratePassport>,
     token: null | Prisma.PromiseReturnType<
       typeof this.tokenService.getTokenValidFromAccessToken
     > = null,
@@ -247,17 +230,12 @@ export class AuthService {
             id: user.roles[keyRole].limits[keyPermission_1].id,
             name: user.roles[keyRole].limits[keyPermission_1].name,
             model: user.roles[keyRole].limits[keyPermission_1].model,
-            limitTypeId:
-              user.roles[keyRole].limits[keyPermission_1].limitTypeId,
-            permissionId:
-              user.roles[keyRole].limits[keyPermission_1].permissionId,
-            permissionGroupId:
-              user.roles[keyRole].limits[keyPermission_1].permissionGroupId,
+            limitTypeId: user.roles[keyRole].limits[keyPermission_1].limitTypeId,
+            permissionId: user.roles[keyRole].limits[keyPermission_1].permissionId,
+            permissionGroupId: user.roles[keyRole].limits[keyPermission_1].permissionGroupId,
             permission: user.roles[keyRole].limits[keyPermission_1].permission,
-            permissionGroup:
-              user.roles[keyRole].limits[keyPermission_1].permissionGroup,
-            limitValues:
-              user.roles[keyRole].limits[keyPermission_1].limitValues,
+            permissionGroup: user.roles[keyRole].limits[keyPermission_1].permissionGroup,
+            limitValues: user.roles[keyRole].limits[keyPermission_1].limitValues,
           };
         }
       }

@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { limit } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/LimitValue';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
-import { limit } from '.';
 
 export default createModel(MODEL_NAME.LIMIT_VALUE, (LimitValueModel) => {
   const initCreatedTime = createdTime({

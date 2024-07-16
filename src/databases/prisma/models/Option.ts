@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { answer, question, toolBusinessEntity } from '.';
+import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Option';
-import { deleted, oneToMany, oneToOne } from '../mixins';
-import { answer, question, toolBusinessEntity } from '.';
 
 export default createModel(MODEL_NAME.OPTION, (OptionModel) => {
   const initDeleted = deleted(

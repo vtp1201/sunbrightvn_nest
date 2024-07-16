@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { note } from '.';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/NoteType';
-import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
-import { note } from '.';
 
 export default createModel(MODEL_NAME.NOTE_TYPE, (NoteTypeModel) => {
   const initCreatedTime = createdTime({

@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { Package, order, orderItemStatus, service } from '.';
+import { createdTime, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/OrderItem';
-import { createdTime, oneToOne, updatedTime } from '../mixins';
-import { order, orderItemStatus, service, Package } from '.';
 
 export default createModel(MODEL_NAME.ORDER_ITEM, (OrderItemModel) => {
   const initCreatedTime = createdTime({

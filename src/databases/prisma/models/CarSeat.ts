@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CarSeat';
-import { deleted, oneToMany } from '../mixins';
 import { service } from '.';
+import { deleted, oneToMany } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CarSeat';
 
 export default createModel(MODEL_NAME.CAR_SEAT, (CarSeatModel) => {
   const initDeleted = deleted(

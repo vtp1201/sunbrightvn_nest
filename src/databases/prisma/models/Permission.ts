@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { limit, permissionGroup, role } from '.';
+import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Permission';
-import { deleted, oneToMany, oneToOne } from '../mixins';
-import { limit, permissionGroup, role } from '.';
 
 export default createModel(MODEL_NAME.PERMISSION, (PermissionModel) => {
   const initDeleted = deleted(

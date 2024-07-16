@@ -1,5 +1,7 @@
 import { createModel } from 'schemix';
 
+import { grantScheme, grantTypeAttribute } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
 import {
   ATTRIBUTE,
@@ -7,8 +9,6 @@ import {
   INDEX,
   RELATION,
 } from '../utils/enums/GrantSchemeHasGrantTypeAttribute';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
-import { grantScheme, grantTypeAttribute } from '.';
 
 export default createModel(
   MODEL_NAME.GRANT_SCHEME_HAS_GRANT_TYPE_ATTRIBUTE,

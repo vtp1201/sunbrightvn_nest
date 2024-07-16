@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { question } from '.';
+import { oneToMany } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/QuestionType';
-import { oneToMany } from '../mixins';
-import { question } from '.';
 
 export default createModel(MODEL_NAME.QUESTION_TYPE, (QuestionTypeModel) => {
   // defined Relations

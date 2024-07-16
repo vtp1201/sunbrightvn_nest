@@ -1,14 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  INDEX,
-  RELATION,
-} from '../utils/enums/Notification';
-import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
 import { notificationType, userHasNotification } from '.';
+import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Notification';
 
 export default createModel(MODEL_NAME.NOTIFICATION, (NotificationModel) => {
   const initCreatedTime = createdTime({

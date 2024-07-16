@@ -1,8 +1,8 @@
 import { createModel } from 'schemix';
 
+import { deleted } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/TokenType';
-import { deleted } from '../mixins';
 
 export default createModel(MODEL_NAME.TOKEN_TYPE, (TokenTypeModel) => {
   const initDeleted = deleted(

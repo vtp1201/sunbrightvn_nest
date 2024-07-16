@@ -1,17 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME, RAW_STRING } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanySuffix';
+import { company, country, customer, entityType, historyCompany, proposedName, service } from '.';
 import { deleted, oneToMany } from '../mixins';
-import {
-  company,
-  country,
-  customer,
-  entityType,
-  historyCompany,
-  proposedName,
-  service,
-} from '.';
+import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanySuffix';
 
 export default createModel(MODEL_NAME.COMPANY_SUFFIX, (CompanySuffixModel) => {
   const initDeleted = deleted(

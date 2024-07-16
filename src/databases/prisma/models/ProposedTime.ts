@@ -1,14 +1,9 @@
 import { createModel } from 'schemix';
 
-import { MODEL_NAME, TABLE_NAME } from '../utils';
-import {
-  ATTRIBUTE,
-  COLUMN,
-  INDEX,
-  RELATION,
-} from '../utils/enums/ProposedTime';
-import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { bankingProcess } from '.';
+import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
+import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/ProposedTime';
 
 export default createModel(MODEL_NAME.PROPOSED_TIME, (ProposedTimeModel) => {
   const initCreatedTime = createdTime({

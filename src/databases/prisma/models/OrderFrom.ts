@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
+import { order } from '.';
+import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/OrderFrom';
-import { createdTime, deleted, oneToMany, updatedTime } from '../mixins';
-import { order } from '.';
 
 export default createModel(MODEL_NAME.ORDER_FROM, (OrderFromModel) => {
   const initCreatedTime = createdTime({

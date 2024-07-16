@@ -1,15 +1,9 @@
 import { createModel } from 'schemix';
 
+import { country, grantSchemeHasGrantTypeAttribute } from '.';
+import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/GrantScheme';
-import {
-  createdTime,
-  deleted,
-  oneToMany,
-  oneToOne,
-  updatedTime,
-} from '../mixins';
-import { country, grantSchemeHasGrantTypeAttribute } from '.';
 
 export default createModel(MODEL_NAME.GRANT_SCHEME, (GrantSchemeModel) => {
   const initCreatedTime = createdTime({

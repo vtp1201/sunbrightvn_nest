@@ -1,6 +1,4 @@
 import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './guard/local.guard';
 import {
   ApiBadRequestResponse,
   ApiBody,
@@ -10,8 +8,12 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { API_TAGS, ROUTE_AUTH } from '@utilities';
+
 import { RequestWithUser } from '@types';
+import { API_TAGS, ROUTE_AUTH } from '@utilities';
+
+import { AuthService } from './auth.service';
+import { LocalAuthGuard } from './guard/local.guard';
 
 @Controller(ROUTE_AUTH.LOGIN)
 @ApiTags(API_TAGS.AUTH)
