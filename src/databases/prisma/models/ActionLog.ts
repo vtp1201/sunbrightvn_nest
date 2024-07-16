@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { createdTime, deleted, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ActionLog';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/ActionLog';
 import { user } from './';
 
 export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
@@ -28,6 +28,7 @@ export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
     relation: RELATION.user,
     option: {
       optional: true,
+      map: INDEX_NAME.userId,
     },
   });
 
@@ -61,6 +62,9 @@ export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
 
       // relations
       .mixin(userRelation)
+
+      // indexes
+      .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.ACTION_LOG);
