@@ -23,8 +23,8 @@ export class AuthController {
   //   // return await this.authService.signUp(sign_up_dto);
   // }
 
-  @UseGuards(LocalAuthGuard)
   @Post()
+  @UseGuards(LocalAuthGuard)
   async login(@Req() request: RequestWithUser) {
     const { user } = request;
     // return await this.authService.signIn(user._id.toString());

@@ -1,5 +1,5 @@
 import { AbstractService } from '@abstracts';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { WebsiteRepository } from './website.repository';
 import { MODEL_NAME } from '@utilities';
 
