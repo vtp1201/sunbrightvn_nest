@@ -15,10 +15,10 @@ import * as path from 'path';
       isGlobal: true,
       cache: true,
     }),
-    RedisModule.forRoot({
-      type: 'single',
-      url: '',
-    }),
+    // RedisModule.forRoot({
+    //   type: 'single',
+    //   url: '',
+    // }),
     I18nModule.forRoot({
       fallbackLanguage: 'en',
       loaderOptions: {

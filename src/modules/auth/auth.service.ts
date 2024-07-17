@@ -3,10 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
 import { UserService } from '@modules/user/user.service';
-import { Prisma } from '@prisma/client';
 import { CONFIGURATION, KEY_SET_2FA, USER_STATUS } from '@utilities';
 import { randomBytes } from 'crypto';
 import { MD5, SHA256 } from 'crypto-js';
+
+import { Prisma } from '@prisma/client';
 
 import { TokenService } from './token.service';
 

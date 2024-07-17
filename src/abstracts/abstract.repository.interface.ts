@@ -306,12 +306,9 @@ export type ModelArgs<
   : never;
 
 /* Prisma model return types */
-export type ModelResult<
-  T extends ModelName,
-  A extends ModelArgs<T, O>,
-  O extends Operation,
-> = PrismaModelMethod<T> extends {
-  [K in O]: (args: A) => any;
-}
-  ? Clients<T, A, O>[T extends keyof Clients<T, A, O> ? T : never]
-  : never;
+export type ModelResult<T extends ModelName, A extends ModelArgs<T, O>, O extends Operation> =
+  PrismaModelMethod<T> extends {
+    [K in O]: (args: A) => any;
+  }
+    ? Clients<T, A, O>[T extends keyof Clients<T, A, O> ? T : never]
+    : never;

@@ -1,5 +1,6 @@
-import { permission, role, user } from '@prisma/client';
 import { Request } from 'express';
+
+import { permission, role, user } from '@prisma/client';
 
 export interface RequestWithUser extends Request {
   user: user;

@@ -1,3 +1,7 @@
+import { default as actionLog } from './ActionLog';
+import { default as actionProcessStep } from './ActionProcessStep';
+import { default as user } from './User';
+
 export { default as E_ACTION_LOG } from './ActionLog';
 export { default as E_ACTION_PROCESS_STEP } from './ActionProcessStep';
 export { default as E_ACTION_STEP_TYPE } from './ActionStepType';
@@ -189,3 +193,9 @@ export { default as E_XERO_INVOICE_STATUS } from './XeroInvoiceStatus';
 export { default as E_CURRENCY } from './Currency';
 export { default as E_CAR_TYPE } from './CarType';
 export { default as E_SERVICE_CHANGE_OFFICER_HAS_FILE_TEMPLATE } from './ServiceChangeOfficerHasFileTemplate';
+
+export default {
+  actionLog,
+  actionProcessStep,
+  user,
+};

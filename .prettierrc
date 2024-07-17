@@ -9,10 +9,8 @@
   "importOrder": [
     "^@nestjs/(.*)$",
     "<THIRD_PARTY_MODULES>",
-    "^@abstracts/(.*)$",
-    "^@module/(.*)$",
-    "^@databases/(.*)$",
-    "^@utilities/(.*)$",
+    "^@prisma/(.*)$",
+    "^@*/(.*)$",
     "^[../]",
     "^[./]"
   ],

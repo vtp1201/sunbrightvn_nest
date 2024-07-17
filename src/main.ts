@@ -4,10 +4,10 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 import { configSwagger } from '@configs/apiDocs.config';
+import { APP_NAME, CONFIGURATION, LIB_VERSION } from '@utilities';
 import helmet from 'helmet';
+import * as moment from 'moment';
 import { join } from 'path';
-
-import { CONFIGURATION } from '@utilities/enums';
 
 import { AppModule } from './app.module';
 
@@ -18,6 +18,7 @@ async function bootstrap() {
 
   app.use(helmet());
   app.useGlobalPipes(new ValidationPipe());
+
   configSwagger(app);
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
@@ -26,7 +27,21 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get(CONFIGURATION.PORT);
+  const nodeEnv = configService.get(CONFIGURATION.NODE_ENV);
+
   await app.listen(port);
+
+  const host = await app.getUrl();
+
+  console.info(
+    'Server \x1b[34m%s\x1b[0m version \x1b[34m%s\x1b[0m running at \x1b[34m%s\x1b[0m in \x1b[31m%s\x1b[0m mode!',
+    APP_NAME,
+    LIB_VERSION,
+    host,
+    nodeEnv,
+    moment().format('YYYY-MM-DD HH:mm:ss'),
+  );
+  console.info('\x1b[31mAPI Documents\x1b[0m is running at \x1b[34m%s\x1b[0m', `${host}/api-docs`);
 }
 
 bootstrap();

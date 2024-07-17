@@ -2,8 +2,7 @@ import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { AbstractController } from '@abstracts';
-
-import { MODEL_NAME } from '@utilities/constants';
+import { MODEL_NAME } from '@utilities';
 
 import { WebsiteRepository } from './website.repository';
 import { WebsiteService } from './website.service';

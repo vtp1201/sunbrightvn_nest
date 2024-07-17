@@ -1,6 +1,7 @@
-import { Prisma } from '@prisma/client';
-
+// import { a } from '@utilities';
 import { PrismaService } from '@databases/prisma.service';
+
+import { Prisma } from '@prisma/client';
 
 import {
   IAbstractRepository,
@@ -10,6 +11,8 @@ import {
 } from './abstract.repository.interface';
 
 export class AbstractRepository<M extends ModelName> implements IAbstractRepository<M> {
+  // public static attributes: a;
+  // public static relations;
   private readonly _model: M;
   constructor(private readonly _prismaService: PrismaService) {}
 
