@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/BusinessActivity';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/BusinessActivity';
 import { businessActivityIndustry, company, companyMember, country } from './';
 
 export default createModel(MODEL_NAME.BUSINESS_ACTIVITY, (BusinessActivityModel) => {
@@ -22,12 +22,14 @@ export default createModel(MODEL_NAME.BUSINESS_ACTIVITY, (BusinessActivityModel)
     attribute: ATTRIBUTE.businessActivityIndustryId,
     model: businessActivityIndustry,
     relation: RELATION.businessActivityIndustry,
+    map: INDEX_NAME.businessActivityIndustryId,
     option: { optional: true },
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    map: INDEX_NAME.countryId,
     option: { optional: true },
   });
   const companiesRelation = oneToMany({
@@ -88,6 +90,10 @@ export default createModel(MODEL_NAME.BUSINESS_ACTIVITY, (BusinessActivityModel)
       .mixin(countryRelation)
       .mixin(companiesRelation)
       .mixin(companyMembersRelation)
+
+      // indexes
+      .raw(INDEX.businessActivityIndustryId)
+      .raw(INDEX.countryId)
 
       // table name
       .map(TABLE_NAME.BUSINESS_ACTIVITY);

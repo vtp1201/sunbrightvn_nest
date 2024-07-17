@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/BankingProcess';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/BankingProcess';
 import { Process, bank, bankBranch, country, proposedTime, task } from './';
 
 export default createModel(MODEL_NAME.BANKING_PROCESS, (BankingProcessModel) => {
@@ -30,24 +30,28 @@ export default createModel(MODEL_NAME.BANKING_PROCESS, (BankingProcessModel) => 
     attribute: ATTRIBUTE.bankId,
     model: bank,
     relation: RELATION.bank,
+    map: INDEX_NAME.bankId,
     option: { optional: true },
   });
   const bankBranchRelation = oneToOne({
     attribute: ATTRIBUTE.bankBranchId,
     model: bankBranch,
     relation: RELATION.bankBranch,
+    map: INDEX_NAME.bankBranchId,
     option: { optional: true },
   });
   const phoneCountryRelation = oneToOne({
     attribute: ATTRIBUTE.phoneCountryId,
     model: country,
     relation: RELATION.phoneCountry,
+    map: INDEX_NAME.phoneCountryId,
     option: { optional: true },
   });
   const taskRelation = oneToOne({
     attribute: ATTRIBUTE.taskId,
     model: task,
     relation: RELATION.task,
+    map: INDEX_NAME.taskId,
     option: { optional: true },
   });
   const processesRelation = oneToMany({
@@ -150,6 +154,12 @@ export default createModel(MODEL_NAME.BANKING_PROCESS, (BankingProcessModel) => 
       .mixin(taskRelation)
       .mixin(processesRelation)
       .mixin(proposedTimesRelation)
+
+      // indexes
+      .raw(INDEX.bankBranchId)
+      .raw(INDEX.bankId)
+      .raw(INDEX.phoneCountryId)
+      .raw(INDEX.taskId)
 
       // table name
       .map(TABLE_NAME.BANKING_PROCESS);

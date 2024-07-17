@@ -20,9 +20,7 @@ export default createModel(MODEL_NAME.BANK_HAS_COUNTRY, (BankHasCountryModel) =>
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
-    option: {
-      map: INDEX_NAME.countryId,
-    },
+    map: INDEX_NAME.countryId,
   });
 
   // defined Model

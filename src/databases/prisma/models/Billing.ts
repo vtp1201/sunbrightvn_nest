@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Billing';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Billing';
 import { additionProcess, company, country, customer, historyCompany, order, user } from './';
 
 export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
@@ -30,6 +30,7 @@ export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
     attribute: ATTRIBUTE.additionProcessId,
     model: additionProcess,
     relation: RELATION.additionProcess,
+    map: INDEX_NAME.additionProcessId,
     option: { optional: true },
   });
   const countryRelation = oneToOne({
@@ -37,12 +38,14 @@ export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
     model: country,
     relation: RELATION.country,
     isNeedName: true,
+    map: INDEX_NAME.countryId,
     option: { optional: true },
   });
   const customerRelation = oneToOne({
     attribute: ATTRIBUTE.customerId,
     model: customer,
     relation: RELATION.customer,
+    map: INDEX_NAME.customerId,
     option: { optional: true },
   });
   const phoneCountryRelation = oneToOne({
@@ -50,12 +53,14 @@ export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
     model: country,
     relation: RELATION.phoneCountry,
     isNeedName: true,
+    map: INDEX_NAME.phoneCountryId,
     option: { optional: true },
   });
   const userRelation = oneToOne({
     attribute: ATTRIBUTE.userId,
     model: user,
     relation: RELATION.user,
+    map: INDEX_NAME.userId,
     option: { optional: true },
   });
   const companiesRelation = oneToMany({
@@ -176,6 +181,13 @@ export default createModel(MODEL_NAME.BILLING, (BillingModel) => {
       .mixin(companiesRelation)
       .mixin(historyCompaniesRelation)
       .mixin(ordersRelation)
+
+      // indexes
+      .raw(INDEX.additionProcessId)
+      .raw(INDEX.countryId)
+      .raw(INDEX.customerId)
+      .raw(INDEX.phoneCountryId)
+      .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.BILLING);

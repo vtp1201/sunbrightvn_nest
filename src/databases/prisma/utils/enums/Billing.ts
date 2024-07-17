@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -59,6 +60,22 @@ export enum RELATION {
   companies = RELATION_DEFAULT.companies,
   historyCompanies = RELATION_DEFAULT.historyCompanies,
   orders = RELATION_DEFAULT.orders,
+}
+
+const tableName = TABLE_NAME.BILLING;
+export enum INDEX_NAME {
+  additionProcessId = `"${tableName}_${COLUMN.additionProcessId}_fkey"`,
+  countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  customerId = `"${tableName}_${COLUMN.customerId}_fkey"`,
+  phoneCountryId = `"${tableName}_${COLUMN.phoneCountryId}_fkey"`,
+  userId = `"${tableName}_${COLUMN.userId}_fkey"`,
+}
+export enum INDEX {
+  additionProcessId = `@@index([${ATTRIBUTE.additionProcessId}], map: ${INDEX_NAME.additionProcessId})`,
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
+  customerId = `@@index([${ATTRIBUTE.customerId}], map: ${INDEX_NAME.customerId})`,
+  phoneCountryId = `@@index([${ATTRIBUTE.phoneCountryId}], map: ${INDEX_NAME.phoneCountryId})`,
+  userId = `@@index([${ATTRIBUTE.userId}], map: ${INDEX_NAME.userId})`,
 }
 export default {
   ATTRIBUTE,

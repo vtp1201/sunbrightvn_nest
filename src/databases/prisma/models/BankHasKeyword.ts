@@ -11,7 +11,8 @@ export default createModel(MODEL_NAME.BANK_HAS_KEYWORD, (bankHasKeywordModel) =>
     attribute: ATTRIBUTE.bankId,
     model: bank,
     relation: RELATION.bank,
-    option: { optional: true, map: INDEX_NAME.bankId },
+    map: INDEX_NAME.bankId,
+    option: { optional: true },
   });
 
   // defined Model

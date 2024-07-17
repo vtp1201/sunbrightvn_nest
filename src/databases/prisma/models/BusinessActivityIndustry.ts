@@ -2,7 +2,13 @@ import { createModel } from 'schemix';
 
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/BusinessActivityIndustry';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  INDEX_NAME,
+  RELATION,
+} from '../utils/enums/BusinessActivityIndustry';
 import { businessActivity, businessActivityIndustryClass, customer } from './';
 
 export default createModel(

@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -54,6 +55,21 @@ export enum RELATION {
   processes = RELATION_DEFAULT.processes,
   proposedTimes = RELATION_DEFAULT.proposedTimes,
 }
+
+const tableName = TABLE_NAME.BANKING_PROCESS;
+export enum INDEX_NAME {
+  bankId = `"${tableName}_${COLUMN.bankId}_fkey"`,
+  bankBranchId = `"${tableName}_${COLUMN.bankBranchId}_fkey"`,
+  phoneCountryId = `"${tableName}_${COLUMN.phoneCountryId}_fkey"`,
+  taskId = `"${tableName}_${COLUMN.taskId}_fkey"`,
+}
+export enum INDEX {
+  bankId = `@@index([${ATTRIBUTE.bankId}], map: ${INDEX_NAME.bankId})`,
+  bankBranchId = `@@index([${ATTRIBUTE.bankBranchId}], map: ${INDEX_NAME.bankBranchId})`,
+  phoneCountryId = `@@index([${ATTRIBUTE.phoneCountryId}], map: ${INDEX_NAME.phoneCountryId})`,
+  taskId = `@@index([${ATTRIBUTE.taskId}], map: ${INDEX_NAME.taskId})`,
+}
+
 export default {
   ATTRIBUTE,
   RELATION,
