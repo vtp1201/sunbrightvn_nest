@@ -1,7 +1,6 @@
 import { TABLE_NAME } from '../constants/modelName';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
-const tableName = TABLE_NAME.ACTION_LOG;
 export enum ATTRIBUTE {
   id = 'id',
   userId = 'userId',
@@ -26,6 +25,7 @@ export enum RELATION {
   user = RELATION_DEFAULT.user,
 }
 
+const tableName = TABLE_NAME.ACTION_LOG;
 export enum INDEX_NAME {
   userId = `"${tableName}_${COLUMN.userId}_fkey"`,
 }
