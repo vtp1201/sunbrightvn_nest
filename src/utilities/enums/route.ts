@@ -17,4 +17,5 @@ export const ROUTES = {
 export enum API_TAGS {
   AUTH = 'Auth',
   WEBSITE = 'Website',
+  ENUM = 'Enum',
 }
