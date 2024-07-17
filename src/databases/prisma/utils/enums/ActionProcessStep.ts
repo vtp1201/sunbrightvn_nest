@@ -42,21 +42,21 @@ export enum RELATION {
 }
 
 export enum INDEX_NAME {
-  processStepId = `${tableName}_${COLUMN.processStepId}_fkey`,
-  nextProcessStepId = `${tableName}_${COLUMN.nextProcessStepId}_fkey`,
-  countryId = `${tableName}_${COLUMN.countryId}_fkey`,
-  bankId = `${tableName}_${COLUMN.bankId}_fkey`,
-  actionStepTypeId = `${tableName}_${COLUMN.actionStepTypeId}_fkey`,
-  serviceTypeId = `${tableName}_${COLUMN.serviceTypeId}_fkey`,
+  processStepId = `"${tableName}_${COLUMN.processStepId}_fkey"`,
+  nextProcessStepId = `"${tableName}_${COLUMN.nextProcessStepId}_fkey"`,
+  countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  bankId = `"${tableName}_${COLUMN.bankId}_fkey"`,
+  actionStepTypeId = `"${tableName}_${COLUMN.actionStepTypeId}_fkey"`,
+  serviceTypeId = `"${tableName}_${COLUMN.serviceTypeId}_fkey"`,
 }
 
 export enum INDEX {
-  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: "${INDEX_NAME.processStepId}")`,
-  nextProcessStepId = `@@index([${ATTRIBUTE.nextProcessStepId}], map: "${INDEX_NAME.nextProcessStepId}")`,
-  countryId = `@@index([${ATTRIBUTE.countryId}], map: "${INDEX_NAME.countryId}")`,
-  bankId = `@@index([${ATTRIBUTE.bankId}], map: "${INDEX_NAME.bankId}")`,
-  actionStepTypeId = `@@index([${ATTRIBUTE.actionStepTypeId}], map: "${INDEX_NAME.actionStepTypeId}")`,
-  serviceTypeId = `@@index([${ATTRIBUTE.serviceTypeId}], map: "${INDEX_NAME.serviceTypeId}")`,
+  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: ${INDEX_NAME.processStepId})`,
+  nextProcessStepId = `@@index([${ATTRIBUTE.nextProcessStepId}], map: ${INDEX_NAME.nextProcessStepId})`,
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
+  bankId = `@@index([${ATTRIBUTE.bankId}], map: ${INDEX_NAME.bankId})`,
+  actionStepTypeId = `@@index([${ATTRIBUTE.actionStepTypeId}], map: ${INDEX_NAME.actionStepTypeId})`,
+  serviceTypeId = `@@index([${ATTRIBUTE.serviceTypeId}], map: ${INDEX_NAME.serviceTypeId})`,
 }
 
 export default { ATTRIBUTE, RELATION };

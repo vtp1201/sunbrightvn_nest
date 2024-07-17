@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Agent';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Agent';
 import { agency, agentType, bank, country, email, processLog, task, taskHasAgent, token } from './';
 
 export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
@@ -30,22 +30,26 @@ export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
     attribute: ATTRIBUTE.agencyId,
     model: agency,
     relation: RELATION.agency,
+    map: INDEX_NAME.agencyId,
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    map: INDEX_NAME.countryId,
     option: { optional: true },
   });
   const agentTypeRelation = oneToOne({
     attribute: ATTRIBUTE.agentTypeId,
     model: agentType,
     relation: RELATION.agentType,
+    map: INDEX_NAME.agentTypeId,
   });
   const bankRelation = oneToOne({
     attribute: ATTRIBUTE.bankId,
     model: bank,
     relation: RELATION.bank,
+    map: INDEX_NAME.bankId,
     option: { optional: true },
   });
   const processLogsRelation = oneToMany({
@@ -118,6 +122,12 @@ export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
       .mixin(tokensRelation)
       .mixin(emailsRelation)
       .mixin(taskHasAgentsRelation)
+
+      // indexes
+      .raw(INDEX.agencyId)
+      .raw(INDEX.agentTypeId)
+      .raw(INDEX.bankId)
+      .raw(INDEX.countryId)
 
       // table name
       .map(TABLE_NAME.AGENT);

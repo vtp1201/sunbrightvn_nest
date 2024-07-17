@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Answer';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Answer';
 import { company, companyMember, country, option, question, task } from './';
 
 export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
@@ -30,35 +30,40 @@ export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
     attribute: ATTRIBUTE.optionId,
     model: option,
     relation: RELATION.option,
+    map: INDEX_NAME.optionId,
   });
   const taskRelation = oneToOne({
     attribute: ATTRIBUTE.taskId,
     model: task,
     relation: RELATION.task,
+    map: INDEX_NAME.taskId,
     option: { optional: true },
   });
   const companyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.companyMemberId,
     model: companyMember,
     relation: RELATION.companyMember,
+    map: INDEX_NAME.companyMemberId,
     option: { optional: true },
   });
   const questionRelation = oneToOne({
     attribute: ATTRIBUTE.questionId,
     model: question,
     relation: RELATION.question,
-    option: { optional: true },
+    option: { optional: true, map: INDEX_NAME.questionId },
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.selectCountryId,
     model: country,
     relation: RELATION.country,
+    map: INDEX_NAME.selectCountryId,
     option: { optional: true },
   });
   const companyRelation = oneToOne({
     attribute: ATTRIBUTE.companyId,
     model: company,
     relation: RELATION.company,
+    map: INDEX_NAME.companyId,
     option: { optional: true },
   });
 
@@ -120,6 +125,15 @@ export default createModel(MODEL_NAME.ANSWER, (AnswerModel) => {
       .mixin(questionRelation)
       .mixin(countryRelation)
       .mixin(companyRelation)
+
+      // indexes
+      .raw(INDEX.companyId)
+      .raw(INDEX.companyMemberId)
+      .raw(INDEX.fatcaId)
+      .raw(INDEX.optionId)
+      .raw(INDEX.questionId)
+      .raw(INDEX.selectCountryId)
+      .raw(INDEX.taskId)
 
       // table name
       .map(TABLE_NAME.ANSWER);

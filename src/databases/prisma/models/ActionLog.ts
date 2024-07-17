@@ -26,9 +26,9 @@ export default createModel(MODEL_NAME.ACTION_LOG, (ActionLogModel) => {
     attribute: ATTRIBUTE.userId,
     model: user,
     relation: RELATION.user,
+    map: INDEX_NAME.userId,
     option: {
       optional: true,
-      map: INDEX_NAME.userId,
     },
   });
 

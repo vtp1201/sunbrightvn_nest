@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -39,6 +40,21 @@ export enum RELATION {
   processLogs = RELATION_DEFAULT.processLogs,
   taskHasAgents = RELATION_DEFAULT.taskHasAgents,
   tokens = RELATION_DEFAULT.tokens,
+}
+
+const tableName = TABLE_NAME.AGENT;
+export enum INDEX_NAME {
+  countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  agencyId = `"${tableName}_${COLUMN.agencyId}_fkey"`,
+  agentTypeId = `"${tableName}_${COLUMN.agentTypeId}_fkey"`,
+  bankId = `"${tableName}_${COLUMN.bankId}_fkey"`,
+}
+
+export enum INDEX {
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
+  agencyId = `@@index([${ATTRIBUTE.agencyId}], map: ${INDEX_NAME.agencyId})`,
+  agentTypeId = `@@index([${ATTRIBUTE.agentTypeId}], map: ${INDEX_NAME.agentTypeId})`,
+  bankId = `@@index([${ATTRIBUTE.bankId}], map: ${INDEX_NAME.bankId})`,
 }
 
 export default {

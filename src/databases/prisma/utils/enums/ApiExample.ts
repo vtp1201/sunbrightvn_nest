@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -37,6 +38,18 @@ export enum RELATION {
   apiGroup = RELATION_DEFAULT.apiGroup,
   api = RELATION_DEFAULT.api,
   files = RELATION_DEFAULT.files,
+}
+
+const tableName = TABLE_NAME.API_EXAMPLE;
+export enum INDEX_NAME {
+  apiStatusId = `"${tableName}_${COLUMN.apiStatusId}_fkey"`,
+  apiGroupId = `"${tableName}_${COLUMN.apiGroupId}_fkey"`,
+  apiId = `"${tableName}_${COLUMN.apiId}_fkey"`,
+}
+export enum INDEX {
+  apiStatusId = `@@index([${ATTRIBUTE.apiStatusId}], map: ${INDEX_NAME.apiStatusId})`,
+  apiGroupId = `@@index([${ATTRIBUTE.apiGroupId}], map: ${INDEX_NAME.apiGroupId})`,
+  apiId = `@@index([${ATTRIBUTE.apiId}], map: ${INDEX_NAME.apiId})`,
 }
 
 export default {

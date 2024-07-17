@@ -2,8 +2,8 @@ import { createModel } from 'schemix';
 
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/AdditionProcess';
-import { Process, agent, billing, task, taskHasAgent } from './';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/AdditionProcess';
+import { Process, billing, task, taskHasAgent } from './';
 
 export default createModel(MODEL_NAME.ADDITION_PROCESS, (AdditionProcessModel) => {
   const initCreatedTime = createdTime({
@@ -30,6 +30,7 @@ export default createModel(MODEL_NAME.ADDITION_PROCESS, (AdditionProcessModel) =
     attribute: ATTRIBUTE.taskId,
     model: task,
     relation: RELATION.task,
+    map: INDEX_NAME.taskId,
   });
   const processesRelation = oneToMany({
     model: Process,
@@ -81,6 +82,9 @@ export default createModel(MODEL_NAME.ADDITION_PROCESS, (AdditionProcessModel) =
       .mixin(processesRelation)
       .mixin(billingsRelation)
       .mixin(taskHasAgentsRelation)
+
+      // indexes
+      .raw(INDEX.taskId)
 
       // table name
       .map(TABLE_NAME.ADDITION_PROCESS);

@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Api';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Api';
 import { apiExample, apiHasGroup, apiMethod } from './';
 
 export default createModel(MODEL_NAME.API, (ApiModel) => {
@@ -30,6 +30,7 @@ export default createModel(MODEL_NAME.API, (ApiModel) => {
     attribute: ATTRIBUTE.apiMethodId,
     model: apiMethod,
     relation: RELATION.apiMethod,
+    map: INDEX_NAME.apiMethodId,
   });
   const apiExampleRelation = oneToMany({
     relation: RELATION.apiExamples,
@@ -85,6 +86,9 @@ export default createModel(MODEL_NAME.API, (ApiModel) => {
       .mixin(apiMethodRelation)
       .mixin(apiExampleRelation)
       .mixin(apiHasGroupRelation)
+
+      // indexes
+      .raw(INDEX.apiMethodId)
 
       // table name
       .map(TABLE_NAME.API);

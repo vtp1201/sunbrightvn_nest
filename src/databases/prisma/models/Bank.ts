@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Bank';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Bank';
 import {
   actionProcessStep,
   agent,
@@ -33,7 +33,10 @@ export default createModel(MODEL_NAME.BANK, (BankModel) => {
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
-    option: { optional: true },
+    option: {
+      optional: true,
+      map: INDEX_NAME.countryId,
+    },
   });
   const bankBranchesRelation = oneToMany({
     model: bankBranch,
@@ -118,6 +121,9 @@ export default createModel(MODEL_NAME.BANK, (BankModel) => {
       .mixin(bankingProcessesRelation)
       .mixin(customersRelation)
       .mixin(ordersRelation)
+
+      // indexes
+      .raw(INDEX.countryId)
 
       // table name
       .map(TABLE_NAME.BANK);

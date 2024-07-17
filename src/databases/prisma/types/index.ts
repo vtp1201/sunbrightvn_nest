@@ -10,6 +10,7 @@ export type ONE_ONE_MIXIN = {
   attribute: string;
   relation: string;
   model: PrismaModel;
+  map?: string;
   option?: RelationalFieldOptions;
   isNeedName?: boolean;
 };

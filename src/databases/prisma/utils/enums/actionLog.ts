@@ -27,10 +27,10 @@ export enum RELATION {
 }
 
 export enum INDEX_NAME {
-  userId = `${tableName}_${COLUMN.userId}_fkey`,
+  userId = `"${tableName}_${COLUMN.userId}_fkey"`,
 }
 export enum INDEX {
-  userId = `@@index([${ATTRIBUTE.userId}], map: "${INDEX_NAME.userId}")`,
+  userId = `@@index([${ATTRIBUTE.userId}], map: ${INDEX_NAME.userId})`,
 }
 
 export default {

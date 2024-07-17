@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ApiExample';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/ApiExample';
 import { api, apiGroup, apiStatus, file } from './';
 
 export default createModel(MODEL_NAME.API_EXAMPLE, (ApiExampleModel) => {
@@ -30,17 +30,22 @@ export default createModel(MODEL_NAME.API_EXAMPLE, (ApiExampleModel) => {
     attribute: ATTRIBUTE.apiStatusId,
     model: apiStatus,
     relation: RELATION.apiStatus,
+    map: INDEX_NAME.apiStatusId,
   });
   const apiRelation = oneToOne({
     attribute: ATTRIBUTE.apiId,
     model: api,
     relation: RELATION.api,
+    map: INDEX_NAME.apiId,
   });
   const apiGroupRelation = oneToOne({
     attribute: ATTRIBUTE.apiGroupId,
     model: apiGroup,
     relation: RELATION.apiGroup,
-    option: { optional: true },
+    map: INDEX_NAME.apiGroupId,
+    option: {
+      optional: true,
+    },
   });
   const filesRelation = oneToMany({
     model: file,
@@ -98,6 +103,11 @@ export default createModel(MODEL_NAME.API_EXAMPLE, (ApiExampleModel) => {
       .mixin(apiRelation)
       .mixin(apiGroupRelation)
       .mixin(filesRelation)
+
+      // indexes
+      .raw(INDEX.apiGroupId)
+      .raw(INDEX.apiId)
+      .raw(INDEX.apiStatusId)
 
       // table name
       .map(TABLE_NAME.API_EXAMPLE);

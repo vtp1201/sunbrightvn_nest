@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ApiHasGroup';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/ApiHasGroup';
 import { api, apiGroup } from './';
 
 export default createModel(MODEL_NAME.API_HAS_GROUP, (ApiHasGroupModel) => {
@@ -29,11 +29,13 @@ export default createModel(MODEL_NAME.API_HAS_GROUP, (ApiHasGroupModel) => {
     attribute: ATTRIBUTE.apiId,
     model: api,
     relation: RELATION.api,
+    map: INDEX_NAME.apiId,
   });
   const apiGroupRelation = oneToOne({
     attribute: ATTRIBUTE.apiGroupId,
     model: apiGroup,
     relation: RELATION.apiGroup,
+    map: INDEX_NAME.apiGroupId,
   });
 
   // defined Model
@@ -62,6 +64,10 @@ export default createModel(MODEL_NAME.API_HAS_GROUP, (ApiHasGroupModel) => {
       // relations
       .mixin(apiRelation)
       .mixin(apiGroupRelation)
+
+      // indexes
+      .raw(INDEX.apiGroupId)
+      .raw(INDEX.apiId)
 
       // table name
       .map(TABLE_NAME.API_HAS_GROUP);

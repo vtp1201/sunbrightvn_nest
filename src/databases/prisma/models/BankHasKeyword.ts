@@ -2,7 +2,7 @@ import { createModel } from 'schemix';
 
 import { oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/bankHasKeyword';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/bankHasKeyword';
 import { bank } from './';
 
 export default createModel(MODEL_NAME.BANK_HAS_KEYWORD, (bankHasKeywordModel) => {
@@ -11,7 +11,7 @@ export default createModel(MODEL_NAME.BANK_HAS_KEYWORD, (bankHasKeywordModel) =>
     attribute: ATTRIBUTE.bankId,
     model: bank,
     relation: RELATION.bank,
-    option: { optional: true },
+    option: { optional: true, map: INDEX_NAME.bankId },
   });
 
   // defined Model
@@ -35,6 +35,9 @@ export default createModel(MODEL_NAME.BANK_HAS_KEYWORD, (bankHasKeywordModel) =>
 
       // relations
       .mixin(bankRelation)
+
+      // indexes
+      .raw(INDEX.bankId)
 
       // table name
       .map(TABLE_NAME.BANK_HAS_KEYWORD);

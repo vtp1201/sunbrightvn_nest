@@ -30,53 +30,47 @@ export default createModel(MODEL_NAME.ACTION_PROCESS_STEP, (ActionProcessStepMod
     model: processStep,
     relation: RELATION.processStepParent,
     isNeedName: true,
-    option: {
-      map: INDEX_NAME.processStepId,
-    },
+    map: INDEX_NAME.processStepId,
   });
   const processStepChildrenRelation = oneToOne({
     attribute: ATTRIBUTE.nextProcessStepId,
     model: processStep,
     relation: RELATION.processStepChildren,
     isNeedName: true,
-    option: {
-      map: INDEX_NAME.nextProcessStepId,
-    },
+    map: INDEX_NAME.nextProcessStepId,
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    map: INDEX_NAME.countryId,
     option: {
       optional: true,
-      map: INDEX_NAME.countryId,
     },
   });
   const bankRelation = oneToOne({
     attribute: ATTRIBUTE.bankId,
     model: bank,
     relation: RELATION.bank,
+    map: INDEX_NAME.bankId,
     option: {
       optional: true,
-      map: INDEX_NAME.bankId,
     },
   });
   const serviceTypeRelation = oneToOne({
     attribute: ATTRIBUTE.serviceTypeId,
     model: serviceType,
     relation: RELATION.serviceType,
+    map: INDEX_NAME.serviceTypeId,
     option: {
       optional: true,
-      map: INDEX_NAME.serviceTypeId,
     },
   });
   const actionStepTypeRelation = oneToOne({
     attribute: ATTRIBUTE.actionStepTypeId,
     model: actionStepType,
     relation: RELATION.actionStepType,
-    option: {
-      map: INDEX_NAME.actionStepTypeId,
-    },
+    map: INDEX_NAME.actionStepTypeId,
   });
 
   // defined Model

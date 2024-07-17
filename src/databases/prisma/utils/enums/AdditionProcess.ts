@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -29,6 +30,15 @@ export enum RELATION {
   billings = RELATION_DEFAULT.billings,
   processes = RELATION_DEFAULT.processes,
   taskHasAgents = RELATION_DEFAULT.taskHasAgents,
+}
+
+const tableName = TABLE_NAME.ADDITION_PROCESS;
+export enum INDEX_NAME {
+  taskId = `"${tableName}_${COLUMN.taskId}_fkey"`,
+}
+
+export enum INDEX {
+  taskId = `@@index([${ATTRIBUTE.taskId}], map: ${INDEX_NAME.taskId})`,
 }
 
 export default {
