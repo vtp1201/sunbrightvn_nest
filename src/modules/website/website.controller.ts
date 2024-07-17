@@ -1,14 +1,14 @@
-import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import { Controller, Get, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { AbstractController } from '@abstracts';
-import { MODEL_NAME } from '@utilities';
+import { API_TAGS, MODEL_NAME, ROUTES } from '@utilities';
 
 import { WebsiteRepository } from './website.repository';
 import { WebsiteService } from './website.service';
 
-@Controller('user-roles')
-@ApiTags('user-roles')
+@Controller()
+@ApiTags(API_TAGS.WEBSITE)
 export class WebsiteController extends AbstractController<
   MODEL_NAME.WEBSITE,
   WebsiteRepository,
@@ -18,28 +18,18 @@ export class WebsiteController extends AbstractController<
     super(service);
   }
 
-  @Post()
-  create() {
-    return '';
-  }
-
-  @Get()
+  @Get(ROUTES.WEBSITE.GET_ENUM)
   findAll() {
-    return '';
+    return this.service.findMany();
   }
 
-  @Get(':id')
+  @Get(ROUTES.WEBSITE.ID)
   findOne() {
     return '';
   }
 
-  @Patch(':id')
+  @Put(ROUTES.WEBSITE.ID)
   update() {
-    return '';
-  }
-
-  @Delete(':id')
-  remove() {
     return '';
   }
 }

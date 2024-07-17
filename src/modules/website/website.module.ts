@@ -2,6 +2,7 @@ import { Global, Module } from '@nestjs/common';
 
 import { AuthModule } from '@modules/auth/auth.module';
 
+import { WebsiteController } from './website.controller';
 import { WebsiteRepository } from './website.repository';
 import { WebsiteService } from './website.service';
 
@@ -18,5 +19,6 @@ import { WebsiteService } from './website.service';
     //   },
     // },
   ],
+  controllers: [WebsiteController],
 })
 export class WebsiteModule {}

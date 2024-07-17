@@ -2,7 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { validate } from '@configs/config.validate';
-import { RedisModule } from '@nestjs-modules/ioredis';
+import { DatabaseModule } from '@databases/database.module';
+import { AuthModule } from '@modules/auth/auth.module';
+import { UserModule } from '@modules/user/user.module';
+import { WebsiteModule } from '@modules/website/website.module';
+// import { RedisModule } from '@nestjs-modules/ioredis';
 import { ENV_PATH } from '@utilities';
 import { AcceptLanguageResolver, HeaderResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
 import * as path from 'path';
@@ -31,6 +35,10 @@ import * as path from 'path';
         new HeaderResolver(['x-lang']),
       ],
     }),
+    DatabaseModule,
+    AuthModule,
+    UserModule,
+    WebsiteModule,
   ],
   controllers: [],
   providers: [],

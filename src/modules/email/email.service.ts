@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { AbstractService } from '@abstracts';
 import { MODEL_NAME } from '@utilities';
@@ -11,5 +11,5 @@ export class EmailService extends AbstractService<MODEL_NAME.EMAIL, EmailReposit
     super(repository);
   }
 
-  async sendEmail(a: any) {}
+  async sendEmail() {}
 }

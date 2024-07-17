@@ -10,12 +10,12 @@ import {
 } from '@nestjs/swagger';
 
 import { RequestWithUser } from '@types';
-import { API_TAGS, ROUTE_AUTH } from '@utilities';
+import { API_TAGS, ROUTES } from '@utilities';
 
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guard/local.guard';
 
-@Controller(ROUTE_AUTH.LOGIN)
+@Controller()
 @ApiTags(API_TAGS.AUTH)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -25,10 +25,11 @@ export class AuthController {
   //   // return await this.authService.signUp(sign_up_dto);
   // }
 
-  @Post()
+  @Post(ROUTES.AUTH.LOGIN)
   @UseGuards(LocalAuthGuard)
   async login(@Req() request: RequestWithUser) {
-    const { user } = request;
+    console.log(request);
+    request;
     // return await this.authService.signIn(user._id.toString());
   }
 
