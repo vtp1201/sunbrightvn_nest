@@ -34,106 +34,236 @@ enum ROUTE_COMPLIANCE_RISK_ASSESSMENT_FORM__SERVICE {
   ANSWERS = 'api/risk_assessment_form/service/answers',
 }
 
-enum CUSTOMER_ACCOUNT__DASHBOARD__ORDER {
+enum ROUTE_CUSTOMER_ACCOUNT__DASHBOARD__ORDER {
   ANALYTIC = 'api/customer_account/dashboard/order/analytic',
 }
 
-enum CUSTOMER_ACCOUNT__BANKING {
+enum ROUTE_CUSTOMER_ACCOUNT__BANKING {
   BASE = 'api/customer_account/banking',
   PROCESS = 'api/customer_account/banking/process',
   UPGRADE_SERVICE__STRIPE = 'api/customer_account/banking/upgrade_service/stripe',
 }
 
-enum CUSTOMER_ACCOUNT__BILLING {
+enum ROUTE_CUSTOMER_ACCOUNT__BILLING {
   BASE = 'api/customer_account/billing',
   BY_ID = 'api/customer_account/billing/:id([0-9]+)',
   DELETE_MULTI = 'api/customer_account/billing/delete_multi',
 }
 
-enum CUSTOMER_ACCOUNT__BOOKKEEPER_PROCESS {
+enum ROUTE_CUSTOMER_ACCOUNT__BOOKKEEPER_PROCESS {
   ORDER_FORM__BY_TASK_ID = 'api/customer_account/bookkeeper_process/order_form/:task_id',
   FILE__CREATE = 'api/customer_account/bookkeeper_process/file/create',
 }
 
-enum CUSTOMER_ACCOUNT__BUSINESS_PLAN_FORM {
+enum ROUTE_CUSTOMER_ACCOUNT__BUSINESS_PLAN_FORM {
   UPDATE_FORM__BY_ID = 'api/customer_account/business_plan_form/update_form/:id([0-9]+)',
 }
 
-enum CUSTOMER_ACCOUNT__CHECKNAME {
+enum ROUTE_CUSTOMER_ACCOUNT__CHECKNAME {
   UK = 'api/customer_account/checkname/uk',
 }
 
-enum CUSTOMER_ACCOUNT__COMPANY_EVENT {
+enum ROUTE_CUSTOMER_ACCOUNT__COMPANY_EVENT {
   TYPES = 'api/customer_account/company_event/types',
 }
 
-enum CUSTOMER_ACCOUNT__COMPANY {
+enum ROUTE_CUSTOMER_ACCOUNT__COMPANY {
   BASE = 'api/customer_account/company',
   VER_2 = 'api/customer_account/company/ver_2',
-  sent_company_document = 'api/customer_account/company/sent_company_document',
+  SENT_COMPANY_DOCUMENT = 'api/customer_account/company/sent_company_document',
   BY_ID__DETAIL = 'api/customer_account/company/:id([0-9]+)/detail',
-  BASE = 'api/customer_account/company/:id([0-9]+)/document',
-  BASE = 'api/customer_account/company/:id([0-9]+)/event',
-  BASE = 'api/customer_account/company/:id([0-9]+)/review_complete',
-  BASE = 'api/customer_account/company/:id([0-9]+)/proposed_name',
-  BASE = 'api/customer_account/company/:id([0-9]+)/share_own_interest',
-  BASE = 'api/customer_account/company/change_request',
-  BASE = 'api/customer_account/company/change_request/:id([0-9]+)',
-  BASE = 'api/customer_account/company/change_request/transfer_share',
-  BASE = 'api/customer_account/company/proposed_name',
-  BASE = 'api/customer_account/company/:id([0-9]+)/history_changed',
-  BASE = 'api/customer_account/company/:id([0-9]+)/completed_event',
-  BASE = 'api/customer_account/company/:id([0-9]+)/transaction_event',
+  BY_ID__DOCUMENT = 'api/customer_account/company/:id([0-9]+)/document',
+  BY_ID__EVENT = 'api/customer_account/company/:id([0-9]+)/event',
+  BY_ID__REVIEW_COMPLETE = 'api/customer_account/company/:id([0-9]+)/review_complete',
+  BY_ID__PROPOSED_NAME = 'api/customer_account/company/:id([0-9]+)/proposed_name',
+  BY_ID__SHARE_OWN_INTEREST = 'api/customer_account/company/:id([0-9]+)/share_own_interest',
+  CHANGE_REQUEST = 'api/customer_account/company/change_request',
+  CHANGE_REQUEST__BY_ID = 'api/customer_account/company/change_request/:id([0-9]+)',
+  CHANGE_REQUEST__TRANSFER_SHARE = 'api/customer_account/company/change_request/transfer_share',
+  PROPOSED_NAME = 'api/customer_account/company/proposed_name',
+  BY_ID__HISTORY_CHANGED = 'api/customer_account/company/:id([0-9]+)/history_changed',
+  BY_ID__COMPLETED_EVENT = 'api/customer_account/company/:id([0-9]+)/completed_event',
+  BY_ID__TRANSACTION_EVENT = 'api/customer_account/company/:id([0-9]+)/transaction_event',
 }
 
-enum CUSTOMER_ACCOUNT__FILE {
-  BASE = 'api/agency',
-  BY_ID = 'api/agency/:id([0-9]+)',
+enum ROUTE_CUSTOMER_ACCOUNT__FILE {
+  BANKING = 'api/customer_account/file/banking',
 }
 
-enum CUSTOMER_ACCOUNT__HOLIDAY {
-  BASE = 'api/agency',
-  BY_ID = 'api/agency/:id([0-9]+)',
+enum ROUTE_CUSTOMER_ACCOUNT__HOLIDAY {
+  BASE = 'api/customer_account/holiday',
 }
 
-enum CUSTOMER_ACCOUNT__INCORPORATION {
-  BASE = 'api/agency',
-  BY_ID = 'api/agency/:id([0-9]+)',
+enum ROUTE_CUSTOMER_ACCOUNT__INCORPORATION {
+  COUNTRY__BY_ID = 'api/customer_account/incorporation/country/:id([0-9]+)',
+  ANCILLARY_SERVICES_OUTSIDE = 'api/customer_account/incorporation/ancillaryServices_outside',
+  STRIPE = 'api/customer_account/incorporation/stripe',
+  BANK = 'api/customer_account/incorporation/bank',
+  ADD_SERVICES__STRIPE = 'api/customer_account/incorporation/add_services/stripe',
+  ADD_SERVICES__BANK = 'api/customer_account/incorporation/add_services/bank',
+  SUBSCRIPTION = 'api/customer_account/incorporation/subscription',
+  MEMBERSHIP = 'api/customer_account/incorporation/membership',
+  EXIST_ORDER__STRIPE = 'api/customer_account/incorporation/exist_order/stripe',
+  PAYMENT_INTENT = 'api/customer_account/incorporation/payment_intent',
+  PAYMENT_INTENT__EXIST_ORDER = 'api/customer_account/incorporation/payment_intent/exist_order',
+  PAYMENT_INTENT__ADD_SERVICES = 'api/customer_account/incorporation/payment_intent/add_services',
 }
 
-enum CUSTOMER_ACCOUNT__INVOICE {
-  BASE = 'api/agency',
-  BY_ID = 'api/agency/:id([0-9]+)',
+enum ROUTE_CUSTOMER_ACCOUNT__INVOICE {
+  BASE = 'api/customer_account/invoice',
+  BY_ID = 'api/customer_account/invoice/:id([0-9]+)',
 }
 
-enum CUSTOMER_ACCOUNT__MESSAGE {
-  BASE = 'api/agency',
-  BY_ID = 'api/agency/:id([0-9]+)',
+enum ROUTE_CUSTOMER_ACCOUNT__MESSAGE {
+  BASE = 'api/customer_account/message',
+  FIRST = 'api/customer_account/message/first',
 }
 
-enum CUSTOMER_ACCOUNT__ORDER_FORM {
-  BASE = 'api/agency',
-  BY_ID = 'api/agency/:id([0-9]+)',
+enum ROUTE_CUSTOMER_ACCOUNT__ORDER_FORM {
+  BY_TASK_ID = 'api/customer_account/order_form/:task_id',
+  BY_ORDER_ID = 'api/customer_account/order_form/:order_id',
+  LIST_SIGN_ORDER_FORM__BY_COMPANY_ID = 'api/customer_account/order_form/list_sign_order_form/:company_id',
+  LIST_SIGN_INCORPORATION_FORM__BY_COMPANY_ID = 'api/customer_account/order_form/list_sign_incorporation_form/:company_id',
+  PROPOSE_NAME__BY_TASK_ID = 'api/customer_account/order_form/propose_name/:task_id([0-9]+)',
+  PROPOSE_NAME__BULK = 'api/customer_account/order_form/propose_name/bulk',
+  PROPOSE_NAME__BY_PROPOSED_NAME_ID = 'api/customer_account/order_form/propose_name/:proposed_name_id([0-9]+)',
+  CUSTOMER__PROPOSED_NAME__BY_PROPOSE_NAME_ID = 'api/customer_account/order_form/customer/proposed_name/:propose_name_id([0-9]+)',
+  CUSTOMER__PROPOSED_NAME = 'api/customer_account/order_form/customer/proposed_name',
+  CHANGE_REQUEST__TRANSFER_SHARE = 'api/customer_account/order_form/change_request/transfer_share',
+  CHANGE_REQUEST = 'api/customer_account/order_form/change_request',
+  CHANGE_REQUEST__BY_ID = 'api/customer_account/order_form/change_request/:id([0-9]+)',
+  COMPANY_MEMBER__APPOINT_SIGN = 'api/customer_account/order_form/company_member/appoint_sign',
+  COMPANY_MEMBER_LEVEL2__BY_ID = 'api/customer_account/order_form/company_member_level2/:id([0-9]+)',
+  COMPANY_MEMBER_LEVEL2 = 'api/customer_account/order_form/company_member_level2',
 }
 
-enum CUSTOMER_ACCOUNT__ORDER {
-  BASE = 'api/agency',
-  BY_ID = 'api/agency/:id([0-9]+)',
+enum ROUTE_CUSTOMER_ACCOUNT__ORDER {
+  BASE = 'api/customer_account/order',
+  DASHBOARD = 'api/customer_account/order/dashboard',
+  BY_ID = 'api/customer_account/order/:id([0-9]+)',
+  BY_ID__BANKING_TREE = 'api/customer_account/order/:id([0-9]+)/banking_tree',
+  BY_ID__ADDITION_TREE = 'api/customer_account/order/:id([0-9]+)/addition_tree',
+  MAIL_TO_MY_EMAIL_MEETING_SCHEDULE = 'api/customer_account/order/mail_to_my_email_meeting_schedule',
+  TRIGGER_EMAIL = 'api/customer_account/order/trigger_email',
+  REFUND__BY_ID = 'api/customer_account/order/refund/:id([0-9]+)',
+  BY_ID__YEARS_NOT_BUY_EVENT = 'api/customer_account/order/:id([0-9]+)/years_not_buy_event',
+  BY_ID__COMPANY_EVENT = 'api/customer_account/order/:id([0-9]+)/company_event',
+  SERVICE_AR = 'api/customer_account/order/service_ar',
 }
 
-enum CUSTOMER_ACCOUNT__PROCESS {
-  BASE = 'api/agency',
-  BY_ID = 'api/agency/:id([0-9]+)',
+enum ROUTE_CUSTOMER_ACCOUNT__PROCESS {
+  BY_ID = 'api/customer_account/process/:id([0-9]+)',
+  APPROVE = 'api/customer_account/process/approve',
+  REJECT = 'api/customer_account/process/reject',
 }
 
-enum CUSTOMER_ACCOUNT__SUPPORT_CASE {
-  BASE = 'api/agency',
-  BY_ID = 'api/agency/:id([0-9]+)',
+enum ROUTE_CUSTOMER_ACCOUNT__SUPPORT_CASE {
+  BASE = 'api/customer_account/support_case',
+  BY_ID = 'api/customer_account/support_case/:id([0-9]+)',
+  POINT = 'api/customer_account/support_case/point',
+  DELETE_MULTI = 'api/customer_account/support_case/delete-multi',
+  CASE_DETAIL__BY_ID = 'api/customer_account/support_case/caseDetail/:id',
 }
 
-enum CUSTOMER_ACCOUNT__TASK {
-  BASE = 'api/agency',
-  BY_ID = 'api/agency/:id([0-9]+)',
+enum ROUTE_CUSTOMER_ACCOUNT__TASK {
+  SEND_DOCUMENT_MEMBER = 'api/customer_account/task/send_document_member',
+  FILE_TEMPLATE = 'api/customer_account/task/file_template',
+  FILE_TEMPLATE__DOWNLOAD = 'api/customer_account/task/file_template/download',
+  BY_ID__COMPARE_COMPANY_INFO = 'api/customer_account/task/:id([0-9]+)/compare_company_info',
+}
+
+enum ROUTE_GLEADS__CONTACT_FORM {
+  BASE = 'api/gleads/contact_form',
+}
+
+enum ROUTE_GLEADSSG__STATIC_DATA {
+  BASE = 'api/gleadssg/static_data',
+}
+
+enum ROUTE_ONBOARDING__BANKING {
+  BASE = 'api/onboarding/banking',
+}
+
+enum ROUTE_ONBOARDING__CHECK_NAME {
+  CALLBACK = 'api/onboarding/check_name/callback',
+  FIND_COMPANY = 'api/onboarding/check_name/find_company',
+}
+
+enum ROUTE_ONBOARDING__COUNTRY {
+  BASE = 'api/onboarding/country',
+  COOPERATIVE = 'api/onboarding/country/cooperative',
+  INCORPORATION = 'api/onboarding/country/incorporation',
+  ENTITY_SUFFIX = 'api/onboarding/country/entity_suffix',
+  COUNTRY_FEE = 'api/onboarding/country/country_fee',
+}
+
+enum ROUTE_ONBOARDING__CUSTOMER {
+  BASE = 'api/onboarding/customer',
+}
+
+enum ROUTE_ONBOARDING__ENUM {
+  BY_MODEL_NAME = 'api/onboarding/enum/:modelName',
+}
+
+enum ROUTE_ONBOARDING__ORDER {
+  INCORP = 'api/onboarding/order/incorp',
+  BANKING = 'api/onboarding/order/banking',
+  PAYMENT__STRIPE = 'api/onboarding/order/payment/stripe',
+  PAYMENT_FAIL = 'api/onboarding/order/payment-fail',
+  SEND_EMAIL_PENDING = 'api/onboarding/order/send-email-pending',
+  CLIENT__BY_SIGNATURE = 'api/onboarding/order/client/:signature',
+  BY_ORDER_CODE = 'api/onboarding/order/:orderCode',
+  PAYMENT_INTENT__STRIPE = 'api/onboarding/order/payment_intent/stripe',
+  GET_PRICING_GUIDE = 'api/onboarding/order/get_pricing_guide',
+}
+
+enum ROUTE_ONBOARDING__SERVICE {
+  BASE = 'api/onboarding/services',
+  BANK = 'api/onboarding/services/bank',
+  ANNUAL = 'api/onboarding/services/annual',
+}
+
+enum ROUTE_ONBOARDING__TRACKING {
+  EMAIL_WHITE_PAGE = 'api/onboarding/tracking/email_white_page',
+}
+
+enum ROUTE_STATISTIC__BOD {
+  NEW_CONTACT = 'api/statistic/bod/new_contact',
+  ORDER_PAID = 'api/statistic/bod/order_paid',
+  COST = 'api/statistic/bod/cost',
+  REFRESH_TOKEN = 'api/statistic/bod/refresh_token',
+  RATIO_EACH_SERVICE_MONTH = 'api/statistic/bod/ratio_each_service_month',
+  RATIO_EACH_SERVICE_COUNTRY = 'api/statistic/bod/ratio_each_service_country',
+  CUSTOMER_PAID_12_MONTH = 'api/statistic/bod/customer_paid_12_month',
+}
+
+enum ROUTE_STATISTIC__CS {
+  TOP_RANK_CS = 'api/statistic/cs/top_rank_cs',
+  TARGET_TEAM = 'api/statistic/cs/target_team',
+  PERFORMANCE_OVERTIME = 'api/statistic/cs/performance_overtime',
+  YOUR_PERFORMANCE = 'api/statistic/cs/your_performance',
+}
+
+enum ROUTE_STRIPE__ENDPOINT_WEBHOOK {
+  BY_ID = 'api/stripe/endpoint_webhook/:id([0-9]+)',
+}
+
+enum ROUTE_SUNBRIGHTVN__CONTACT_FORM {
+  BASE = 'api/sunbrightvn/contact_form',
+}
+
+enum ROUTE_V2A__POST {
+  BASE = 'api/v2a/post',
+  PREVIEW = 'api/v2a/post/preview',
+  BY_GUID = 'api/v2a/post/:guid([a-zA-Z0-9-]+)',
+}
+
+enum ROUTE_V2A__SERVICES {
+  VN_ARRIVAL = 'api/v2a/services/vn_arrival',
+  SERVICES_COUNTRY__BY_ID = 'api/v2a/services/services_country/:id([0-9]+)',
+  OPTIONS = 'api/v2a/services/options',
+  NATIONALITY = 'api/v2a/services/nationality',
+  COUNTRIES = 'api/v2a/services/countries',
 }
 
 enum ROUTE_ADDITION_PROCESS {
@@ -666,36 +796,57 @@ export const ROUTES = {
     SERVICE: ROUTE_COMPLIANCE_RISK_ASSESSMENT_FORM__SERVICE,
   },
   CUSTOMER_ACCOUNT: {
-    DASHBOARD__ORDER: CUSTOMER_ACCOUNT__DASHBOARD__ORDER,
-    BANKING: CUSTOMER_ACCOUNT__BANKING,
-    BILLING: CUSTOMER_ACCOUNT__BILLING,
-    BOOKKEEPER_PROCESS: CUSTOMER_ACCOUNT__BOOKKEEPER_PROCESS,
-    BUSINESS_PLAN_FORM: CUSTOMER_ACCOUNT__BUSINESS_PLAN_FORM,
-    CHECKNAME: CUSTOMER_ACCOUNT__CHECKNAME,
-    COMPANY_EVENT: CUSTOMER_ACCOUNT__COMPANY_EVENT,
-    COMPANY: CUSTOMER_ACCOUNT__COMPANY,
-    FILE: CUSTOMER_ACCOUNT__FILE,
-    HOLIDAY: CUSTOMER_ACCOUNT__HOLIDAY,
-    INCORPORATION: CUSTOMER_ACCOUNT__INCORPORATION,
-    INVOICE: CUSTOMER_ACCOUNT__INVOICE,
-    MESSAGE: CUSTOMER_ACCOUNT__MESSAGE,
-    ORDER_FORM: CUSTOMER_ACCOUNT__ORDER_FORM,
-    ORDER: CUSTOMER_ACCOUNT__ORDER,
-    PROCESS: CUSTOMER_ACCOUNT__PROCESS,
-    SUPPORT_CASE: CUSTOMER_ACCOUNT__SUPPORT_CASE,
-    TASK: CUSTOMER_ACCOUNT__TASK,
+    DASHBOARD__ORDER: ROUTE_CUSTOMER_ACCOUNT__DASHBOARD__ORDER,
+    BANKING: ROUTE_CUSTOMER_ACCOUNT__BANKING,
+    BILLING: ROUTE_CUSTOMER_ACCOUNT__BILLING,
+    BOOKKEEPER_PROCESS: ROUTE_CUSTOMER_ACCOUNT__BOOKKEEPER_PROCESS,
+    BUSINESS_PLAN_FORM: ROUTE_CUSTOMER_ACCOUNT__BUSINESS_PLAN_FORM,
+    CHECKNAME: ROUTE_CUSTOMER_ACCOUNT__CHECKNAME,
+    COMPANY_EVENT: ROUTE_CUSTOMER_ACCOUNT__COMPANY_EVENT,
+    COMPANY: ROUTE_CUSTOMER_ACCOUNT__COMPANY,
+    FILE: ROUTE_CUSTOMER_ACCOUNT__FILE,
+    HOLIDAY: ROUTE_CUSTOMER_ACCOUNT__HOLIDAY,
+    INCORPORATION: ROUTE_CUSTOMER_ACCOUNT__INCORPORATION,
+    INVOICE: ROUTE_CUSTOMER_ACCOUNT__INVOICE,
+    MESSAGE: ROUTE_CUSTOMER_ACCOUNT__MESSAGE,
+    ORDER_FORM: ROUTE_CUSTOMER_ACCOUNT__ORDER_FORM,
+    ORDER: ROUTE_CUSTOMER_ACCOUNT__ORDER,
+    PROCESS: ROUTE_CUSTOMER_ACCOUNT__PROCESS,
+    SUPPORT_CASE: ROUTE_CUSTOMER_ACCOUNT__SUPPORT_CASE,
+    TASK: ROUTE_CUSTOMER_ACCOUNT__TASK,
   },
-  GLEADS: {},
-  GLEADSSG: {},
-  ONBOARDING: {},
+  GLEADS: {
+    CONTACT_FORM: ROUTE_GLEADS__CONTACT_FORM,
+  },
+  GLEADSSG: { STATIC_DATA: ROUTE_GLEADSSG__STATIC_DATA },
+  ONBOARDING: {
+    BANKING: ROUTE_ONBOARDING__BANKING,
+    CHECK_NAME: ROUTE_ONBOARDING__CHECK_NAME,
+    COUNTRY: ROUTE_ONBOARDING__COUNTRY,
+    CUSTOMER: ROUTE_ONBOARDING__CUSTOMER,
+    ENUM: ROUTE_ONBOARDING__ENUM,
+    ORDER: ROUTE_ONBOARDING__ORDER,
+    SERVICE: ROUTE_ONBOARDING__SERVICE,
+    TRACKING: ROUTE_ONBOARDING__TRACKING,
+  },
   PORTAL: {
     CAMPAIGN: {},
     TOOLS: {},
   },
-  STATISTIC: {},
-  STRIPE: {},
-  SUNBRIGHTVN: {},
-  VISA2ASIA: {},
+  STATISTIC: {
+    BOD: ROUTE_STATISTIC__BOD,
+    CS: ROUTE_STATISTIC__CS,
+  },
+  STRIPE: {
+    ENDPOINT_WEBHOOK: ROUTE_STRIPE__ENDPOINT_WEBHOOK,
+  },
+  SUNBRIGHTVN: {
+    CONTACT_FORM: ROUTE_SUNBRIGHTVN__CONTACT_FORM,
+  },
+  VISA2ASIA: {
+    POST: ROUTE_V2A__POST,
+    SERVICES: ROUTE_V2A__SERVICES,
+  },
   ADDITION_PROCESS: ROUTE_ADDITION_PROCESS,
   AGENCY: ROUTE_AGENCY,
   AGENT: ROUTE_AGENT,
