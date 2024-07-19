@@ -1,22 +1,23 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Post, Req, UseGuards } from '@nestjs/common';
 import {
-  ApiBadRequestResponse,
-  ApiBody,
-  ApiConflictResponse,
-  ApiCreatedResponse,
-  ApiOperation,
-  ApiResponse,
+  // ApiBadRequestResponse,
+  // ApiBody,
+  // ApiConflictResponse,
+  // ApiCreatedResponse,
+  // ApiOperation,
+  // ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 
 import { RequestWithUser } from '@types';
-import { API_TAGS, ROUTES } from '@utilities';
+import { ROUTES } from '@utilities';
 
-import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guard/local.guard';
+import { AuthService } from './service/auth.service';
 
+const { ROUTE, TAG } = ROUTES.AUTH;
 @Controller()
-@ApiTags(API_TAGS.AUTH)
+@ApiTags(TAG)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -25,7 +26,7 @@ export class AuthController {
   //   // return await this.authService.signUp(sign_up_dto);
   // }
 
-  @Post(ROUTES.AUTH.LOGIN)
+  @Post(ROUTE.BASE)
   @UseGuards(LocalAuthGuard)
   async login(@Req() request: RequestWithUser) {
     console.log(request);

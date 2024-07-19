@@ -5,10 +5,10 @@ import { PassportModule } from '@nestjs/passport';
 import { UserModule } from '@modules/user/user.module';
 
 import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
+import { TokenRepository } from './repository/token.repository';
+import { AuthService } from './service/auth.service';
+import { TokenService } from './service/token.service';
 import { JwtStrategy, LocalStrategy } from './strategies';
-import { TokenRepository } from './token.repository';
-import { TokenService } from './token.service';
 
 @Module({
   imports: [UserModule, PassportModule, JwtModule],
