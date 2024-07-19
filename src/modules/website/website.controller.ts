@@ -1,14 +1,15 @@
-import { Controller, Get, Post, Put } from '@nestjs/common';
+import { Controller, Get, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { AbstractController } from '@abstracts';
-import { API_TAGS, MODEL_NAME, ROUTES } from '@utilities';
+import { MODEL_NAME, ROUTES } from '@utilities';
 
 import { WebsiteRepository } from './website.repository';
 import { WebsiteService } from './website.service';
 
+const { ROUTE, TAG } = ROUTES.WEBSITE;
 @Controller()
-@ApiTags(API_TAGS.WEBSITE)
+@ApiTags(TAG)
 export class WebsiteController extends AbstractController<
   MODEL_NAME.WEBSITE,
   WebsiteRepository,
@@ -18,18 +19,18 @@ export class WebsiteController extends AbstractController<
     super(service);
   }
 
-  @Get(ROUTES.WEBSITE.GET_ENUM)
-  findAll() {
-    return this.service.findMany();
-  }
-
-  @Get(ROUTES.WEBSITE.ID)
-  findOne() {
+  @Get(ROUTE.MAIL_VERIFY_URL__BY_ID)
+  getMailVerifyUrl() {
     return '';
   }
 
-  @Put(ROUTES.WEBSITE.ID)
-  update() {
+  @Put(ROUTE.MAIL_TOKEN__BY_ID)
+  setMailToken() {
+    return '';
+  }
+
+  @Get(ROUTE.COMPANIES_HOUSE__AUTH)
+  getURLOauth2() {
     return '';
   }
 }

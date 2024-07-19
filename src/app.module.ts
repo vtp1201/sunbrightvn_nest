@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { validate } from '@configs/config.validate';
 import { DatabaseModule } from '@databases/database.module';
 import { AuthModule } from '@modules/auth/auth.module';
+import { BBCSGModule } from '@modules/bbcsg/bbcsg.module';
 import { UserModule } from '@modules/user/user.module';
 import { WebsiteModule } from '@modules/website/website.module';
 // import { RedisModule } from '@nestjs-modules/ioredis';
@@ -39,6 +40,7 @@ import * as path from 'path';
     AuthModule,
     UserModule,
     WebsiteModule,
+    BBCSGModule,
   ],
   controllers: [],
   providers: [],

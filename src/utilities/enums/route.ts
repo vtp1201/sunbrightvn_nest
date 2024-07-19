@@ -1,6 +1,6 @@
 enum ROUTE_BBCSG {
-  BUSINESS_ACTIVITY_FILTER = 'api/bbcsg/business_activity/filter',
-  COMPANY_NAME_CHECK_SEARCH = 'api/bbcsg/company_name_check/search',
+  BUSINESS_ACTIVITY__FILTER = 'api/bbcsg/business_activity/filter',
+  COMPANY_NAME_CHECK__SEARCH = 'api/bbcsg/company_name_check/search',
   STATIC_DATA = 'api/bbcsg/static_data',
 }
 
@@ -882,9 +882,9 @@ enum ROUTE_USER {
 enum ROUTE_WEBSITE {
   BASE = 'api/website',
   BY_ID = 'api/website/:id([0-9]+)',
-  MAIL_VERIFY_URL_BY_ID = 'api/website/mail_verify_url/:id([0-9]+)',
-  MAIL_TOKEN_BY_ID = 'api/website/mail_token/:id([0-9]+)',
-  COMPANIES_HOUSE_AUTH = 'api/website/companies_house/auth',
+  MAIL_VERIFY_URL__BY_ID = 'api/website/mail_verify_url/:id([0-9]+)',
+  MAIL_TOKEN__BY_ID = 'api/website/mail_token/:id([0-9]+)',
+  COMPANIES_HOUSE__AUTH = 'api/website/companies_house/auth',
 }
 
 enum ROUTE_XERO {
@@ -899,7 +899,7 @@ enum ROUTE_XERO {
 }
 
 enum API_TAGS {
-  BBCSG = 'BBCSG',
+  BBCSG = 'BBC SG',
   COMPLIANCE_RISK_ASSESSMENT_FORM = 'Compliance Risk Assessment Form',
   CUSTOMER_ACCOUNT = 'Customer Account',
   GLEADS = 'Gleads',

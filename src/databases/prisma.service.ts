@@ -40,7 +40,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     try {
       if (!mysqlURL) throw `Can't find MYSQL_URL in env`;
       await this.$connect();
-      this.logger.log(`\x1b[31m${dbName}\x1b[0m is connected!`);
+      console.log(`\x1b[31m${dbName}\x1b[0m is connected!`);
     } catch (error) {
       this.logger.error(`Can't connect ${dbName}`);
       this.logger.error('Connect to \x1b[31m%s\x1b[0m is failed!', dbName);

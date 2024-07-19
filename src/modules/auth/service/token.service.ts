@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { AbstractService } from '@abstracts';
 import { MODEL_NAME } from '@utilities';
 
-import { TokenRepository } from './repository/token.repository';
+import { TokenRepository } from '../repository/token.repository';
 
 @Injectable()
 export class TokenService extends AbstractService<MODEL_NAME.TOKEN, TokenRepository> {
