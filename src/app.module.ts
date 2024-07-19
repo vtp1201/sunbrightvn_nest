@@ -5,6 +5,7 @@ import { validate } from '@configs/config.validate';
 import { DatabaseModule } from '@databases/database.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { BBCSGModule } from '@modules/bbcsg/bbcsg.module';
+import { ComplianceRiskAssessmentFormModule } from '@modules/complianceRiskAssessmentForm/complianceRiskAssessmentForm.module';
 import { UserModule } from '@modules/user/user.module';
 import { WebsiteModule } from '@modules/website/website.module';
 // import { RedisModule } from '@nestjs-modules/ioredis';
@@ -41,6 +42,7 @@ import * as path from 'path';
     UserModule,
     WebsiteModule,
     BBCSGModule,
+    ComplianceRiskAssessmentFormModule,
   ],
   controllers: [],
   providers: [],
