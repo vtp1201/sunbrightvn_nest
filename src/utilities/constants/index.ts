@@ -1,6 +1,6 @@
 export * from '../../databases/prisma/utils/constants/modelName';
 export * from './currency';
-export * from './xeroAccount';
+export * from './xero-account';
 export * from './queue';
 
 export const ENV_PATH = '.env';
