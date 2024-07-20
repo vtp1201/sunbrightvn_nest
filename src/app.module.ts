@@ -6,6 +6,7 @@ import { DatabaseModule } from '@databases/database.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { BBCSGModule } from '@modules/bbcsg/bbcsg.module';
 import { ComplianceRiskAssessmentFormModule } from '@modules/compliance_risk_assessment_form/compliance-risk-assessment-form.module';
+import { PortalModule } from '@modules/portal/portal.module';
 import { UserModule } from '@modules/user/user.module';
 import { WebsiteModule } from '@modules/website/website.module';
 // import { RedisModule } from '@nestjs-modules/ioredis';
@@ -43,6 +44,7 @@ import * as path from 'path';
     WebsiteModule,
     BBCSGModule,
     ComplianceRiskAssessmentFormModule,
+    PortalModule,
   ],
   controllers: [],
   providers: [],

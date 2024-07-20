@@ -317,7 +317,7 @@ enum ROUTE_PORTAL__ORDER {
 }
 
 enum ROUTE_PORTAL__PAYMENT {
-  _BY_GATEWAY_ID = 'api/portal/payment/:gatewayId([0-9]+)',
+  BY_GATEWAY_ID = 'api/portal/payment/:gatewayId([0-9]+)',
 }
 
 enum ROUTE_PORTAL__RATE {
