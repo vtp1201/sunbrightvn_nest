@@ -65,6 +65,7 @@ enum ROUTE_CUSTOMER_ACCOUNT__CHECKNAME {
 
 enum ROUTE_CUSTOMER_ACCOUNT__COMPANY_EVENT {
   TYPES = 'api/customer_account/company_event/types',
+  UPCOMING = 'api/customer_account/company_event/upcoming',
 }
 
 enum ROUTE_CUSTOMER_ACCOUNT__COMPANY {
@@ -84,6 +85,7 @@ enum ROUTE_CUSTOMER_ACCOUNT__COMPANY {
   BY_ID__HISTORY_CHANGED = 'api/customer_account/company/:id([0-9]+)/history_changed',
   BY_ID__COMPLETED_EVENT = 'api/customer_account/company/:id([0-9]+)/completed_event',
   BY_ID__TRANSACTION_EVENT = 'api/customer_account/company/:id([0-9]+)/transaction_event',
+  BY_ID__DOWNLOAD_FILE = 'api/customer_account/company/:id([0-9]+)/download_file',
 }
 
 enum ROUTE_CUSTOMER_ACCOUNT__FILE {
@@ -126,6 +128,7 @@ enum ROUTE_CUSTOMER_ACCOUNT__ORDER_FORM {
   LIST_SIGN_INCORPORATION_FORM__BY_COMPANY_ID = 'api/customer_account/order_form/list_sign_incorporation_form/:company_id',
   PROPOSE_NAME__BY_TASK_ID = 'api/customer_account/order_form/propose_name/:task_id([0-9]+)',
   PROPOSE_NAME__BULK = 'api/customer_account/order_form/propose_name/bulk',
+  PROPOSE_NAME = 'api/customer_account/order_form/propose_name',
   PROPOSE_NAME__BY_PROPOSED_NAME_ID = 'api/customer_account/order_form/propose_name/:proposed_name_id([0-9]+)',
   CUSTOMER__PROPOSED_NAME__BY_PROPOSE_NAME_ID = 'api/customer_account/order_form/customer/proposed_name/:propose_name_id([0-9]+)',
   CUSTOMER__PROPOSED_NAME = 'api/customer_account/order_form/customer/proposed_name',
