@@ -16,3 +16,4 @@ export * from './user/user.module';
 export * from './website/website.module';
 export * from './gleads/gleads.module';
 export * from './gleadssg/gleads-sg.module';
+export * from './onboarding/onboarding.module';
