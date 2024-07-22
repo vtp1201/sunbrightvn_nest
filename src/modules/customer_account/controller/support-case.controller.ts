@@ -6,7 +6,7 @@ import { ROUTES } from '@utilities';
 const { ROUTE, TAG } = ROUTES.CUSTOMER_ACCOUNT.BANKING;
 @Controller()
 @ApiTags(TAG)
-export class BankingController {
+export class SupportCaseController {
   constructor() {}
 
   @Get(ROUTE.BASE)

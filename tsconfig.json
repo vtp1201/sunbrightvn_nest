@@ -27,7 +27,8 @@
       "@types": ["src/types"],
       "@abstracts": ["src/abstracts"],
       "@databases": ["src/databases"],
-      "@middlewares": ["src/middlewares"]
+      "@middlewares": ["src/middlewares"],
+      "@modules": ["src/modules"]
     }
   }
 }

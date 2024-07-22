@@ -3,12 +3,14 @@ import { ConfigModule } from '@nestjs/config';
 
 import { validate } from '@configs/config.validate';
 import { DatabaseModule } from '@databases/database.module';
-import { AuthModule } from '@modules/auth/auth.module';
-import { BBCSGModule } from '@modules/bbcsg/bbcsg.module';
-import { ComplianceRiskAssessmentFormModule } from '@modules/compliance_risk_assessment_form/compliance-risk-assessment-form.module';
-import { PortalModule } from '@modules/portal/portal.module';
-import { UserModule } from '@modules/user/user.module';
-import { WebsiteModule } from '@modules/website/website.module';
+import {
+  AuthModule,
+  BBCSGModule,
+  ComplianceRiskAssessmentFormModule,
+  PortalModule,
+  UserModule,
+  WebsiteModule,
+} from '@modules';
 // import { RedisModule } from '@nestjs-modules/ioredis';
 import { ENV_PATH } from '@utilities';
 import { AcceptLanguageResolver, HeaderResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
