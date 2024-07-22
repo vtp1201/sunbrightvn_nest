@@ -9,7 +9,7 @@ export * from './order/order.module';
 export * from './person/person.module';
 export * from './portal/portal.module';
 export * from './process/process.module';
-export * from './rabbitMQ/rabbitmq.module';
+export * from './rabbit_mq/rabbit-mq.module';
 export * from './task/task.module';
 export * from './test/test.module';
 export * from './user/user.module';
