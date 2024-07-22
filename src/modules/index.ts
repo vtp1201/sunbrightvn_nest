@@ -14,3 +14,4 @@ export * from './task/task.module';
 export * from './test/test.module';
 export * from './user/user.module';
 export * from './website/website.module';
+export * from './gleads/gleads.module';
