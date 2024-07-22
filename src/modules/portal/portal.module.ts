@@ -18,7 +18,7 @@ import {
   TrustpilotController,
   USBusinessEntityController,
   UploadController,
-} from './controller';
+} from './controllers';
 
 @Module({
   imports: [],
