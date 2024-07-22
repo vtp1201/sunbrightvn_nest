@@ -30,7 +30,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Customer';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Customer';
 import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
@@ -66,12 +66,14 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.customerStatusId,
     model: customerStatus,
     relation: RELATION.customerStatus,
+    map: INDEX_NAME.customerStatusId,
     option: { optional: true },
   });
   const accountantLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.accountantLeaderId,
     model: user,
     relation: RELATION.accountantLeader,
+    map: INDEX_NAME.accountantLeaderId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -79,6 +81,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.accountantMemberId,
     model: user,
     relation: RELATION.accountantMember,
+    map: INDEX_NAME.accountantMemberId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -86,6 +89,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.complianceLeaderId,
     model: user,
     relation: RELATION.complianceLeader,
+    map: INDEX_NAME.complianceLeaderId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -100,6 +104,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.csLeaderId,
     model: user,
     relation: RELATION.csLeader,
+    map: INDEX_NAME.csLeaderId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -107,6 +112,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.csMemberId,
     model: user,
     relation: RELATION.csMember,
+    map: INDEX_NAME.csMemberId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -114,6 +120,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    map: INDEX_NAME.countryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -121,42 +128,49 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.personId,
     model: person,
     relation: RELATION.person,
+    map: INDEX_NAME.personId,
     option: { optional: true },
   });
   const campaignAdsRelation = oneToOne({
     attribute: ATTRIBUTE.campaignAdsId,
     model: campaign,
     relation: RELATION.campaignAds,
+    map: INDEX_NAME.campaignAdsId,
     option: { optional: true },
   });
   const gaChannelRelation = oneToOne({
     attribute: ATTRIBUTE.gaChannelId,
     model: gaChannel,
     relation: RELATION.gaChannel,
+    map: INDEX_NAME.gaChannelId,
     option: { optional: true },
   });
   const contactFromRelation = oneToOne({
     attribute: ATTRIBUTE.contactFromId,
     model: contactFrom,
     relation: RELATION.contactFrom,
+    map: INDEX_NAME.contactFromId,
     option: { optional: true },
   });
   const entityTypeRelation = oneToOne({
     attribute: ATTRIBUTE.entityTypeId,
     model: entityType,
     relation: RELATION.entityType,
+    map: INDEX_NAME.entityTypeId,
     option: { optional: true },
   });
   const companySuffixRelation = oneToOne({
     attribute: ATTRIBUTE.companySuffixId,
     model: companySuffix,
     relation: RELATION.companySuffix,
+    map: INDEX_NAME.companySuffixId,
     option: { optional: true },
   });
   const companyCountryRelation = oneToOne({
     attribute: ATTRIBUTE.companyCountryId,
     model: country,
     relation: RELATION.companyCountry,
+    map: INDEX_NAME.companyCountryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -164,12 +178,14 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.titleNameId,
     model: titleName,
     relation: RELATION.titleName,
+    map: INDEX_NAME.titleNameId,
     option: { optional: true },
   });
   const internalBookeepingLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.internalBookeepingLeaderId,
     model: user,
     relation: RELATION.internalBookeepingLeader,
+    map: INDEX_NAME.internalBookeepingLeaderId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -177,6 +193,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.internalBookeepingMemberId,
     model: user,
     relation: RELATION.internalBookeepingMember,
+    map: INDEX_NAME.internalBookeepingMemberId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -184,6 +201,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.legalLeaderId,
     model: user,
     relation: RELATION.legalLeader,
+    map: INDEX_NAME.legalLeaderId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -191,6 +209,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.legalMemberId,
     model: user,
     relation: RELATION.legalMember,
+    map: INDEX_NAME.legalMemberId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -198,6 +217,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.phoneCountryId,
     model: country,
     relation: RELATION.phoneCountry,
+    map: INDEX_NAME.phoneCountryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -205,36 +225,49 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.websiteId,
     model: website,
     relation: RELATION.website,
+    map: INDEX_NAME.websiteId,
+    option: { optional: true },
+  });
+  const companyAddressCountryRelation = oneToOne({
+    attribute: ATTRIBUTE.companyAddressCountryId,
+    model: country,
+    relation: RELATION.companyAddressCountry,
+    map: INDEX_NAME.companyAddressCountryId,
     option: { optional: true },
   });
   const airportRelation = oneToOne({
     attribute: ATTRIBUTE.airportId,
     model: airport,
     relation: RELATION.airport,
+    map: INDEX_NAME.airportId,
     option: { optional: true },
   });
   const businessActivityIndustryRelation = oneToOne({
     attribute: ATTRIBUTE.businessActivityIndustryId,
     model: businessActivityIndustry,
     relation: RELATION.businessActivityIndustry,
+    map: INDEX_NAME.businessActivityIndustryId,
     option: { optional: true },
   });
   const customerTypeRelation = oneToOne({
     attribute: ATTRIBUTE.customerTypeId,
     model: customerType,
     relation: RELATION.customerType,
+    map: INDEX_NAME.customerTypeId,
     option: { optional: true },
   });
   const genderRelation = oneToOne({
     attribute: ATTRIBUTE.genderId,
     model: gender,
     relation: RELATION.gender,
+    map: INDEX_NAME.genderId,
     option: { optional: true },
   });
   const orderRelation = oneToOne({
     attribute: ATTRIBUTE.orderId,
     model: order,
     relation: RELATION.order,
+    map: INDEX_NAME.orderId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -242,12 +275,14 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.packageId,
     model: Package,
     relation: RELATION.package,
+    map: INDEX_NAME.packageId,
     option: { optional: true },
   });
   const testerLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.testerLeaderId,
     model: user,
     relation: RELATION.testerLeader,
+    map: INDEX_NAME.testerLeaderId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -255,12 +290,14 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     attribute: ATTRIBUTE.visaPurposeId,
     model: visaPurpose,
     relation: RELATION.visaPurpose,
+    map: INDEX_NAME.visaPurposeId,
     option: { optional: true },
   });
   const visaTypeRelation = oneToOne({
     attribute: ATTRIBUTE.visaTypeId,
     model: visaType,
     relation: RELATION.visaType,
+    map: INDEX_NAME.visaTypeId,
     option: { optional: true },
   });
 
@@ -664,6 +701,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
       .mixin(legalLeaderRelation)
       .mixin(legalMemberRelation)
       .mixin(phoneCountryRelation)
+      .mixin(companyAddressCountryRelation)
       .mixin(websiteRelation)
       .mixin(airportRelation)
       .mixin(businessActivityIndustryRelation)
@@ -683,38 +721,38 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
       .mixin(vouchersRelation)
 
       // indexes
-      // .raw(INDEX.accountantLeaderId)
-      // .raw(INDEX.accountantMemberId)
-      // .raw(INDEX.airportId)
-      // .raw(INDEX.businessActivityIndustryId)
-      // .raw(INDEX.campaignAdsId)
-      // .raw(INDEX.companyAddressCountryId)
-      // .raw(INDEX.companyCountryId)
-      // .raw(INDEX.companySuffixId)
-      // .raw(INDEX.complianceLeaderId)
-      // .raw(INDEX.complianceMemberId)
-      // .raw(INDEX.contactFromId)
-      // .raw(INDEX.countryId)
-      // .raw(INDEX.csLeaderId)
-      // .raw(INDEX.csMemberId)
-      // .raw(INDEX.customerStatusId)
-      // .raw(INDEX.customerTypeId)
-      // .raw(INDEX.entityTypeId)
-      // .raw(INDEX.gaChannelId)
-      // .raw(INDEX.genderId)
-      // .raw(INDEX.internalBookeepingLeaderId)
-      // .raw(INDEX.internalBookeepingMemberId)
-      // .raw(INDEX.legalLeaderId)
-      // .raw(INDEX.legalMemberId)
-      // .raw(INDEX.orderId)
-      // .raw(INDEX.packageId)
-      // .raw(INDEX.personId)
-      // .raw(INDEX.phoneCountryId)
-      // .raw(INDEX.testerLeaderId)
-      // .raw(INDEX.titleNameId)
-      // .raw(INDEX.visaPurposeId)
-      // .raw(INDEX.visaTypeId)
-      // .raw(INDEX.websiteId)
+      .raw(INDEX.accountantLeaderId)
+      .raw(INDEX.accountantMemberId)
+      .raw(INDEX.airportId)
+      .raw(INDEX.businessActivityIndustryId)
+      .raw(INDEX.campaignAdsId)
+      .raw(INDEX.companyAddressCountryId)
+      .raw(INDEX.companyCountryId)
+      .raw(INDEX.companySuffixId)
+      .raw(INDEX.complianceLeaderId)
+      .raw(INDEX.complianceMemberId)
+      .raw(INDEX.contactFromId)
+      .raw(INDEX.countryId)
+      .raw(INDEX.csLeaderId)
+      .raw(INDEX.csMemberId)
+      .raw(INDEX.customerStatusId)
+      .raw(INDEX.customerTypeId)
+      .raw(INDEX.entityTypeId)
+      .raw(INDEX.gaChannelId)
+      .raw(INDEX.genderId)
+      .raw(INDEX.internalBookeepingLeaderId)
+      .raw(INDEX.internalBookeepingMemberId)
+      .raw(INDEX.legalLeaderId)
+      .raw(INDEX.legalMemberId)
+      .raw(INDEX.orderId)
+      .raw(INDEX.packageId)
+      .raw(INDEX.personId)
+      .raw(INDEX.phoneCountryId)
+      .raw(INDEX.testerLeaderId)
+      .raw(INDEX.titleNameId)
+      .raw(INDEX.visaPurposeId)
+      .raw(INDEX.visaTypeId)
+      .raw(INDEX.websiteId)
 
       // table name
       .map(TABLE_NAME.CUSTOMER);

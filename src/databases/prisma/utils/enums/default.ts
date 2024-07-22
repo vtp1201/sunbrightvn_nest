@@ -17,6 +17,7 @@ export enum COLUMN_DEFAULT {
 }
 
 export enum RELATION_DEFAULT {
+  companyAddressCountry = 'companyAddressCountry',
   countryForCompanies = 'countryForCompanies',
   leaderForTeamGroups = 'leaderForTeamGroups',
   targets = 'targets',
