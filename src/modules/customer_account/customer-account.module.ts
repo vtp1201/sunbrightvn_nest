@@ -19,7 +19,7 @@ import {
   ProcessController,
   SupportCaseController,
   TaskController,
-} from './controller';
+} from './controllers';
 
 @Module({
   imports: [],
