@@ -24,7 +24,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyMember';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/CompanyMember';
 import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
@@ -52,23 +52,27 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
     attribute: ATTRIBUTE.companyId,
     model: company,
     relation: RELATION.company,
+    map: INDEX_NAME.companyId,
   });
   const genderRelation = oneToOne({
     attribute: ATTRIBUTE.genderId,
     model: gender,
     relation: RELATION.gender,
+    map: INDEX_NAME.genderId,
     option: { optional: true },
   });
   const typeMemberRelation = oneToOne({
     attribute: ATTRIBUTE.typeMemberId,
     model: typeMember,
     relation: RELATION.typeMember,
+    map: INDEX_NAME.typeMemberId,
     option: { optional: true },
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    map: INDEX_NAME.countryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -76,6 +80,7 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
     attribute: ATTRIBUTE.phoneCountryId,
     model: country,
     relation: RELATION.phoneCountry,
+    map: INDEX_NAME.phoneCountryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -83,6 +88,7 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
     attribute: ATTRIBUTE.birthCountryId,
     model: country,
     relation: RELATION.birthCountry,
+    map: INDEX_NAME.birthCountryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -90,6 +96,7 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
     attribute: ATTRIBUTE.addressCountryId,
     model: country,
     relation: RELATION.addressCountry,
+    map: INDEX_NAME.addressCountryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -480,6 +487,15 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER, (CompanyMemberModel) => {
       .mixin(tasksAppointedUboRelation)
       .mixin(tokensRelation)
       .mixin(tokensToCompanyMemberRelation)
+
+      // indexes
+      .raw(INDEX.addressCountryId)
+      .raw(INDEX.birthCountryId)
+      .raw(INDEX.companyId)
+      .raw(INDEX.countryId)
+      .raw(INDEX.genderId)
+      .raw(INDEX.phoneCountryId)
+      .raw(INDEX.typeMemberId)
 
       // table name
       .map(TABLE_NAME.COMPANY_MEMBER);

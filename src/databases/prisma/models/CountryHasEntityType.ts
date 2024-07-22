@@ -3,7 +3,13 @@ import { createModel } from 'schemix';
 import { country, entityType, fileTemplate } from '.';
 import { oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CountryHasEntityType';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  INDEX_NAME,
+  RELATION,
+} from '../utils/enums/CountryHasEntityType';
 
 export default createModel(MODEL_NAME.COUNTRY_HAS_ENTITY_TYPE, (CountryHasEntityTypeModel) => {
   // defined relations
@@ -11,11 +17,13 @@ export default createModel(MODEL_NAME.COUNTRY_HAS_ENTITY_TYPE, (CountryHasEntity
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    map: INDEX_NAME.countryId,
   });
   const entityTypeRelation = oneToOne({
     attribute: ATTRIBUTE.entityTypeId,
     model: entityType,
     relation: RELATION.entityType,
+    map: INDEX_NAME.entityTypeId,
   });
   const fileTemplatesRelation = oneToMany({
     model: fileTemplate,
@@ -49,6 +57,10 @@ export default createModel(MODEL_NAME.COUNTRY_HAS_ENTITY_TYPE, (CountryHasEntity
       .mixin(countryRelation)
       .mixin(entityTypeRelation)
       .mixin(fileTemplatesRelation)
+
+      // indexes
+      .raw(INDEX.countryId)
+      .raw(INDEX.entityTypeId)
 
       // table name
       .map(TABLE_NAME.COUNTRY_HAS_ENTITY_TYPE);

@@ -36,7 +36,7 @@ import {
 } from '.';
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Country';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Country';
 import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
@@ -141,6 +141,7 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
     attribute: ATTRIBUTE.continentId,
     model: continent,
     relation: RELATION.continent,
+    map: INDEX_NAME.continentId,
     option: { optional: true },
   });
   const companySuffixesRelation = oneToMany({
@@ -397,6 +398,9 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
       .mixin(phoneCountryForTasksRelation)
       .mixin(targetsRelation)
       .mixin(visaVietnamArrivalsRelation)
+
+      // indexes
+      .raw(INDEX.continentId)
 
       // table name
       .map(TABLE_NAME.COUNTRY);

@@ -11,7 +11,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ChangeRequest';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/ChangeRequest';
 
 export default createModel(MODEL_NAME.CHANGE_REQUEST, (ChangeRequestModel) => {
   const initCreatedTime = createdTime({
@@ -37,11 +37,13 @@ export default createModel(MODEL_NAME.CHANGE_REQUEST, (ChangeRequestModel) => {
     attribute: ATTRIBUTE.companyId,
     model: company,
     relation: RELATION.company,
+    map: INDEX_NAME.companyId,
   });
   const companyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.companyMemberId,
     model: companyMember,
     relation: RELATION.companyMember,
+    map: INDEX_NAME.companyMemberId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -49,6 +51,7 @@ export default createModel(MODEL_NAME.CHANGE_REQUEST, (ChangeRequestModel) => {
     attribute: ATTRIBUTE.companyPositionId,
     model: companyPosition,
     relation: RELATION.companyPosition,
+    map: INDEX_NAME.companyPositionId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -56,6 +59,7 @@ export default createModel(MODEL_NAME.CHANGE_REQUEST, (ChangeRequestModel) => {
     attribute: ATTRIBUTE.toCompanyMemberId,
     model: companyMember,
     relation: RELATION.toCompanyMember,
+    map: INDEX_NAME.toCompanyMemberId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -63,6 +67,7 @@ export default createModel(MODEL_NAME.CHANGE_REQUEST, (ChangeRequestModel) => {
     attribute: ATTRIBUTE.toCompanyPositionId,
     model: companyPosition,
     relation: RELATION.toCompanyPosition,
+    map: INDEX_NAME.toCompanyPositionId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -70,11 +75,13 @@ export default createModel(MODEL_NAME.CHANGE_REQUEST, (ChangeRequestModel) => {
     attribute: ATTRIBUTE.changeRequestStatusId,
     model: changeRequestStatus,
     relation: RELATION.changeRequestStatus,
+    map: INDEX_NAME.changeRequestStatusId,
   });
   const taskRelation = oneToOne({
     attribute: ATTRIBUTE.taskId,
     model: task,
     relation: RELATION.task,
+    map: INDEX_NAME.taskId,
   });
   const changeRequestItemsRelation = oneToMany({
     model: changeRequestItem,
@@ -143,6 +150,15 @@ export default createModel(MODEL_NAME.CHANGE_REQUEST, (ChangeRequestModel) => {
       .mixin(taskRelation)
       .mixin(changeRequestItemsRelation)
       .mixin(filesRelation)
+
+      // indexes
+      .raw(INDEX.changeRequestStatusId)
+      .raw(INDEX.companyId)
+      .raw(INDEX.companyMemberId)
+      .raw(INDEX.companyPositionId)
+      .raw(INDEX.taskId)
+      .raw(INDEX.toCompanyMemberId)
+      .raw(INDEX.toCompanyPositionId)
 
       // table name
       .map(TABLE_NAME.CHANGE_REQUEST);

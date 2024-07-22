@@ -3,7 +3,13 @@ import { createModel } from 'schemix';
 import { campaign, voucherType } from '.';
 import { oneToOne } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CampaignHasVoucherType';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  INDEX_NAME,
+  RELATION,
+} from '../utils/enums/CampaignHasVoucherType';
 
 export default createModel(MODEL_NAME.CAMPAIGN_HAS_VOUCHER_TYPE, (CampaignHasVoucherTypeModel) => {
   // defined Relations
@@ -11,11 +17,13 @@ export default createModel(MODEL_NAME.CAMPAIGN_HAS_VOUCHER_TYPE, (CampaignHasVou
     attribute: ATTRIBUTE.campaignId,
     model: campaign,
     relation: RELATION.campaign,
+    map: INDEX_NAME.campaignId,
   });
   const voucherTypeRelation = oneToOne({
     attribute: ATTRIBUTE.voucherTypeId,
     model: voucherType,
     relation: RELATION.voucherType,
+    map: INDEX_NAME.voucherTypeId,
   });
 
   // defined Model
@@ -49,6 +57,10 @@ export default createModel(MODEL_NAME.CAMPAIGN_HAS_VOUCHER_TYPE, (CampaignHasVou
       // relations
       .mixin(campaignRelation)
       .mixin(voucherTypeRelation)
+
+      // indexes
+      .raw(INDEX.campaignId)
+      .raw(INDEX.voucherTypeId)
 
       // table name
       .map(TABLE_NAME.CAMPAIGN_HAS_VOUCHER_TYPE);

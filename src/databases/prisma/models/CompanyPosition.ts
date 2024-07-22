@@ -10,7 +10,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyPosition';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/CompanyPosition';
 import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.COMPANY_POSITION, (CompanyPositionModel) => {
@@ -38,17 +38,20 @@ export default createModel(MODEL_NAME.COMPANY_POSITION, (CompanyPositionModel) =
     attribute: ATTRIBUTE.companyMemberTypeId,
     model: companyMemberType,
     relation: RELATION.companyMemberType,
+    map: INDEX_NAME.companyMemberTypeId,
   });
   const companyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.companyMemberId,
     model: companyMember,
     relation: RELATION.companyMember,
+    map: INDEX_NAME.companyMemberId,
     isNeedName: true,
   });
   const corporationCompanyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.corporationCompanyMemberId,
     model: companyMember,
     relation: RELATION.corporationCompanyMember,
+    map: INDEX_NAME.corporationCompanyMemberId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -158,6 +161,11 @@ export default createModel(MODEL_NAME.COMPANY_POSITION, (CompanyPositionModel) =
       .mixin(companyInterestsRelation)
       .mixin(companyOwnershipsRelation)
       .mixin(companySharesRelation)
+
+      // indexes
+      .raw(INDEX.companyMemberId)
+      .raw(INDEX.companyMemberTypeId)
+      .raw(INDEX.corporationCompanyMemberId)
 
       // table name
       .map(TABLE_NAME.COMPANY_POSITION);

@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { voucherType } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Click';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Click';
 
 export default createModel(MODEL_NAME.CLICK, (ClickModel) => {
   const initCreatedTime = createdTime({
@@ -29,6 +29,7 @@ export default createModel(MODEL_NAME.CLICK, (ClickModel) => {
     attribute: ATTRIBUTE.voucherTypeId,
     model: voucherType,
     relation: RELATION.voucherType,
+    map: INDEX_NAME.voucherTypeId,
     option: { optional: true },
   });
 
@@ -63,6 +64,9 @@ export default createModel(MODEL_NAME.CLICK, (ClickModel) => {
 
       // relations
       .mixin(voucherTypeRelation)
+
+      // indexes
+      .raw(INDEX.voucherTypeId)
 
       // table name
       .map(TABLE_NAME.CLICK);

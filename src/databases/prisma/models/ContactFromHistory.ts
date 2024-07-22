@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { contactFrom, customer } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ContactFromHistory';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/ContactFromHistory';
 
 export default createModel(MODEL_NAME.CONTACT_FROM_HISTORY, (ContactFromHistoryModel) => {
   const initCreatedTime = createdTime({
@@ -30,11 +30,13 @@ export default createModel(MODEL_NAME.CONTACT_FROM_HISTORY, (ContactFromHistoryM
     attribute: ATTRIBUTE.contactFromId,
     model: contactFrom,
     relation: RELATION.contactFrom,
+    map: INDEX_NAME.contactFromId,
   });
   const customerRelation = oneToOne({
     attribute: ATTRIBUTE.customerId,
     model: customer,
     relation: RELATION.customer,
+    map: INDEX_NAME.customerId,
   });
 
   // defined Model
@@ -66,6 +68,10 @@ export default createModel(MODEL_NAME.CONTACT_FROM_HISTORY, (ContactFromHistoryM
       // relations
       .mixin(contactFromRelation)
       .mixin(customerRelation)
+
+      // indexes
+      .raw(INDEX.contactFromId)
+      .raw(INDEX.customerId)
 
       // table name
       .map(TABLE_NAME.CONTACT_FROM_HISTORY);

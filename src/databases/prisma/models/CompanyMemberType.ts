@@ -9,7 +9,7 @@ import {
 } from '.';
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyMemberType';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/CompanyMemberType';
 
 export default createModel(MODEL_NAME.COMPANY_MEMBER_TYPE, (CompanyMemberTypeModel) => {
   const initDeleted = deleted(
@@ -28,6 +28,7 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER_TYPE, (CompanyMemberTypeMod
     attribute: ATTRIBUTE.parentId,
     model: companyMemberType,
     relation: RELATION.parent,
+    map: INDEX_NAME.parentId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -90,6 +91,9 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER_TYPE, (CompanyMemberTypeMod
       .mixin(fileTemplateHasCompanyMemberTypesRelation)
       .mixin(serviceChangeOfficersRelation)
       .mixin(servicesRelation)
+
+      // indexes
+      .raw(INDEX.parentId)
 
       // table name
       .map(TABLE_NAME.COMPANY_MEMBER_TYPE);

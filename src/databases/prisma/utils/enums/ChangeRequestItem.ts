@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -32,6 +33,15 @@ export enum COLUMN {
 
 export enum RELATION {
   changeRequest = RELATION_DEFAULT.changeRequest,
+}
+
+const tableName = TABLE_NAME.CHANGE_REQUEST_ITEM;
+export enum INDEX_NAME {
+  changeRequestId = `"${tableName}_${COLUMN.changeRequestId}_fkey"`,
+}
+
+export enum INDEX {
+  changeRequestId = `@@index([${ATTRIBUTE.changeRequestId}], map: ${INDEX_NAME.changeRequestId})`,
 }
 
 export default {

@@ -25,7 +25,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Company';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Company';
 
 export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
   const initCreatedTime = createdTime({
@@ -60,24 +60,28 @@ export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
     attribute: ATTRIBUTE.billingId,
     model: billing,
     relation: RELATION.billing,
+    map: INDEX_NAME.billingId,
     option: { optional: true },
   });
   const companyStatusRelation = oneToOne({
     attribute: ATTRIBUTE.companyStatusId,
     model: companyStatus,
     relation: RELATION.companyStatus,
+    map: INDEX_NAME.companyStatusId,
     option: { optional: true },
   });
   const companySuffixRelation = oneToOne({
     attribute: ATTRIBUTE.companySuffixId,
     model: companySuffix,
     relation: RELATION.companySuffix,
+    map: INDEX_NAME.companySuffixId,
     option: { optional: true },
   });
   const businessCountryRelation = oneToOne({
     attribute: ATTRIBUTE.businessCountryId,
     model: country,
     relation: RELATION.businessCountry,
+    map: INDEX_NAME.businessCountryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -85,6 +89,7 @@ export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    map: INDEX_NAME.countryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -92,12 +97,14 @@ export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
     attribute: ATTRIBUTE.entityTypeId,
     model: entityType,
     relation: RELATION.entityType,
+    map: INDEX_NAME.entityTypeId,
     option: { optional: true },
   });
   const operatingCountryRelation = oneToOne({
     attribute: ATTRIBUTE.operatingCountryId,
     model: country,
     relation: RELATION.operatingCountry,
+    map: INDEX_NAME.operatingCountryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -470,6 +477,15 @@ export default createModel(MODEL_NAME.COMPANY, (CompanyModel) => {
       .mixin(ordersRelation)
       .mixin(proposedNamesRelation)
       .mixin(tasksRelation)
+
+      // indexes
+      .raw(INDEX.billingId)
+      .raw(INDEX.businessCountryId)
+      .raw(INDEX.companyStatusId)
+      .raw(INDEX.companySuffixId)
+      .raw(INDEX.countryId)
+      .raw(INDEX.entityTypeId)
+      .raw(INDEX.operatingCountryId)
 
       // table name
       .map(TABLE_NAME.COMPANY);

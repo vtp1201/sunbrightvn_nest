@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { campaignHasVoucherType, campaignType, customer } from '.';
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/Campaign';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Campaign';
 
 export default createModel(MODEL_NAME.CAMPAIGN, (CampaignModel) => {
   const initDeleted = deleted(
@@ -22,6 +22,7 @@ export default createModel(MODEL_NAME.CAMPAIGN, (CampaignModel) => {
     attribute: ATTRIBUTE.campaignTypeId,
     model: campaignType,
     relation: RELATION.campaignType,
+    map: INDEX_NAME.campaignTypeId,
     option: { optional: true },
   });
   const campaignHasVoucherTypesRelation = oneToMany({
@@ -64,6 +65,9 @@ export default createModel(MODEL_NAME.CAMPAIGN, (CampaignModel) => {
       .mixin(campaignTypeRelation)
       .mixin(campaignHasVoucherTypesRelation)
       .mixin(customersRelation)
+
+      // indexes
+      .raw(INDEX.campaignTypeId)
 
       // table name
       .map(TABLE_NAME.CAMPAIGN);

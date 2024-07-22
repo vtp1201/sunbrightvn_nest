@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -86,6 +87,15 @@ export enum RELATION {
   phoneCountryForTasks = RELATION_DEFAULT.phoneCountryForTasks,
   targets = RELATION_DEFAULT.targets,
   visaVietnamArrivals = RELATION_DEFAULT.visaVietnamArrivals,
+}
+
+const tableName = TABLE_NAME.COUNTRY;
+export enum INDEX_NAME {
+  continentId = `"${tableName}_${COLUMN.continentId}_fkey"`,
+}
+
+export enum INDEX {
+  continentId = `@@index([${ATTRIBUTE.continentId}], map: ${INDEX_NAME.continentId})`,
 }
 
 export default {

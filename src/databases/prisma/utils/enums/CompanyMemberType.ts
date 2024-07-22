@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -27,6 +28,15 @@ export enum RELATION {
   fileTemplateHasCompanyMemberTypes = RELATION_DEFAULT.fileTemplateHasCompanyMemberTypes,
   serviceChangeOfficers = RELATION_DEFAULT.serviceChangeOfficers,
   services = RELATION_DEFAULT.services,
+}
+
+const tableName = TABLE_NAME.COMPANY_MEMBER_TYPE;
+export enum INDEX_NAME {
+  parentId = `"${tableName}_${COLUMN.parentId}_fkey"`,
+}
+
+export enum INDEX {
+  parentId = `@@index([${ATTRIBUTE.parentId}], map: ${INDEX_NAME.parentId})`,
 }
 
 export default {

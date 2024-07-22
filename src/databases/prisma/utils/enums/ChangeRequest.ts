@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -35,7 +36,6 @@ export enum COLUMN {
 }
 
 export enum RELATION {
-  // services = RELATION_DEFAULT.services,
   company = RELATION_DEFAULT.company,
   companyMember = RELATION_DEFAULT.companyMember,
   toCompanyMember = RELATION_DEFAULT.toCompanyMember,
@@ -45,6 +45,27 @@ export enum RELATION {
   task = RELATION_DEFAULT.task,
   changeRequestItems = RELATION_DEFAULT.changeRequestItems,
   files = RELATION_DEFAULT.files,
+}
+
+const tableName = TABLE_NAME.CHANGE_REQUEST;
+export enum INDEX_NAME {
+  companyId = `"${tableName}_${COLUMN.companyId}_fkey"`,
+  companyMemberId = `"${tableName}_${COLUMN.companyMemberId}_fkey"`,
+  toCompanyMemberId = `"${tableName}_${COLUMN.toCompanyMemberId}_fkey"`,
+  toCompanyPositionId = `"${tableName}_${COLUMN.toCompanyPositionId}_fkey"`,
+  companyPositionId = `"${tableName}_${COLUMN.companyPositionId}_fkey"`,
+  changeRequestStatusId = `"${tableName}_${COLUMN.changeRequestStatusId}_fkey"`,
+  taskId = `"${tableName}_${COLUMN.taskId}_fkey"`,
+}
+
+export enum INDEX {
+  companyId = `@@index([${ATTRIBUTE.companyId}], map: ${INDEX_NAME.companyId})`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: ${INDEX_NAME.companyMemberId})`,
+  toCompanyMemberId = `@@index([${ATTRIBUTE.toCompanyMemberId}], map: ${INDEX_NAME.toCompanyMemberId})`,
+  toCompanyPositionId = `@@index([${ATTRIBUTE.toCompanyPositionId}], map: ${INDEX_NAME.toCompanyPositionId})`,
+  companyPositionId = `@@index([${ATTRIBUTE.companyPositionId}], map: ${INDEX_NAME.companyPositionId})`,
+  changeRequestStatusId = `@@index([${ATTRIBUTE.changeRequestStatusId}], map: ${INDEX_NAME.changeRequestStatusId})`,
+  taskId = `@@index([${ATTRIBUTE.taskId}], map: ${INDEX_NAME.taskId})`,
 }
 
 export default {

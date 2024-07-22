@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { country, entityType, service } from '.';
 import { deleted, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CountryHasService';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/CountryHasService';
 
 export default createModel(MODEL_NAME.COUNTRY_HAS_SERVICE, (CountryHasServiceModel) => {
   const initDeleted = deleted(
@@ -22,16 +22,19 @@ export default createModel(MODEL_NAME.COUNTRY_HAS_SERVICE, (CountryHasServiceMod
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    map: INDEX_NAME.countryId,
   });
   const serviceRelation = oneToOne({
     attribute: ATTRIBUTE.serviceId,
     model: service,
     relation: RELATION.service,
+    map: INDEX_NAME.serviceId,
   });
   const entityTypeRelation = oneToOne({
     attribute: ATTRIBUTE.entityTypeId,
     model: entityType,
     relation: RELATION.entityType,
+    map: INDEX_NAME.entityTypeId,
     option: { optional: true },
   });
 
@@ -76,6 +79,11 @@ export default createModel(MODEL_NAME.COUNTRY_HAS_SERVICE, (CountryHasServiceMod
       .mixin(countryRelation)
       .mixin(serviceRelation)
       .mixin(entityTypeRelation)
+
+      // indexes
+      .raw(INDEX.countryId)
+      .raw(INDEX.entityTypeId)
+      .raw(INDEX.serviceId)
 
       // ids
       .id({

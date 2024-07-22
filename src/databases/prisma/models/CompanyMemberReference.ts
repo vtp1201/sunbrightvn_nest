@@ -3,7 +3,13 @@ import { createModel } from 'schemix';
 import { companyMember, companyMemberIssueReference, country } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyMemberReference';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  INDEX_NAME,
+  RELATION,
+} from '../utils/enums/CompanyMemberReference';
 
 export default createModel(MODEL_NAME.COMPANY_MEMBER_REFERENCES, (CompanyMemberReferenceModel) => {
   const initCreatedTime = createdTime({
@@ -30,17 +36,20 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER_REFERENCES, (CompanyMemberR
     attribute: ATTRIBUTE.companyMemberId,
     model: companyMember,
     relation: RELATION.companyMember,
+    map: INDEX_NAME.companyMemberId,
   });
   const companyMemberIssueReferenceRelation = oneToOne({
     attribute: ATTRIBUTE.companyMemberIssueReferenceId,
     model: companyMemberIssueReference,
     relation: RELATION.companyMemberIssueReference,
+    map: INDEX_NAME.companyMemberIssueReferenceId,
     option: { optional: true },
   });
   const phoneCountryRelation = oneToOne({
     attribute: ATTRIBUTE.phoneCountryId,
     model: country,
     relation: RELATION.phoneCountry,
+    map: INDEX_NAME.phoneCountryId,
     option: { optional: true },
   });
 
@@ -99,6 +108,11 @@ export default createModel(MODEL_NAME.COMPANY_MEMBER_REFERENCES, (CompanyMemberR
       .mixin(companyMemberRelation)
       .mixin(companyMemberIssueReferenceRelation)
       .mixin(phoneCountryRelation)
+
+      // indexes
+      .raw(INDEX.companyMemberId)
+      .raw(INDEX.companyMemberIssueReferenceId)
+      .raw(INDEX.phoneCountryId)
 
       // table name
       .map(TABLE_NAME.COMPANY_MEMBER_REFERENCES);

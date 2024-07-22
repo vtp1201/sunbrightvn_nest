@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -157,6 +158,27 @@ export enum RELATION {
   orders = RELATION_DEFAULT.orders,
   proposedNames = RELATION_DEFAULT.proposedNames,
   tasks = RELATION_DEFAULT.tasks,
+}
+
+const tableName = TABLE_NAME.COMPANY;
+export enum INDEX_NAME {
+  businessCountryId = `"${tableName}_${COLUMN.businessCountryId}_fkey"`,
+  billingId = `"${tableName}_${COLUMN.billingId}_fkey"`,
+  companyStatusId = `"${tableName}_${COLUMN.companyStatusId}_fkey"`,
+  companySuffixId = `"${tableName}_${COLUMN.companySuffixId}_fkey"`,
+  countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  entityTypeId = `"${tableName}_${COLUMN.entityTypeId}_fkey"`,
+  operatingCountryId = `"${tableName}_${COLUMN.operatingCountryId}_fkey"`,
+}
+
+export enum INDEX {
+  businessCountryId = `@@index([${ATTRIBUTE.businessCountryId}], map: ${INDEX_NAME.businessCountryId})`,
+  billingId = `@@index([${ATTRIBUTE.billingId}], map: ${INDEX_NAME.billingId})`,
+  companyStatusId = `@@index([${ATTRIBUTE.companyStatusId}], map: ${INDEX_NAME.companyStatusId})`,
+  companySuffixId = `@@index([${ATTRIBUTE.companySuffixId}], map: ${INDEX_NAME.companySuffixId})`,
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
+  entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}], map: ${INDEX_NAME.entityTypeId})`,
+  operatingCountryId = `@@index([${ATTRIBUTE.operatingCountryId}], map: ${INDEX_NAME.operatingCountryId})`,
 }
 
 export default {

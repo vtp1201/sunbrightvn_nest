@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { company, companyMember, companyPosition, task } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_NUMBER, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/CompanyOwnership';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/CompanyOwnership';
 
 export default createModel(MODEL_NAME.COMPANY_OWNERSHIP, (CompanyOwnershipModel) => {
   const initCreatedTime = createdTime({
@@ -30,17 +30,20 @@ export default createModel(MODEL_NAME.COMPANY_OWNERSHIP, (CompanyOwnershipModel)
     attribute: ATTRIBUTE.companyId,
     model: company,
     relation: RELATION.company,
+    map: INDEX_NAME.companyId,
   });
   const companyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.companyMemberId,
     model: companyMember,
     relation: RELATION.companyMember,
+    map: INDEX_NAME.companyMemberId,
     isNeedName: true,
   });
   const corporationCompanyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.corporationCompanyMemberId,
     model: companyMember,
     relation: RELATION.corporationCompanyMember,
+    map: INDEX_NAME.corporationCompanyMemberId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -48,12 +51,14 @@ export default createModel(MODEL_NAME.COMPANY_OWNERSHIP, (CompanyOwnershipModel)
     attribute: ATTRIBUTE.companyPositionId,
     model: companyPosition,
     relation: RELATION.companyPosition,
+    map: INDEX_NAME.companyPositionId,
     option: { optional: true },
   });
   const taskRelation = oneToOne({
     attribute: ATTRIBUTE.taskId,
     model: task,
     relation: RELATION.task,
+    map: INDEX_NAME.taskId,
     option: { optional: true },
   });
 
@@ -125,6 +130,13 @@ export default createModel(MODEL_NAME.COMPANY_OWNERSHIP, (CompanyOwnershipModel)
       .mixin(corporationCompanyMemberRelation)
       .mixin(companyPositionRelation)
       .mixin(taskRelation)
+
+      // indexes
+      .raw(INDEX.companyId)
+      .raw(INDEX.companyMemberId)
+      .raw(INDEX.companyPositionId)
+      .raw(INDEX.corporationCompanyMemberId)
+      .raw(INDEX.taskId)
 
       // table name
       .map(TABLE_NAME.COMPANY_OWNERSHIP);

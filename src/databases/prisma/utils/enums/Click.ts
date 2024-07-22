@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -24,6 +25,15 @@ export enum COLUMN {
 
 export enum RELATION {
   voucherType = RELATION_DEFAULT.voucherType,
+}
+
+const tableName = TABLE_NAME.CLICK;
+export enum INDEX_NAME {
+  voucherTypeId = `"${tableName}_${COLUMN.voucherTypeId}_fkey"`,
+}
+
+export enum INDEX {
+  voucherTypeId = `@@index([${ATTRIBUTE.voucherTypeId}], map: ${INDEX_NAME.voucherTypeId})`,
 }
 
 export default {
