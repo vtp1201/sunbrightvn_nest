@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { EndpointWebhookController } from './controller';
+import { EndpointWebhookController } from './controllers';
 
 @Module({
   imports: [],

@@ -9,7 +9,7 @@ import {
   OrderController,
   ServiceController,
   TrackingController,
-} from './controller';
+} from './controllers';
 
 @Module({
   imports: [],

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { ContactFormController } from './controller';
+import { ContactFormController } from './controllers';
 
 @Module({
   imports: [],

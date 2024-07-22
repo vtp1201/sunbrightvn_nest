@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { BODController, CSController } from './controller';
+import { BODController, CSController } from './controllers';
 
 @Module({
   imports: [],

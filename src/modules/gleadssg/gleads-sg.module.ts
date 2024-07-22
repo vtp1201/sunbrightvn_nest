@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { StaticDataController } from './controller';
+import { StaticDataController } from './controllers';
 
 @Module({
   imports: [],
