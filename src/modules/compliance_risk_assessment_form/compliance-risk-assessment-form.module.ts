@@ -6,7 +6,7 @@ import {
   NoteController,
   RiskRatingController,
   ServiceController,
-} from './controller';
+} from './controllers';
 
 @Module({
   imports: [],

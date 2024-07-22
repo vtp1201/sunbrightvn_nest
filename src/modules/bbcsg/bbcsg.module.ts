@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
 
-import { BBCSGController } from './bbcsg.controller';
 import { BBCSGService } from './bbcsg.service';
+import {
+  BusinessActivityController,
+  CompanyNameCheckController,
+  StaticDataController,
+} from './controllers';
 
 @Module({
   imports: [],
-  controllers: [BBCSGController],
+  controllers: [BusinessActivityController, CompanyNameCheckController, StaticDataController],
   providers: [BBCSGService],
-  exports: [BBCSGService],
 })
 export class BBCSGModule {}

@@ -6,8 +6,8 @@ import { UserModule } from '@modules/user/user.module';
 
 import { AuthController } from './auth.controller';
 import { TokenRepository } from './repository/token.repository';
-import { AuthService } from './service/auth.service';
-import { TokenService } from './service/token.service';
+import { AuthService } from './services/auth.service';
+import { TokenService } from './services/token.service';
 import { JwtStrategy, LocalStrategy } from './strategies';
 
 @Module({

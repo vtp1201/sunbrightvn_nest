@@ -13,7 +13,7 @@ import { RequestWithUser } from '@types';
 import { ROUTES } from '@utilities';
 
 import { LocalAuthGuard } from './guard/local.guard';
-import { AuthService } from './service/auth.service';
+import { AuthService } from './services/auth.service';
 
 const { ROUTE, TAG } = ROUTES.AUTH;
 @Controller()

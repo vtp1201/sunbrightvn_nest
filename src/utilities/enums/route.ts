@@ -1,7 +1,13 @@
-enum ROUTE_BBCSG {
-  BUSINESS_ACTIVITY__FILTER = 'api/bbcsg/business_activity/filter',
-  COMPANY_NAME_CHECK__SEARCH = 'api/bbcsg/company_name_check/search',
-  STATIC_DATA = 'api/bbcsg/static_data',
+enum ROUTE_BBCSG__BUSINESS_ACTIVITY {
+  FILTER = 'api/bbcsg/business_activity/filter',
+}
+
+enum ROUTE_BBCSG__COMPANY_NAME_CHECK {
+  SEARCH = 'api/bbcsg/company_name_check/search',
+}
+
+enum ROUTE_BBCSG__STATIC_DATA {
+  BASE = 'api/bbcsg/static_data',
 }
 
 enum ROUTE_COMPLIANCE_RISK_ASSESSMENT_FORM__CUSTOMER {
@@ -978,8 +984,18 @@ enum API_TAGS {
 export const ROUTES = {
   API_DOCS: 'api-docs',
   BBCSG: {
-    TAG: API_TAGS.BBCSG,
-    ROUTE: ROUTE_BBCSG,
+    BUSINESS_ACTIVITY: {
+      TAG: API_TAGS.BBCSG,
+      ROUTE: ROUTE_BBCSG__BUSINESS_ACTIVITY,
+    },
+    COMPANY_NAME_CHECK: {
+      TAG: API_TAGS.BBCSG,
+      ROUTE: ROUTE_BBCSG__COMPANY_NAME_CHECK,
+    },
+    STATIC_DATA: {
+      TAG: API_TAGS.BBCSG,
+      ROUTE: ROUTE_BBCSG__STATIC_DATA,
+    },
   },
   COMPLIANCE_RISK_ASSESSMENT_FORM: {
     CUSTOMER: {
