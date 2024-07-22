@@ -17,3 +17,7 @@ export * from './website/website.module';
 export * from './gleads/gleads.module';
 export * from './gleadssg/gleads-sg.module';
 export * from './onboarding/onboarding.module';
+export * from './statistic/statistic.module';
+export * from './stripe/stripe.module';
+export * from './sunbrightvn/sunbright-vn.module';
+export * from './visa2asia/v2a.module';
