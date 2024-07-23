@@ -3,7 +3,13 @@ import { createModel } from 'schemix';
 import { country, fileTemplate } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/FileTemplateHasNationality';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  INDEX_NAME,
+  RELATION,
+} from '../utils/enums/FileTemplateHasNationality';
 
 // TODO: xem sét xóa
 export default createModel(
@@ -33,11 +39,13 @@ export default createModel(
       attribute: ATTRIBUTE.countryId,
       relation: RELATION.country,
       model: country,
+      map: INDEX_NAME.countryId,
     });
     const fileTemplateRelation = oneToOne({
       attribute: ATTRIBUTE.fileTemplateId,
       relation: RELATION.fileTemplate,
       model: fileTemplate,
+      map: INDEX_NAME.fileTemplateId,
     });
 
     // defined Model
@@ -61,6 +69,10 @@ export default createModel(
         // relations
         .mixin(countryRelation)
         .mixin(fileTemplateRelation)
+
+        // indexes
+        .raw(INDEX.countryId)
+        .raw(INDEX.fileTemplateId)
 
         // ids
         .id({

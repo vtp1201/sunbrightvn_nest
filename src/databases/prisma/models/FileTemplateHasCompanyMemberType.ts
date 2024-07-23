@@ -8,6 +8,7 @@ import {
   ATTRIBUTE,
   COLUMN,
   INDEX,
+  INDEX_NAME,
   RELATION,
 } from '../utils/enums/FileTemplateHasCompanyMemberType';
 
@@ -30,16 +31,19 @@ export default createModel(
       attribute: ATTRIBUTE.companyMemberTypeId,
       model: companyMemberType,
       relation: RELATION.companyMemberType,
+      map: INDEX_NAME.companyMemberTypeId,
     });
     const fileTemplateRelation = oneToOne({
       attribute: ATTRIBUTE.fileTemplateId,
       model: fileTemplate,
       relation: RELATION.fileTemplate,
+      map: INDEX_NAME.fileTemplateId,
     });
     const typeMemberRelation = oneToOne({
       attribute: ATTRIBUTE.typeMemberId,
       model: typeMember,
       relation: RELATION.typeMember,
+      map: INDEX_NAME.typeMemberId,
       option: { optional: true },
     });
 
@@ -93,7 +97,9 @@ export default createModel(
         .mixin(typeMemberRelation)
 
         // indexes
-        // .raw(INDEX.typeMemberId)
+        .raw(INDEX.typeMemberId)
+        .raw(INDEX.fileTemplateId)
+        .raw(INDEX.companyMemberTypeId)
 
         // table name
         .map(TABLE_NAME.FILE_TEMPLATE_HAS_COMPANY_MEMBER_TYPE);

@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -28,8 +29,13 @@ export enum RELATION {
   children = RELATION_DEFAULT.children,
 }
 
+const tableName = TABLE_NAME.FILE_TYPE;
+export enum INDEX_NAME {
+  parentId = `"${tableName}_${COLUMN.parentId}_fkey"`,
+}
+
 export enum INDEX {
-  parentId = `@@index([${ATTRIBUTE.parentId}])`,
+  parentId = `@@index([${ATTRIBUTE.parentId}], map: ${INDEX_NAME.parentId})`,
 }
 
 export default {

@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -58,9 +59,17 @@ export enum RELATION {
   tokens = RELATION_DEFAULT.tokens,
 }
 
+const tableName = TABLE_NAME.FILE_TEMPLATE;
+export enum INDEX_NAME {
+  parentId = `"${tableName}_${COLUMN.parentId}_fkey"`,
+  collectSameId = `"${tableName}_${COLUMN.collectSameId}_fkey"`,
+  fileTemplateTypeId = `"${tableName}_${COLUMN.fileTemplateTypeId}_fkey"`,
+}
+
 export enum INDEX {
-  parentId = `@@index([${ATTRIBUTE.parentId}])`,
-  collectSameId = `@@index([${ATTRIBUTE.collectSameId}])`,
+  parentId = `@@index([${ATTRIBUTE.parentId}], map: ${INDEX_NAME.parentId})`,
+  collectSameId = `@@index([${ATTRIBUTE.collectSameId}], map: ${INDEX_NAME.collectSameId})`,
+  fileTemplateTypeId = `@@index([${ATTRIBUTE.fileTemplateTypeId}], map: ${INDEX_NAME.fileTemplateTypeId})`,
 }
 
 export default {

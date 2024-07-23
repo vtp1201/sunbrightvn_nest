@@ -18,7 +18,7 @@ import {
 } from '.';
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/FileTemplate';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/FileTemplate';
 
 export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
   const initDeleted = deleted(
@@ -49,12 +49,14 @@ export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
     attribute: ATTRIBUTE.fileTemplateTypeId,
     model: fileTemplateType,
     relation: RELATION.fileTemplateType,
+    map: INDEX_NAME.fileTemplateTypeId,
     option: { optional: true },
   });
   const collectSameFileTemplateRelation = oneToOne({
     attribute: ATTRIBUTE.collectSameId,
     model: fileTemplate,
     relation: RELATION.collectSameFileTemplate,
+    map: INDEX_NAME.collectSameId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -67,6 +69,7 @@ export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
     attribute: ATTRIBUTE.parentId,
     model: fileTemplate,
     relation: RELATION.parent,
+    map: INDEX_NAME.parentId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -199,8 +202,9 @@ export default createModel(MODEL_NAME.FILE_TEMPLATE, (FileTemplateModel) => {
       .mixin(tokensRelation)
 
       // indexes
-      // .raw(INDEX.collectSameId)
-      // .raw(INDEX.parentId)
+      .raw(INDEX.collectSameId)
+      .raw(INDEX.parentId)
+      .raw(INDEX.fileTemplateTypeId)
 
       // table name
       .map(TABLE_NAME.FILE_TEMPLATE);

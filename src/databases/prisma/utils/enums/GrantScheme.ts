@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -37,8 +38,13 @@ export enum RELATION {
   grantSchemeHasGrantTypeAttributes = RELATION_DEFAULT.grantSchemeHasGrantTypeAttributes,
 }
 
+const tableName = TABLE_NAME.GRANT_SCHEME;
+export enum INDEX_NAME {
+  countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+}
+
 export enum INDEX {
-  countryId = `@@index([${ATTRIBUTE.countryId}])`,
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
 }
 
 export default {

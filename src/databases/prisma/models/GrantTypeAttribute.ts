@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { country, grantSchemeHasGrantTypeAttribute, grantType, grantTypeAttribute } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/GrantTypeAttribute';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/GrantTypeAttribute';
 import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.GRANT_TYPE_ATTRIBUTE, (GrantTypeAttributeModel) => {
@@ -29,6 +29,7 @@ export default createModel(MODEL_NAME.GRANT_TYPE_ATTRIBUTE, (GrantTypeAttributeM
   // defined Relations
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
+    map: INDEX_NAME.countryId,
     model: country,
     relation: RELATION.country,
     option: { optional: true },
@@ -80,6 +81,7 @@ export default createModel(MODEL_NAME.GRANT_TYPE_ATTRIBUTE, (GrantTypeAttributeM
   });
   const parentRelation = oneToOne({
     attribute: ATTRIBUTE.parentId,
+    map: INDEX_NAME.parentId,
     model: grantTypeAttribute,
     relation: RELATION.parent,
     isNeedName: true,
@@ -92,6 +94,7 @@ export default createModel(MODEL_NAME.GRANT_TYPE_ATTRIBUTE, (GrantTypeAttributeM
   });
   const grantTypeRelation = oneToOne({
     attribute: ATTRIBUTE.grantTypeId,
+    map: INDEX_NAME.grantTypeId,
     model: grantType,
     relation: RELATION.grantType,
     option: { optional: true },
@@ -162,9 +165,9 @@ export default createModel(MODEL_NAME.GRANT_TYPE_ATTRIBUTE, (GrantTypeAttributeM
       .mixin(grantTypeRelation)
 
       // indexes
-      // .raw(INDEX.countryId)
-      // .raw(INDEX.grantTypeId)
-      // .raw(INDEX.parentId)
+      .raw(INDEX.countryId)
+      .raw(INDEX.grantTypeId)
+      .raw(INDEX.parentId)
 
       // table name
       .map(TABLE_NAME.GRANT_TYPE_ATTRIBUTE);

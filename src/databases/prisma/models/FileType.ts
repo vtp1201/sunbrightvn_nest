@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { file, fileType } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/FileType';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/FileType';
 
 export default createModel(MODEL_NAME.FILE_TYPE, (FileTypeModel) => {
   const initCreatedTime = createdTime({
@@ -34,6 +34,7 @@ export default createModel(MODEL_NAME.FILE_TYPE, (FileTypeModel) => {
     attribute: ATTRIBUTE.parentId,
     model: fileType,
     relation: RELATION.parent,
+    map: INDEX_NAME.parentId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -76,7 +77,7 @@ export default createModel(MODEL_NAME.FILE_TYPE, (FileTypeModel) => {
       .mixin(childrenRelation)
 
       // indexes
-      // .raw(INDEX.parentId)
+      .raw(INDEX.parentId)
 
       // table name
       .map(TABLE_NAME.FILE_TYPE);

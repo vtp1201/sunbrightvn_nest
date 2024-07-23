@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -21,6 +22,17 @@ export enum COLUMN {
 export enum RELATION {
   file = RELATION_DEFAULT.file,
   historyLogCDC = RELATION_DEFAULT.historyLogCDC,
+}
+
+const tableName = TABLE_NAME.HISTORY_FILE;
+export enum INDEX_NAME {
+  fileId = `"${tableName}_${COLUMN.fileId}_fkey"`,
+  historyLogCDCId = `"${tableName}_${COLUMN.historyLogCDCId}_fkey"`,
+}
+
+export enum INDEX {
+  fileId = `@@index([${ATTRIBUTE.fileId}], map: ${INDEX_NAME.fileId})`,
+  historyLogCDCId = `@@index([${ATTRIBUTE.historyLogCDCId}], map: ${INDEX_NAME.historyLogCDCId})`,
 }
 
 export enum INDEX {}

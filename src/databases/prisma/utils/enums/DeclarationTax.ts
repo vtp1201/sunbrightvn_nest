@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -23,9 +24,15 @@ export enum RELATION {
   fatca = RELATION_DEFAULT.fatca,
 }
 
+const tableName = TABLE_NAME.DECLARATION_TAX;
+export enum INDEX_NAME {
+  countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  fatcaId = `"${tableName}_${COLUMN.fatcaId}_fkey"`,
+}
+
 export enum INDEX {
-  countryId = `@@index([${ATTRIBUTE.countryId}])`,
-  fatcaId = `@@index([${ATTRIBUTE.fatcaId}])`,
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
+  fatcaId = `@@index([${ATTRIBUTE.fatcaId}], map: ${INDEX_NAME.fatcaId})`,
 }
 
 export default {

@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -34,8 +35,17 @@ export enum RELATION {
   typeMember = RELATION_DEFAULT.typeMember,
 }
 
+const tableName = TABLE_NAME.FILE_TEMPLATE_HAS_COMPANY_MEMBER_TYPE;
+export enum INDEX_NAME {
+  typeMemberId = `"${tableName}_${COLUMN.typeMemberId}_fkey"`,
+  fileTemplateId = `"${tableName}_${COLUMN.fileTemplateId}_fkey"`,
+  companyMemberTypeId = `"${tableName}_${COLUMN.companyMemberTypeId}_fkey"`,
+}
+
 export enum INDEX {
-  typeMemberId = `@@index([${ATTRIBUTE.typeMemberId}])`,
+  typeMemberId = `@@index([${ATTRIBUTE.typeMemberId}], map: ${INDEX_NAME.typeMemberId})`,
+  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}], map: ${INDEX_NAME.fileTemplateId})`,
+  companyMemberTypeId = `@@index([${ATTRIBUTE.companyMemberTypeId}], map: ${INDEX_NAME.companyMemberTypeId})`,
 }
 
 export enum GENERATED_FOR {

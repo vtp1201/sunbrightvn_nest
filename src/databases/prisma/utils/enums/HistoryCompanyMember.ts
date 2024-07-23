@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -131,14 +132,24 @@ export enum RELATION {
   addressCountry = RELATION_DEFAULT.addressCountry,
 }
 
+const tableName = TABLE_NAME.HISTORY_COMPANY_MEMBER;
+export enum INDEX_NAME {
+  addressCountryId = `"${tableName}_${COLUMN.addressCountryId}_fkey"`,
+  birthCountryId = `"${tableName}_${COLUMN.birthCountryId}_fkey"`,
+  countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  genderId = `"${tableName}_${COLUMN.genderId}_fkey"`,
+  phoneCountryId = `"${tableName}_${COLUMN.phoneCountryId}_fkey"`,
+  typeMemberId = `"${tableName}_${COLUMN.typeMemberId}_fkey"`,
+}
+
 export enum INDEX {
   uniqueTaskCompanyMemberVersion = `@@unique([${ATTRIBUTE.taskId}, ${ATTRIBUTE.companyMemberId}, ${ATTRIBUTE.version}])`,
-  addressCountryId = `@@index([${ATTRIBUTE.addressCountryId}])`,
-  birthCountryId = `@@index([${ATTRIBUTE.birthCountryId}])`,
-  countryId = `@@index([${ATTRIBUTE.countryId}])`,
-  genderId = `@@index([${ATTRIBUTE.genderId}])`,
-  phoneCountryId = `@@index([${ATTRIBUTE.phoneCountryId}])`,
-  typeMemberId = `@@index([${ATTRIBUTE.typeMemberId}])`,
+  addressCountryId = `@@index([${ATTRIBUTE.addressCountryId}], map: ${INDEX_NAME.addressCountryId})`,
+  birthCountryId = `@@index([${ATTRIBUTE.birthCountryId}], map: ${INDEX_NAME.birthCountryId})`,
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
+  genderId = `@@index([${ATTRIBUTE.genderId}], map: ${INDEX_NAME.genderId})`,
+  phoneCountryId = `@@index([${ATTRIBUTE.phoneCountryId}], map: ${INDEX_NAME.phoneCountryId})`,
+  typeMemberId = `@@index([${ATTRIBUTE.typeMemberId}], map: ${INDEX_NAME.typeMemberId})`,
 }
 
 export default {

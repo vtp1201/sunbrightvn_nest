@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -34,10 +35,17 @@ export enum RELATION {
   roles = RELATION_DEFAULT.roles,
 }
 
+const tableName = TABLE_NAME.LIMIT;
+export enum INDEX_NAME {
+  limitTypeId = `"${tableName}_${COLUMN.limitTypeId}_fkey"`,
+  permissionGroupId = `"${tableName}_${COLUMN.permissionGroupId}_fkey"`,
+  permissionId = `"${tableName}_${COLUMN.permissionId}_fkey"`,
+}
+
 export enum INDEX {
-  limitTypeId = `@@index([${ATTRIBUTE.limitTypeId}])`,
-  permissionGroupId = `@@index([${ATTRIBUTE.permissionGroupId}])`,
-  permissionId = `@@index([${ATTRIBUTE.permissionId}])`,
+  limitTypeId = `@@index([${ATTRIBUTE.limitTypeId}], map: ${INDEX_NAME.limitTypeId})`,
+  permissionGroupId = `@@index([${ATTRIBUTE.permissionGroupId}], map: ${INDEX_NAME.permissionGroupId})`,
+  permissionId = `@@index([${ATTRIBUTE.permissionId}], map: ${INDEX_NAME.permissionId})`,
 }
 
 export default {

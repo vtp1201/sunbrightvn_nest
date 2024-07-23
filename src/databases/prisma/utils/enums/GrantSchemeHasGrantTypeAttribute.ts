@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -48,17 +49,32 @@ export enum RELATION {
   grantTypeAttributeType = RELATION_DEFAULT.grantTypeAttributeType,
   grantTypeAttributeYearsOperation = RELATION_DEFAULT.grantTypeAttributeYearsOperation,
 }
+
+const tableName = TABLE_NAME.GRANT_SCHEME_HAS_GRANT_TYPE_ATTRIBUTE;
+export enum INDEX_NAME {
+  agencyId = `"${tableName}_${COLUMN.agencyId}_fkey"`,
+  businessSizeId = `"${tableName}_${COLUMN.businessSizeId}_fkey"`,
+  businessStageId = `"${tableName}_${COLUMN.businessStageId}_fkey"`,
+  grantSchemeId = `"${tableName}_${COLUMN.grantSchemeId}_fkey"`,
+  industryId = `"${tableName}_${COLUMN.industryId}_fkey"`,
+  localShareholdingId = `"${tableName}_${COLUMN.localShareholdingId}_fkey"`,
+  needsBasedId = `"${tableName}_${COLUMN.needsBasedId}_fkey"`,
+  numberEmployeesId = `"${tableName}_${COLUMN.numberEmployeesId}_fkey"`,
+  typeId = `"${tableName}_${COLUMN.typeId}_fkey"`,
+  yearsOperationId = `"${tableName}_${COLUMN.yearsOperationId}_fkey"`,
+}
+
 export enum INDEX {
-  agencyId = `@@index([${ATTRIBUTE.agencyId}])`,
-  businessSizeId = `@@index([${ATTRIBUTE.businessSizeId}])`,
-  businessStageId = `@@index([${ATTRIBUTE.businessStageId}])`,
-  grantSchemeId = `@@index([${ATTRIBUTE.grantSchemeId}])`,
-  industryId = `@@index([${ATTRIBUTE.industryId}])`,
-  localShareholdingId = `@@index([${ATTRIBUTE.localShareholdingId}])`,
-  needsBasedId = `@@index([${ATTRIBUTE.needsBasedId}])`,
-  numberEmployeesId = `@@index([${ATTRIBUTE.numberEmployeesId}])`,
-  typeId = `@@index([${ATTRIBUTE.typeId}])`,
-  yearsOperationId = `@@index([${ATTRIBUTE.yearsOperationId}])`,
+  agencyId = `@@index([${ATTRIBUTE.agencyId}], map: ${INDEX_NAME.agencyId})`,
+  businessSizeId = `@@index([${ATTRIBUTE.businessSizeId}], map: ${INDEX_NAME.businessSizeId})`,
+  businessStageId = `@@index([${ATTRIBUTE.businessStageId}], map: ${INDEX_NAME.businessStageId})`,
+  grantSchemeId = `@@index([${ATTRIBUTE.grantSchemeId}], map: ${INDEX_NAME.grantSchemeId})`,
+  industryId = `@@index([${ATTRIBUTE.industryId}], map: ${INDEX_NAME.industryId})`,
+  localShareholdingId = `@@index([${ATTRIBUTE.localShareholdingId}], map: ${INDEX_NAME.localShareholdingId})`,
+  needsBasedId = `@@index([${ATTRIBUTE.needsBasedId}], map: ${INDEX_NAME.needsBasedId})`,
+  numberEmployeesId = `@@index([${ATTRIBUTE.numberEmployeesId}], map: ${INDEX_NAME.numberEmployeesId})`,
+  typeId = `@@index([${ATTRIBUTE.typeId}], map: ${INDEX_NAME.typeId})`,
+  yearsOperationId = `@@index([${ATTRIBUTE.yearsOperationId}], map: ${INDEX_NAME.yearsOperationId})`,
 }
 
 export default {

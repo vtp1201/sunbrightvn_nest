@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { limitType, limitValue, permission, permissionGroup, role } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Limit';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Limit';
 
 export default createModel(MODEL_NAME.LIMIT, (LimitModel) => {
   const initCreatedTime = createdTime({
@@ -28,17 +28,20 @@ export default createModel(MODEL_NAME.LIMIT, (LimitModel) => {
   // defined Relations
   const limitTypeRelation = oneToOne({
     attribute: ATTRIBUTE.limitTypeId,
+    map: INDEX_NAME.limitTypeId,
     model: limitType,
     relation: RELATION.limitType,
   });
   const permissionGroupRelation = oneToOne({
     attribute: ATTRIBUTE.permissionGroupId,
+    map: INDEX_NAME.permissionGroupId,
     model: permissionGroup,
     relation: RELATION.permissionGroup,
     option: { optional: true },
   });
   const permissionRelation = oneToOne({
     attribute: ATTRIBUTE.permissionId,
+    map: INDEX_NAME.permissionId,
     model: permission,
     relation: RELATION.permission,
     option: { optional: true },
@@ -93,9 +96,9 @@ export default createModel(MODEL_NAME.LIMIT, (LimitModel) => {
       .mixin(rolesRelation)
 
       // indexes
-      // .raw(INDEX.limitTypeId)
-      // .raw(INDEX.permissionGroupId)
-      // .raw(INDEX.permissionId)
+      .raw(INDEX.limitTypeId)
+      .raw(INDEX.permissionGroupId)
+      .raw(INDEX.permissionId)
 
       // table name
       .map(TABLE_NAME.LIMIT);

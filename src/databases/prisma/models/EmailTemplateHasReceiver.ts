@@ -3,7 +3,13 @@ import { createModel } from 'schemix';
 import { emailTemplate, role, teamGroup, user } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/EmailTemplateHasReceiver';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  INDEX_NAME,
+  RELATION,
+} from '../utils/enums/EmailTemplateHasReceiver';
 
 export default createModel(
   MODEL_NAME.EMAIL_TEMPLATE_HAS_RECEIVER,
@@ -32,23 +38,27 @@ export default createModel(
       attribute: ATTRIBUTE.emailTemplateId,
       model: emailTemplate,
       relation: RELATION.emailTemplate,
+      map: INDEX_NAME.emailTemplateId,
     });
     const groupRelation = oneToOne({
       attribute: ATTRIBUTE.groupId,
       model: teamGroup,
       relation: RELATION.group,
+      map: INDEX_NAME.groupId,
       option: { optional: true },
     });
     const roleRelation = oneToOne({
       attribute: ATTRIBUTE.roleId,
       model: role,
       relation: RELATION.role,
+      map: INDEX_NAME.roleId,
       option: { optional: true },
     });
     const userRelation = oneToOne({
       attribute: ATTRIBUTE.userId,
       model: user,
       relation: RELATION.user,
+      map: INDEX_NAME.userId,
       option: { optional: true },
     });
 
@@ -110,10 +120,10 @@ export default createModel(
         .mixin(userRelation)
 
         // indexes
-        // .raw(INDEX.emailTemplateId)
-        // .raw(INDEX.groupId)
-        // .raw(INDEX.roleId)
-        // .raw(INDEX.userId)
+        .raw(INDEX.emailTemplateId)
+        .raw(INDEX.groupId)
+        .raw(INDEX.roleId)
+        .raw(INDEX.userId)
 
         // table name
         .map(TABLE_NAME.EMAIL_TEMPLATE_HAS_RECEIVER);

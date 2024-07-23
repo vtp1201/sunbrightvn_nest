@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { limit } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/LimitValue';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/LimitValue';
 
 export default createModel(MODEL_NAME.LIMIT_VALUE, (LimitValueModel) => {
   const initCreatedTime = createdTime({
@@ -28,6 +28,7 @@ export default createModel(MODEL_NAME.LIMIT_VALUE, (LimitValueModel) => {
   // defined Relations
   const limitRelation = oneToOne({
     attribute: ATTRIBUTE.limitId,
+    map: INDEX_NAME.limitId,
     model: limit,
     relation: RELATION.limit,
   });
@@ -62,7 +63,7 @@ export default createModel(MODEL_NAME.LIMIT_VALUE, (LimitValueModel) => {
       .mixin(limitRelation)
 
       // indexes
-      // .raw(INDEX.limitId)
+      .raw(INDEX.limitId)
 
       // table name
       .map(TABLE_NAME.LIMIT_VALUE);

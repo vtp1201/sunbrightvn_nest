@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -145,14 +146,27 @@ export enum RELATION {
   contactPhoneCountry = RELATION_DEFAULT.contactPhoneCountry,
 }
 
+const tableName = TABLE_NAME.HISTORY_COMPANY;
+export enum INDEX_NAME {
+  billingId = `"${tableName}_${COLUMN.billingId}_fkey"`,
+  businessCountryId = `"${tableName}_${COLUMN.businessCountryId}_fkey"`,
+  contactPhoneCountryId = `"${tableName}_${COLUMN.contactPhoneCountryId}_fkey"`,
+  companyStatusId = `"${tableName}_${COLUMN.companyStatusId}_fkey"`,
+  companySuffixId = `"${tableName}_${COLUMN.companySuffixId}_fkey"`,
+  countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  entityTypeId = `"${tableName}_${COLUMN.entityTypeId}_fkey"`,
+  operatingCountryId = `"${tableName}_${COLUMN.operatingCountryId}_fkey"`,
+}
+
 export enum INDEX {
-  billingId = `@@index([${ATTRIBUTE.billingId}])`,
-  businessCountryId = `@@index([${ATTRIBUTE.businessCountryId}])`,
-  companyStatusId = `@@index([${ATTRIBUTE.companyStatusId}])`,
-  companySuffixId = `@@index([${ATTRIBUTE.companySuffixId}])`,
-  countryId = `@@index([${ATTRIBUTE.countryId}])`,
-  entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}])`,
-  operatingCountryId = `@@index([${ATTRIBUTE.operatingCountryId}])`,
+  billingId = `@@index([${ATTRIBUTE.billingId}], map: ${INDEX_NAME.billingId})`,
+  businessCountryId = `@@index([${ATTRIBUTE.businessCountryId}], map: ${INDEX_NAME.businessCountryId})`,
+  contactPhoneCountryId = `@@index([${ATTRIBUTE.contactPhoneCountryId}], map: ${INDEX_NAME.contactPhoneCountryId})`,
+  companyStatusId = `@@index([${ATTRIBUTE.companyStatusId}], map: ${INDEX_NAME.companyStatusId})`,
+  companySuffixId = `@@index([${ATTRIBUTE.companySuffixId}], map: ${INDEX_NAME.companySuffixId})`,
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
+  entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}], map: ${INDEX_NAME.entityTypeId})`,
+  operatingCountryId = `@@index([${ATTRIBUTE.operatingCountryId}], map: ${INDEX_NAME.operatingCountryId})`,
 }
 
 export default {

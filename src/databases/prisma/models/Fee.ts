@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { feeType, service } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_NUMBER, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Fee';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Fee';
 
 export default createModel(MODEL_NAME.FEE, (FeeModel) => {
   const initCreatedTime = createdTime({
@@ -30,11 +30,13 @@ export default createModel(MODEL_NAME.FEE, (FeeModel) => {
     attribute: ATTRIBUTE.feeTypeId,
     model: feeType,
     relation: RELATION.feeType,
+    map: INDEX_NAME.feeTypeId,
   });
   const serviceRelation = oneToOne({
     attribute: ATTRIBUTE.serviceId,
     model: service,
     relation: RELATION.service,
+    map: INDEX_NAME.serviceId,
     option: { optional: true },
   });
 
@@ -70,8 +72,8 @@ export default createModel(MODEL_NAME.FEE, (FeeModel) => {
       .mixin(serviceRelation)
 
       // indexes
-      // .raw(INDEX.feeTypeId)
-      // .raw(INDEX.serviceId)
+      .raw(INDEX.feeTypeId)
+      .raw(INDEX.serviceId)
 
       // table name
       .map(TABLE_NAME.FEE);

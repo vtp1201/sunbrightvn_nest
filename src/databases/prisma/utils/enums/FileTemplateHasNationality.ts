@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -25,7 +26,16 @@ export enum RELATION {
   fileTemplate = RELATION_DEFAULT.fileTemplate,
 }
 
-export enum INDEX {}
+const tableName = TABLE_NAME.FILE_TEMPLATE_HAS_NATIONALITY;
+export enum INDEX_NAME {
+  countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  fileTemplateId = `"${tableName}_${COLUMN.fileTemplateId}_fkey"`,
+}
+
+export enum INDEX {
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
+  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}], map: ${INDEX_NAME.fileTemplateId})`,
+}
 
 export default {
   ATTRIBUTE,

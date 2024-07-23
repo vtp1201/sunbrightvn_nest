@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -26,8 +27,13 @@ export enum RELATION {
   limit = RELATION_DEFAULT.limit,
 }
 
+const tableName = TABLE_NAME.LIMIT_VALUE;
+export enum INDEX_NAME {
+  limitId = `"${tableName}_${COLUMN.limitId}_fkey"`,
+}
+
 export enum INDEX {
-  limitId = `@@index([${ATTRIBUTE.limitId}])`,
+  limitId = `@@index([${ATTRIBUTE.limitId}], map: ${INDEX_NAME.limitId})`,
 }
 
 export default {

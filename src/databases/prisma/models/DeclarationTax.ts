@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { country, fatca } from '.';
 import { deleted, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/DeclarationTax';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/DeclarationTax';
 
 export default createModel(MODEL_NAME.DECLARATION_TAX, (DeclarationTaxModel) => {
   const initDeleted = deleted(
@@ -22,11 +22,13 @@ export default createModel(MODEL_NAME.DECLARATION_TAX, (DeclarationTaxModel) => 
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    map: INDEX_NAME.countryId,
   });
   const fatcaRelation = oneToOne({
     attribute: ATTRIBUTE.fatcaId,
     model: fatca,
     relation: RELATION.fatca,
+    map: INDEX_NAME.fatcaId,
   });
 
   // defined Model
@@ -57,6 +59,10 @@ export default createModel(MODEL_NAME.DECLARATION_TAX, (DeclarationTaxModel) => 
       // relations
       .mixin(countryRelation)
       .mixin(fatcaRelation)
+
+      // indexes
+      .raw(INDEX.countryId)
+      .raw(INDEX.fatcaId)
 
       // table name
       .map(TABLE_NAME.DECLARATION_TAX);

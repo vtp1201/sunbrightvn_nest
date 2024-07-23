@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -31,8 +32,13 @@ export enum RELATION {
   emailTriggerHasProcesses = RELATION_DEFAULT.emailTriggerHasProcesses,
 }
 
+const tableName = TABLE_NAME.EMAIL_TRIGGER;
+export enum INDEX_NAME {
+  processStepId = `"${tableName}_${COLUMN.processStepId}_fkey"`,
+}
+
 export enum INDEX {
-  processStepId = `@@index([${ATTRIBUTE.processStepId}])`,
+  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: ${INDEX_NAME.processStepId}))`,
 }
 
 export default {

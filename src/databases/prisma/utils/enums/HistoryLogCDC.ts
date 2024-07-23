@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -32,11 +33,19 @@ export enum RELATION {
   user = RELATION_DEFAULT.user,
 }
 
+const tableName = TABLE_NAME.HISTORY_LOG_CDC;
+export enum INDEX_NAME {
+  actionStepTypeId = `"${tableName}_${COLUMN.actionStepTypeId}_fkey"`,
+  companyId = `"${tableName}_${COLUMN.companyId}_fkey"`,
+  userId = `"${tableName}_${COLUMN.userId}_fkey"`,
+  taskId = `"${tableName}_${COLUMN.taskId}_fkey"`,
+}
+
 export enum INDEX {
-  actionStepTypeId = `@@index([${ATTRIBUTE.actionStepTypeId}])`,
-  companyId = `@@index([${ATTRIBUTE.companyId}])`,
-  userId = `@@index([${ATTRIBUTE.userId}])`,
-  taskId = `@@index([${ATTRIBUTE.taskId}])`,
+  actionStepTypeId = `@@index([${ATTRIBUTE.actionStepTypeId}], map: ${INDEX_NAME.actionStepTypeId})`,
+  companyId = `@@index([${ATTRIBUTE.companyId}], map: ${INDEX_NAME.companyId})`,
+  userId = `@@index([${ATTRIBUTE.userId}], map: ${INDEX_NAME.userId})`,
+  taskId = `@@index([${ATTRIBUTE.taskId}], map: ${INDEX_NAME.taskId})`,
 }
 
 export default {

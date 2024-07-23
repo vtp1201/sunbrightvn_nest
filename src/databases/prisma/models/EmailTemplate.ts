@@ -10,7 +10,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/EmailTemplate';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/EmailTemplate';
 
 export default createModel(MODEL_NAME.EMAIL_TEMPLATE, (EmailTemplateModel) => {
   const initCreatedTime = createdTime({
@@ -41,12 +41,14 @@ export default createModel(MODEL_NAME.EMAIL_TEMPLATE, (EmailTemplateModel) => {
     attribute: ATTRIBUTE.emailTypeId,
     model: emailType,
     relation: RELATION.emailType,
+    map: INDEX_NAME.emailTypeId,
     option: { optional: true },
   });
   const nextEmailTemplateRelation = oneToOne({
     attribute: ATTRIBUTE.nextEmailTemplateId,
     model: emailTemplate,
     relation: RELATION.nextEmailTemplate,
+    map: INDEX_NAME.nextEmailTemplateId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -59,6 +61,7 @@ export default createModel(MODEL_NAME.EMAIL_TEMPLATE, (EmailTemplateModel) => {
     attribute: ATTRIBUTE.processStepId,
     model: processStep,
     relation: RELATION.processStep,
+    map: INDEX_NAME.processStepId,
     option: { optional: true },
   });
   const emailTemplateHasReceiversRelation = oneToMany({
@@ -143,9 +146,9 @@ export default createModel(MODEL_NAME.EMAIL_TEMPLATE, (EmailTemplateModel) => {
       .mixin(emailTriggerHasProcessesRelation)
 
       // indexes
-      // .raw(INDEX.emailTypeId)
-      // .raw(INDEX.nextEmailTemplateId)
-      // .raw(INDEX.processStepId)
+      .raw(INDEX.emailTypeId)
+      .raw(INDEX.nextEmailTemplateId)
+      .raw(INDEX.processStepId)
 
       // table name
       .map(TABLE_NAME.EMAIL_TEMPLATE);

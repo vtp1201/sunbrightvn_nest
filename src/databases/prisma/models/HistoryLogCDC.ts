@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { actionStepType, company, historyFile, task, user } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/HistoryLogCDC';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/HistoryLogCDC';
 
 export default createModel(MODEL_NAME.HISTORY_LOG_CDC, (HistoryLogCDCModel) => {
   const initCreatedTime = createdTime({
@@ -32,23 +32,27 @@ export default createModel(MODEL_NAME.HISTORY_LOG_CDC, (HistoryLogCDCModel) => {
   });
   const actionStepTypeRelation = oneToOne({
     attribute: ATTRIBUTE.actionStepTypeId,
+    map: INDEX_NAME.actionStepTypeId,
     model: actionStepType,
     relation: RELATION.actionStepType,
     option: { optional: true },
   });
   const companyRelation = oneToOne({
     attribute: ATTRIBUTE.companyId,
+    map: INDEX_NAME.companyId,
     model: company,
     relation: RELATION.company,
     option: { optional: true },
   });
   const taskRelation = oneToOne({
     attribute: ATTRIBUTE.taskId,
+    map: INDEX_NAME.taskId,
     model: task,
     relation: RELATION.task,
   });
   const userRelation = oneToOne({
     attribute: ATTRIBUTE.userId,
+    map: INDEX_NAME.userId,
     model: user,
     relation: RELATION.user,
   });
@@ -90,10 +94,10 @@ export default createModel(MODEL_NAME.HISTORY_LOG_CDC, (HistoryLogCDCModel) => {
       .mixin(userRelation)
 
       // indexes
-      // .raw(INDEX.actionStepTypeId)
-      // .raw(INDEX.companyId)
-      // .raw(INDEX.taskId)
-      // .raw(INDEX.userId)
+      .raw(INDEX.actionStepTypeId)
+      .raw(INDEX.companyId)
+      .raw(INDEX.taskId)
+      .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.HISTORY_LOG_CDC);

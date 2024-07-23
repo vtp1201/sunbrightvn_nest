@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -58,13 +59,23 @@ export enum RELATION {
   task = RELATION_DEFAULT.task,
 }
 
+const tableName = TABLE_NAME.FATCA;
+export enum INDEX_NAME {
+  companyMemberId = `"${tableName}_${COLUMN.companyMemberId}_fkey"`,
+  customerId = `"${tableName}_${COLUMN.customerId}_fkey"`,
+  holderCountryId = `"${tableName}_${COLUMN.holderCountryId}_fkey"`,
+  mailingCountryId = `"${tableName}_${COLUMN.mailingCountryId}_fkey"`,
+  residentCountryId = `"${tableName}_${COLUMN.residentCountryId}_fkey"`,
+  taskId = `"${tableName}_${COLUMN.taskId}_fkey"`,
+}
+
 export enum INDEX {
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
-  customerId = `@@index([${ATTRIBUTE.customerId}])`,
-  holderCountryId = `@@index([${ATTRIBUTE.holderCountryId}])`,
-  mailingCountryId = `@@index([${ATTRIBUTE.mailingCountryId}])`,
-  residentCountryId = `@@index([${ATTRIBUTE.residentCountryId}])`,
-  taskId = `@@index([${ATTRIBUTE.taskId}])`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: ${INDEX_NAME.companyMemberId})`,
+  customerId = `@@index([${ATTRIBUTE.customerId}], map: ${INDEX_NAME.customerId})`,
+  holderCountryId = `@@index([${ATTRIBUTE.holderCountryId}], map: ${INDEX_NAME.holderCountryId})`,
+  mailingCountryId = `@@index([${ATTRIBUTE.mailingCountryId}], map: ${INDEX_NAME.mailingCountryId})`,
+  residentCountryId = `@@index([${ATTRIBUTE.residentCountryId}], map: ${INDEX_NAME.residentCountryId})`,
+  taskId = `@@index([${ATTRIBUTE.taskId}], map: ${INDEX_NAME.taskId})`,
 }
 
 export default {

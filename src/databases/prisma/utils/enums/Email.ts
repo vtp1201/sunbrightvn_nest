@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -57,12 +58,21 @@ export enum RELATION {
   emailTemplateHasReceivers = RELATION_DEFAULT.emailTemplateHasReceivers,
 }
 
+const tableName = TABLE_NAME.EMAIL;
+export enum INDEX_NAME {
+  agentId = `"${tableName}_${COLUMN.agentId}_fkey"`,
+  companyMemberId = `"${tableName}_${COLUMN.companyMemberId}_fkey"`,
+  emailTemplateId = `"${tableName}_${COLUMN.emailTemplateId}_fkey"`,
+  processId = `"${tableName}_${COLUMN.processId}_fkey"`,
+  companyId = `"${tableName}_${COLUMN.companyId}_fkey"`,
+}
+
 export enum INDEX {
-  agentId = `@@index([${ATTRIBUTE.agentId}])`,
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
-  emailTemplateId = `@@index([${ATTRIBUTE.emailTemplateId}])`,
-  processId = `@@index([${ATTRIBUTE.processId}])`,
-  companyId = `@@index([${ATTRIBUTE.companyId}])`,
+  agentId = `@@index([${ATTRIBUTE.agentId}], map: ${INDEX_NAME.agentId})`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: ${INDEX_NAME.companyMemberId})`,
+  emailTemplateId = `@@index([${ATTRIBUTE.emailTemplateId}], map: ${INDEX_NAME.emailTemplateId})`,
+  processId = `@@index([${ATTRIBUTE.processId}], map: ${INDEX_NAME.processId})`,
+  companyId = `@@index([${ATTRIBUTE.companyId}], map: ${INDEX_NAME.companyId})`,
 }
 
 export default {

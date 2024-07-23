@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -25,9 +26,15 @@ export enum RELATION {
   mailchimpMember = RELATION_DEFAULT.mailchimpMember,
 }
 
+const tableName = TABLE_NAME.MAILCHIMP_CAMPAIGN_MEMBER;
+export enum INDEX_NAME {
+  mailchimpCampaignId = `"${tableName}_${COLUMN.mailchimpCampaignId}_fkey"`,
+  mailchimpMemberEmailId = `"${tableName}_${COLUMN.mailchimpMemberEmailId}_fkey"`,
+}
+
 export enum INDEX {
-  mailchimpCampaignId = `@@index([${ATTRIBUTE.mailchimpCampaignId}])`,
-  mailchimpMemberEmailId = `@@index([${ATTRIBUTE.mailchimpMemberEmailId}])`,
+  mailchimpCampaignId = `@@index([${ATTRIBUTE.mailchimpCampaignId}], map: ${INDEX_NAME.mailchimpCampaignId})`,
+  mailchimpMemberEmailId = `@@index([${ATTRIBUTE.mailchimpMemberEmailId}], map: ${INDEX_NAME.mailchimpMemberEmailId})`,
 }
 
 export default {

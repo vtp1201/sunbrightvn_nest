@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { file, supportCase, user } from '.';
 import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Message';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Message';
 
 export default createModel(MODEL_NAME.MESSAGE, (MessageModel) => {
   const initCreatedTime = createdTime({
@@ -28,11 +28,13 @@ export default createModel(MODEL_NAME.MESSAGE, (MessageModel) => {
   });
   const supportCaseRelation = oneToOne({
     attribute: ATTRIBUTE.supportCaseId,
+    map: INDEX_NAME.supportCaseId,
     model: supportCase,
     relation: RELATION.supportCase,
   });
   const userRelation = oneToOne({
     attribute: ATTRIBUTE.userId,
+    map: INDEX_NAME.userId,
     model: user,
     relation: RELATION.user,
   });
@@ -68,8 +70,8 @@ export default createModel(MODEL_NAME.MESSAGE, (MessageModel) => {
       .mixin(userRelation)
 
       // indexes
-      // .raw(INDEX.supportCaseId)
-      // .raw(INDEX.userId)
+      .raw(INDEX.supportCaseId)
+      .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.MESSAGE);

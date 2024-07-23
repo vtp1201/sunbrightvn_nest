@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -26,9 +27,15 @@ export enum RELATION {
   supportCase = RELATION_DEFAULT.supportCase,
 }
 
+const tableName = TABLE_NAME.CLICK;
+export enum INDEX_NAME {
+  supportCaseId = `"${tableName}_${COLUMN.supportCaseId}_fkey"`,
+  userId = `"${tableName}_${COLUMN.userId}_fkey"`,
+}
+
 export enum INDEX {
-  supportCaseId = `@@index([${ATTRIBUTE.supportCaseId}])`,
-  userId = `@@index([${ATTRIBUTE.userId}])`,
+  supportCaseId = `@@index([${ATTRIBUTE.supportCaseId}], map: ${INDEX_NAME.supportCaseId})`,
+  userId = `@@index([${ATTRIBUTE.userId}], map: ${INDEX_NAME.userId})`,
 }
 
 export default {

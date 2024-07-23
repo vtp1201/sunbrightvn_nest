@@ -3,7 +3,13 @@ import { createModel } from 'schemix';
 import { country, gender, typeMember } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/HistoryCompanyMember';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  INDEX_NAME,
+  RELATION,
+} from '../utils/enums/HistoryCompanyMember';
 
 export default createModel(MODEL_NAME.HISTORY_COMPANY_MEMBER, (HistoryCompanyMemberModel) => {
   const initCreatedTime = createdTime({
@@ -28,18 +34,21 @@ export default createModel(MODEL_NAME.HISTORY_COMPANY_MEMBER, (HistoryCompanyMem
   // defined Relations
   const genderRelation = oneToOne({
     attribute: ATTRIBUTE.genderId,
+    map: INDEX_NAME.genderId,
     model: gender,
     relation: RELATION.gender,
     option: { optional: true },
   });
   const typeMemberRelation = oneToOne({
     attribute: ATTRIBUTE.typeMemberId,
+    map: INDEX_NAME.typeMemberId,
     model: typeMember,
     relation: RELATION.typeMember,
     option: { optional: true },
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
+    map: INDEX_NAME.countryId,
     model: country,
     relation: RELATION.country,
     isNeedName: true,
@@ -47,6 +56,7 @@ export default createModel(MODEL_NAME.HISTORY_COMPANY_MEMBER, (HistoryCompanyMem
   });
   const phoneCountryRelation = oneToOne({
     attribute: ATTRIBUTE.phoneCountryId,
+    map: INDEX_NAME.phoneCountryId,
     model: country,
     relation: RELATION.phoneCountry,
     isNeedName: true,
@@ -54,6 +64,7 @@ export default createModel(MODEL_NAME.HISTORY_COMPANY_MEMBER, (HistoryCompanyMem
   });
   const birthCountryRelation = oneToOne({
     attribute: ATTRIBUTE.birthCountryId,
+    map: INDEX_NAME.birthCountryId,
     model: country,
     relation: RELATION.birthCountry,
     isNeedName: true,
@@ -61,6 +72,7 @@ export default createModel(MODEL_NAME.HISTORY_COMPANY_MEMBER, (HistoryCompanyMem
   });
   const addressCountryRelation = oneToOne({
     attribute: ATTRIBUTE.addressCountryId,
+    map: INDEX_NAME.addressCountryId,
     model: country,
     relation: RELATION.addressCountry,
     isNeedName: true,
@@ -328,13 +340,13 @@ export default createModel(MODEL_NAME.HISTORY_COMPANY_MEMBER, (HistoryCompanyMem
       .mixin(addressCountryRelation)
 
       // Indexes
-      // .raw(INDEX.addressCountryId)
-      // .raw(INDEX.birthCountryId)
-      // .raw(INDEX.countryId)
-      // .raw(INDEX.genderId)
-      // .raw(INDEX.phoneCountryId)
-      // .raw(INDEX.typeMemberId)
-      // .raw(INDEX.uniqueTaskCompanyMemberVersion)
+      .raw(INDEX.addressCountryId)
+      .raw(INDEX.birthCountryId)
+      .raw(INDEX.countryId)
+      .raw(INDEX.genderId)
+      .raw(INDEX.phoneCountryId)
+      .raw(INDEX.typeMemberId)
+      .raw(INDEX.uniqueTaskCompanyMemberVersion)
 
       // table name
       .map(TABLE_NAME.HISTORY_COMPANY_MEMBER);

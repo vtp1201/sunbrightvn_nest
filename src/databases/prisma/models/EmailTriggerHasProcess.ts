@@ -3,7 +3,13 @@ import { createModel } from 'schemix';
 import { Process, emailTemplate, emailTrigger } from '.';
 import { createdTime, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/EmailTriggerHasProcess';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  INDEX_NAME,
+  RELATION,
+} from '../utils/enums/EmailTriggerHasProcess';
 
 export default createModel(MODEL_NAME.EMAIL_TRIGGER_HAS_PROCESS, (EmailTriggerHasProcessModel) => {
   const initCreatedTime = createdTime({
@@ -20,16 +26,19 @@ export default createModel(MODEL_NAME.EMAIL_TRIGGER_HAS_PROCESS, (EmailTriggerHa
     attribute: ATTRIBUTE.emailTemplateId,
     model: emailTemplate,
     relation: RELATION.emailTemplate,
+    map: INDEX_NAME.emailTemplateId,
   });
   const emailTriggerRelation = oneToOne({
     attribute: ATTRIBUTE.emailTriggerId,
     model: emailTrigger,
     relation: RELATION.emailTrigger,
+    map: INDEX_NAME.emailTriggerId,
   });
   const processRelation = oneToOne({
     attribute: ATTRIBUTE.processId,
     model: Process,
     relation: RELATION.process,
+    map: INDEX_NAME.processId,
   });
 
   // defined Model
@@ -62,9 +71,9 @@ export default createModel(MODEL_NAME.EMAIL_TRIGGER_HAS_PROCESS, (EmailTriggerHa
       })
 
       // indexes
-      // .raw(INDEX.emailTriggerId)
-      // .raw(INDEX.emailTemplateId)
-      // .raw(INDEX.processId)
+      .raw(INDEX.emailTriggerId)
+      .raw(INDEX.emailTemplateId)
+      .raw(INDEX.processId)
 
       // table name
       .map(TABLE_NAME.EMAIL_TRIGGER_HAS_PROCESS);

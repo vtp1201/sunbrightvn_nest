@@ -20,7 +20,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/File';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/File';
 
 export default createModel(MODEL_NAME.FILE, (FileModel) => {
   const initCreatedTime = createdTime({
@@ -51,18 +51,21 @@ export default createModel(MODEL_NAME.FILE, (FileModel) => {
     attribute: ATTRIBUTE.changeRequestId,
     model: changeRequest,
     relation: RELATION.changeRequest,
+    map: INDEX_NAME.changeRequestId,
     option: { optional: true },
   });
   const companyRelation = oneToOne({
     attribute: ATTRIBUTE.companyId,
     model: company,
     relation: RELATION.company,
+    map: INDEX_NAME.companyId,
     option: { optional: true },
   });
   const companyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.companyMemberId,
     model: companyMember,
     relation: RELATION.companyMember,
+    map: INDEX_NAME.companyMemberId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -70,18 +73,21 @@ export default createModel(MODEL_NAME.FILE, (FileModel) => {
     attribute: ATTRIBUTE.fileTemplateId,
     model: fileTemplate,
     relation: RELATION.fileTemplate,
+    map: INDEX_NAME.fileTemplateId,
     option: { optional: true },
   });
   const fileTypeRelation = oneToOne({
     attribute: ATTRIBUTE.fileTypeId,
     model: fileType,
     relation: RELATION.fileType,
+    map: INDEX_NAME.fileTypeId,
     option: { optional: true },
   });
   const filledByCompanyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.filledByCompanyMemberId,
     model: companyMember,
     relation: RELATION.filledByCompanyMember,
+    map: INDEX_NAME.filledByCompanyMemberId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -89,54 +95,63 @@ export default createModel(MODEL_NAME.FILE, (FileModel) => {
     attribute: ATTRIBUTE.messageId,
     model: message,
     relation: RELATION.message,
+    map: INDEX_NAME.messageId,
     option: { optional: true },
   });
   const noteRelation = oneToOne({
     attribute: ATTRIBUTE.noteId,
     model: note,
     relation: RELATION.note,
+    map: INDEX_NAME.noteId,
     option: { optional: true },
   });
   const orderRelation = oneToOne({
     attribute: ATTRIBUTE.orderId,
     model: order,
     relation: RELATION.order,
+    map: INDEX_NAME.orderId,
     option: { optional: true },
   });
   const questionGroupRelation = oneToOne({
     attribute: ATTRIBUTE.questionGroupId,
     model: questionGroup,
     relation: RELATION.questionGroup,
+    map: INDEX_NAME.questionGroupId,
     option: { optional: true },
   });
   const rankingPartnerRelation = oneToOne({
     attribute: ATTRIBUTE.rankingPartnerId,
     model: rankingPartner,
     relation: RELATION.rankingPartner,
+    map: INDEX_NAME.rankingPartnerId,
     option: { optional: true },
   });
   const taskRelation = oneToOne({
     attribute: ATTRIBUTE.taskId,
     model: task,
     relation: RELATION.task,
+    map: INDEX_NAME.taskId,
     option: { optional: true },
   });
   const userRelation = oneToOne({
     attribute: ATTRIBUTE.userId,
     model: user,
     relation: RELATION.user,
+    map: INDEX_NAME.userId,
     option: { optional: true },
   });
   const apiExampleRelation = oneToOne({
     attribute: ATTRIBUTE.apiExampleId,
     model: apiExample,
     relation: RELATION.apiExample,
+    map: INDEX_NAME.apiExampleId,
     option: { optional: true },
   });
   const companyEventRelation = oneToOne({
     attribute: ATTRIBUTE.companyEventId,
     model: companyEvent,
     relation: RELATION.companyEvent,
+    map: INDEX_NAME.companyEventId,
     option: { optional: true },
   });
   const historyFilesRelation = oneToMany({
@@ -292,21 +307,21 @@ export default createModel(MODEL_NAME.FILE, (FileModel) => {
       .mixin(historyFilesRelation)
 
       // indexes
-      // .raw(INDEX.changeRequestId)
-      // .raw(INDEX.companyId)
-      // .raw(INDEX.companyMemberId)
-      // .raw(INDEX.fileTemplateId)
-      // .raw(INDEX.fileTypeId)
-      // .raw(INDEX.filledByCompanyMemberId)
-      // .raw(INDEX.messageId)
-      // .raw(INDEX.noteId)
-      // .raw(INDEX.questionGroupId)
-      // .raw(INDEX.rankingPartnerId)
-      // .raw(INDEX.taskId)
-      // .raw(INDEX.userId)
-      // .raw(INDEX.orderId)
-      // .raw(INDEX.apiExampleId)
-      // .raw(INDEX.companyEventId)
+      .raw(INDEX.changeRequestId)
+      .raw(INDEX.companyId)
+      .raw(INDEX.companyMemberId)
+      .raw(INDEX.fileTemplateId)
+      .raw(INDEX.fileTypeId)
+      .raw(INDEX.filledByCompanyMemberId)
+      .raw(INDEX.messageId)
+      .raw(INDEX.noteId)
+      .raw(INDEX.questionGroupId)
+      .raw(INDEX.rankingPartnerId)
+      .raw(INDEX.taskId)
+      .raw(INDEX.userId)
+      .raw(INDEX.orderId)
+      .raw(INDEX.apiExampleId)
+      .raw(INDEX.companyEventId)
 
       // table name
       .map(TABLE_NAME.FILE);

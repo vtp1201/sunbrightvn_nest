@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { country, grantSchemeHasGrantTypeAttribute } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/GrantScheme';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/GrantScheme';
 
 export default createModel(MODEL_NAME.GRANT_SCHEME, (GrantSchemeModel) => {
   const initCreatedTime = createdTime({
@@ -34,6 +34,7 @@ export default createModel(MODEL_NAME.GRANT_SCHEME, (GrantSchemeModel) => {
     attribute: ATTRIBUTE.countryId,
     model: country,
     relation: RELATION.country,
+    map: INDEX_NAME.countryId,
     option: { optional: true },
   });
 
@@ -95,7 +96,7 @@ export default createModel(MODEL_NAME.GRANT_SCHEME, (GrantSchemeModel) => {
       .mixin(grantSchemeHasGrantTypeAttributesRelation)
 
       // indexes
-      // .raw(INDEX.countryId)
+      .raw(INDEX.countryId)
 
       // table name
       .map(TABLE_NAME.GRANT_SCHEME);

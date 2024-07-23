@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { companyMember, country, customer, declarationTax, task } from '.';
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Fatca';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Fatca';
 
 export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
   const initDeleted = deleted(
@@ -26,18 +26,21 @@ export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
     attribute: ATTRIBUTE.companyMemberId,
     model: companyMember,
     relation: RELATION.companyMember,
+    map: INDEX_NAME.companyMemberId,
     option: { optional: true },
   });
   const customerRelation = oneToOne({
     attribute: ATTRIBUTE.customerId,
     model: customer,
     relation: RELATION.customer,
+    map: INDEX_NAME.customerId,
     option: { optional: true },
   });
   const holderCountryRelation = oneToOne({
     attribute: ATTRIBUTE.holderCountryId,
     model: country,
     relation: RELATION.holderCountry,
+    map: INDEX_NAME.holderCountryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -45,6 +48,7 @@ export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
     attribute: ATTRIBUTE.mailingCountryId,
     model: country,
     relation: RELATION.mailingCountry,
+    map: INDEX_NAME.mailingCountryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -52,6 +56,7 @@ export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
     attribute: ATTRIBUTE.residentCountryId,
     model: country,
     relation: RELATION.residentCountry,
+    map: INDEX_NAME.residentCountryId,
     isNeedName: true,
     option: { optional: true },
   });
@@ -59,6 +64,7 @@ export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
     attribute: ATTRIBUTE.taskId,
     model: task,
     relation: RELATION.task,
+    map: INDEX_NAME.taskId,
   });
 
   // defined Model
@@ -164,12 +170,12 @@ export default createModel(MODEL_NAME.FATCA, (FatcaModel) => {
       .mixin(taskRelation)
 
       // indexes
-      // .raw(INDEX.companyMemberId)
-      // .raw(INDEX.customerId)
-      // .raw(INDEX.holderCountryId)
-      // .raw(INDEX.mailingCountryId)
-      // .raw(INDEX.residentCountryId)
-      // .raw(INDEX.taskId)
+      .raw(INDEX.companyMemberId)
+      .raw(INDEX.customerId)
+      .raw(INDEX.holderCountryId)
+      .raw(INDEX.mailingCountryId)
+      .raw(INDEX.residentCountryId)
+      .raw(INDEX.taskId)
 
       // table name
       .map(TABLE_NAME.FATCA);

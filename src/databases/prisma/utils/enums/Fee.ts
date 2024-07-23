@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -27,9 +28,15 @@ export enum RELATION {
   service = RELATION_DEFAULT.service,
 }
 
+const tableName = TABLE_NAME.FEE;
+export enum INDEX_NAME {
+  feeTypeId = `"${tableName}_${COLUMN.feeTypeId}_fkey"`,
+  serviceId = `"${tableName}_${COLUMN.serviceId}_fkey"`,
+}
+
 export enum INDEX {
-  feeTypeId = `@@index([${ATTRIBUTE.feeTypeId}])`,
-  serviceId = `@@index([${ATTRIBUTE.serviceId}])`,
+  feeTypeId = `@@index([${ATTRIBUTE.feeTypeId}], map: ${INDEX_NAME.feeTypeId})`,
+  serviceId = `@@index([${ATTRIBUTE.serviceId}], map: ${INDEX_NAME.serviceId})`,
 }
 
 export default {

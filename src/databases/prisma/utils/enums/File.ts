@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -90,22 +91,41 @@ export enum RELATION {
   historyFiles = RELATION_DEFAULT.historyFiles,
 }
 
+const tableName = TABLE_NAME.FILE;
+export enum INDEX_NAME {
+  changeRequestId = `"${tableName}_${COLUMN.changeRequestId}_fkey"`,
+  companyId = `"${tableName}_${COLUMN.companyId}_fkey"`,
+  companyMemberId = `"${tableName}_${COLUMN.companyMemberId}_fkey"`,
+  fileTemplateId = `"${tableName}_${COLUMN.fileTemplateId}_fkey"`,
+  fileTypeId = `"${tableName}_${COLUMN.fileTypeId}_fkey"`,
+  filledByCompanyMemberId = `"${tableName}_${COLUMN.filledByCompanyMemberId}_fkey"`,
+  messageId = `"${tableName}_${COLUMN.messageId}_fkey"`,
+  noteId = `"${tableName}_${COLUMN.noteId}_fkey"`,
+  orderId = `"${tableName}_${COLUMN.orderId}_fkey"`,
+  questionGroupId = `"${tableName}_${COLUMN.questionGroupId}_fkey"`,
+  rankingPartnerId = `"${tableName}_${COLUMN.rankingPartnerId}_fkey"`,
+  taskId = `"${tableName}_${COLUMN.taskId}_fkey"`,
+  userId = `"${tableName}_${COLUMN.userId}_fkey"`,
+  apiExampleId = `"${tableName}_${COLUMN.apiExampleId}_fkey"`,
+  companyEventId = `"${tableName}_${COLUMN.companyEventId}_fkey"`,
+}
+
 export enum INDEX {
-  changeRequestId = `@@index([${ATTRIBUTE.changeRequestId}])`,
-  companyId = `@@index([${ATTRIBUTE.companyId}])`,
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
-  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}])`,
-  fileTypeId = `@@index([${ATTRIBUTE.fileTypeId}])`,
-  filledByCompanyMemberId = `@@index([${ATTRIBUTE.filledByCompanyMemberId}])`,
-  messageId = `@@index([${ATTRIBUTE.messageId}])`,
-  noteId = `@@index([${ATTRIBUTE.noteId}])`,
-  orderId = `@@index([${ATTRIBUTE.orderId}])`,
-  questionGroupId = `@@index([${ATTRIBUTE.questionGroupId}])`,
-  rankingPartnerId = `@@index([${ATTRIBUTE.rankingPartnerId}])`,
-  taskId = `@@index([${ATTRIBUTE.taskId}])`,
-  userId = `@@index([${ATTRIBUTE.userId}])`,
-  apiExampleId = `@@index([${ATTRIBUTE.apiExampleId}])`,
-  companyEventId = `@@index([${ATTRIBUTE.companyEventId}])`,
+  changeRequestId = `@@index([${ATTRIBUTE.changeRequestId}], map: ${INDEX_NAME.changeRequestId})`,
+  companyId = `@@index([${ATTRIBUTE.companyId}], map: ${INDEX_NAME.companyId})`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: ${INDEX_NAME.companyMemberId})`,
+  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}], map: ${INDEX_NAME.fileTemplateId})`,
+  fileTypeId = `@@index([${ATTRIBUTE.fileTypeId}], map: ${INDEX_NAME.fileTypeId})`,
+  filledByCompanyMemberId = `@@index([${ATTRIBUTE.filledByCompanyMemberId}], map: ${INDEX_NAME.filledByCompanyMemberId})`,
+  messageId = `@@index([${ATTRIBUTE.messageId}], map: ${INDEX_NAME.messageId})`,
+  noteId = `@@index([${ATTRIBUTE.noteId}], map: ${INDEX_NAME.noteId})`,
+  orderId = `@@index([${ATTRIBUTE.orderId}], map: ${INDEX_NAME.orderId})`,
+  questionGroupId = `@@index([${ATTRIBUTE.questionGroupId}], map: ${INDEX_NAME.questionGroupId})`,
+  rankingPartnerId = `@@index([${ATTRIBUTE.rankingPartnerId}], map: ${INDEX_NAME.rankingPartnerId})`,
+  taskId = `@@index([${ATTRIBUTE.taskId}], map: ${INDEX_NAME.taskId})`,
+  userId = `@@index([${ATTRIBUTE.userId}], map: ${INDEX_NAME.userId})`,
+  apiExampleId = `@@index([${ATTRIBUTE.apiExampleId}], map: ${INDEX_NAME.apiExampleId})`,
+  companyEventId = `@@index([${ATTRIBUTE.companyEventId}], map: ${INDEX_NAME.companyEventId})`,
 }
 
 export default {

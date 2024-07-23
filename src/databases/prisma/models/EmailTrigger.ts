@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { emailTriggerHasProcess, processStep } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/EmailTrigger';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/EmailTrigger';
 
 export default createModel(MODEL_NAME.EMAIL_TRIGGER, (EmailTriggerModel) => {
   const initCreatedTime = createdTime({
@@ -30,6 +30,7 @@ export default createModel(MODEL_NAME.EMAIL_TRIGGER, (EmailTriggerModel) => {
     attribute: ATTRIBUTE.processStepId,
     model: processStep,
     relation: RELATION.processStep,
+    map: INDEX_NAME.processStepId,
     option: { optional: true },
   });
   const emailTriggerHasProcessesRelation = oneToMany({
@@ -78,7 +79,7 @@ export default createModel(MODEL_NAME.EMAIL_TRIGGER, (EmailTriggerModel) => {
       .mixin(emailTriggerHasProcessesRelation)
 
       // indexes
-      // .raw(INDEX.processStepId)
+      .raw(INDEX.processStepId)
 
       // table name
       .map(TABLE_NAME.EMAIL_TRIGGER);

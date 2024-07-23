@@ -3,7 +3,13 @@ import { createModel } from 'schemix';
 import { mailchimpCampaign, mailchimpMember } from '.';
 import { createdTime, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/MailchimpCampaignMember';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  INDEX_NAME,
+  RELATION,
+} from '../utils/enums/MailchimpCampaignMember';
 import { ATTRIBUTE as ATTRIBUTE_MAILCHIMP_MEMBER } from '../utils/enums/MailchimpMember';
 
 export default createModel(MODEL_NAME.MAILCHIMP_CAMPAIGN_MEMBER, (MailchimpCampaignMemberModel) => {
@@ -15,6 +21,7 @@ export default createModel(MODEL_NAME.MAILCHIMP_CAMPAIGN_MEMBER, (MailchimpCampa
   // defined Relations
   const mailchimpMemberRelation = oneToOne({
     attribute: ATTRIBUTE.mailchimpMemberEmailId,
+    map: INDEX_NAME.mailchimpMemberEmailId,
     model: mailchimpMember,
     relation: RELATION.mailchimpMember,
     option: {
@@ -23,6 +30,7 @@ export default createModel(MODEL_NAME.MAILCHIMP_CAMPAIGN_MEMBER, (MailchimpCampa
   });
   const mailchimpCampaignRelation = oneToOne({
     attribute: ATTRIBUTE.mailchimpCampaignId,
+    map: INDEX_NAME.mailchimpCampaignId,
     model: mailchimpCampaign,
     relation: RELATION.mailchimpCampaign,
     option: { optional: true },
@@ -68,8 +76,8 @@ export default createModel(MODEL_NAME.MAILCHIMP_CAMPAIGN_MEMBER, (MailchimpCampa
       .mixin(mailchimpMemberRelation)
 
       // indexes
-      // .raw(INDEX.mailchimpCampaignId)
-      // .raw(INDEX.mailchimpMemberEmailId)
+      .raw(INDEX.mailchimpCampaignId)
+      .raw(INDEX.mailchimpMemberEmailId)
 
       // table name
       .map(TABLE_NAME.MAILCHIMP_CAMPAIGN_MEMBER);

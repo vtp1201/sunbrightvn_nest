@@ -1,4 +1,4 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
+import { RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   id = 'id',
@@ -20,8 +20,6 @@ export enum RELATION {
   mailchimpCampaignMembers = RELATION_DEFAULT.mailchimpCampaignMembers,
   mailchimpSummaries = RELATION_DEFAULT.mailchimpSummaries,
 }
-
-export enum INDEX {}
 
 export default {
   ATTRIBUTE,
