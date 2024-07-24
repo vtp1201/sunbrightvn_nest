@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -52,14 +53,25 @@ export enum RELATION {
   packageHasServices = RELATION_DEFAULT.packageHasServices,
 }
 
+const tableName = TABLE_NAME.PACKAGE;
+export enum INDEX_NAME {
+  packageAnnualId = `"${tableName}_${COLUMN.packageAnnualId}_fkey"`,
+  countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  entityTypeId = `"${tableName}_${COLUMN.entityTypeId}_fkey"`,
+  packageGroupId = `"${tableName}_${COLUMN.packageGroupId}_fkey"`,
+  packageTypeId = `"${tableName}_${COLUMN.packageTypeId}_fkey"`,
+  serviceTypeId = `"${tableName}_${COLUMN.serviceTypeId}_fkey"`,
+  websiteId = `"${tableName}_${COLUMN.websiteId}_fkey"`,
+}
+
 export enum INDEX {
-  packageAnnualId = `@@index([${ATTRIBUTE.packageAnnualId}])`,
-  countryId = `@@index([${ATTRIBUTE.countryId}])`,
-  entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}])`,
-  packageGroupId = `@@index([${ATTRIBUTE.packageGroupId}])`,
-  packageTypeId = `@@index([${ATTRIBUTE.packageTypeId}])`,
-  serviceTypeId = `@@index([${ATTRIBUTE.serviceTypeId}])`,
-  websiteId = `@@index([${ATTRIBUTE.websiteId}])`,
+  packageAnnualId = `@@index([${ATTRIBUTE.packageAnnualId}], map: ${INDEX_NAME.packageAnnualId})`,
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
+  entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}], map: ${INDEX_NAME.entityTypeId})`,
+  packageGroupId = `@@index([${ATTRIBUTE.packageGroupId}], map: ${INDEX_NAME.packageGroupId})`,
+  packageTypeId = `@@index([${ATTRIBUTE.packageTypeId}], map: ${INDEX_NAME.packageTypeId})`,
+  serviceTypeId = `@@index([${ATTRIBUTE.serviceTypeId}], map: ${INDEX_NAME.serviceTypeId})`,
+  websiteId = `@@index([${ATTRIBUTE.websiteId}], map: ${INDEX_NAME.websiteId})`,
 }
 
 export default {

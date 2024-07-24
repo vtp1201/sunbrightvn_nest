@@ -1,9 +1,9 @@
 import { createModel } from 'schemix';
 
-import { Process, answer, country, customer, gender, titleName, user } from '.';
+import { Process, country, customer, gender, titleName, user } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Person';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Person';
 
 export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
   const initCreatedTime = createdTime({
@@ -32,6 +32,7 @@ export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
+    map: INDEX_NAME.countryId,
     model: country,
     relation: RELATION.country,
     isNeedName: true,
@@ -39,12 +40,14 @@ export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
   });
   const genderRelation = oneToOne({
     attribute: ATTRIBUTE.genderId,
+    map: INDEX_NAME.genderId,
     model: gender,
     relation: RELATION.gender,
     option: { optional: true },
   });
   const phoneCountryRelation = oneToOne({
     attribute: ATTRIBUTE.phoneCountryId,
+    map: INDEX_NAME.phoneCountryId,
     model: country,
     relation: RELATION.phoneCountry,
     isNeedName: true,
@@ -52,6 +55,7 @@ export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
   });
   const titleNameRelation = oneToOne({
     attribute: ATTRIBUTE.titleNameId,
+    map: INDEX_NAME.titleNameId,
     model: titleName,
     relation: RELATION.titleName,
     option: { optional: true },
@@ -156,10 +160,10 @@ export default createModel(MODEL_NAME.PERSON, (PersonModel) => {
       .mixin(usersRelation)
 
       // indexes
-      // .raw(INDEX.countryId)
-      // .raw(INDEX.genderId)
-      // .raw(INDEX.phoneCountryId)
-      // .raw(INDEX.titleNameId)
+      .raw(INDEX.countryId)
+      .raw(INDEX.genderId)
+      .raw(INDEX.phoneCountryId)
+      .raw(INDEX.titleNameId)
 
       // table name
       .map(TABLE_NAME.PERSON);

@@ -22,7 +22,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Order';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Order';
 import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.ORDER, (OrderModel) => {
@@ -61,18 +61,21 @@ export default createModel(MODEL_NAME.ORDER, (OrderModel) => {
   });
   const billingRelation = oneToOne({
     attribute: ATTRIBUTE.billingId,
+    map: INDEX_NAME.billingId,
     model: billing,
     relation: RELATION.billing,
     option: { optional: true },
   });
   const companyRelation = oneToOne({
     attribute: ATTRIBUTE.companyId,
+    map: INDEX_NAME.companyId,
     model: company,
     relation: RELATION.company,
     option: { optional: true },
   });
   const customerRelation = oneToOne({
     attribute: ATTRIBUTE.customerId,
+    map: INDEX_NAME.customerId,
     model: customer,
     relation: RELATION.customer,
     isNeedName: true,
@@ -80,35 +83,41 @@ export default createModel(MODEL_NAME.ORDER, (OrderModel) => {
   });
   const orderStatusRelation = oneToOne({
     attribute: ATTRIBUTE.orderStatusId,
+    map: INDEX_NAME.orderStatusId,
     model: orderStatus,
     relation: RELATION.orderStatus,
   });
   const paymentGatewayRelation = oneToOne({
     attribute: ATTRIBUTE.paymentGatewayId,
+    map: INDEX_NAME.paymentGatewayId,
     model: paymentGateway,
     relation: RELATION.paymentGateway,
     option: { optional: true },
   });
   const websiteRelation = oneToOne({
     attribute: ATTRIBUTE.websiteId,
+    map: INDEX_NAME.websiteId,
     model: website,
     relation: RELATION.website,
     option: { optional: true },
   });
   const xeroInvoiceStatusRelation = oneToOne({
     attribute: ATTRIBUTE.xeroInvoiceStatusId,
+    map: INDEX_NAME.xeroInvoiceStatusId,
     model: xeroInvoiceStatus,
     relation: RELATION.xeroInvoiceStatus,
     option: { optional: true },
   });
   const countryCardRelation = oneToOne({
     attribute: ATTRIBUTE.countryCardId,
+    map: INDEX_NAME.countryCardId,
     model: country,
     relation: RELATION.countryCard,
     option: { optional: true },
   });
   const orderFromRelation = oneToOne({
     attribute: ATTRIBUTE.orderFromId,
+    map: INDEX_NAME.orderFromId,
     model: orderFrom,
     relation: RELATION.orderFrom,
     option: { optional: true },
@@ -311,15 +320,15 @@ export default createModel(MODEL_NAME.ORDER, (OrderModel) => {
       .mixin(vouchersRelation)
 
       // indexes
-      // .raw(INDEX.billingId)
-      // .raw(INDEX.companyId)
-      // .raw(INDEX.countryCardId)
-      // .raw(INDEX.customerId)
-      // .raw(INDEX.orderFromId)
-      // .raw(INDEX.orderStatusId)
-      // .raw(INDEX.paymentGatewayId)
-      // .raw(INDEX.websiteId)
-      // .raw(INDEX.xeroInvoiceStatusId)
+      .raw(INDEX.billingId)
+      .raw(INDEX.companyId)
+      .raw(INDEX.countryCardId)
+      .raw(INDEX.customerId)
+      .raw(INDEX.orderFromId)
+      .raw(INDEX.orderStatusId)
+      .raw(INDEX.paymentGatewayId)
+      .raw(INDEX.websiteId)
+      .raw(INDEX.xeroInvoiceStatusId)
 
       // table name
       .map(TABLE_NAME.ORDER);

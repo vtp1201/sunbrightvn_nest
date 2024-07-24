@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -63,13 +64,23 @@ export enum RELATION {
   processLogs = RELATION_DEFAULT.processLogs,
 }
 
+const tableName = TABLE_NAME.PROCESS;
+export enum INDEX_NAME {
+  additionProcessId = `"${tableName}_${COLUMN.additionProcessId}_fkey"`,
+  bankingProcessId = `"${tableName}_${COLUMN.bankingProcessId}_fkey"`,
+  personId = `"${tableName}_${COLUMN.personId}_fkey"`,
+  processStepId = `"${tableName}_${COLUMN.processStepId}_fkey"`,
+  taskId = `"${tableName}_${COLUMN.taskId}_fkey"`,
+  userId = `"${tableName}_${COLUMN.userId}_fkey"`,
+}
+
 export enum INDEX {
-  additionProcessId = `@@index([${ATTRIBUTE.additionProcessId}])`,
-  bankingProcessId = `@@index([${ATTRIBUTE.bankingProcessId}])`,
-  personId = `@@index([${ATTRIBUTE.personId}])`,
-  processStepId = `@@index([${ATTRIBUTE.processStepId}])`,
-  taskId = `@@index([${ATTRIBUTE.taskId}])`,
-  userId = `@@index([${ATTRIBUTE.userId}])`,
+  additionProcessId = `@@index([${ATTRIBUTE.additionProcessId}], map: ${INDEX_NAME.additionProcessId})`,
+  bankingProcessId = `@@index([${ATTRIBUTE.bankingProcessId}], map: ${INDEX_NAME.bankingProcessId})`,
+  personId = `@@index([${ATTRIBUTE.personId}], map: ${INDEX_NAME.personId})`,
+  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: ${INDEX_NAME.processStepId})`,
+  taskId = `@@index([${ATTRIBUTE.taskId}], map: ${INDEX_NAME.taskId})`,
+  userId = `@@index([${ATTRIBUTE.userId}], map: ${INDEX_NAME.userId})`,
 }
 
 export default {

@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { notificationType, userHasNotification } from '.';
 import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Notification';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Notification';
 
 export default createModel(MODEL_NAME.NOTIFICATION, (NotificationModel) => {
   const initCreatedTime = createdTime({
@@ -28,6 +28,7 @@ export default createModel(MODEL_NAME.NOTIFICATION, (NotificationModel) => {
   });
   const notificationTypeRelation = oneToOne({
     attribute: ATTRIBUTE.notificationTypeId,
+    map: INDEX_NAME.notificationTypeId,
     model: notificationType,
     relation: RELATION.notificationType,
   });
@@ -86,7 +87,7 @@ export default createModel(MODEL_NAME.NOTIFICATION, (NotificationModel) => {
       .mixin(userHasNotificationsRelation)
 
       // indexes
-      // .raw(INDEX.notificationTypeId)
+      .raw(INDEX.notificationTypeId)
 
       // table name
       .map(TABLE_NAME.NOTIFICATION);

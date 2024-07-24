@@ -3,7 +3,13 @@ import { createModel } from 'schemix';
 import { fileTemplate, processStep } from '.';
 import { oneToOne } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/ProcessStepHasFileTemplate';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  INDEX_NAME,
+  RELATION,
+} from '../utils/enums/ProcessStepHasFileTemplate';
 
 export default createModel(
   MODEL_NAME.PROCESS_STEP_HAS_FILE_TEMPLATE,
@@ -11,11 +17,13 @@ export default createModel(
     // defined Relations
     const processStepRelation = oneToOne({
       attribute: ATTRIBUTE.processStepId,
+      map: INDEX_NAME.processStepId,
       model: processStep,
       relation: RELATION.processStep,
     });
     const fileTemplateRelation = oneToOne({
       attribute: ATTRIBUTE.fileTemplateId,
+      map: INDEX_NAME.fileTemplateId,
       model: fileTemplate,
       relation: RELATION.fileTemplate,
     });
@@ -45,6 +53,10 @@ export default createModel(
         .id({
           fields: [ATTRIBUTE.fileTemplateId, ATTRIBUTE.processStepId],
         })
+
+        // indexes
+        .raw(INDEX.fileTemplateId)
+        .raw(INDEX.processStepId)
 
         // table name
         .map(TABLE_NAME.PROCESS_STEP_HAS_FILE_TEMPLATE);

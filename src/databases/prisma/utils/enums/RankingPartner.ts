@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -30,9 +31,15 @@ export enum RELATION {
   task = RELATION_DEFAULT.task,
 }
 
+const tableName = TABLE_NAME.RANKING_PARTNER;
+export enum INDEX_NAME {
+  rankingPartnerTypeId = `"${tableName}_${COLUMN.rankingPartnerTypeId}_fkey"`,
+  taskId = `"${tableName}_${COLUMN.taskId}_fkey"`,
+}
+
 export enum INDEX {
-  rankingPartnerTypeId = `@@index([${ATTRIBUTE.rankingPartnerTypeId}])`,
-  taskId = `@@index([${ATTRIBUTE.taskId}])`,
+  rankingPartnerTypeId = `@@index([${ATTRIBUTE.rankingPartnerTypeId}], map: ${INDEX_NAME.rankingPartnerTypeId})`,
+  taskId = `@@index([${ATTRIBUTE.taskId}], map: ${INDEX_NAME.taskId})`,
 }
 
 export default {

@@ -11,7 +11,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Question';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Question';
 
 export default createModel(MODEL_NAME.QUESTION, (QuestionModel) => {
   const initCreatedTime = createdTime({
@@ -48,17 +48,20 @@ export default createModel(MODEL_NAME.QUESTION, (QuestionModel) => {
   });
   const questionPriorityRelation = oneToOne({
     attribute: ATTRIBUTE.questionPriorityId,
+    map: INDEX_NAME.questionPriorityId,
     model: questionPriority,
     relation: RELATION.questionPriority,
     option: { optional: true },
   });
   const questionTypeRelation = oneToOne({
     attribute: ATTRIBUTE.questionTypeId,
+    map: INDEX_NAME.questionTypeId,
     model: questionType,
     relation: RELATION.questionType,
   });
   const questionParentRelation = oneToOne({
     attribute: ATTRIBUTE.questionParentId,
+    map: INDEX_NAME.questionParentId,
     model: question,
     relation: RELATION.questionParent,
     isNeedName: true,
@@ -124,9 +127,9 @@ export default createModel(MODEL_NAME.QUESTION, (QuestionModel) => {
       .mixin(questionGroups)
 
       // indexes
-      // .raw(INDEX.questionParentId)
-      // .raw(INDEX.questionPriorityId)
-      // .raw(INDEX.questionTypeId)
+      .raw(INDEX.questionParentId)
+      .raw(INDEX.questionPriorityId)
+      .raw(INDEX.questionTypeId)
 
       // table name
       .map(TABLE_NAME.QUESTION);

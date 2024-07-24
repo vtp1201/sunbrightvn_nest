@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -42,10 +43,17 @@ export enum RELATION {
   task = RELATION_DEFAULT.task,
 }
 
+const tableName = TABLE_NAME.PAYMENT_INFORMATION;
+export enum INDEX_NAME {
+  companyMemberId = `"${tableName}_${COLUMN.companyMemberId}_fkey"`,
+  orderId = `"${tableName}_${COLUMN.orderId}_fkey"`,
+  taskId = `"${tableName}_${COLUMN.taskId}_fkey"`,
+}
+
 export enum INDEX {
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
-  orderId = `@@index([${ATTRIBUTE.orderId}])`,
-  taskId = `@@index([${ATTRIBUTE.taskId}])`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: ${INDEX_NAME.companyMemberId})`,
+  orderId = `@@index([${ATTRIBUTE.orderId}], map: ${INDEX_NAME.orderId})`,
+  taskId = `@@index([${ATTRIBUTE.taskId}], map: ${INDEX_NAME.taskId})`,
 }
 
 export default {

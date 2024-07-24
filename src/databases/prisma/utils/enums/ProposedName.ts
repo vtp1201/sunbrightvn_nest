@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -38,10 +39,17 @@ export enum RELATION {
   task = RELATION_DEFAULT.task,
 }
 
+const tableName = TABLE_NAME.CLICK;
+export enum INDEX_NAME {
+  companyId = `"${tableName}_${COLUMN.companyId}_fkey"`,
+  companySuffixId = `"${tableName}_${COLUMN.companySuffixId}_fkey"`,
+  taskId = `"${tableName}_${COLUMN.taskId}_fkey"`,
+}
+
 export enum INDEX {
-  companyId = `@@index([${ATTRIBUTE.companyId}])`,
-  companySuffixId = `@@index([${ATTRIBUTE.companySuffixId}])`,
-  taskId = `@@index([${ATTRIBUTE.taskId}])`,
+  companyId = `@@index([${ATTRIBUTE.companyId}], map: ${INDEX_NAME.companyId})`,
+  companySuffixId = `@@index([${ATTRIBUTE.companySuffixId}], map: ${INDEX_NAME.companySuffixId})`,
+  taskId = `@@index([${ATTRIBUTE.taskId}], map: ${INDEX_NAME.taskId})`,
 }
 
 export default {

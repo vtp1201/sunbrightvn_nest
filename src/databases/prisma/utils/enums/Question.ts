@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -39,10 +40,17 @@ export enum RELATION {
   questionGroups = RELATION_DEFAULT.questionGroups,
 }
 
+const tableName = TABLE_NAME.QUESTION;
+export enum INDEX_NAME {
+  questionPriorityId = `"${tableName}_${COLUMN.questionPriorityId}_fkey"`,
+  questionTypeId = `"${tableName}_${COLUMN.questionTypeId}_fkey"`,
+  questionParentId = `"${tableName}_${COLUMN.questionParentId}_fkey"`,
+}
+
 export enum INDEX {
-  questionPriorityId = `@@index([${ATTRIBUTE.questionPriorityId}])`,
-  questionTypeId = `@@index([${ATTRIBUTE.questionTypeId}])`,
-  questionParentId = `@@index([${ATTRIBUTE.questionParentId}])`,
+  questionPriorityId = `@@index([${ATTRIBUTE.questionPriorityId}], map: ${INDEX_NAME.questionPriorityId})`,
+  questionTypeId = `@@index([${ATTRIBUTE.questionTypeId}], map: ${INDEX_NAME.questionTypeId})`,
+  questionParentId = `@@index([${ATTRIBUTE.questionParentId}], map: ${INDEX_NAME.questionParentId})`,
 }
 
 export default {

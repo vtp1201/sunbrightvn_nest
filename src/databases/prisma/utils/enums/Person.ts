@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -54,11 +55,19 @@ export enum RELATION {
   users = RELATION_DEFAULT.users,
 }
 
+const tableName = TABLE_NAME.PERSON;
+export enum INDEX_NAME {
+  countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  genderId = `"${tableName}_${COLUMN.genderId}_fkey"`,
+  phoneCountryId = `"${tableName}_${COLUMN.phoneCountryId}_fkey"`,
+  titleNameId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+}
+
 export enum INDEX {
-  genderId = `@@index([${ATTRIBUTE.genderId}])`,
-  phoneCountryId = `@@index([${ATTRIBUTE.phoneCountryId}])`,
-  titleNameId = `@@index([${ATTRIBUTE.titleNameId}])`,
-  countryId = `@@index([${ATTRIBUTE.countryId}])`,
+  genderId = `@@index([${ATTRIBUTE.genderId}], map: ${INDEX_NAME.genderId})`,
+  phoneCountryId = `@@index([${ATTRIBUTE.phoneCountryId}], map: ${INDEX_NAME.phoneCountryId})`,
+  titleNameId = `@@index([${ATTRIBUTE.titleNameId}], map: ${INDEX_NAME.titleNameId})`,
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
 }
 
 export default {

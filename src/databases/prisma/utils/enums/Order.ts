@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -93,16 +94,29 @@ export enum RELATION {
   vouchers = RELATION_DEFAULT.vouchers,
 }
 
+const tableName = TABLE_NAME.ORDER;
+export enum INDEX_NAME {
+  billingId = `"${tableName}_${COLUMN.billingId}_fkey"`,
+  companyId = `"${tableName}_${COLUMN.companyId}_fkey"`,
+  customerId = `"${tableName}_${COLUMN.customerId}_fkey"`,
+  orderStatusId = `"${tableName}_${COLUMN.orderStatusId}_fkey"`,
+  paymentGatewayId = `"${tableName}_${COLUMN.paymentGatewayId}_fkey"`,
+  websiteId = `"${tableName}_${COLUMN.websiteId}_fkey"`,
+  xeroInvoiceStatusId = `"${tableName}_${COLUMN.xeroInvoiceStatusId}_fkey"`,
+  countryCardId = `"${tableName}_${COLUMN.countryCardId}_fkey"`,
+  orderFromId = `"${tableName}_${COLUMN.orderFromId}_fkey"`,
+}
+
 export enum INDEX {
-  billingId = `@@index([${ATTRIBUTE.billingId}])`,
-  companyId = `@@index([${ATTRIBUTE.companyId}])`,
-  customerId = `@@index([${ATTRIBUTE.customerId}])`,
-  orderStatusId = `@@index([${ATTRIBUTE.orderStatusId}])`,
-  paymentGatewayId = `@@index([${ATTRIBUTE.paymentGatewayId}])`,
-  websiteId = `@@index([${ATTRIBUTE.websiteId}])`,
-  xeroInvoiceStatusId = `@@index([${ATTRIBUTE.xeroInvoiceStatusId}])`,
-  countryCardId = `@@index([${ATTRIBUTE.countryCardId}])`,
-  orderFromId = `@@index([${ATTRIBUTE.orderFromId}])`,
+  billingId = `@@index([${ATTRIBUTE.billingId}], map: ${INDEX_NAME.billingId})`,
+  companyId = `@@index([${ATTRIBUTE.companyId}], map: ${INDEX_NAME.companyId})`,
+  customerId = `@@index([${ATTRIBUTE.customerId}], map: ${INDEX_NAME.customerId})`,
+  orderStatusId = `@@index([${ATTRIBUTE.orderStatusId}], map: ${INDEX_NAME.orderStatusId})`,
+  paymentGatewayId = `@@index([${ATTRIBUTE.paymentGatewayId}], map: ${INDEX_NAME.paymentGatewayId})`,
+  websiteId = `@@index([${ATTRIBUTE.websiteId}], map: ${INDEX_NAME.websiteId})`,
+  xeroInvoiceStatusId = `@@index([${ATTRIBUTE.xeroInvoiceStatusId}], map: ${INDEX_NAME.xeroInvoiceStatusId})`,
+  countryCardId = `@@index([${ATTRIBUTE.countryCardId}], map: ${INDEX_NAME.countryCardId})`,
+  orderFromId = `@@index([${ATTRIBUTE.orderFromId}], map: ${INDEX_NAME.orderFromId})`,
 }
 
 export default {

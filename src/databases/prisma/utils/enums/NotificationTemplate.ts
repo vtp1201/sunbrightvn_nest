@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -43,12 +44,21 @@ export enum RELATION {
   roles = RELATION_DEFAULT.roles,
 }
 
+const tableName = TABLE_NAME.NOTIFICATION_TEMPLATE;
+export enum INDEX_NAME {
+  notificationStatusId = `"${tableName}_${COLUMN.notificationStatusId}_fkey"`,
+  notificationTypeId = `"${tableName}_${COLUMN.notificationTypeId}_fkey"`,
+  actionStepTypeId = `"${tableName}_${COLUMN.actionStepTypeId}_fkey"`,
+  processStepId = `"${tableName}_${COLUMN.processStepId}_fkey"`,
+  subscriptionId = `"${tableName}_${COLUMN.subscriptionId}_fkey"`,
+}
+
 export enum INDEX {
-  notificationStatusId = `@@index([${ATTRIBUTE.notificationStatusId}])`,
-  notificationTypeId = `@@index([${ATTRIBUTE.notificationTypeId}])`,
-  actionStepTypeId = `@@index([${ATTRIBUTE.actionStepTypeId}])`,
-  processStepId = `@@index([${ATTRIBUTE.processStepId}])`,
-  subscriptionId = `@@index([${ATTRIBUTE.subscriptionId}])`,
+  notificationStatusId = `@@index([${ATTRIBUTE.notificationStatusId}], map: ${INDEX_NAME.notificationStatusId})`,
+  notificationTypeId = `@@index([${ATTRIBUTE.notificationTypeId}], map: ${INDEX_NAME.notificationTypeId})`,
+  actionStepTypeId = `@@index([${ATTRIBUTE.actionStepTypeId}], map: ${INDEX_NAME.actionStepTypeId})`,
+  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: ${INDEX_NAME.processStepId})`,
+  subscriptionId = `@@index([${ATTRIBUTE.subscriptionId}], map: ${INDEX_NAME.subscriptionId})`,
 }
 
 export default {

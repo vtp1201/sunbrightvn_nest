@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -44,12 +45,21 @@ export enum RELATION {
   process = RELATION_DEFAULT.process,
 }
 
+const tableName = TABLE_NAME.PROCESS_LOG;
+export enum INDEX_NAME {
+  agentId = `"${tableName}_${COLUMN.agentId}_fkey"`,
+  belongToCompanyMemberId = `"${tableName}_${COLUMN.belongToCompanyMemberId}_fkey"`,
+  companyMemberId = `"${tableName}_${COLUMN.companyMemberId}_fkey"`,
+  fileTemplateId = `"${tableName}_${COLUMN.fileTemplateId}_fkey"`,
+  processId = `"${tableName}_${COLUMN.processId}_fkey"`,
+}
+
 export enum INDEX {
-  agentId = `@@index([${ATTRIBUTE.agentId}])`,
-  belongToCompanyMemberId = `@@index([${ATTRIBUTE.belongToCompanyMemberId}])`,
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
-  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}])`,
-  processId = `@@index([${ATTRIBUTE.processId}])`,
+  agentId = `@@index([${ATTRIBUTE.agentId}], map: ${INDEX_NAME.agentId})`,
+  belongToCompanyMemberId = `@@index([${ATTRIBUTE.belongToCompanyMemberId}], map: ${INDEX_NAME.belongToCompanyMemberId})`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: ${INDEX_NAME.companyMemberId})`,
+  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}], map: ${INDEX_NAME.fileTemplateId})`,
+  processId = `@@index([${ATTRIBUTE.processId}], map: ${INDEX_NAME.processId})`,
 }
 
 export default {

@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -51,13 +52,23 @@ export enum RELATION {
   processes = RELATION_DEFAULT.processes,
 }
 
+const tableName = TABLE_NAME.NOTE;
+export enum INDEX_NAME {
+  userId = `"${tableName}_${COLUMN.userId}_fkey"`,
+  companyId = `"${tableName}_${COLUMN.companyId}_fkey"`,
+  companyMemberId = `"${tableName}_${COLUMN.companyMemberId}_fkey"`,
+  processStepId = `"${tableName}_${COLUMN.processStepId}_fkey"`,
+  taskId = `"${tableName}_${COLUMN.taskId}_fkey"`,
+  noteTypeId = `"${tableName}_${COLUMN.noteTypeId}_fkey"`,
+}
+
 export enum INDEX {
-  userId = `@@index([${ATTRIBUTE.userId}])`,
-  companyId = `@@index([${ATTRIBUTE.companyId}])`,
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
-  processStepId = `@@index([${ATTRIBUTE.processStepId}])`,
-  taskId = `@@index([${ATTRIBUTE.taskId}])`,
-  noteTypeId = `@@index([${ATTRIBUTE.noteTypeId}])`,
+  userId = `@@index([${ATTRIBUTE.userId}], map: ${INDEX_NAME.userId})`,
+  companyId = `@@index([${ATTRIBUTE.companyId}], map: ${INDEX_NAME.companyId})`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: ${INDEX_NAME.companyMemberId})`,
+  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: ${INDEX_NAME.processStepId})`,
+  taskId = `@@index([${ATTRIBUTE.taskId}], map: ${INDEX_NAME.taskId})`,
+  noteTypeId = `@@index([${ATTRIBUTE.noteTypeId}], map: ${INDEX_NAME.noteTypeId})`,
 }
 
 export default {

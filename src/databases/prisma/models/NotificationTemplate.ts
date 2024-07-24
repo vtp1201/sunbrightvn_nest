@@ -10,7 +10,13 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/NotificationTemplate';
+import {
+  ATTRIBUTE,
+  COLUMN,
+  INDEX,
+  INDEX_NAME,
+  RELATION,
+} from '../utils/enums/NotificationTemplate';
 
 export default createModel(MODEL_NAME.NOTIFICATION_TEMPLATE, (NotificationTemplateModel) => {
   const initCreatedTime = createdTime({
@@ -35,28 +41,33 @@ export default createModel(MODEL_NAME.NOTIFICATION_TEMPLATE, (NotificationTempla
   // defined Relations
   const actionStepTypeRelation = oneToOne({
     attribute: ATTRIBUTE.actionStepTypeId,
+    map: INDEX_NAME.actionStepTypeId,
     model: actionStepType,
     relation: RELATION.actionStepType,
     option: { optional: true },
   });
   const notificationStatusRelation = oneToOne({
     attribute: ATTRIBUTE.notificationStatusId,
+    map: INDEX_NAME.notificationStatusId,
     model: notificationStatus,
     relation: RELATION.notificationStatus,
   });
   const notificationTypeRelation = oneToOne({
     attribute: ATTRIBUTE.notificationTypeId,
+    map: INDEX_NAME.notificationTypeId,
     model: notificationType,
     relation: RELATION.notificationType,
   });
   const processStepRelation = oneToOne({
     attribute: ATTRIBUTE.processStepId,
+    map: INDEX_NAME.processStepId,
     model: processStep,
     relation: RELATION.processStep,
     option: { optional: true },
   });
   const subscriptionRelation = oneToOne({
     attribute: ATTRIBUTE.subscriptionId,
+    map: INDEX_NAME.subscriptionId,
     model: subscription,
     relation: RELATION.subscription,
     option: { optional: true },
@@ -125,11 +136,11 @@ export default createModel(MODEL_NAME.NOTIFICATION_TEMPLATE, (NotificationTempla
       .mixin(rolesRelation)
 
       // indexes
-      // .raw(INDEX.actionStepTypeId)
-      // .raw(INDEX.notificationTypeId)
-      // .raw(INDEX.notificationStatusId)
-      // .raw(INDEX.processStepId)
-      // .raw(INDEX.subscriptionId)
+      .raw(INDEX.actionStepTypeId)
+      .raw(INDEX.notificationTypeId)
+      .raw(INDEX.notificationStatusId)
+      .raw(INDEX.processStepId)
+      .raw(INDEX.subscriptionId)
 
       // table name
       .map(TABLE_NAME.NOTIFICATION_TEMPLATE);

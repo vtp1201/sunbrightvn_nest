@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { Package, order, orderItemStatus, service } from '.';
 import { createdTime, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/OrderItem';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/OrderItem';
 
 export default createModel(MODEL_NAME.ORDER_ITEM, (OrderItemModel) => {
   const initCreatedTime = createdTime({
@@ -18,21 +18,25 @@ export default createModel(MODEL_NAME.ORDER_ITEM, (OrderItemModel) => {
   // defined Relations
   const orderRelation = oneToOne({
     attribute: ATTRIBUTE.orderId,
+    map: INDEX_NAME.orderId,
     model: order,
     relation: RELATION.order,
   });
   const orderItemStatusRelation = oneToOne({
     attribute: ATTRIBUTE.orderItemStatusId,
+    map: INDEX_NAME.orderItemStatusId,
     model: orderItemStatus,
     relation: RELATION.orderItemStatus,
   });
   const serviceRelation = oneToOne({
     attribute: ATTRIBUTE.serviceId,
+    map: INDEX_NAME.serviceId,
     model: service,
     relation: RELATION.service,
   });
   const packageRelation = oneToOne({
     attribute: ATTRIBUTE.packageId,
+    map: INDEX_NAME.packageId,
     model: Package,
     relation: RELATION.package,
     option: { optional: true },
@@ -112,10 +116,10 @@ export default createModel(MODEL_NAME.ORDER_ITEM, (OrderItemModel) => {
       .mixin(packageRelation)
 
       // indexes
-      // .raw(INDEX.orderId)
-      // .raw(INDEX.orderItemStatusId)
-      // .raw(INDEX.packageId)
-      // .raw(INDEX.serviceId)
+      .raw(INDEX.orderId)
+      .raw(INDEX.orderItemStatusId)
+      .raw(INDEX.packageId)
+      .raw(INDEX.serviceId)
 
       // table name
       .map(TABLE_NAME.ORDER_ITEM);

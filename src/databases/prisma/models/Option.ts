@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { answer, question, toolBusinessEntity } from '.';
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Option';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Option';
 
 export default createModel(MODEL_NAME.OPTION, (OptionModel) => {
   const initDeleted = deleted(
@@ -24,6 +24,7 @@ export default createModel(MODEL_NAME.OPTION, (OptionModel) => {
   });
   const questionRelation = oneToOne({
     attribute: ATTRIBUTE.questionId,
+    map: INDEX_NAME.questionId,
     model: question,
     relation: RELATION.question,
   });
@@ -63,7 +64,7 @@ export default createModel(MODEL_NAME.OPTION, (OptionModel) => {
       .mixin(toolBusinessEntitiesRelation)
 
       // indexes
-      // .raw(INDEX.questionId)
+      .raw(INDEX.questionId)
 
       // table name
       .map(TABLE_NAME.OPTION);

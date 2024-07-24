@@ -1,7 +1,6 @@
 import { createModel } from 'schemix';
 
 import {
-  Process,
   additionProcess,
   bankingProcess,
   email,
@@ -15,7 +14,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Process';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Process';
 
 export default createModel(MODEL_NAME.PROCESS, (ProcessModel) => {
   const initCreatedTime = createdTime({
@@ -48,34 +47,40 @@ export default createModel(MODEL_NAME.PROCESS, (ProcessModel) => {
   });
   const additionProcessRelation = oneToOne({
     attribute: ATTRIBUTE.additionProcessId,
+    map: INDEX_NAME.additionProcessId,
     model: additionProcess,
     relation: RELATION.additionProcess,
     option: { optional: true },
   });
   const bankingProcessRelation = oneToOne({
     attribute: ATTRIBUTE.bankingProcessId,
+    map: INDEX_NAME.bankingProcessId,
     model: bankingProcess,
     relation: RELATION.bankingProcess,
     option: { optional: true },
   });
   const personRelation = oneToOne({
     attribute: ATTRIBUTE.personId,
+    map: INDEX_NAME.personId,
     model: person,
     relation: RELATION.person,
     option: { optional: true },
   });
   const processStepRelation = oneToOne({
     attribute: ATTRIBUTE.processStepId,
+    map: INDEX_NAME.processStepId,
     model: processStep,
     relation: RELATION.processStep,
   });
   const taskRelation = oneToOne({
     attribute: ATTRIBUTE.taskId,
+    map: INDEX_NAME.taskId,
     model: task,
     relation: RELATION.task,
   });
   const userRelation = oneToOne({
     attribute: ATTRIBUTE.userId,
+    map: INDEX_NAME.userId,
     model: user,
     relation: RELATION.user,
     option: { optional: true },
@@ -188,12 +193,12 @@ export default createModel(MODEL_NAME.PROCESS, (ProcessModel) => {
       .mixin(processLogsRelation)
 
       // indexes
-      // .raw(INDEX.additionProcessId)
-      // .raw(INDEX.bankingProcessId)
-      // .raw(INDEX.personId)
-      // .raw(INDEX.processStepId)
-      // .raw(INDEX.userId)
-      // .raw(INDEX.taskId)
+      .raw(INDEX.additionProcessId)
+      .raw(INDEX.bankingProcessId)
+      .raw(INDEX.personId)
+      .raw(INDEX.processStepId)
+      .raw(INDEX.userId)
+      .raw(INDEX.taskId)
 
       // table name
       .map(TABLE_NAME.PROCESS);

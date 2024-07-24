@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { Process, agent, companyMember, fileTemplate } from '.';
 import { createdTime, deleted, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/ProcessLog';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/ProcessLog';
 
 export default createModel(MODEL_NAME.PROCESS_LOG, (ProcessLogModel) => {
   const initCreatedTime = createdTime({
@@ -24,12 +24,14 @@ export default createModel(MODEL_NAME.PROCESS_LOG, (ProcessLogModel) => {
   // defined Relations
   const agentRelation = oneToOne({
     attribute: ATTRIBUTE.agentId,
+    map: INDEX_NAME.agentId,
     model: agent,
     relation: RELATION.agent,
     option: { optional: true },
   });
   const companyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.companyMemberId,
+    map: INDEX_NAME.companyMemberId,
     model: companyMember,
     relation: RELATION.companyMember,
     isNeedName: true,
@@ -37,6 +39,7 @@ export default createModel(MODEL_NAME.PROCESS_LOG, (ProcessLogModel) => {
   });
   const belongToCompanyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.belongToCompanyMemberId,
+    map: INDEX_NAME.belongToCompanyMemberId,
     model: companyMember,
     relation: RELATION.belongToCompanyMember,
     isNeedName: true,
@@ -44,12 +47,14 @@ export default createModel(MODEL_NAME.PROCESS_LOG, (ProcessLogModel) => {
   });
   const fileTemplateRelation = oneToOne({
     attribute: ATTRIBUTE.fileTemplateId,
+    map: INDEX_NAME.fileTemplateId,
     model: fileTemplate,
     relation: RELATION.fileTemplate,
     option: { optional: true },
   });
   const processRelation = oneToOne({
     attribute: ATTRIBUTE.processId,
+    map: INDEX_NAME.processId,
     model: Process,
     relation: RELATION.process,
   });
@@ -120,11 +125,11 @@ export default createModel(MODEL_NAME.PROCESS_LOG, (ProcessLogModel) => {
       .mixin(processRelation)
 
       // indexes
-      // .raw(INDEX.agentId)
-      // .raw(INDEX.belongToCompanyMemberId)
-      // .raw(INDEX.companyMemberId)
-      // .raw(INDEX.fileTemplateId)
-      // .raw(INDEX.processId)
+      .raw(INDEX.agentId)
+      .raw(INDEX.belongToCompanyMemberId)
+      .raw(INDEX.companyMemberId)
+      .raw(INDEX.fileTemplateId)
+      .raw(INDEX.processId)
 
       // table name
       .map(TABLE_NAME.PROCESS_LOG);

@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -45,11 +46,19 @@ export enum RELATION {
   service = RELATION_DEFAULT.service,
 }
 
+const tableName = TABLE_NAME.ORDER_ITEM;
+export enum INDEX_NAME {
+  orderId = `"${tableName}_${COLUMN.orderId}_fkey"`,
+  orderItemStatusId = `"${tableName}_${COLUMN.orderItemStatusId}_fkey"`,
+  packageId = `"${tableName}_${COLUMN.packageId}_fkey"`,
+  serviceId = `"${tableName}_${COLUMN.serviceId}_fkey"`,
+}
+
 export enum INDEX {
-  orderId = `@@index([${ATTRIBUTE.orderId}])`,
-  orderItemStatusId = `@@index([${ATTRIBUTE.orderItemStatusId}])`,
-  packageId = `@@index([${ATTRIBUTE.packageId}])`,
-  serviceId = `@@index([${ATTRIBUTE.serviceId}])`,
+  orderId = `@@index([${ATTRIBUTE.orderId}], map: ${INDEX_NAME.orderId})`,
+  orderItemStatusId = `@@index([${ATTRIBUTE.orderItemStatusId}], map: ${INDEX_NAME.orderItemStatusId})`,
+  packageId = `@@index([${ATTRIBUTE.packageId}], map: ${INDEX_NAME.packageId})`,
+  serviceId = `@@index([${ATTRIBUTE.serviceId}], map: ${INDEX_NAME.serviceId})`,
 }
 
 export default {

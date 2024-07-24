@@ -14,7 +14,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Package';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Package';
 
 export default createModel(MODEL_NAME.PACKAGE, (PackageModel) => {
   const initCreatedTime = createdTime({
@@ -47,6 +47,7 @@ export default createModel(MODEL_NAME.PACKAGE, (PackageModel) => {
   });
   const packageAnnualRelation = oneToOne({
     attribute: ATTRIBUTE.packageAnnualId,
+    map: INDEX_NAME.packageAnnualId,
     model: Package,
     relation: RELATION.packageAnnual,
     isNeedName: true,
@@ -59,34 +60,40 @@ export default createModel(MODEL_NAME.PACKAGE, (PackageModel) => {
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
+    map: INDEX_NAME.countryId,
     model: country,
     relation: RELATION.country,
   });
   const entityTypeRelation = oneToOne({
     attribute: ATTRIBUTE.entityTypeId,
+    map: INDEX_NAME.entityTypeId,
     model: entityType,
     relation: RELATION.entityType,
     option: { optional: true },
   });
   const packageGroupRelation = oneToOne({
     attribute: ATTRIBUTE.packageGroupId,
+    map: INDEX_NAME.packageGroupId,
     model: packageGroup,
     relation: RELATION.packageGroup,
     option: { optional: true },
   });
   const packageTypeRelation = oneToOne({
     attribute: ATTRIBUTE.packageTypeId,
+    map: INDEX_NAME.packageTypeId,
     model: packageType,
     relation: RELATION.packageType,
   });
   const serviceTypeRelation = oneToOne({
     attribute: ATTRIBUTE.serviceTypeId,
+    map: INDEX_NAME.serviceTypeId,
     model: serviceType,
     relation: RELATION.serviceType,
     option: { optional: true },
   });
   const websiteRelation = oneToOne({
     attribute: ATTRIBUTE.websiteId,
+    map: INDEX_NAME.websiteId,
     model: website,
     relation: RELATION.website,
   });
@@ -166,14 +173,15 @@ export default createModel(MODEL_NAME.PACKAGE, (PackageModel) => {
       .mixin(serviceTypeRelation)
       .mixin(websiteRelation)
       .mixin(packageHasServicesRelation)
+
       // indexes
-      // .raw(INDEX.countryId)
-      // .raw(INDEX.entityTypeId)
-      // .raw(INDEX.packageAnnualId)
-      // .raw(INDEX.packageGroupId)
-      // .raw(INDEX.packageTypeId)
-      // .raw(INDEX.serviceTypeId)
-      // .raw(INDEX.websiteId)
+      .raw(INDEX.countryId)
+      .raw(INDEX.entityTypeId)
+      .raw(INDEX.packageAnnualId)
+      .raw(INDEX.packageGroupId)
+      .raw(INDEX.packageTypeId)
+      .raw(INDEX.serviceTypeId)
+      .raw(INDEX.websiteId)
 
       // table name
       .map(TABLE_NAME.PACKAGE);

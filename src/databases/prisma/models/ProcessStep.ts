@@ -14,7 +14,7 @@ import {
 } from '.';
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/ProcessStep';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/ProcessStep';
 import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
@@ -62,11 +62,13 @@ export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
   });
   const processStepTypeRelation = oneToOne({
     attribute: ATTRIBUTE.processStepTypeId,
+    map: INDEX_NAME.processStepTypeId,
     model: processStepType,
     relation: RELATION.processStepType,
   });
   const parentRelation = oneToOne({
     attribute: ATTRIBUTE.parentId,
+    map: INDEX_NAME.parentId,
     model: processStep,
     relation: RELATION.parent,
     isNeedName: true,
@@ -160,8 +162,8 @@ export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
       .mixin(processStepHasRolesRelation)
 
       // indexes
-      // .raw(INDEX.parentId)
-      // .raw(INDEX.processStepTypeId)
+      .raw(INDEX.parentId)
+      .raw(INDEX.processStepTypeId)
 
       // table name
       .map(TABLE_NAME.PROCESS_STEP);

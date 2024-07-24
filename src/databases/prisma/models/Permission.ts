@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { limit, permissionGroup, role } from '.';
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Permission';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Permission';
 
 export default createModel(MODEL_NAME.PERMISSION, (PermissionModel) => {
   const initDeleted = deleted(
@@ -24,6 +24,7 @@ export default createModel(MODEL_NAME.PERMISSION, (PermissionModel) => {
   });
   const permissionGroupRelation = oneToOne({
     attribute: ATTRIBUTE.permissionGroupId,
+    map: INDEX_NAME.permissionGroupId,
     model: permissionGroup,
     relation: RELATION.permissionGroup,
   });
@@ -69,7 +70,7 @@ export default createModel(MODEL_NAME.PERMISSION, (PermissionModel) => {
       .mixin(rolesRelation)
 
       // indexes
-      // .raw(INDEX.permissionGroupId)
+      .raw(INDEX.permissionGroupId)
 
       // table name
       .map(TABLE_NAME.PERMISSION);

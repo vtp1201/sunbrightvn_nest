@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -49,9 +50,15 @@ export enum RELATION {
   processStepHasRoles = RELATION_DEFAULT.processStepHasRoles,
 }
 
+const tableName = TABLE_NAME.PROCESS_STEP;
+export enum INDEX_NAME {
+  processStepTypeId = `"${tableName}_${COLUMN.processStepTypeId}_fkey"`,
+  parentId = `"${tableName}_${COLUMN.parentId}_fkey"`,
+}
+
 export enum INDEX {
-  processStepTypeId = `@@index([${ATTRIBUTE.processStepTypeId}])`,
-  parentId = `@@index([${ATTRIBUTE.parentId}])`,
+  processStepTypeId = `@@index([${ATTRIBUTE.processStepTypeId}], map: ${INDEX_NAME.processStepTypeId})`,
+  parentId = `@@index([${ATTRIBUTE.parentId}], map: ${INDEX_NAME.parentId})`,
 }
 
 export default {

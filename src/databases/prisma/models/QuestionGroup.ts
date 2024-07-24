@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { file, fileTemplate, question } from '.';
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, RELATION } from '../utils/enums/QuestionGroup';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/QuestionGroup';
 
 export default createModel(MODEL_NAME.QUESTION_GROUP, (QuestionGroupModel) => {
   const initDeleted = deleted(
@@ -28,6 +28,7 @@ export default createModel(MODEL_NAME.QUESTION_GROUP, (QuestionGroupModel) => {
   });
   const fileTemplateRelation = oneToOne({
     attribute: ATTRIBUTE.fileTemplateId,
+    map: INDEX_NAME.fileTemplateId,
     model: fileTemplate,
     relation: RELATION.fileTemplate,
     option: { optional: true },
@@ -70,6 +71,9 @@ export default createModel(MODEL_NAME.QUESTION_GROUP, (QuestionGroupModel) => {
       .mixin(filesRelation)
       .mixin(questionsRelation)
       .mixin(fileTemplateRelation)
+
+      // indexes
+      .raw(INDEX.fileTemplateId)
 
       // table name
       .map(TABLE_NAME.QUESTION_GROUP);
