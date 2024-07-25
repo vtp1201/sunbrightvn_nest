@@ -1,7 +1,7 @@
 import { createModel } from 'schemix';
 
 import { manyToMany } from '../mixins';
-import { MODEL_NAME, TABLE_NAME } from '../utils';
+import { MODEL_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN } from '../utils/enums/RoleHasPermission';
 
 export default createModel(MODEL_NAME.ROLE_HAS_PERMISSION, (RoleHasPermissionModel) => {

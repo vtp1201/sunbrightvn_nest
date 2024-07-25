@@ -26,6 +26,7 @@ export enum COLUMN {
 }
 
 export enum RELATION {
+  country = RELATION_DEFAULT.country,
   customers = RELATION_DEFAULT.customers,
   businessActivityIndustryClass = RELATION_DEFAULT.businessActivityIndustryClass,
   businessActivities = RELATION_DEFAULT.businessActivities,
@@ -34,10 +35,12 @@ export enum RELATION {
 const tableName = TABLE_NAME.BUSINESS_ACTIVITY_INDUSTRY;
 export enum INDEX_NAME {
   countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  businessActivityIndustryClassId = `"${tableName}_business_activity_industry_class_fkey"`, // trường hợp đặc biệt index name phải bé hơn hoặc bằng 64 ký tự
 }
 
 export enum INDEX {
   countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
+  businessActivityIndustryClassId = `@@index([${ATTRIBUTE.businessActivityIndustryClassId}], map: ${INDEX_NAME.businessActivityIndustryClassId})`,
 }
 
 export default {

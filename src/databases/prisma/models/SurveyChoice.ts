@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { customerHasSurveyChoice, survey } from '.';
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/SurveyChoice';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/SurveyChoice';
 
 export default createModel(MODEL_NAME.SURVEY_CHOICE, (SurveyChoiceModel) => {
   const initDeleted = deleted(
@@ -24,6 +24,7 @@ export default createModel(MODEL_NAME.SURVEY_CHOICE, (SurveyChoiceModel) => {
   });
   const surveyRelation = oneToOne({
     attribute: ATTRIBUTE.surveyId,
+    map: INDEX_NAME.surveyId,
     model: survey,
     relation: RELATION.survey,
   });
@@ -57,7 +58,7 @@ export default createModel(MODEL_NAME.SURVEY_CHOICE, (SurveyChoiceModel) => {
       .mixin(surveyRelation)
 
       // indexes
-      // .raw(INDEX.surveyId)
+      .raw(INDEX.surveyId)
 
       // table name
       .map(TABLE_NAME.SURVEY_CHOICE);

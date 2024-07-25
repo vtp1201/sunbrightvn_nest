@@ -225,7 +225,7 @@ export default createModel(MODEL_NAME.WEBSITE, (WebsiteModel) => {
       .mixin(currencyRelation)
 
       // indexes
-      // .raw(INDEX.currencyId)
+      .raw(INDEX.currencyId)
 
       // table name
       .map(TABLE_NAME.WEBSITE);

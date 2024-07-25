@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { customer, order, voucherType } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Voucher';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Voucher';
 
 export default createModel(MODEL_NAME.VOUCHER, (VoucherModel) => {
   const initCreatedTime = createdTime({
@@ -28,18 +28,21 @@ export default createModel(MODEL_NAME.VOUCHER, (VoucherModel) => {
   // defined Relations
   const customerRelation = oneToOne({
     attribute: ATTRIBUTE.customerId,
+    map: INDEX_NAME.customerId,
     model: customer,
     relation: RELATION.customer,
     option: { optional: true },
   });
   const orderRelation = oneToOne({
     attribute: ATTRIBUTE.orderId,
+    map: INDEX_NAME.orderId,
     model: order,
     relation: RELATION.order,
     option: { optional: true },
   });
   const voucherTypeRelation = oneToOne({
     attribute: ATTRIBUTE.voucherTypeId,
+    map: INDEX_NAME.voucherTypeId,
     model: voucherType,
     relation: RELATION.voucherType,
     option: { optional: true },
@@ -119,9 +122,9 @@ export default createModel(MODEL_NAME.VOUCHER, (VoucherModel) => {
       .mixin(voucherTypeRelation)
 
       // indexes
-      // .raw(INDEX.customerId)
-      // .raw(INDEX.orderId)
-      // .raw(INDEX.voucherTypeId)
+      .raw(INDEX.customerId)
+      .raw(INDEX.orderId)
+      .raw(INDEX.voucherTypeId)
 
       // table name
       .map(TABLE_NAME.VOUCHER);

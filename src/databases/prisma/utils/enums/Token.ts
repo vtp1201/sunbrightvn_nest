@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -62,16 +63,29 @@ export enum RELATION {
   website = RELATION_DEFAULT.website,
 }
 
+const tableName = TABLE_NAME.TOKEN;
+export enum INDEX_NAME {
+  agentId = `"${tableName}_${COLUMN.agentId}_fkey"`,
+  belongToCompanyMemberId = `"${tableName}_${COLUMN.belongToCompanyMemberId}_fkey"`,
+  companyMemberId = `"${tableName}_${COLUMN.companyMemberId}_fkey"`,
+  fileTemplateId = `"${tableName}_${COLUMN.fileTemplateId}_fkey"`,
+  taskId = `"${tableName}_${COLUMN.taskId}_fkey"`,
+  userId = `"${tableName}_${COLUMN.userId}_fkey"`,
+  websiteId = `"${tableName}_${COLUMN.websiteId}_fkey"`,
+  accessToken = `"${tableName}_${COLUMN.accessToken}_fkey"`,
+  refreshToken = `"${tableName}_${COLUMN.refreshToken}_fkey"`,
+}
+
 export enum INDEX {
-  agentId = `@@index([${ATTRIBUTE.agentId}])`,
-  belongToCompanyMemberId = `@@index([${ATTRIBUTE.belongToCompanyMemberId}])`,
-  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}])`,
-  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}])`,
-  taskId = `@@index([${ATTRIBUTE.taskId}])`,
-  userId = `@@index([${ATTRIBUTE.userId}])`,
-  websiteId = `@@index([${ATTRIBUTE.websiteId}])`,
-  accessToken = `@@index([${ATTRIBUTE.accessToken}])`,
-  refreshToken = `@@index([${ATTRIBUTE.refreshToken}])`,
+  agentId = `@@index([${ATTRIBUTE.agentId}], map: ${INDEX_NAME.agentId})`,
+  belongToCompanyMemberId = `@@index([${ATTRIBUTE.belongToCompanyMemberId}], map: ${INDEX_NAME.belongToCompanyMemberId})`,
+  companyMemberId = `@@index([${ATTRIBUTE.companyMemberId}], map: ${INDEX_NAME.companyMemberId})`,
+  fileTemplateId = `@@index([${ATTRIBUTE.fileTemplateId}], map: ${INDEX_NAME.fileTemplateId})`,
+  taskId = `@@index([${ATTRIBUTE.taskId}], map: ${INDEX_NAME.taskId})`,
+  userId = `@@index([${ATTRIBUTE.userId}], map: ${INDEX_NAME.userId})`,
+  websiteId = `@@index([${ATTRIBUTE.websiteId}], map: ${INDEX_NAME.websiteId})`,
+  accessToken = `@@index([${ATTRIBUTE.accessToken}], map: ${INDEX_NAME.accessToken})`,
+  refreshToken = `@@index([${ATTRIBUTE.refreshToken}], map: ${INDEX_NAME.refreshToken})`,
 }
 
 export default {

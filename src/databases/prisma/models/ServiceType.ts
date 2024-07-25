@@ -10,7 +10,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/ServiceType';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/ServiceType';
 
 export default createModel(MODEL_NAME.SERVICE_TYPE, (ServiceTypeModel) => {
   const initCreatedTime = createdTime({
@@ -47,11 +47,13 @@ export default createModel(MODEL_NAME.SERVICE_TYPE, (ServiceTypeModel) => {
   });
   const websiteRelation = oneToOne({
     attribute: ATTRIBUTE.websiteId,
+    map: INDEX_NAME.websiteId,
     model: website,
     relation: RELATION.website,
   });
   const parentRelation = oneToOne({
     attribute: ATTRIBUTE.parentId,
+    map: INDEX_NAME.parentId,
     model: serviceType,
     relation: RELATION.parent,
     isNeedName: true,
@@ -136,8 +138,8 @@ export default createModel(MODEL_NAME.SERVICE_TYPE, (ServiceTypeModel) => {
       .mixin(serviceTypeHasDepartmentsRelation)
 
       // indexes
-      // .raw(INDEX.parentId)
-      // .raw(INDEX.websiteId)
+      .raw(INDEX.parentId)
+      .raw(INDEX.websiteId)
 
       // table name
       .map(TABLE_NAME.SERVICE_TYPE);

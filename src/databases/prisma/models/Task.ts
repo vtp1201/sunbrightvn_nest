@@ -28,7 +28,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Task';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Task';
 
 export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   const initCreatedTime = createdTime({
@@ -113,6 +113,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const accountantLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.accountantLeaderId,
+    map: INDEX_NAME.accountantLeaderId,
     model: user,
     relation: RELATION.accountantLeader,
     isNeedName: true,
@@ -120,6 +121,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const accountantMemberRelation = oneToOne({
     attribute: ATTRIBUTE.accountantMemberId,
+    map: INDEX_NAME.accountantMemberId,
     model: user,
     relation: RELATION.accountantMember,
     isNeedName: true,
@@ -127,6 +129,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const appointedDirectorRelation = oneToOne({
     attribute: ATTRIBUTE.appointedDirectorCompanyMemberId,
+    map: INDEX_NAME.appointedDirectorCompanyMemberId,
     model: companyMember,
     relation: RELATION.appointedDirector,
     isNeedName: true,
@@ -134,6 +137,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const appointedPresidentRelation = oneToOne({
     attribute: ATTRIBUTE.appointedPresidentCompanyMemberId,
+    map: INDEX_NAME.appointedPresidentCompanyMemberId,
     model: companyMember,
     relation: RELATION.appointedPresident,
     isNeedName: true,
@@ -141,6 +145,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const appointedShareholderRelation = oneToOne({
     attribute: ATTRIBUTE.appointedShareholderCompanyMemberId,
+    map: INDEX_NAME.appointedShareholderCompanyMemberId,
     model: companyMember,
     relation: RELATION.appointedShareholder,
     isNeedName: true,
@@ -148,6 +153,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const appointedUboRelation = oneToOne({
     attribute: ATTRIBUTE.appointedUboCompanyMemberId,
+    map: INDEX_NAME.appointedUboCompanyMemberId,
     model: companyMember,
     relation: RELATION.appointedUbo,
     isNeedName: true,
@@ -155,12 +161,14 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const companyRelation = oneToOne({
     attribute: ATTRIBUTE.companyId,
+    map: INDEX_NAME.companyId,
     model: company,
     relation: RELATION.company,
     option: { optional: true },
   });
   const complianceLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.complianceLeaderId,
+    map: INDEX_NAME.complianceLeaderId,
     model: user,
     relation: RELATION.complianceLeader,
     isNeedName: true,
@@ -168,6 +176,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const complianceMemberRelation = oneToOne({
     attribute: ATTRIBUTE.complianceMemberId,
+    map: INDEX_NAME.complianceMemberId,
     model: user,
     relation: RELATION.complianceMember,
     isNeedName: true,
@@ -175,6 +184,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
+    map: INDEX_NAME.countryId,
     model: country,
     relation: RELATION.country,
     isNeedName: true,
@@ -182,6 +192,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const csLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.csLeaderId,
+    map: INDEX_NAME.csLeaderId,
     model: user,
     relation: RELATION.csLeader,
     isNeedName: true,
@@ -189,6 +200,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const csMemberRelation = oneToOne({
     attribute: ATTRIBUTE.csMemberId,
+    map: INDEX_NAME.csMemberId,
     model: user,
     relation: RELATION.csMember,
     isNeedName: true,
@@ -196,18 +208,21 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const customerRelation = oneToOne({
     attribute: ATTRIBUTE.customerId,
+    map: INDEX_NAME.customerId,
     model: customer,
     relation: RELATION.customer,
     option: { optional: true },
   });
   const entityTypeRelation = oneToOne({
     attribute: ATTRIBUTE.entityTypeId,
+    map: INDEX_NAME.entityTypeId,
     model: entityType,
     relation: RELATION.entityType,
     option: { optional: true },
   });
   const incorporationCountryRelation = oneToOne({
     attribute: ATTRIBUTE.incorporationCountryId,
+    map: INDEX_NAME.incorporationCountryId,
     model: country,
     relation: RELATION.incorporationCountry,
     isNeedName: true,
@@ -215,6 +230,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const internalBookeepingLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.internalBookeepingLeaderId,
+    map: INDEX_NAME.internalBookeepingLeaderId,
     model: user,
     relation: RELATION.internalBookeepingLeader,
     isNeedName: true,
@@ -222,6 +238,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const internalBookeepingMemberRelation = oneToOne({
     attribute: ATTRIBUTE.internalBookeepingMemberId,
+    map: INDEX_NAME.internalBookeepingMemberId,
     model: user,
     relation: RELATION.internalBookeepingMember,
     isNeedName: true,
@@ -229,6 +246,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const legalLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.legalLeaderId,
+    map: INDEX_NAME.legalLeaderId,
     model: user,
     relation: RELATION.legalLeader,
     isNeedName: true,
@@ -236,6 +254,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const legalMemberRelation = oneToOne({
     attribute: ATTRIBUTE.legalMemberId,
+    map: INDEX_NAME.legalMemberId,
     model: user,
     relation: RELATION.legalMember,
     isNeedName: true,
@@ -243,6 +262,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const orderRelation = oneToOne({
     attribute: ATTRIBUTE.orderId,
+    map: INDEX_NAME.orderId,
     model: order,
     relation: RELATION.order,
     isNeedName: true,
@@ -250,6 +270,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const phoneCountryRelation = oneToOne({
     attribute: ATTRIBUTE.phoneCountryId,
+    map: INDEX_NAME.phoneCountryId,
     relation: RELATION.phoneCountry,
     model: country,
     isNeedName: true,
@@ -257,6 +278,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const upgradeOrderRelation = oneToOne({
     attribute: ATTRIBUTE.upgradeOrderId,
+    map: INDEX_NAME.upgradeOrderId,
     model: order,
     relation: RELATION.upgradeOrder,
     isNeedName: true,
@@ -264,6 +286,7 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
   });
   const testerLeaderRelation = oneToOne({
     attribute: ATTRIBUTE.testerLeaderId,
+    map: INDEX_NAME.testerLeaderId,
     model: user,
     relation: RELATION.testerLeader,
     isNeedName: true,
@@ -566,29 +589,29 @@ export default createModel(MODEL_NAME.TASK, (TaskModel) => {
       .mixin(tokensRelation)
 
       // indexes
-      // .raw(INDEX.accountantLeaderId)
-      // .raw(INDEX.accountantMemberId)
-      // .raw(INDEX.appointedDirectorCompanyMemberId)
-      // .raw(INDEX.appointedPresidentCompanyMemberId)
-      // .raw(INDEX.appointedShareholderCompanyMemberId)
-      // .raw(INDEX.appointedUboCompanyMemberId)
-      // .raw(INDEX.companyId)
-      // .raw(INDEX.countryId)
-      // .raw(INDEX.complianceLeaderId)
-      // .raw(INDEX.complianceMemberId)
-      // .raw(INDEX.csLeaderId)
-      // .raw(INDEX.csMemberId)
-      // .raw(INDEX.customerId)
-      // .raw(INDEX.entityTypeId)
-      // .raw(INDEX.incorporationCountryId)
-      // .raw(INDEX.internalBookeepingLeaderId)
-      // .raw(INDEX.internalBookeepingMemberId)
-      // .raw(INDEX.legalLeaderId)
-      // .raw(INDEX.legalMemberId)
-      // .raw(INDEX.orderId)
-      // .raw(INDEX.phoneCountryId)
-      // .raw(INDEX.upgradeOrderId)
-      // .raw(INDEX.testerLeaderId)
+      .raw(INDEX.accountantLeaderId)
+      .raw(INDEX.accountantMemberId)
+      .raw(INDEX.appointedDirectorCompanyMemberId)
+      .raw(INDEX.appointedPresidentCompanyMemberId)
+      .raw(INDEX.appointedShareholderCompanyMemberId)
+      .raw(INDEX.appointedUboCompanyMemberId)
+      .raw(INDEX.companyId)
+      .raw(INDEX.countryId)
+      .raw(INDEX.complianceLeaderId)
+      .raw(INDEX.complianceMemberId)
+      .raw(INDEX.csLeaderId)
+      .raw(INDEX.csMemberId)
+      .raw(INDEX.customerId)
+      .raw(INDEX.entityTypeId)
+      .raw(INDEX.incorporationCountryId)
+      .raw(INDEX.internalBookeepingLeaderId)
+      .raw(INDEX.internalBookeepingMemberId)
+      .raw(INDEX.legalLeaderId)
+      .raw(INDEX.legalMemberId)
+      .raw(INDEX.orderId)
+      .raw(INDEX.phoneCountryId)
+      .raw(INDEX.upgradeOrderId)
+      .raw(INDEX.testerLeaderId)
 
       // table name
       .map(TABLE_NAME.TASK);

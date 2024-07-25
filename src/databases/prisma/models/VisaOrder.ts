@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { airport, order, visaPurpose, visaType } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/VisaOrder';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/VisaOrder';
 
 export default createModel(MODEL_NAME.VISA_ORDER, (VisaOrderModel) => {
   const initCreatedTime = createdTime({
@@ -28,23 +28,27 @@ export default createModel(MODEL_NAME.VISA_ORDER, (VisaOrderModel) => {
   // defined Relations
   const airportRelation = oneToOne({
     attribute: ATTRIBUTE.airportId,
+    map: INDEX_NAME.airportId,
     model: airport,
     relation: RELATION.airport,
     option: { optional: true },
   });
   const orderRelation = oneToOne({
     attribute: ATTRIBUTE.orderId,
+    map: INDEX_NAME.orderId,
     model: order,
     relation: RELATION.order,
   });
   const visaPurposeRelation = oneToOne({
     attribute: ATTRIBUTE.visaPurposeId,
+    map: INDEX_NAME.visaPurposeId,
     model: visaPurpose,
     relation: RELATION.visaPurpose,
     option: { optional: true },
   });
   const visaTypeRelation = oneToOne({
     attribute: ATTRIBUTE.visaTypeId,
+    map: INDEX_NAME.visaTypeId,
     model: visaType,
     relation: RELATION.visaType,
     option: { optional: true },
@@ -108,10 +112,10 @@ export default createModel(MODEL_NAME.VISA_ORDER, (VisaOrderModel) => {
       .mixin(visaTypeRelation)
 
       // indexes
-      // .raw(INDEX.airportId)
-      // .raw(INDEX.orderId)
-      // .raw(INDEX.visaPurposeId)
-      // .raw(INDEX.visaTypeId)
+      .raw(INDEX.airportId)
+      .raw(INDEX.orderId)
+      .raw(INDEX.visaPurposeId)
+      .raw(INDEX.visaTypeId)
 
       // table name
       .map(TABLE_NAME.VISA_ORDER);

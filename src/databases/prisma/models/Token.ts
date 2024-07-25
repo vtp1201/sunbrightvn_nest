@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { agent, companyMember, fileTemplate, task, user, website } from '.';
 import { createdTime, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Token';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Token';
 
 export default createModel(MODEL_NAME.TOKEN, (TokenModel) => {
   const initCreatedTime = createdTime({
@@ -18,12 +18,14 @@ export default createModel(MODEL_NAME.TOKEN, (TokenModel) => {
   // defined Relations
   const agentRelation = oneToOne({
     attribute: ATTRIBUTE.agentId,
+    map: INDEX_NAME.agentId,
     model: agent,
     relation: RELATION.agent,
     option: { optional: true },
   });
   const companyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.companyMemberId,
+    map: INDEX_NAME.companyMemberId,
     model: companyMember,
     relation: RELATION.companyMember,
     isNeedName: true,
@@ -31,6 +33,7 @@ export default createModel(MODEL_NAME.TOKEN, (TokenModel) => {
   });
   const belongToCompanyMemberRelation = oneToOne({
     attribute: ATTRIBUTE.belongToCompanyMemberId,
+    map: INDEX_NAME.belongToCompanyMemberId,
     model: companyMember,
     relation: RELATION.belongToCompanyMember,
     isNeedName: true,
@@ -38,24 +41,28 @@ export default createModel(MODEL_NAME.TOKEN, (TokenModel) => {
   });
   const fileTemplateRelation = oneToOne({
     attribute: ATTRIBUTE.fileTemplateId,
+    map: INDEX_NAME.fileTemplateId,
     model: fileTemplate,
     relation: RELATION.fileTemplate,
     option: { optional: true },
   });
   const taskRelation = oneToOne({
     attribute: ATTRIBUTE.taskId,
+    map: INDEX_NAME.taskId,
     model: task,
     relation: RELATION.task,
     option: { optional: true },
   });
   const userRelation = oneToOne({
     attribute: ATTRIBUTE.userId,
+    map: INDEX_NAME.userId,
     model: user,
     relation: RELATION.user,
     option: { optional: true },
   });
   const websiteRelation = oneToOne({
     attribute: ATTRIBUTE.websiteId,
+    map: INDEX_NAME.websiteId,
     model: website,
     relation: RELATION.website,
     option: { optional: true },
@@ -166,13 +173,13 @@ export default createModel(MODEL_NAME.TOKEN, (TokenModel) => {
       .mixin(websiteRelation)
 
       // indexes
-      // .raw(INDEX.agentId)
-      // .raw(INDEX.belongToCompanyMemberId)
-      // .raw(INDEX.companyMemberId)
-      // .raw(INDEX.fileTemplateId)
-      // .raw(INDEX.taskId)
-      // .raw(INDEX.userId)
-      // .raw(INDEX.websiteId)
+      .raw(INDEX.agentId)
+      .raw(INDEX.belongToCompanyMemberId)
+      .raw(INDEX.companyMemberId)
+      .raw(INDEX.fileTemplateId)
+      .raw(INDEX.taskId)
+      .raw(INDEX.userId)
+      .raw(INDEX.websiteId)
 
       // table name
       .map(TABLE_NAME.TOKEN);

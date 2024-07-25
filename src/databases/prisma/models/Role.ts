@@ -11,7 +11,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Role';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Role';
 
 export default createModel(MODEL_NAME.ROLE, (RoleModel) => {
   const initCreatedTime = createdTime({
@@ -48,6 +48,7 @@ export default createModel(MODEL_NAME.ROLE, (RoleModel) => {
   });
   const parentRelation = oneToOne({
     attribute: ATTRIBUTE.parentId,
+    map: INDEX_NAME.parentId,
     model: role,
     relation: RELATION.parent,
     isNeedName: true,
@@ -131,7 +132,7 @@ export default createModel(MODEL_NAME.ROLE, (RoleModel) => {
       .mixin(usersRelation)
 
       // indexes
-      // .raw(INDEX.parentId)
+      .raw(INDEX.parentId)
 
       // table name
       .map(TABLE_NAME.ROLE);

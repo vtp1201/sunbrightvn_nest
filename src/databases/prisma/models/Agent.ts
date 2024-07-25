@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Agent';
-import { agency, agentType, bank, country, email, processLog, task, taskHasAgent, token } from './';
+import { agency, agentType, bank, country, email, processLog, taskHasAgent, token } from './';
 
 export default createModel(MODEL_NAME.AGENT, (AgentModel) => {
   const initCreatedTime = createdTime({

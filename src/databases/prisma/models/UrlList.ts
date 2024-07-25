@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { urlListType } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/UrlList';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/UrlList';
 
 export default createModel(MODEL_NAME.URL_LIST, (UrlListModel) => {
   const initCreatedTime = createdTime({
@@ -28,6 +28,7 @@ export default createModel(MODEL_NAME.URL_LIST, (UrlListModel) => {
   // defined Relations
   const urlListTypeRelation = oneToOne({
     attribute: ATTRIBUTE.urlListTypeId,
+    map: INDEX_NAME.urlListTypeId,
     model: urlListType,
     relation: RELATION.urlListType,
     option: { optional: true },
@@ -69,7 +70,7 @@ export default createModel(MODEL_NAME.URL_LIST, (UrlListModel) => {
       .mixin(urlListTypeRelation)
 
       // indexes
-      // .raw(INDEX.urlListTypeId)
+      .raw(INDEX.urlListTypeId)
 
       // table name
       .map(TABLE_NAME.URL_LIST);

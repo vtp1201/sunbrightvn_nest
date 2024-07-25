@@ -20,7 +20,7 @@ export default createModel(MODEL_NAME.SINGAPORE_ACRA, (SingaporeAcraModel) => {
       })
 
       // indexes
-      // .raw(INDEX.entityName)
+      .raw(INDEX.entityName)
 
       // table name
       .map(TABLE_NAME.SINGAPORE_ACRA);

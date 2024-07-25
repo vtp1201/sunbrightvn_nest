@@ -1,4 +1,4 @@
-// ServiceTypeEnum.ts
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -49,9 +49,15 @@ export enum RELATION {
   serviceTypeHasDepartments = RELATION_DEFAULT.serviceTypeHasDepartments,
 }
 
+const tableName = TABLE_NAME.SERVICE_TYPE;
+export enum INDEX_NAME {
+  websiteId = `"${tableName}_${COLUMN.websiteId}_fkey"`,
+  parentId = `"${tableName}_${COLUMN.parentId}_fkey"`,
+}
+
 export enum INDEX {
-  websiteId = `@@index([${ATTRIBUTE.websiteId}])`,
-  parentId = `@@index([${ATTRIBUTE.parentId}])`,
+  websiteId = `@@index([${ATTRIBUTE.websiteId}], map: ${INDEX_NAME.websiteId})`,
+  parentId = `@@index([${ATTRIBUTE.parentId}], map: ${INDEX_NAME.parentId})`,
 }
 
 export default {

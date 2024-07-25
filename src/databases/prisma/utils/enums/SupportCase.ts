@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -35,11 +36,19 @@ export enum RELATION {
   orders = RELATION_DEFAULT.orders,
 }
 
+const tableName = TABLE_NAME.SUPPORT_CASE;
+export enum INDEX_NAME {
+  supportCasePriorityId = `"${tableName}_${COLUMN.supportCasePriorityId}_fkey"`,
+  supportCaseStatusId = `"${tableName}_${COLUMN.supportCaseStatusId}_fkey"`,
+  supportCaseTypeId = `"${tableName}_${COLUMN.supportCaseTypeId}_fkey"`,
+  userId = `"${tableName}_${COLUMN.userId}_fkey"`,
+}
+
 export enum INDEX {
-  supportCasePriorityId = `@@index([${ATTRIBUTE.supportCasePriorityId}])`,
-  supportCaseStatusId = `@@index([${ATTRIBUTE.supportCaseStatusId}])`,
-  supportCaseTypeId = `@@index([${ATTRIBUTE.supportCaseTypeId}])`,
-  userId = `@@index([${ATTRIBUTE.userId}])`,
+  supportCasePriorityId = `@@index([${ATTRIBUTE.supportCasePriorityId}], map: ${INDEX_NAME.supportCasePriorityId})`,
+  supportCaseStatusId = `@@index([${ATTRIBUTE.supportCaseStatusId}], map: ${INDEX_NAME.supportCaseStatusId})`,
+  supportCaseTypeId = `@@index([${ATTRIBUTE.supportCaseTypeId}], map: ${INDEX_NAME.supportCaseTypeId})`,
+  userId = `@@index([${ATTRIBUTE.userId}], map: ${INDEX_NAME.userId})`,
 }
 
 export default {

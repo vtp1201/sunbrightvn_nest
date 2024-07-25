@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { notificationTemplate, service, user } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Subscription';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Subscription';
 
 export default createModel(MODEL_NAME.SUBSCRIPTION, (SubscriptionModel) => {
   const initCreatedTime = createdTime({
@@ -32,6 +32,7 @@ export default createModel(MODEL_NAME.SUBSCRIPTION, (SubscriptionModel) => {
   });
   const serviceRelation = oneToOne({
     attribute: ATTRIBUTE.serviceId,
+    map: INDEX_NAME.serviceId,
     model: service,
     relation: RELATION.service,
   });
@@ -82,7 +83,7 @@ export default createModel(MODEL_NAME.SUBSCRIPTION, (SubscriptionModel) => {
       .mixin(usersRelation)
 
       // indexes
-      // .raw(INDEX.serviceId)
+      .raw(INDEX.serviceId)
 
       // table name
       .map(TABLE_NAME.SUBSCRIPTION);

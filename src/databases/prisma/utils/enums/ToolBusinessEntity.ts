@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -31,9 +32,15 @@ export enum RELATION {
   entityType = RELATION_DEFAULT.entityType,
 }
 
+const tableName = TABLE_NAME.TOOL_BUSINESS_ENTITY;
+export enum INDEX_NAME {
+  optionId = `"${tableName}_${COLUMN.optionId}_fkey"`,
+  entityTypeId = `"${tableName}_${COLUMN.entityTypeId}_fkey"`,
+}
+
 export enum INDEX {
-  optionId = `@@index([${ATTRIBUTE.optionId}])`,
-  entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}])`,
+  optionId = `@@index([${ATTRIBUTE.optionId}], map: ${INDEX_NAME.optionId})`,
+  entityTypeId = `@@index([${ATTRIBUTE.entityTypeId}], map: ${INDEX_NAME.entityTypeId})`,
 }
 
 export default {

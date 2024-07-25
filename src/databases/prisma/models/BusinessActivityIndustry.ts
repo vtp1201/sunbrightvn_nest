@@ -9,7 +9,7 @@ import {
   INDEX_NAME,
   RELATION,
 } from '../utils/enums/BusinessActivityIndustry';
-import { businessActivity, businessActivityIndustryClass, customer } from './';
+import { businessActivity, businessActivityIndustryClass, country, customer } from './';
 
 export default createModel(
   MODEL_NAME.BUSINESS_ACTIVITY_INDUSTRY,
@@ -26,8 +26,16 @@ export default createModel(
     );
 
     // defined Relation
+    const countryRelation = oneToOne({
+      attribute: ATTRIBUTE.countryId,
+      map: INDEX_NAME.countryId,
+      model: country,
+      relation: RELATION.country,
+      option: { optional: true },
+    });
     const businessActivityIndustryClassRelation = oneToOne({
       attribute: ATTRIBUTE.businessActivityIndustryClassId,
+      map: INDEX_NAME.businessActivityIndustryClassId,
       model: businessActivityIndustryClass,
       relation: RELATION.businessActivityIndustryClass,
       option: { optional: true },
@@ -80,9 +88,14 @@ export default createModel(
         .mixin(initDeleted)
 
         // relations
+        .mixin(countryRelation)
         .mixin(businessActivitiesRelation)
         .mixin(businessActivityIndustryClassRelation)
         .mixin(customersRelation)
+
+        // indexes
+        .raw(INDEX.businessActivityIndustryClassId)
+        .raw(INDEX.countryId)
 
         // table name
         .map(TABLE_NAME.BUSINESS_ACTIVITY_INDUSTRY);

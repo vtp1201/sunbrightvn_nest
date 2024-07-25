@@ -23,7 +23,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Service';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Service';
 
 export default createModel(MODEL_NAME.SERVICE, (ServiceModel) => {
   const initCreatedTime = createdTime({
@@ -68,6 +68,7 @@ export default createModel(MODEL_NAME.SERVICE, (ServiceModel) => {
   });
   const discountServiceRelation = oneToOne({
     attribute: ATTRIBUTE.discountServiceId,
+    map: INDEX_NAME.discountServiceId,
     model: service,
     relation: RELATION.discountService,
     isNeedName: true,
@@ -80,53 +81,62 @@ export default createModel(MODEL_NAME.SERVICE, (ServiceModel) => {
   });
   const airportRelation = oneToOne({
     attribute: ATTRIBUTE.airportId,
+    map: INDEX_NAME.airportId,
     model: airport,
     relation: RELATION.airport,
     option: { optional: true },
   });
   const carSeatRelation = oneToOne({
     attribute: ATTRIBUTE.carSeatId,
+    map: INDEX_NAME.carSeatId,
     model: carSeat,
     relation: RELATION.carSeat,
     option: { optional: true },
   });
   const carTypeRelation = oneToOne({
     attribute: ATTRIBUTE.carTypeId,
+    map: INDEX_NAME.carTypeId,
     model: carType,
     relation: RELATION.carType,
     option: { optional: true },
   });
   const serviceTypeRelation = oneToOne({
     attribute: ATTRIBUTE.serviceTypeId,
+    map: INDEX_NAME.serviceTypeId,
     model: serviceType,
     relation: RELATION.serviceType,
   });
   const serviceUnitRelation = oneToOne({
     attribute: ATTRIBUTE.serviceUnitId,
+    map: INDEX_NAME.serviceUnitId,
     model: serviceUnit,
     relation: RELATION.serviceUnit,
     option: { optional: true },
   });
   const visaPurposeRelation = oneToOne({
     attribute: ATTRIBUTE.visaPurposeId,
+    map: INDEX_NAME.visaPurposeId,
     model: visaPurpose,
     relation: RELATION.visaPurpose,
     option: { optional: true },
   });
   const visaTypeRelation = oneToOne({
     attribute: ATTRIBUTE.visaTypeId,
+    map: INDEX_NAME.visaTypeId,
     model: visaType,
     relation: RELATION.visaType,
     option: { optional: true },
   });
   const websiteRelation = oneToOne({
     attribute: ATTRIBUTE.websiteId,
+    map: INDEX_NAME.websiteId,
     model: website,
     relation: RELATION.website,
     option: { optional: true },
   });
   const upgradeServiceRelation = oneToOne({
     attribute: ATTRIBUTE.upgradeServiceId,
+    map: INDEX_NAME.upgradeServiceId,
     model: service,
     relation: RELATION.upgradeService,
     isNeedName: true,
@@ -139,6 +149,7 @@ export default createModel(MODEL_NAME.SERVICE, (ServiceModel) => {
   });
   const xeroAccountRelation = oneToOne({
     attribute: ATTRIBUTE.xeroAccountId,
+    map: INDEX_NAME.xeroAccountId,
     model: xeroAccount,
     relation: RELATION.xeroAccount,
     option: { optional: true },
@@ -286,17 +297,17 @@ export default createModel(MODEL_NAME.SERVICE, (ServiceModel) => {
       .mixin(subscriptionsRelation)
 
       // indexes
-      // .raw(INDEX.airportId)
-      // .raw(INDEX.carSeatId)
-      // .raw(INDEX.carTypeId)
-      // .raw(INDEX.discountServiceId)
-      // .raw(INDEX.serviceTypeId)
-      // .raw(INDEX.serviceUnitId)
-      // .raw(INDEX.upgradeServiceId)
-      // .raw(INDEX.visaPurposeId)
-      // .raw(INDEX.visaTypeId)
-      // .raw(INDEX.websiteId)
-      // .raw(INDEX.xeroAccountId)
+      .raw(INDEX.airportId)
+      .raw(INDEX.carSeatId)
+      .raw(INDEX.carTypeId)
+      .raw(INDEX.discountServiceId)
+      .raw(INDEX.serviceTypeId)
+      .raw(INDEX.serviceUnitId)
+      .raw(INDEX.upgradeServiceId)
+      .raw(INDEX.visaPurposeId)
+      .raw(INDEX.visaTypeId)
+      .raw(INDEX.websiteId)
+      .raw(INDEX.xeroAccountId)
 
       // table name
       .map(TABLE_NAME.SERVICE);

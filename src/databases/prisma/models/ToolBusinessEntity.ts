@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { entityType, option } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/ToolBusinessEntity';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/ToolBusinessEntity';
 
 export default createModel(MODEL_NAME.TOOL_BUSINESS_ENTITY, (ToolBusinessEntityModel) => {
   const initCreatedTime = createdTime({
@@ -28,11 +28,13 @@ export default createModel(MODEL_NAME.TOOL_BUSINESS_ENTITY, (ToolBusinessEntityM
   // defined Relations
   const optionRelation = oneToOne({
     attribute: ATTRIBUTE.optionId,
+    map: INDEX_NAME.optionId,
     model: option,
     relation: RELATION.option,
   });
   const entityTypeRelation = oneToOne({
     attribute: ATTRIBUTE.entityTypeId,
+    map: INDEX_NAME.entityTypeId,
     model: entityType,
     relation: RELATION.entityType,
   });
@@ -75,8 +77,8 @@ export default createModel(MODEL_NAME.TOOL_BUSINESS_ENTITY, (ToolBusinessEntityM
       .mixin(entityTypeRelation)
 
       // indexes
-      // .raw(INDEX.entityTypeId)
-      // .raw(INDEX.optionId)
+      .raw(INDEX.entityTypeId)
+      .raw(INDEX.optionId)
 
       // table name
       .map(TABLE_NAME.TOOL_BUSINESS_ENTITY);

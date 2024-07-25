@@ -1,5 +1,4 @@
-import { TABLE_NAME } from '@utilities/constants';
-
+import { TABLE_NAME } from '../constants';
 import { RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {

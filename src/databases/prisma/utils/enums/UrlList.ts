@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -28,8 +29,13 @@ export enum RELATION {
   urlListType = RELATION_DEFAULT.urlListType,
 }
 
+const tableName = TABLE_NAME.URL_LIST;
+export enum INDEX_NAME {
+  urlListTypeId = `"${tableName}_${COLUMN.urlListTypeId}_fkey"`,
+}
+
 export enum INDEX {
-  urlListTypeId = `@@index([${ATTRIBUTE.urlListTypeId}])`,
+  urlListTypeId = `@@index([${ATTRIBUTE.urlListTypeId}], map: ${INDEX_NAME.urlListTypeId})`,
 }
 
 export default {

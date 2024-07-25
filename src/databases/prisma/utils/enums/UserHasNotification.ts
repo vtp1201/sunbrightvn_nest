@@ -1,4 +1,5 @@
-import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
+import { TABLE_NAME } from '../constants';
+import { RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
   userId = 'userId',
@@ -17,6 +18,17 @@ export enum COLUMN {
 export enum RELATION {
   user = RELATION_DEFAULT.user,
   notification = RELATION_DEFAULT.notification,
+}
+
+const tableName = TABLE_NAME.USER_HAS_NOTIFICATION;
+export enum INDEX_NAME {
+  userId = `"${tableName}_${COLUMN.userId}_fkey"`,
+  notificationId = `"${tableName}_${COLUMN.notificationId}_fkey"`,
+}
+
+export enum INDEX {
+  userId = `@@index([${ATTRIBUTE.userId}], map: ${INDEX_NAME.userId})`,
+  notificationId = `@@index([${ATTRIBUTE.notificationId}], map: ${INDEX_NAME.notificationId})`,
 }
 
 export default {

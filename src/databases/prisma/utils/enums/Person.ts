@@ -60,7 +60,7 @@ export enum INDEX_NAME {
   countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
   genderId = `"${tableName}_${COLUMN.genderId}_fkey"`,
   phoneCountryId = `"${tableName}_${COLUMN.phoneCountryId}_fkey"`,
-  titleNameId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  titleNameId = `"${tableName}_${COLUMN.titleNameId}_fkey"`,
 }
 
 export enum INDEX {

@@ -1,4 +1,4 @@
-// SyslogEnum.ts
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -62,11 +62,19 @@ export enum RELATION {
   user = RELATION_DEFAULT.user,
 }
 
+const tableName = TABLE_NAME.SYSLOG;
+export enum INDEX_NAME {
+  apiMethodId = `"${tableName}_${COLUMN.apiMethodId}_fkey"`,
+  countryId = `"${tableName}_${COLUMN.countryId}_fkey"`,
+  syslogTypeId = `"${tableName}_${COLUMN.syslogTypeId}_fkey"`,
+  userId = `"${tableName}_${COLUMN.userId}_fkey"`,
+}
+
 export enum INDEX {
-  apiMethodId = `@@index([${ATTRIBUTE.apiMethodId}])`,
-  countryId = `@@index([${ATTRIBUTE.countryId}])`,
-  syslogTypeId = `@@index([${ATTRIBUTE.syslogTypeId}])`,
-  userId = `@@index([${ATTRIBUTE.userId}])`,
+  apiMethodId = `@@index([${ATTRIBUTE.apiMethodId}], map: ${INDEX_NAME.apiMethodId})`,
+  countryId = `@@index([${ATTRIBUTE.countryId}], map: ${INDEX_NAME.countryId})`,
+  syslogTypeId = `@@index([${ATTRIBUTE.syslogTypeId}], map: ${INDEX_NAME.syslogTypeId})`,
+  userId = `@@index([${ATTRIBUTE.userId}], map: ${INDEX_NAME.userId})`,
 }
 
 export default {

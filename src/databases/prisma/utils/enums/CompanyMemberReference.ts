@@ -42,7 +42,7 @@ export enum RELATION {
 const tableName = TABLE_NAME.COMPANY_MEMBER_REFERENCES;
 export enum INDEX_NAME {
   companyMemberId = `"${tableName}_${COLUMN.companyMemberId}_fkey"`,
-  companyMemberIssueReferenceId = `"${tableName}_${COLUMN.companyMemberIssueReferenceId}_fkey"`,
+  companyMemberIssueReferenceId = `"${tableName}_company_member_issuse_reference_i_fkey"`, // trường hợp đặc biệt index name phải bé hơn hoặc bằng 64 ký tự
   phoneCountryId = `"${tableName}_${COLUMN.phoneCountryId}_fkey"`,
 }
 

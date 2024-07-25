@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { country } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Target';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Target';
 
 export default createModel(MODEL_NAME.TARGET, (TargetModel) => {
   const initCreatedTime = createdTime({
@@ -28,6 +28,7 @@ export default createModel(MODEL_NAME.TARGET, (TargetModel) => {
   // defined Relations
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
+    map: INDEX_NAME.countryId,
     model: country,
     relation: RELATION.country,
   });
@@ -66,7 +67,7 @@ export default createModel(MODEL_NAME.TARGET, (TargetModel) => {
       .mixin(countryRelation)
 
       // indexes
-      // .raw(INDEX.countryId)
+      .raw(INDEX.countryId)
 
       // table name
       .map(TABLE_NAME.TARGET);

@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { message, order, supportCasePriority, supportCaseStatus, supportCaseType, user } from '.';
 import { createdTime, deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/SupportCase';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/SupportCase';
 
 export default createModel(MODEL_NAME.SUPPORT_CASE, (SupportCaseModel) => {
   const initCreatedTime = createdTime({
@@ -28,21 +28,25 @@ export default createModel(MODEL_NAME.SUPPORT_CASE, (SupportCaseModel) => {
   });
   const supportCasePriorityRelation = oneToOne({
     attribute: ATTRIBUTE.supportCasePriorityId,
+    map: INDEX_NAME.supportCasePriorityId,
     model: supportCasePriority,
     relation: RELATION.supportCasePriority,
   });
   const supportCaseStatusRelation = oneToOne({
     attribute: ATTRIBUTE.supportCaseStatusId,
+    map: INDEX_NAME.supportCaseStatusId,
     model: supportCaseStatus,
     relation: RELATION.supportCaseStatus,
   });
   const supportCaseTypeRelation = oneToOne({
     attribute: ATTRIBUTE.supportCaseTypeId,
+    map: INDEX_NAME.supportCaseTypeId,
     model: supportCaseType,
     relation: RELATION.supportCaseType,
   });
   const userRelation = oneToOne({
     attribute: ATTRIBUTE.userId,
+    map: INDEX_NAME.userId,
     model: user,
     relation: RELATION.user,
   });
@@ -93,10 +97,10 @@ export default createModel(MODEL_NAME.SUPPORT_CASE, (SupportCaseModel) => {
       .mixin(ordersRelation)
 
       // indexes
-      // .raw(INDEX.supportCasePriorityId)
-      // .raw(INDEX.supportCaseStatusId)
-      // .raw(INDEX.supportCaseTypeId)
-      // .raw(INDEX.userId)
+      .raw(INDEX.supportCasePriorityId)
+      .raw(INDEX.supportCaseStatusId)
+      .raw(INDEX.supportCaseTypeId)
+      .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.SUPPORT_CASE);

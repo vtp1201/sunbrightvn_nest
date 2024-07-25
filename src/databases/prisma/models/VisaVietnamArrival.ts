@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { country } from '.';
 import { deleted, oneToOne } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/VisaVietnamArrival';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/VisaVietnamArrival';
 
 export default createModel(MODEL_NAME.VISA_VIETNAM_ARRIVAL, (VisaVietnamArrivalModel) => {
   const initDeleted = deleted(
@@ -20,6 +20,7 @@ export default createModel(MODEL_NAME.VISA_VIETNAM_ARRIVAL, (VisaVietnamArrivalM
   // defined Relations
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
+    map: INDEX_NAME.countryId,
     model: country,
     relation: RELATION.country,
     option: { optional: true },
@@ -50,7 +51,7 @@ export default createModel(MODEL_NAME.VISA_VIETNAM_ARRIVAL, (VisaVietnamArrivalM
       .mixin(countryRelation)
 
       // indexes
-      // .raw(INDEX.countryId)
+      .raw(INDEX.countryId)
 
       // table name
       .map(TABLE_NAME.VISA_VIETNAM_ARRIVAL);

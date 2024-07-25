@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -41,11 +42,19 @@ export enum RELATION {
   visaType = RELATION_DEFAULT.visaType,
 }
 
+const tableName = TABLE_NAME.VISA_ORDER;
+export enum INDEX_NAME {
+  airportId = `"${tableName}_${COLUMN.airportId}_fkey"`,
+  orderId = `"${tableName}_${COLUMN.orderId}_fkey"`,
+  visaPurposeId = `"${tableName}_${COLUMN.visaPurposeId}_fkey"`,
+  visaTypeId = `"${tableName}_${COLUMN.visaTypeId}_fkey"`,
+}
+
 export enum INDEX {
-  airportId = `@@index([${ATTRIBUTE.airportId}])`,
-  orderId = `@@index([${ATTRIBUTE.orderId}])`,
-  visaPurposeId = `@@index([${ATTRIBUTE.visaPurposeId}])`,
-  visaTypeId = `@@index([${ATTRIBUTE.visaTypeId}])`,
+  airportId = `@@index([${ATTRIBUTE.airportId}], map: ${INDEX_NAME.airportId})`,
+  orderId = `@@index([${ATTRIBUTE.orderId}], map: ${INDEX_NAME.orderId})`,
+  visaPurposeId = `@@index([${ATTRIBUTE.visaPurposeId}], map: ${INDEX_NAME.visaPurposeId})`,
+  visaTypeId = `@@index([${ATTRIBUTE.visaTypeId}], map: ${INDEX_NAME.visaTypeId})`,
 }
 
 export default {

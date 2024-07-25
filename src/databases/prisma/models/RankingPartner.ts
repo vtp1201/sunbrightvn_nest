@@ -32,11 +32,13 @@ export default createModel(MODEL_NAME.RANKING_PARTNER, (RankingPartnerModel) => 
   });
   const rankingPartnerTypeRelation = oneToOne({
     attribute: ATTRIBUTE.rankingPartnerTypeId,
+    map: INDEX_NAME.rankingPartnerTypeId,
     model: rankingPartnerType,
     relation: RELATION.rankingPartnerType,
   });
   const taskRelation = oneToOne({
     attribute: ATTRIBUTE.taskId,
+    map: INDEX_NAME.taskId,
     model: task,
     relation: RELATION.task,
   });
@@ -76,8 +78,8 @@ export default createModel(MODEL_NAME.RANKING_PARTNER, (RankingPartnerModel) => 
       .mixin(taskRelation)
 
       // indexes
-      // .raw(INDEX.rankingPartnerTypeId)
-      // .raw(INDEX.taskId)
+      .raw(INDEX.rankingPartnerTypeId)
+      .raw(INDEX.taskId)
 
       // table name
       .map(TABLE_NAME.RANKING_PARTNER);

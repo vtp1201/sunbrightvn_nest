@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -85,10 +86,17 @@ export enum RELATION {
   roles = RELATION_DEFAULT.roles,
 }
 
+const tableName = TABLE_NAME.USER;
+export enum INDEX_NAME {
+  customerId = `"${tableName}_${COLUMN.customerId}_fkey"`,
+  personId = `"${tableName}_${COLUMN.personId}_fkey"`,
+  subscriptionId = `"${tableName}_${COLUMN.subscriptionId}_fkey"`,
+}
+
 export enum INDEX {
-  customerId = `@@index([${ATTRIBUTE.customerId}])`,
-  personId = `@@index([${ATTRIBUTE.personId}])`,
-  subscriptionId = `@@index([${ATTRIBUTE.subscriptionId}])`,
+  customerId = `@@index([${ATTRIBUTE.customerId}], map: ${INDEX_NAME.customerId})`,
+  personId = `@@index([${ATTRIBUTE.personId}], map: ${INDEX_NAME.personId})`,
+  subscriptionId = `@@index([${ATTRIBUTE.subscriptionId}], map: ${INDEX_NAME.subscriptionId})`,
 }
 
 export default {

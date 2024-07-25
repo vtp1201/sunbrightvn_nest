@@ -31,7 +31,7 @@ export enum INDEX_NAME {
 }
 
 export enum INDEX {
-  questionId = `@@index([${ATTRIBUTE.questionId}]], map: ${INDEX_NAME.questionId})`,
+  questionId = `@@index([${ATTRIBUTE.questionId}], map: ${INDEX_NAME.questionId})`,
 }
 
 export default {

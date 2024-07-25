@@ -10,6 +10,11 @@ export enum COLUMN {
 
 export enum RELATION {}
 
+// const tableName = TABLE_NAME.CLICK;
+// export enum INDEX_NAME {
+//   voucherTypeId = `"${tableName}_${COLUMN.voucherTypeId}_fkey"`,
+// }
+
 export enum INDEX {
   entityName = `@@index([${ATTRIBUTE.entityName}])`,
 }

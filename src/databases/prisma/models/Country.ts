@@ -10,6 +10,7 @@ import {
   bankingProcess,
   billing,
   businessActivity,
+  businessActivityIndustry,
   company,
   companyMember,
   companyMemberReference,
@@ -89,6 +90,10 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
   const businessActivitiesRelation = oneToMany({
     model: businessActivity,
     relation: RELATION.businessActivities,
+  });
+  const businessActivityIndustriesRelation = oneToMany({
+    model: businessActivityIndustry,
+    relation: RELATION.businessActivityIndustries,
   });
   const businessCountryForCompaniesRelation = oneToMany({
     model: company,
@@ -174,6 +179,11 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
     model: customer,
     relation: RELATION.companyCountryForCustomers,
     fromRelation: RELATION_DEFAULT.companyCountry,
+  });
+  const companyAddressCountryForCustomersRelation = oneToMany({
+    model: customer,
+    relation: RELATION.companyAddressCountryForCustomers,
+    fromRelation: RELATION_DEFAULT.companyAddressCountry,
   });
   const declarationTaxesRelation = oneToMany({
     model: declarationTax,
@@ -354,6 +364,7 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
       .mixin(billingsRelation)
       .mixin(phoneBillingsRelation)
       .mixin(businessActivitiesRelation)
+      .mixin(businessActivityIndustriesRelation)
       .mixin(businessCountryForCompaniesRelation)
       .mixin(countryForCompaniesRelation)
       .mixin(companiesRelation)
@@ -372,6 +383,7 @@ export default createModel(MODEL_NAME.COUNTRY, (CountryModel) => {
       .mixin(phoneCountryForCustomersRelation)
       .mixin(countryForCustomersRelation)
       .mixin(companyCountryForCustomersRelation)
+      .mixin(companyAddressCountryForCustomersRelation)
       .mixin(declarationTaxesRelation)
       .mixin(holderCountryForFatcasRelation)
       .mixin(mailingCountryForFatcasRelation)

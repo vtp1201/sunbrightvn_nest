@@ -22,7 +22,7 @@ import {
 } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/User';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/User';
 import { RELATION_DEFAULT } from '../utils/enums/default';
 
 export default createModel(MODEL_NAME.USER, (UserModel) => {
@@ -211,18 +211,21 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
   });
   const customerRelation = oneToOne({
     attribute: ATTRIBUTE.customerId,
+    map: INDEX_NAME.customerId,
     model: customer,
     relation: RELATION.customer,
     option: { optional: true },
   });
   const personRelation = oneToOne({
     attribute: ATTRIBUTE.personId,
+    map: INDEX_NAME.personId,
     model: person,
     relation: RELATION.person,
     option: { optional: true },
   });
   const subscriptionRelation = oneToOne({
     attribute: ATTRIBUTE.subscriptionId,
+    map: INDEX_NAME.subscriptionId,
     model: subscription,
     relation: RELATION.subscription,
     option: { optional: true },
@@ -351,9 +354,9 @@ export default createModel(MODEL_NAME.USER, (UserModel) => {
       .mixin(rolesRelation)
 
       // indexes
-      // .raw(INDEX.customerId)
-      // .raw(INDEX.personId)
-      // .raw(INDEX.subscriptionId)
+      .raw(INDEX.customerId)
+      .raw(INDEX.personId)
+      .raw(INDEX.subscriptionId)
 
       // table name
       .map(TABLE_NAME.USER);

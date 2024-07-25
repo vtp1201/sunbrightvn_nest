@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -30,9 +31,15 @@ export enum RELATION {
   fileTemplates = RELATION_DEFAULT.fileTemplates,
 }
 
+const tableName = TABLE_NAME.SERVICE_CHANGE_OFFICER;
+export enum INDEX_NAME {
+  companyMemberTypeId = `"${tableName}_${COLUMN.companyMemberTypeId}_fkey"`,
+  changeRequestStatusId = `"${tableName}_${COLUMN.changeRequestStatusId}_fkey"`,
+}
+
 export enum INDEX {
-  companyMemberTypeId = `@@index([${ATTRIBUTE.companyMemberTypeId}])`,
-  changeRequestStatusId = `@@index([${ATTRIBUTE.changeRequestStatusId}])`,
+  companyMemberTypeId = `@@index([${ATTRIBUTE.companyMemberTypeId}], map: ${INDEX_NAME.companyMemberTypeId})`,
+  changeRequestStatusId = `@@index([${ATTRIBUTE.changeRequestStatusId}], map: ${INDEX_NAME.changeRequestStatusId})`,
 }
 
 export default {

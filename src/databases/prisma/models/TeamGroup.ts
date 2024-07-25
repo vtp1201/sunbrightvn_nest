@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { emailTemplateHasReceiver, user } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/TeamGroup';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/TeamGroup';
 
 export default createModel(MODEL_NAME.TEAM_GROUP, (TeamGroupModel) => {
   const initCreatedTime = createdTime({
@@ -36,6 +36,7 @@ export default createModel(MODEL_NAME.TEAM_GROUP, (TeamGroupModel) => {
   });
   const leaderUserRelation = oneToOne({
     attribute: ATTRIBUTE.leaderUserId,
+    map: INDEX_NAME.leaderUserId,
     model: user,
     relation: RELATION.leaderUser,
     isNeedName: true,
@@ -71,7 +72,7 @@ export default createModel(MODEL_NAME.TEAM_GROUP, (TeamGroupModel) => {
       .mixin(usersRelation)
 
       // indexes
-      // .raw(INDEX.leaderUserId)
+      .raw(INDEX.leaderUserId)
 
       // table name
       .map(TABLE_NAME.TEAM_GROUP);

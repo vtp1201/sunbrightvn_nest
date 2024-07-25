@@ -38,7 +38,7 @@ export enum INDEX_NAME {
 }
 
 export enum INDEX {
-  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: ${INDEX_NAME.processStepId}))`,
+  processStepId = `@@index([${ATTRIBUTE.processStepId}], map: ${INDEX_NAME.processStepId})`,
 }
 
 export default {

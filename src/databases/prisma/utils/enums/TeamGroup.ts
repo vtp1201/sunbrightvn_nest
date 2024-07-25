@@ -1,3 +1,4 @@
+import { TABLE_NAME } from '../constants';
 import { ATTRIBUTE_DEFAULT, COLUMN_DEFAULT, RELATION_DEFAULT } from './default';
 
 export enum ATTRIBUTE {
@@ -26,8 +27,13 @@ export enum RELATION {
   leaderUser = RELATION_DEFAULT.leaderUser,
 }
 
+const tableName = TABLE_NAME.TEAM_GROUP;
+export enum INDEX_NAME {
+  leaderUserId = `"${tableName}_${COLUMN.leaderUserId}_fkey"`,
+}
+
 export enum INDEX {
-  leaderUserId = `@@index([${ATTRIBUTE.leaderUserId}])`,
+  leaderUserId = `@@index([${ATTRIBUTE.leaderUserId}], map: ${INDEX_NAME.leaderUserId})`,
 }
 
 export default {

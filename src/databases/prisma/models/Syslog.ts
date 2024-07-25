@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { apiMethod, country, syslogType, user } from '.';
 import { createdTime, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, RELATION } from '../utils/enums/Syslog';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Syslog';
 
 export default createModel(MODEL_NAME.SYSLOG, (SyslogModel) => {
   const initCreatedTime = createdTime({
@@ -14,24 +14,28 @@ export default createModel(MODEL_NAME.SYSLOG, (SyslogModel) => {
   // defined Relations
   const apiMethodRelation = oneToOne({
     attribute: ATTRIBUTE.apiMethodId,
+    map: INDEX_NAME.apiMethodId,
     model: apiMethod,
     relation: RELATION.apiMethod,
     option: { optional: true },
   });
   const countryRelation = oneToOne({
     attribute: ATTRIBUTE.countryId,
+    map: INDEX_NAME.countryId,
     model: country,
     relation: RELATION.country,
     option: { optional: true },
   });
   const syslogTypeRelation = oneToOne({
     attribute: ATTRIBUTE.syslogTypeId,
+    map: INDEX_NAME.syslogTypeId,
     model: syslogType,
     relation: RELATION.syslogType,
     option: { optional: true },
   });
   const userRelation = oneToOne({
     attribute: ATTRIBUTE.userId,
+    map: INDEX_NAME.userId,
     model: user,
     relation: RELATION.user,
     option: { optional: true },
@@ -153,10 +157,10 @@ export default createModel(MODEL_NAME.SYSLOG, (SyslogModel) => {
       .mixin(userRelation)
 
       // indexes
-      // .raw(INDEX.apiMethodId)
-      // .raw(INDEX.countryId)
-      // .raw(INDEX.syslogTypeId)
-      // .raw(INDEX.userId)
+      .raw(INDEX.apiMethodId)
+      .raw(INDEX.countryId)
+      .raw(INDEX.syslogTypeId)
+      .raw(INDEX.userId)
 
       // table name
       .map(TABLE_NAME.SYSLOG);

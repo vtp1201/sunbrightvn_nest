@@ -233,6 +233,7 @@ export default createModel(MODEL_NAME.CUSTOMER, (CustomerModel) => {
     model: country,
     relation: RELATION.companyAddressCountry,
     map: INDEX_NAME.companyAddressCountryId,
+    isNeedName: true,
     option: { optional: true },
   });
   const airportRelation = oneToOne({
