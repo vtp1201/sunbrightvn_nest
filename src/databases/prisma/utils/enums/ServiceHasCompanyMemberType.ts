@@ -1,5 +1,3 @@
-import { RELATION_DEFAULT } from './default';
-
 export enum ATTRIBUTE {
   serviceId = 'serviceId',
   companyMemberTypeId = 'companyMemberTypeId',
