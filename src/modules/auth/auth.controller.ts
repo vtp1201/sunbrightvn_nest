@@ -22,7 +22,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   // @Post('sign-up')
-  // async signUp(@Body() sign_up_dto: SignUpDto) {
+  // async signUp(@Body() sign_up_dto: SignUpDTO) {
   //   // return await this.authService.signUp(sign_up_dto);
   // }
 

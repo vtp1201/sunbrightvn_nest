@@ -3,14 +3,12 @@ import { ApiTags } from '@nestjs/swagger';
 
 import { ROUTES } from '@utilities';
 
-import { BBCSGService } from '../bbcsg.service';
-
 const { ROUTE, TAG } = ROUTES.BBCSG.COMPANY_NAME_CHECK;
 
 @Controller()
 @ApiTags(TAG)
 export class CompanyNameCheckController {
-  constructor(private readonly service: BBCSGService) {}
+  constructor() {}
 
   @Get(ROUTE.SEARCH)
   checkName() {

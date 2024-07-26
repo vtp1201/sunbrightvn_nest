@@ -1,5 +1,9 @@
 import { Module } from '@nestjs/common';
 
+import { AnswerModule } from '@modules/answer/answer.module';
+import { ProcessModule } from '@modules/process/process.module';
+import { QuestionModule } from '@modules/question/question.module';
+
 import {
   CustomerController,
   FinancialController,
@@ -9,7 +13,7 @@ import {
 } from './controllers';
 
 @Module({
-  imports: [],
+  imports: [ProcessModule, QuestionModule, AnswerModule],
   controllers: [
     CustomerController,
     FinancialController,

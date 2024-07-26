@@ -1,7 +1,7 @@
 import { CONFIGURATION } from '@utilities';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class ConfigEnvDto {
+export class ConfigEnvDTO {
   @IsNotEmpty()
   @IsString()
   readonly [CONFIGURATION.NODE_ENV]: string;

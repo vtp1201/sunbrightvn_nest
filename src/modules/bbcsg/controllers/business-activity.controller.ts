@@ -3,17 +3,20 @@ import { ApiTags } from '@nestjs/swagger';
 
 import { ROUTES } from '@utilities';
 
-import { BBCSGService } from '../bbcsg.service';
-import { FilterDto } from '../dtos/filter.dto';
+import { FilterDTO } from '../dtos/filter.dto';
+import { BusinessActivityBBCSGService } from '../services';
 
 const { ROUTE, TAG } = ROUTES.BBCSG.BUSINESS_ACTIVITY;
 @Controller()
 @ApiTags(TAG)
 export class BusinessActivityController {
-  constructor(private readonly service: BBCSGService) {}
+  constructor(private readonly service: BusinessActivityBBCSGService) {}
 
   @Get(ROUTE.FILTER)
-  filter(@Query() filter: FilterDto) {
-    return filter;
+  async filter(@Query() filter: FilterDTO) {
+    return await this.service.filter({
+      country: filter.country,
+      searchString: filter.searchString,
+    });
   }
 }

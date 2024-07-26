@@ -3,14 +3,11 @@ import { ApiTags } from '@nestjs/swagger';
 
 import { ROUTES } from '@utilities';
 
-import { BBCSGService } from '../bbcsg.service';
-
 const { ROUTE, TAG } = ROUTES.BBCSG.STATIC_DATA;
-
 @Controller()
 @ApiTags(TAG)
 export class StaticDataController {
-  constructor(private readonly service: BBCSGService) {}
+  constructor() {}
 
   @Get(ROUTE.BASE)
   list() {
