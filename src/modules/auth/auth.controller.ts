@@ -12,7 +12,7 @@ import {
 import { RequestWithUser } from '@types';
 import { ROUTES } from '@utilities';
 
-import { LocalAuthGuard } from './guard/local.guard';
+import { LocalAuthGuard } from './guards/local.guard';
 import { AuthService } from './services/auth.service';
 
 const { ROUTE, TAG } = ROUTES.AUTH;
