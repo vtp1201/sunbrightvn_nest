@@ -11,7 +11,11 @@ export type inputGeneratePassport = {
     left: number;
     right: number;
     parentId: number;
-    limits: {}[];
+    limits: {
+      id: number;
+      value: string;
+      name: string;
+    }[];
     permissions: {
       id: number;
       value: string;
