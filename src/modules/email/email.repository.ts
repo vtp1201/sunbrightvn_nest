@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
 import { AbstractRepository } from '@abstracts';
-import { PrismaService } from '@databases/prisma.service';
 import { E_EMAIL, MODEL_NAME } from '@utilities';
+
+import { PrismaService } from '@databases/prisma.service';
 
 @Injectable()
 export class EmailRepository extends AbstractRepository<MODEL_NAME.EMAIL> {

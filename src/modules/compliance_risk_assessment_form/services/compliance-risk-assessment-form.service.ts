@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
-import { AnswerService } from '@modules/answer/answer.service';
-import { ProcessService } from '@modules/process/process.service';
-import { QuestionService } from '@modules/question/question.service';
 import { FILE_TEMPLATE, LIST_QUESTION, TYPE_MEMBER } from '@utilities';
 
 import { answer } from '@prisma/client';
+
+import { AnswerService } from '@modules/answer/answer.service';
+import { ProcessService } from '@modules/process/process.service';
+import { QuestionService } from '@modules/question/question.service';
 
 @Injectable()
 export class ComplianceRiskAssessmentFormService {

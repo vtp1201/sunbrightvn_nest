@@ -1,8 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { AbstractRepository } from '@abstracts';
-import { PrismaService } from '@databases/prisma.service';
 import { E_USER, MODEL_NAME, ROLE_STATUS } from '@utilities';
+
+import { PrismaService } from '@databases/prisma.service';
 
 @Injectable()
 export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
