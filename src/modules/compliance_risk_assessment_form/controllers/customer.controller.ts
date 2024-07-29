@@ -1,17 +1,24 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { ROUTES } from '@utilities';
+
+import { QueryDTO } from '../dtos/query.dto';
+import { CustomerFormService } from '../services';
 
 const { ROUTE, TAG } = ROUTES.COMPLIANCE_RISK_ASSESSMENT_FORM.CUSTOMER;
 @Controller()
 @ApiTags(TAG)
 export class CustomerController {
-  constructor() {}
+  constructor(private customerFormService: CustomerFormService) {}
 
   @Get(ROUTE.QUESTIONS)
-  getQuestion() {
-    return '';
+  async getQuestion(@Query() query: QueryDTO) {
+    return await this.customerFormService.getAnswers({
+      processId: query.processId,
+      companyMemberId: query.companyMemberId,
+      companyMemberTypeId: query.companyMemberTypeId,
+    });
   }
 
   @Post(ROUTE.ANSWERS)
@@ -20,7 +27,11 @@ export class CustomerController {
   }
 
   @Get(ROUTE.ANSWERS)
-  getAnswer() {
-    return '';
+  async getAnswer(@Query() query: QueryDTO) {
+    return await this.customerFormService.getAnswers({
+      processId: query.processId,
+      companyMemberId: query.companyMemberId,
+      companyMemberTypeId: query.companyMemberTypeId,
+    });
   }
 }

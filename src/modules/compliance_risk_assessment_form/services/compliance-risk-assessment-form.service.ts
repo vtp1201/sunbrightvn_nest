@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
 import { AnswerService } from '@modules/answer/answer.service';
+import { NoteService } from '@modules/note/note.service';
 import { ProcessService } from '@modules/process/process.service';
 import { QuestionService } from '@modules/question/question.service';
 import { FILE_TEMPLATE, LIST_QUESTION, TYPE_MEMBER } from '@utilities';
 
-import { answer } from '@prisma/client';
+import { Prisma, answer } from '@prisma/client';
 
 @Injectable()
 export class ComplianceRiskAssessmentFormService {
@@ -13,7 +14,64 @@ export class ComplianceRiskAssessmentFormService {
     private questionService: QuestionService,
     private answerService: AnswerService,
     private processService: ProcessService,
+    private noteService: NoteService,
   ) {}
+
+  async getNotes(
+    params: {
+      companyMemberId?: number;
+      companyId?: number;
+      taskId?: number;
+    },
+    noteTypeId: number,
+  ) {
+    try {
+      const where: Prisma.noteWhereInput = {
+        noteTypeId,
+      };
+
+      params.companyMemberId
+        ? (where.companyMemberId = params.companyMemberId)
+        : params.companyId
+          ? (where.companyId = params.companyId)
+          : (where.taskId = params.taskId);
+
+      return this.noteService.findMany({
+        where,
+        include: {
+          files: {
+            select: {
+              id: true,
+              name: true,
+              s3Path: true,
+              mimeType: true,
+            },
+          },
+          user: {
+            select: {
+              id: true,
+            },
+            include: {
+              person: {
+                select: {
+                  firstName: true,
+                  lastName: true,
+                },
+              },
+              roles: {
+                select: {
+                  name: true,
+                  colorCode: true,
+                },
+              },
+            },
+          },
+        },
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
 
   async getQuestions(params: {
     typeMemberId?: number;

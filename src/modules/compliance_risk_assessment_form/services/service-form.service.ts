@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
 import { AnswerService } from '@modules/answer/answer.service';
-import { FINANCE_RAF_FORM_ID_LIST } from '@utilities';
+import { SERVICE_RAF_FORM_ID_LIST } from '@utilities';
 
 import { ComplianceRiskAssessmentFormService } from './compliance-risk-assessment-form.service';
 
 @Injectable()
-export class FinancialFormService {
+export class ServiceFormService {
   constructor(
     private answerService: AnswerService,
     private complianceRiskAssessmentForm: ComplianceRiskAssessmentFormService,
@@ -30,7 +30,7 @@ export class FinancialFormService {
   }
 
   private getFileTemplateId(rafTemplateIds: number[]): number {
-    const fileTemplateId = FINANCE_RAF_FORM_ID_LIST.find((fileTemplateId) =>
+    const fileTemplateId = SERVICE_RAF_FORM_ID_LIST.find((fileTemplateId) =>
       rafTemplateIds.includes(fileTemplateId),
     );
 
