@@ -1,5 +1,8 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+
+import { QueryDTO } from '../dtos/query.dto';
+import { ServiceFormService } from '../services';
 
 import { ROUTES } from '@utilities';
 
@@ -7,11 +10,13 @@ const { ROUTE, TAG } = ROUTES.COMPLIANCE_RISK_ASSESSMENT_FORM.SERVICE;
 @Controller()
 @ApiTags(TAG)
 export class ServiceController {
-  constructor() {}
+  constructor(private serviceFormService: ServiceFormService) {}
 
   @Get(ROUTE.QUESTIONS)
-  getQuestion() {
-    return '';
+  async getQuestion(@Query() query: QueryDTO) {
+    return await this.getQuestion({
+      processId: query.processId,
+    });
   }
 
   @Post(ROUTE.ANSWERS)
@@ -20,7 +25,9 @@ export class ServiceController {
   }
 
   @Get(ROUTE.ANSWERS)
-  getAnswer() {
-    return '';
+  async getAnswer(@Query() query: QueryDTO) {
+    return await this.getAnswer({
+      processId: query.processId,
+    });
   }
 }

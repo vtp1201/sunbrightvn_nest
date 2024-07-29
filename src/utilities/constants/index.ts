@@ -6,6 +6,7 @@ export * from './file-template';
 export * from './type-member';
 export * from './question';
 export * from './company-member-type';
+export * from './note-type';
 
 export const ENV_PATH = '.env';
 export const LIB_VERSION = '2.0.0';
