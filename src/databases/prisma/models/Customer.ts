@@ -1,7 +1,6 @@
 import { createModel } from 'schemix';
 
 import {
-  Package,
   airport,
   bank,
   billing,
@@ -19,6 +18,7 @@ import {
   gaChannel,
   gender,
   order,
+  Package,
   person,
   task,
   titleName,

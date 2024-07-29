@@ -10,12 +10,18 @@
     "^@nestjs/(.*)$",
     "<THIRD_PARTY_MODULES>",
     "^@prisma/(.*)$",
+    "^@config",
+    "^@abstracts",
+    "^@database",
     "^@*/(.*)$",
     "^[../]",
-    "^[./]"
+    "^[./]",
+    "^@type",
+    "^@utilities"
   ],
   "importOrderSeparation": true,
   "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrderSortSpecifiers": true,
-  "importOrderParserPlugins": ["typescript", "classProperties", "decorators-legacy"]
+  "importOrderParserPlugins": ["typescript", "classProperties", "decorators-legacy"],
+  "importOrderCaseInsensitive": true
 }

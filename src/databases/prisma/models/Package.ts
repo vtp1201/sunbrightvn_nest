@@ -1,11 +1,11 @@
 import { createModel } from 'schemix';
 
 import {
-  Package,
   country,
   customer,
   entityType,
   orderItem,
+  Package,
   packageGroup,
   packageHasService,
   packageType,

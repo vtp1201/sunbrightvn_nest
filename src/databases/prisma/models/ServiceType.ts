@@ -1,8 +1,8 @@
 import { createModel } from 'schemix';
 
 import {
-  Package,
   actionProcessStep,
+  Package,
   service,
   serviceType,
   serviceTypeHasDepartment,

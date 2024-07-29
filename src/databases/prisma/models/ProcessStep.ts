@@ -1,12 +1,12 @@
 import { createModel } from 'schemix';
 
 import {
-  Process,
   actionProcessStep,
   emailTemplate,
   emailTrigger,
   note,
   notificationTemplate,
+  Process,
   processStep,
   processStepHasFileTemplate,
   processStepHasRole,
@@ -14,8 +14,8 @@ import {
 } from '.';
 import { deleted, oneToMany, oneToOne } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/ProcessStep';
 import { RELATION_DEFAULT } from '../utils/enums/default';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/ProcessStep';
 
 export default createModel(MODEL_NAME.PROCESS_STEP, (ProcessStepModel) => {
   const initDeleted = deleted(

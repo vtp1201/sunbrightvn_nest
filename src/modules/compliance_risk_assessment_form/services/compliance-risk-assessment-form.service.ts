@@ -4,9 +4,10 @@ import { AnswerService } from '@modules/answer/answer.service';
 import { NoteService } from '@modules/note/note.service';
 import { ProcessService } from '@modules/process/process.service';
 import { QuestionService } from '@modules/question/question.service';
-import { FILE_TEMPLATE, LIST_QUESTION, TYPE_MEMBER } from '@utilities';
 
-import { Prisma, answer } from '@prisma/client';
+import { answer, Prisma } from '@prisma/client';
+
+import { FILE_TEMPLATE, LIST_QUESTION, TYPE_MEMBER } from '@utilities';
 
 @Injectable()
 export class ComplianceRiskAssessmentFormService {

@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { Process, emailTemplate, emailTrigger } from '.';
+import { emailTemplate, emailTrigger, Process } from '.';
 import { createdTime, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, TABLE_NAME } from '../utils';
 import {

@@ -3,8 +3,8 @@ import { createModel } from 'schemix';
 import { country, grantSchemeHasGrantTypeAttribute, grantType, grantTypeAttribute } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
-import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/GrantTypeAttribute';
 import { RELATION_DEFAULT } from '../utils/enums/default';
+import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/GrantTypeAttribute';
 
 export default createModel(MODEL_NAME.GRANT_TYPE_ATTRIBUTE, (GrantTypeAttributeModel) => {
   const initCreatedTime = createdTime({

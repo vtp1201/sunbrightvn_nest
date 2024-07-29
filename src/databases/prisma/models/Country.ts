@@ -1,7 +1,6 @@
 import { createModel } from 'schemix';
 
 import {
-  Package,
   actionProcessStep,
   agent,
   answer,
@@ -28,6 +27,7 @@ import {
   historyCompanyMember,
   holiday,
   order,
+  Package,
   person,
   question,
   syslog,

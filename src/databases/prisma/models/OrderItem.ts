@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { Package, order, orderItemStatus, service } from '.';
+import { order, orderItemStatus, Package, service } from '.';
 import { createdTime, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_NUMBER, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/OrderItem';

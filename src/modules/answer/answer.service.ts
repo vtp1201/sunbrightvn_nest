@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
-import { AbstractService } from '@abstracts';
-import { MODEL_NAME } from '@utilities';
 import * as moment from 'moment';
 
-import { Prisma, answer } from '@prisma/client';
+import { answer, Prisma } from '@prisma/client';
+
+import { AbstractService } from '@abstracts';
 
 import { AnswerRepository } from './answer.repository';
+
+import { MODEL_NAME } from '@utilities';
 
 @Injectable()
 export class AnswerService extends AbstractService<MODEL_NAME.ANSWER, AnswerRepository> {

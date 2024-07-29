@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 import { AnswerService } from '@modules/answer/answer.service';
-import { FINANCE_RAF_FORM_ID_LIST } from '@utilities';
 
 import { ComplianceRiskAssessmentFormService } from './compliance-risk-assessment-form.service';
+
+import { FINANCE_RAF_FORM_ID_LIST } from '@utilities';
 
 @Injectable()
 export class FinancialFormService {

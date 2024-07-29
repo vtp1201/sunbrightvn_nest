@@ -2,10 +2,11 @@ import { Controller, Get, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { AbstractController } from '@abstracts';
-import { MODEL_NAME, ROUTES } from '@utilities';
 
 import { UserRepository } from './user.repository';
 import { UserService } from './user.service';
+
+import { MODEL_NAME, ROUTES } from '@utilities';
 
 const { ROUTE, TAG } = ROUTES.USER;
 @Controller()

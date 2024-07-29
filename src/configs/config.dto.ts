@@ -1,5 +1,6 @@
-import { CONFIGURATION } from '@utilities';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+
+import { CONFIGURATION } from '@utilities';
 
 export class ConfigEnvDTO {
   @IsNotEmpty()

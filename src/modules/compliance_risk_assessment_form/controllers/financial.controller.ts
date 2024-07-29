@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { ROUTES } from '@utilities';
-
 import { QueryDTO } from '../dtos/query.dto';
 import { FinancialFormService } from '../services';
+
+import { ROUTES } from '@utilities';
 
 const { ROUTE, TAG } = ROUTES.COMPLIANCE_RISK_ASSESSMENT_FORM.FINANCIAL;
 @Controller()

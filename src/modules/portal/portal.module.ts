@@ -9,15 +9,15 @@ import {
   OrderController,
   PaymentController,
   RateController,
-  SSICSingaporeController,
   SicUKController,
   SingaporeACRAController,
   SingaporeGrantSchemeController,
+  SSICSingaporeController,
   StaticDataController,
   SurveyController,
   TrustpilotController,
-  USBusinessEntityController,
   UploadController,
+  USBusinessEntityController,
 } from './controllers';
 
 @Module({

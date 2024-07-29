@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { Process, agent, company, companyMember, emailTemplate } from '.';
+import { agent, company, companyMember, emailTemplate, Process } from '.';
 import { createdTime, deleted, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Email';

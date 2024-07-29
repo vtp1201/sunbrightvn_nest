@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { Process, company, companyMember, file, noteType, processStep, task, user } from '.';
+import { company, companyMember, file, noteType, Process, processStep, task, user } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Note';

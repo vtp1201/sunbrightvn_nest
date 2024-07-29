@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
 import { AbstractRepository } from '@abstracts';
+
 import { PrismaService } from '@databases/prisma.service';
+
 import { E_BUSINESS_ACTIVITY, MODEL_NAME } from '@utilities';
 
 @Injectable()

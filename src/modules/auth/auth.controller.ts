@@ -9,11 +9,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { RequestWithUser } from '@types';
-import { ROUTES } from '@utilities';
-
 import { LocalAuthGuard } from './guards/local.guard';
 import { AuthService } from './services/auth.service';
+
+import { RequestWithUser } from '@types';
+
+import { ROUTES } from '@utilities';
 
 const { ROUTE, TAG } = ROUTES.AUTH;
 @Controller()

@@ -1,7 +1,6 @@
 import { createModel } from 'schemix';
 
 import {
-  Process,
   additionProcess,
   answer,
   bankingProcess,
@@ -20,6 +19,7 @@ import {
   note,
   order,
   paymentInformation,
+  Process,
   proposedName,
   rankingPartner,
   taskHasAgent,

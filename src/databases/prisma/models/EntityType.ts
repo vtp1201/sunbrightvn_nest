@@ -1,13 +1,13 @@
 import { createModel } from 'schemix';
 
 import {
-  Package,
   company,
   companySuffix,
   countryHasEntityType,
   countryHasService,
   customer,
   historyCompany,
+  Package,
   task,
   toolBusinessEntity,
 } from '.';

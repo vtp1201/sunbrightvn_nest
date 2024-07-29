@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { ROUTES } from '@utilities';
-
 import { QueryDTO } from '../dtos/query.dto';
 import { CustomerFormService } from '../services';
+
+import { ROUTES } from '@utilities';
 
 const { ROUTE, TAG } = ROUTES.COMPLIANCE_RISK_ASSESSMENT_FORM.CUSTOMER;
 @Controller()

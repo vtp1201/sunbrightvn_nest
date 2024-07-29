@@ -3,7 +3,7 @@ import { createModel } from 'schemix';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/BankingProcess';
-import { Process, bank, bankBranch, country, proposedTime, task } from './';
+import { bank, bankBranch, country, Process, proposedTime, task } from './';
 
 export default createModel(MODEL_NAME.BANKING_PROCESS, (BankingProcessModel) => {
   const initCreatedTime = createdTime({

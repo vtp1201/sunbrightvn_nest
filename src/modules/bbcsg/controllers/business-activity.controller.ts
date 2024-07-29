@@ -1,10 +1,10 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { ROUTES } from '@utilities';
-
 import { FilterDTO } from '../dtos/filter.dto';
 import { BusinessActivityBBCSGService } from '../services';
+
+import { ROUTES } from '@utilities';
 
 const { ROUTE, TAG } = ROUTES.BBCSG.BUSINESS_ACTIVITY;
 @Controller()

@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { validate } from '@configs/config.validate';
-import { DatabaseModule } from '@databases/database.module';
 import {
   AuthModule,
   BBCSGModule,
@@ -18,10 +16,15 @@ import {
   Visa2AsiaModule,
   WebsiteModule,
 } from '@modules';
-// import { RedisModule } from '@nestjs-modules/ioredis';
-import { ENV_PATH } from '@utilities';
 import { AcceptLanguageResolver, HeaderResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
 import * as path from 'path';
+
+import { validate } from '@configs/config.validate';
+
+import { DatabaseModule } from '@databases/database.module';
+
+// import { RedisModule } from '@nestjs-modules/ioredis';
+import { ENV_PATH } from '@utilities';
 
 @Module({
   imports: [

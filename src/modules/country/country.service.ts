@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 import { AbstractService } from '@abstracts';
-import { MODEL_NAME } from '@utilities';
 
 import { CountryRepository } from './country.repository';
+
+import { MODEL_NAME } from '@utilities';
 
 @Injectable()
 export class CountryService extends AbstractService<

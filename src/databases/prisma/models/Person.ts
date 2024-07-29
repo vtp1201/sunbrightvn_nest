@@ -1,6 +1,6 @@
 import { createModel } from 'schemix';
 
-import { Process, country, customer, gender, titleName, user } from '.';
+import { country, customer, gender, Process, titleName, user } from '.';
 import { createdTime, deleted, oneToMany, oneToOne, updatedTime } from '../mixins';
 import { MODEL_NAME, RAW_DATE_TIME, RAW_STRING, TABLE_NAME } from '../utils';
 import { ATTRIBUTE, COLUMN, INDEX, INDEX_NAME, RELATION } from '../utils/enums/Person';
