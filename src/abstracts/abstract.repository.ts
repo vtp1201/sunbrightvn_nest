@@ -1,6 +1,6 @@
-import { Prisma } from '@prisma/client';
-
 import { PrismaService } from '@databases/prisma.service';
+
+import { Prisma } from '@prisma/client';
 
 import {
   IAbstractRepository,

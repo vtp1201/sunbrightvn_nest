@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
-import { Prisma, answer } from '@prisma/client';
-
 import { AbstractService } from '@abstracts';
 import { MODEL_NAME } from '@utilities';
 import * as moment from 'moment';
+
+import { Prisma, answer } from '@prisma/client';
 
 import { AnswerRepository } from './answer.repository';
 
