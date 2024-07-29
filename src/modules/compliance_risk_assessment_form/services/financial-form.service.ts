@@ -7,7 +7,7 @@ import { COMPANY_MEMBER_TYPE, FILE_TEMPLATE, TYPE_MEMBER } from '@utilities';
 import { ComplianceRiskAssessmentFormService } from './compliance-risk-assessment-form.service';
 
 @Injectable()
-export class CustomerFormService {
+export class FinancialFormService {
   constructor(
     private answerService: AnswerService,
     private companyMemberService: CompanyMemberService,

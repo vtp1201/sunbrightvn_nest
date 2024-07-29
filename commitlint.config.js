@@ -5,7 +5,7 @@ module.exports = {
       2,
       'always',
       [
-        'feat', // Tính năng mới
+        'feature', // Tính năng mới
         'fix', // Sửa lỗi
         'improve', // Cải thiện code
         'refactor', // Tái cấu trúc code
