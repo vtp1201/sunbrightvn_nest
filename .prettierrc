@@ -8,8 +8,8 @@
   "semi": true,
   "importOrder": [
     "^@nestjs/(.*)$",
-    "<THIRD_PARTY_MODULES>",
     "^@prisma/(.*)$",
+    "<THIRD_PARTY_MODULES>",
     "^@*/(.*)$",
     "^[../]",
     "^[./]"
