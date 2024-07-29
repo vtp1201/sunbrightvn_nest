@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 import { AbstractRepository } from '@abstracts';
-import { E_COUNTRY, MODEL_NAME } from '@utilities';
-
 import { PrismaService } from '@databases/prisma.service';
+import { E_COUNTRY, MODEL_NAME } from '@utilities';
 
 @Injectable()
 export class CountryRepository extends AbstractRepository<MODEL_NAME.BUSINESS_ACTIVITY> {

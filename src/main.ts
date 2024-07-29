@@ -3,12 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
+import { configSwagger } from '@configs/apiDocs.config';
 import { APP_NAME, CONFIGURATION, LIB_VERSION, ROUTES } from '@utilities';
 import helmet from 'helmet';
 import * as moment from 'moment';
 import { join } from 'path';
-
-import { configSwagger } from '@configs/apiDocs.config';
 
 import { AppModule } from './app.module';
 

@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
+import { validate } from '@configs/config.validate';
+import { DatabaseModule } from '@databases/database.module';
 import {
   AuthModule,
   BBCSGModule,
@@ -20,10 +22,6 @@ import {
 import { ENV_PATH } from '@utilities';
 import { AcceptLanguageResolver, HeaderResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
 import * as path from 'path';
-
-import { DatabaseModule } from '@databases/database.module';
-
-import { validate } from '@configs/config.validate';
 
 @Module({
   imports: [

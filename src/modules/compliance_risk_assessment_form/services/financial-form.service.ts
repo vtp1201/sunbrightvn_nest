@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-import { COMPANY_MEMBER_TYPE, FILE_TEMPLATE, TYPE_MEMBER } from '@utilities';
-
 import { AnswerService } from '@modules/answer/answer.service';
 import { CompanyMemberService } from '@modules/company_member/company-member.service';
+import { COMPANY_MEMBER_TYPE, FILE_TEMPLATE, TYPE_MEMBER } from '@utilities';
 
 import { ComplianceRiskAssessmentFormService } from './compliance-risk-assessment-form.service';
 
