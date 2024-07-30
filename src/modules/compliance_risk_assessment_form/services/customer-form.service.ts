@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { AnswerService } from '@modules/answer/answer.service';
 import { CompanyMemberService } from '@modules/company_member/company-member.service';
@@ -61,7 +61,10 @@ export class CustomerFormService {
       return FILE_TEMPLATE.CUSTOMER_RISK_ASSESSMENT_FORM_INDIVIDUAL_V3;
     }
 
-    throw Error('');
+    throw new BadRequestException({
+      message: 'not found',
+      details: 's',
+    });
   }
 
   async getAnswers(params: {

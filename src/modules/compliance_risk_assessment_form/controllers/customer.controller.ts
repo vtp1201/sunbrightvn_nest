@@ -14,9 +14,9 @@ export class CustomerController {
 
   @Get(ROUTE.QUESTIONS)
   async getQuestion(@Query() query: QueryDTO) {
-    return await this.customerFormService.getAnswers({
+    return await this.customerFormService.getQuestion({
       processId: query.processId,
-      companyMemberId: query.companyMemberId,
+      typeMemberId: query.typeMemberId,
       companyMemberTypeId: query.companyMemberTypeId,
     });
   }
