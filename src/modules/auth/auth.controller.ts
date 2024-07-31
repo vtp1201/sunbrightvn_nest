@@ -9,7 +9,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { LocalAuthGuard } from './guards/local.guard';
+import { LocalAuthGuard } from '../../common/guard/local.guard';
 import { AuthService } from './services/auth.service';
 
 import { RequestWithUser } from '@types';

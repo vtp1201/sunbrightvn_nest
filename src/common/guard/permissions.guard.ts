@@ -3,20 +3,20 @@ import { Reflector } from '@nestjs/core';
 
 import { Observable } from 'rxjs';
 
-import { ROLES } from '../decorators';
+import { PERMISSIONS } from '../decorator';
 
 import { RequestWithUser } from '@types';
 
 @Injectable()
-export class RolesGuard implements CanActivate {
+export class PermissionsGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-    const roles: string[] = this.reflector.getAllAndOverride(ROLES, [
+    const permissions: string[] = this.reflector.getAllAndOverride(PERMISSIONS, [
       context.getHandler(),
       context.getClass(),
     ]);
     const request: RequestWithUser = context.switchToHttp().getRequest();
-    return roles.includes(request.roles as unknown as string);
+    return permissions.includes(request.permissions as unknown as string);
   }
 }
