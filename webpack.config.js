@@ -1,5 +1,6 @@
-import nodeExternals from 'webpack-node-externals';
 import path from 'path';
+import nodeExternals from 'webpack-node-externals';
+
 module.exports = function (options) {
   return {
     ...options,
