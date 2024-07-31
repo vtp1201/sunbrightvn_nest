@@ -22,12 +22,12 @@
       "@utilities/*": ["src/utilities/*"],
       "@modules/*": ["src/modules/*"],
       "@databases/*": ["src/databases/*"],
-      "@middlewares/*": ["src/middlewares/*"],
+      "@middlewares/*": ["src/common/middlewares/*"],
       "@utilities": ["src/utilities"],
       "@types": ["src/types"],
       "@abstracts": ["src/abstracts"],
       "@databases": ["src/databases"],
-      "@middlewares": ["src/middlewares"],
+      "@middlewares": ["src/common/middlewares"],
       "@modules": ["src/modules"]
     }
   }
