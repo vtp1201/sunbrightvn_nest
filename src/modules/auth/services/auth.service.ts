@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
@@ -10,8 +10,7 @@ import { Prisma } from '@prisma/client';
 
 import { TokenService } from './token.service';
 
-import { CONFIGURATION, KEY_SET_2FA, USER_STATUS } from '@utilities';
-import { ERRORS_DICTIONARY } from '@utilities/enums/error-dictionary';
+import { CONFIGURATION, ERRORS_DICTIONARY, KEY_SET_2FA, USER_STATUS } from '@utilities';
 
 @Injectable()
 export class AuthService {
@@ -49,7 +48,9 @@ export class AuthService {
     try {
       const user = await this.userService.repository.getUserToGeneratePassport(undefined, username);
 
-      if (user.status !== USER_STATUS.ACTIVE) throw new BadRequestException('');
+      if (user.status !== USER_STATUS.ACTIVE)
+        throw new UnauthorizedException(ERRORS_DICTIONARY.UNAUTHORIZED_EXCEPTION);
+
       if (
         !this.comparePassword({
           passwordHashed: user.password,
@@ -57,7 +58,7 @@ export class AuthService {
           password,
         })
       )
-        throw new BadRequestException('');
+        throw new UnauthorizedException(ERRORS_DICTIONARY.UNAUTHORIZED_EXCEPTION);
 
       if (user.isTwoFactorAuthentication) {
         const generate2FA = this.generate2FAToken();
@@ -91,7 +92,7 @@ export class AuthService {
         ...passport,
       };
     } catch {
-      throw new BadRequestException(ERRORS_DICTIONARY.UNAUTHORIZED_EXCEPTION);
+      throw new InternalServerErrorException(ERRORS_DICTIONARY.UNAUTHORIZED_EXCEPTION);
     }
   }
 
@@ -177,18 +178,18 @@ export class AuthService {
       const token = await this.tokenService.getTokenValidFromAccessToken(accessToken);
 
       if (!token) {
-        throw new BadRequestException(ERRORS_DICTIONARY.ACCESS_TOKEN_NOT_VALID);
+        throw new UnauthorizedException(ERRORS_DICTIONARY.ACCESS_TOKEN_NOT_VALID);
       }
 
       const user = await this.userService.repository.getUserToGeneratePassport(token.userId);
 
       if (!user) {
-        throw new BadRequestException(ERRORS_DICTIONARY.USER_NOT_FOUND);
+        throw new UnauthorizedException(ERRORS_DICTIONARY.USER_NOT_FOUND);
       }
 
       return this.generatePassport(user);
     } catch {
-      throw new BadRequestException(ERRORS_DICTIONARY.UNAUTHORIZED_EXCEPTION);
+      throw new InternalServerErrorException(ERRORS_DICTIONARY.UNAUTHORIZED_EXCEPTION);
     }
   }
 
