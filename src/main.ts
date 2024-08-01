@@ -10,6 +10,7 @@ import { join } from 'path';
 import { configSwagger } from '@configs/apiDocs.config';
 
 import { AppModule } from './app.module';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 import { APP_NAME, CONFIGURATION, LIB_VERSION, ROUTES } from '@utilities';
 
@@ -27,13 +28,16 @@ async function bootstrap() {
     }),
   );
 
+  const configService = app.get(ConfigService);
+
+  app.useGlobalFilters(new HttpExceptionFilter(configService));
+
   configSwagger(app);
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, 'views'));
   app.setViewEngine('ejs');
 
-  const configService = app.get(ConfigService);
   const port = configService.get(CONFIGURATION.PORT);
   const nodeEnv = configService.get(CONFIGURATION.NODE_ENV);
 

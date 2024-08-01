@@ -5,10 +5,10 @@ import { Response } from 'express';
 
 import { CONFIGURATION, E_NODE_ENV } from '@utilities';
 
-@Catch()
-export class GlobalExceptionFilter implements ExceptionFilter {
+@Catch(HttpException)
+export class HttpExceptionFilter implements ExceptionFilter {
   constructor(private readonly configService: ConfigService) {}
-  catch(exception: any, host: ArgumentsHost) {
+  catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
 
@@ -23,7 +23,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       error:
         this.configService.get(CONFIGURATION.NODE_ENV) !== E_NODE_ENV.PRODUCTION
           ? {
-              response: exception.response,
+              name: exception.message,
               stack: exception.stack,
             }
           : null,

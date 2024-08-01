@@ -11,6 +11,7 @@ import { Prisma } from '@prisma/client';
 import { TokenService } from './token.service';
 
 import { CONFIGURATION, KEY_SET_2FA, USER_STATUS } from '@utilities';
+import { ERRORS_DICTIONARY } from '@utilities/enums/error-dictionary';
 
 @Injectable()
 export class AuthService {
@@ -89,8 +90,8 @@ export class AuthService {
         ...generateToken.jwtToken,
         ...passport,
       };
-    } catch (error) {
-      throw new BadRequestException('');
+    } catch {
+      throw new BadRequestException(ERRORS_DICTIONARY.UNAUTHORIZED_EXCEPTION);
     }
   }
 
@@ -176,18 +177,18 @@ export class AuthService {
       const token = await this.tokenService.getTokenValidFromAccessToken(accessToken);
 
       if (!token) {
-        throw new BadRequestException('');
+        throw new BadRequestException(ERRORS_DICTIONARY.ACCESS_TOKEN_NOT_VALID);
       }
 
       const user = await this.userService.repository.getUserToGeneratePassport(token.userId);
 
       if (!user) {
-        throw new BadRequestException('');
+        throw new BadRequestException(ERRORS_DICTIONARY.USER_NOT_FOUND);
       }
 
       return this.generatePassport(user);
-    } catch (error) {
-      throw new BadRequestException('');
+    } catch {
+      throw new BadRequestException(ERRORS_DICTIONARY.UNAUTHORIZED_EXCEPTION);
     }
   }
 
