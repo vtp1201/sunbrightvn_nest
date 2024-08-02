@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 
+import { TaskModule } from '@modules';
+
 import {
   BankingController,
   BillingController,
@@ -22,7 +24,7 @@ import {
 } from './controllers';
 
 @Module({
-  imports: [],
+  imports: [TaskModule],
   controllers: [
     BankingController,
     BillingController,

@@ -1,5 +1,5 @@
-import { Controller, Get, Post, Query } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { QueryNoteDTO } from '../dtos';
 import { ComplianceRiskAssessmentFormService } from '../services';
@@ -12,9 +12,10 @@ const { ROUTE, TAG } = ROUTES.COMPLIANCE_RISK_ASSESSMENT_FORM.NOTE;
 export class NoteController {
   constructor(private complianceRiskAssessmentForm: ComplianceRiskAssessmentFormService) {}
 
+  @ApiResponse({ status: HttpStatus.CREATED })
   @Post(ROUTE.BASE)
-  createNote() {
-    return;
+  async createNote(@Body() body: any) {
+    return await this.complianceRiskAssessmentForm.createNote(body, 3);
   }
 
   @Get(ROUTE.CUSTOMER)

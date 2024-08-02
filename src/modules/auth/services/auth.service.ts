@@ -1,4 +1,9 @@
-import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
@@ -178,7 +183,7 @@ export class AuthService {
       const token = await this.tokenService.getTokenValidFromAccessToken(accessToken);
 
       if (!token) {
-        throw new UnauthorizedException(ERRORS_DICTIONARY.ACCESS_TOKEN_NOT_VALID);
+        throw new NotFoundException(ERRORS_DICTIONARY.ACCESS_TOKEN_NOT_VALID);
       }
 
       const user = await this.userService.repository.getUserToGeneratePassport(token.userId);

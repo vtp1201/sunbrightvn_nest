@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { BusinessActivityModule } from '@modules/business_activity/business-activity.module';
-import { CountryModule } from '@modules/country/country.module';
+import { BusinessActivityModule, CountryModule } from '@modules';
 
 import {
   BusinessActivityController,

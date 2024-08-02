@@ -4,7 +4,7 @@ import { AbstractRepository } from '@abstracts';
 
 import { PrismaService } from '@databases/prisma.service';
 
-import { E_USER, MODEL_NAME, ROLE_STATUS } from '@utilities';
+import { E_USER, ERRORS_DICTIONARY, MODEL_NAME, ROLE_STATUS } from '@utilities';
 
 @Injectable()
 export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
@@ -14,7 +14,8 @@ export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
     super(prismaService);
   }
   async getUserToGeneratePassport(id?: number, username?: string) {
-    if (!id && !username) throw new BadRequestException('');
+    if (!id && !username)
+      throw new BadRequestException(ERRORS_DICTIONARY.VALIDATION_PROPERTY_VALID);
     const query = id
       ? {
           id,

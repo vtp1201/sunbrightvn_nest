@@ -18,6 +18,10 @@ export class ComplianceRiskAssessmentFormService {
     private noteService: NoteService,
   ) {}
 
+  async createNote(param: any, userId: number) {
+    return this.noteService.createNoteCDC(param, userId);
+  }
+
   async getNotes(
     params: {
       companyMemberId?: number;
