@@ -1,0 +1,6 @@
+export enum BANKING_PROCESS_STATUS {
+  PROCESSING = 0,
+  DONE = 1,
+  REJECT = 2,
+  CANCELED = 3,
+}

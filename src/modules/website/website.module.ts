@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
 
-import { AuthModule } from '@modules/auth/auth.module';
+import { AuthModule } from '@modules';
 
 import { WebsiteController } from './website.controller';
 import { WebsiteRepository } from './website.repository';

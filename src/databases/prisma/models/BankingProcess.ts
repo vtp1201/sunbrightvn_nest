@@ -91,6 +91,7 @@ export default createModel(MODEL_NAME.BANKING_PROCESS, (BankingProcessModel) => 
       })
       .string(ATTRIBUTE.content, {
         map: COLUMN.content,
+        optional: true,
         raw: RAW_STRING.LENGTH_200,
       })
       .int(ATTRIBUTE.bankBranchId, {

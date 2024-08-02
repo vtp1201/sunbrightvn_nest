@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { TaskModule } from '@modules';
+import { BankingProcessModule, BankModule, TaskModule } from '@modules';
 
 import {
   BankingController,
@@ -24,7 +24,7 @@ import {
 } from './controllers';
 
 @Module({
-  imports: [TaskModule],
+  imports: [TaskModule, BankModule, BankingProcessModule],
   controllers: [
     BankingController,
     BillingController,

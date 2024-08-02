@@ -1,5 +1,7 @@
 export * from './answer/answer.module';
 export * from './auth/auth.module';
+export * from './bank/bank.module';
+export * from './banking_process/banking-process.module';
 export * from './bbcsg/bbcsg.module';
 export * from './business_activity/business-activity.module';
 export * from './company_member/company-member.module';
