@@ -4,7 +4,7 @@ import { BankService } from '@modules/bank/bank.service';
 import { BankingProcessService } from '@modules/banking_process/banking-process.service';
 import { TaskService } from '@modules/task/task.service';
 
-import { BANKING_PROCESS_STATUS } from '@utilities';
+import { BANKING_PROCESS_STATUS, COUNTRY, SERVICE_TYPE, WEBSITE } from '@utilities';
 
 @Injectable()
 export class BankingCustomerAccountService {
@@ -58,6 +58,93 @@ export class BankingCustomerAccountService {
         },
       },
     });
+  }
+
+  async upgradeService(param: { taskId: number; customerId: number; websiteId?: number }) {
+    const task = await this.taskService.findUniqueOrThrow({
+      select: {
+        id: true,
+        upgradeOrderId: true,
+        bankingProcesses: {
+          select: {
+            id: true,
+            status: true,
+          },
+        },
+        customer: true,
+        order: {
+          select: {
+            id: true,
+            websiteId: true,
+            company: {
+              select: {
+                id: true,
+                countryId: true,
+                numOfCheckingBank: true,
+                billingId: true,
+              },
+            },
+            orderItems: {
+              select: {
+                service: {
+                  select: {
+                    id: true,
+                    upgradeServiceId: true,
+                    quantity: true,
+                    serviceType: true,
+                  },
+                },
+              },
+              where: {
+                service: {
+                  serviceType: {
+                    id: SERVICE_TYPE.BANKING_ASSISTANCE,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      where: {
+        id: param.taskId,
+        customer: {
+          id: param.customerId,
+        },
+      },
+    });
+
+    const availableBankingProcess = task.bankingProcesses.filter((bankingProcess) =>
+      [BANKING_PROCESS_STATUS.PROCESSING, BANKING_PROCESS_STATUS.DONE].includes(
+        bankingProcess.status,
+      ),
+    ); // === pending || success
+
+    if (
+      availableBankingProcess.length > 0 ||
+      task.bankingProcesses.length < task.order.company.numOfCheckingBank
+    )
+      throw new BadRequestException('Upgrade Banking Process is not available!');
+
+    const serviceId: number | null = task.order.orderItems.find(
+      (orderItem) => orderItem.service.upgradeServiceId,
+    )?.service?.upgradeServiceId;
+
+    if (!serviceId) throw new BadRequestException('Upgrade Banking Process is not available!');
+
+    const websiteId =
+      task.order.company.countryId === COUNTRY.SINGAPORE
+        ? WEBSITE.BBCINCORP_SG
+        : WEBSITE.BBCINCORP_HK;
+
+    const paramCreate = {
+      companyId: task.order.company.id,
+      customerId: task.customer.id,
+      orderItems: [],
+      billingId: task.order.company.billingId,
+      websiteId,
+    };
+    return paramCreate;
   }
 
   async createBankingProcessForTask(param: { bankId: number; taskId: number }) {

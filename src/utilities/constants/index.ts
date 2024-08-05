@@ -9,6 +9,9 @@ export * from './note-type';
 export * from './question-group';
 export * from './role';
 export * from './agent-type';
+export * from './country';
+export * from './service-type';
+export * from './website';
 
 export const ENV_PATH = '.env';
 export const LIB_VERSION = '2.0.0';
