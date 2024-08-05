@@ -2,9 +2,18 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { BankService } from '@modules/bank/bank.service';
 import { BankingProcessService } from '@modules/banking_process/banking-process.service';
+import { FeeService } from '@modules/fee/fee.service';
+import { OrderService } from '@modules/order/order.service';
 import { TaskService } from '@modules/task/task.service';
 
-import { BANKING_PROCESS_STATUS, COUNTRY, SERVICE_TYPE, WEBSITE } from '@utilities';
+import {
+  BANKING_PROCESS_STATUS,
+  COUNTRY,
+  ORDER_FORM_LIST,
+  ORDER_FROM,
+  SERVICE_TYPE,
+  WEBSITE,
+} from '@utilities';
 
 @Injectable()
 export class BankingCustomerAccountService {
@@ -12,6 +21,8 @@ export class BankingCustomerAccountService {
     private taskService: TaskService,
     private bankService: BankService,
     private bankingProcessService: BankingProcessService,
+    private feeService: FeeService,
+    private orderService: OrderService,
   ) {}
 
   async getBankingProcessesByOrderAndCustomer(orderId: number, customerId: number) {
@@ -137,14 +148,37 @@ export class BankingCustomerAccountService {
         ? WEBSITE.BBCINCORP_SG
         : WEBSITE.BBCINCORP_HK;
 
-    const paramCreate = {
-      companyId: task.order.company.id,
-      customerId: task.customer.id,
-      orderItems: [],
-      billingId: task.order.company.billingId,
-      websiteId,
-    };
-    return paramCreate;
+    const unitPrice = await this.feeService.calculateUnitPriceInit(serviceId);
+    const newOrder = await this.orderService.create({
+      data: {
+        companyId: task.order.company.id,
+        customerId: task.customer.id,
+        orderItems: {
+          create: [
+            {
+              serviceId,
+              packageId: null,
+              quantity: 1,
+              unitPrice,
+              amount: unitPrice * 1,
+            },
+          ],
+        },
+        billingId: task.order.company.billingId,
+        websiteId,
+        amount: unitPrice * 1,
+        orderFromId: ORDER_FROM.PORTAL,
+      },
+    });
+    const taskUpdate = await this.taskService.update({
+      where: {
+        id: task.id,
+      },
+      data: {
+        upgradeOrderId: newOrder.id,
+      },
+    });
+    return newOrder;
   }
 
   async createBankingProcessForTask(param: { bankId: number; taskId: number }) {

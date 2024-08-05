@@ -12,6 +12,7 @@ export * from './agent-type';
 export * from './country';
 export * from './service-type';
 export * from './website';
+export * from './order-from';
 
 export const ENV_PATH = '.env';
 export const LIB_VERSION = '2.0.0';

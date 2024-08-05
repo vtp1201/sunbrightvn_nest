@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { BankingProcessModule, BankModule, TaskModule } from '@modules';
+import { BankingProcessModule, BankModule, FeeModule, OrderModule, TaskModule } from '@modules';
 
 import {
   BankingController,
@@ -24,7 +24,7 @@ import {
 } from './controllers';
 
 @Module({
-  imports: [TaskModule, BankModule, BankingProcessModule],
+  imports: [TaskModule, BankModule, BankingProcessModule, FeeModule, OrderModule],
   controllers: [
     BankingController,
     BillingController,
