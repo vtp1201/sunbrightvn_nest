@@ -80,19 +80,16 @@ export default createModel(MODEL_NAME.WEBSITE, (WebsiteModel) => {
         raw: RAW_STRING.LENGTH_100,
         optional: true,
       })
-      .string(ATTRIBUTE.stripeKey, {
+      .json(ATTRIBUTE.stripeKey, {
         map: COLUMN.stripeKey,
-        raw: RAW_STRING.TEXT,
         optional: true,
       })
-      .string(ATTRIBUTE.paypalKey, {
+      .json(ATTRIBUTE.paypalKey, {
         map: COLUMN.paypalKey,
-        raw: RAW_STRING.TEXT,
         optional: true,
       })
-      .string(ATTRIBUTE.mailchimpKey, {
+      .json(ATTRIBUTE.mailchimpKey, {
         map: COLUMN.mailchimpKey,
-        raw: RAW_STRING.TEXT,
         optional: true,
       })
       .float(ATTRIBUTE.minAmount, {

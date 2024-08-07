@@ -6,14 +6,7 @@ import { FeeService } from '@modules/fee/fee.service';
 import { OrderService } from '@modules/order/order.service';
 import { TaskService } from '@modules/task/task.service';
 
-import {
-  BANKING_PROCESS_STATUS,
-  COUNTRY,
-  ORDER_FORM_LIST,
-  ORDER_FROM,
-  SERVICE_TYPE,
-  WEBSITE,
-} from '@utilities';
+import { BANKING_PROCESS_STATUS, COUNTRY, ORDER_FROM, SERVICE_TYPE, WEBSITE } from '@utilities';
 
 @Injectable()
 export class BankingCustomerAccountService {
@@ -170,7 +163,7 @@ export class BankingCustomerAccountService {
         orderFromId: ORDER_FROM.PORTAL,
       },
     });
-    const taskUpdate = await this.taskService.update({
+    await this.taskService.update({
       where: {
         id: task.id,
       },

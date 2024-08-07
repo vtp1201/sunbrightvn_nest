@@ -4,13 +4,19 @@ import { AbstractRepository } from '@abstracts';
 
 import { PrismaService } from '@databases/prisma.service';
 
-import { E_WEBSITE, MODEL_NAME } from '@utilities';
+import { MODEL_NAME } from '@utilities';
 
 @Injectable()
 export class WebsiteRepository extends AbstractRepository<MODEL_NAME.WEBSITE> {
-  attributes = E_WEBSITE.ATTRIBUTE;
-  relations = E_WEBSITE.RELATION;
   constructor(prismaService: PrismaService) {
     super(prismaService);
+  }
+
+  getAllWebsiteWithAllRelations() {
+    return this.findMany({
+      include: {
+        currency: true,
+      },
+    });
   }
 }

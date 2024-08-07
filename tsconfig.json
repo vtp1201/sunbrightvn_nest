@@ -19,7 +19,6 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@configs/*": ["src/configs/*"],
-      "@utilities/*": ["src/utilities/*"],
       "@modules/*": ["src/modules/*"],
       "@databases/*": ["src/databases/*"],
       "@utilities": ["src/utilities"],

@@ -11,4 +11,8 @@ export class WebsiteService extends AbstractService<MODEL_NAME.WEBSITE, WebsiteR
   constructor(repository: WebsiteRepository) {
     super(repository);
   }
+
+  getAll() {
+    return this.repository.getAllWebsiteWithAllRelations();
+  }
 }

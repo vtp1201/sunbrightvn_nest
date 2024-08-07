@@ -18,6 +18,7 @@ export * from './gleadssg/gleads-sg.module';
 export * from './note/note.module';
 export * from './onboarding/onboarding.module';
 export * from './order/order.module';
+export * from './payment/payment.module';
 export * from './person/person.module';
 export * from './portal/portal.module';
 export * from './process/process.module';
