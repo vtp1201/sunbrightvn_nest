@@ -7,18 +7,8 @@ import { PrismaService } from '@databases/prisma.service';
 import { MODEL_NAME } from '@utilities';
 
 @Injectable()
-export class CountryRepository extends AbstractRepository<MODEL_NAME.COUNTRY> {
+export class CustomerRepository extends AbstractRepository<MODEL_NAME.CUSTOMER> {
   constructor(prismaService: PrismaService) {
     super(prismaService);
-  }
-
-  getCountryByCode(countryCode: string) {
-    return this.findFirst({
-      select: {
-        id: true,
-        name: true,
-      },
-      where: { countryCode: countryCode },
-    });
   }
 }

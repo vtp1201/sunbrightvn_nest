@@ -16,7 +16,7 @@ export class StripeService extends Stripe {
     super(website.stripeKey[configService.get(CONFIGURATION.NODE_ENV)]);
   }
 
-  createCustomer(param: { id: number; email: string; name?: string }) {
+  createCustomer(param: { email: string; name?: string }) {
     return this.customers.create({
       email: param.email,
       name: param.name ?? '',

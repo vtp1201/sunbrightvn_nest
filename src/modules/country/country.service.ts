@@ -11,4 +11,6 @@ export class CountryService extends AbstractService<MODEL_NAME.COUNTRY, CountryR
   constructor(repository: CountryRepository) {
     super(repository);
   }
+
+  getCountryByCode = this.repository.getCountryByCode;
 }

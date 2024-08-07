@@ -7,6 +7,7 @@ export * from './business_activity/business-activity.module';
 export * from './company_member/company-member.module';
 export * from './compliance_risk_assessment_form/compliance-risk-assessment-form.module';
 export * from './country/country.module';
+export * from './customer/customer.module';
 export * from './customer_account/customer-account.module';
 export * from './email/email.module';
 export * from './email_template/email-template.module';
