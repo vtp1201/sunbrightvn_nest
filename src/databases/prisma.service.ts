@@ -34,7 +34,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     await this.checkAndLogConnection();
   }
 
-  async checkAndLogConnection() {
+  private async checkAndLogConnection() {
     const mysqlURL = this.configService.get('MYSQL_URL');
     const dbName = 'MysqlDB';
     try {

@@ -15,7 +15,7 @@ export class PaymentService {
     private countryService: CountryService,
   ) {}
 
-  async paymentWithStripe({
+  async paymentWithCardViaStripe({
     cardholderName,
     user,
     order,
@@ -35,7 +35,7 @@ export class PaymentService {
     });
 
     const country = await this.countryService.getCountryByCode(
-      chargeStripe?.payment_method_details?.card?.country,
+      chargeStripe.payment_method_details.card.country,
     );
   }
 
