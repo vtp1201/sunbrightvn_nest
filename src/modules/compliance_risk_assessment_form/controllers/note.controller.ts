@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { QueryNoteDTO } from '../dtos';
+import { QueryNoteDto } from '../dtos';
 import { ComplianceRiskAssessmentFormService } from '../services';
 
 import { NOTE_TYPE, ROUTES } from '@utilities';
@@ -19,7 +19,7 @@ export class NoteController {
   }
 
   @Get(ROUTE.CUSTOMER)
-  async getNotesCustomer(@Query() query: QueryNoteDTO) {
+  async getNotesCustomer(@Query() query: QueryNoteDto) {
     return await this.complianceRiskAssessmentForm.getNotes(
       query,
       NOTE_TYPE.NOTE_CUSTOMER_RISK_FORM,
@@ -27,7 +27,7 @@ export class NoteController {
   }
 
   @Get(ROUTE.SERVICE)
-  async getNotesService(@Query() query: QueryNoteDTO) {
+  async getNotesService(@Query() query: QueryNoteDto) {
     return await this.complianceRiskAssessmentForm.getNotes(
       query,
       NOTE_TYPE.NOTE_SERVICE_RISK_FORM,
@@ -35,7 +35,7 @@ export class NoteController {
   }
 
   @Get(ROUTE.FINANCIAL)
-  async getNotesFinancial(@Query() query: QueryNoteDTO) {
+  async getNotesFinancial(@Query() query: QueryNoteDto) {
     return await this.complianceRiskAssessmentForm.getNotes(
       query,
       NOTE_TYPE.NOTE_FINANCIAL_RISK_FORM,
@@ -43,12 +43,12 @@ export class NoteController {
   }
 
   @Get(ROUTE.PAYER)
-  async getNotesPayer(@Query() query: QueryNoteDTO) {
+  async getNotesPayer(@Query() query: QueryNoteDto) {
     return await this.complianceRiskAssessmentForm.getNotes(query, NOTE_TYPE.NOTE_PAYER_FORM);
   }
 
   @Get(ROUTE.REFERENCE_CUSTOMER)
-  async getNotesReferenceCustomer(@Query() query: QueryNoteDTO) {
+  async getNotesReferenceCustomer(@Query() query: QueryNoteDto) {
     return await this.complianceRiskAssessmentForm.getNotes(
       query,
       NOTE_TYPE.NOTE_REFERENCE_CUSTOMER,
@@ -56,7 +56,7 @@ export class NoteController {
   }
 
   @Get(ROUTE.REFERENCE_SERVICE)
-  async getNotesReferenceService(@Query() query: QueryNoteDTO) {
+  async getNotesReferenceService(@Query() query: QueryNoteDto) {
     return await this.complianceRiskAssessmentForm.getNotes(
       query,
       NOTE_TYPE.NOTE_REFERENCE_SERVICE,
@@ -64,7 +64,7 @@ export class NoteController {
   }
 
   @Get(ROUTE.REFERENCE_FINANCIAL)
-  async getNotesReferenceFinancial(@Query() query: QueryNoteDTO) {
+  async getNotesReferenceFinancial(@Query() query: QueryNoteDto) {
     return await this.complianceRiskAssessmentForm.getNotes(
       query,
       NOTE_TYPE.NOTE_REFERENCE_FINANCIAL,

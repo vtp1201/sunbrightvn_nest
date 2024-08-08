@@ -1,6 +1,6 @@
 import { IsOptional, IsString } from 'class-validator';
 
-export class CreateFileRelationDTO {
+export class CreateFileRelationDto {
   @IsString()
   name: string;
 
@@ -12,4 +12,4 @@ export class CreateFileRelationDTO {
   mimeType?: string;
 }
 
-export class CreateFileDTO extends CreateFileRelationDTO {}
+export class CreateFileDto extends CreateFileRelationDto {}

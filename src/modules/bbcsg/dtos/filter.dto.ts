@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { IsInt, IsOptional, IsString, Length, Min } from 'class-validator';
 
-export class FilterDTO {
+export class FilterDto {
   @ApiProperty()
   @IsOptional()
   @IsString()

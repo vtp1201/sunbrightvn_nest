@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { QueryDTO } from '../dtos/query.dto';
+import { QueryDto } from '../dtos/query.dto';
 import { FinancialFormService } from '../services';
 
 import { ROUTES } from '@utilities';
@@ -14,7 +14,7 @@ export class FinancialController {
 
   @Get(ROUTE.QUESTIONS)
   // @ApiResponse()
-  async getQuestion(@Query() query: QueryDTO) {
+  async getQuestion(@Query() query: QueryDto) {
     const data = await this.financialFormService.getQuestion({
       processId: query.processId,
     });
@@ -27,7 +27,7 @@ export class FinancialController {
   }
 
   @Get(ROUTE.ANSWERS)
-  async getAnswer(@Query() query: QueryDTO) {
+  async getAnswer(@Query() query: QueryDto) {
     return await this.financialFormService.getAnswers({
       processId: query.processId,
     });

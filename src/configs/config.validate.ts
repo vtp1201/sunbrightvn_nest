@@ -1,10 +1,10 @@
 import { plainToInstance } from 'class-transformer';
 import { validateSync } from 'class-validator';
 
-import { ConfigEnvDTO } from './config.dto';
+import { ConfigEnvDto } from './config.dto';
 
 export function validate(config: Record<string, unknown>) {
-  const validatedConfig = plainToInstance(ConfigEnvDTO, config, {
+  const validatedConfig = plainToInstance(ConfigEnvDto, config, {
     enableImplicitConversion: true,
   });
   const errors = validateSync(validatedConfig, {

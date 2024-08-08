@@ -1,7 +1,7 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { FilterDTO } from '../dtos/filter.dto';
+import { FilterDto } from '../dtos/filter.dto';
 import { BusinessActivityBBCSGService } from '../services';
 
 import { ROUTES } from '@utilities';
@@ -13,7 +13,7 @@ export class BusinessActivityController {
   constructor(private readonly service: BusinessActivityBBCSGService) {}
 
   @Get(ROUTE.FILTER)
-  async filter(@Query() filter: FilterDTO) {
+  async filter(@Query() filter: FilterDto) {
     return await this.service.filter({
       country: filter.country,
       searchString: filter.searchString,

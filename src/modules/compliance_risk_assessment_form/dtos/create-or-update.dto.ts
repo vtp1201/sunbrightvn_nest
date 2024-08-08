@@ -9,7 +9,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-class AnswerForTaskDTO {
+class AnswerForTaskDto {
   @IsInt()
   @Min(1)
   optionId: number;
@@ -27,7 +27,7 @@ class AnswerForTaskDTO {
   isChosen: number;
 }
 
-class FileDTO {
+class FileDto {
   @IsOptional()
   @IsString()
   mimeType?: string | null;
@@ -41,11 +41,11 @@ class FileDTO {
   s3Path?: string | null;
 }
 
-export class CreateOrUpdateDTO {
+export class CreateOrUpdateDto {
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => AnswerForTaskDTO)
-  answersForTask: AnswerForTaskDTO[];
+  @Type(() => AnswerForTaskDto)
+  answersForTask: AnswerForTaskDto[];
 
   @IsInt()
   @Min(1)
@@ -64,6 +64,6 @@ export class CreateOrUpdateDTO {
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => FileDTO)
-  files: FileDTO[];
+  @Type(() => FileDto)
+  files: FileDto[];
 }

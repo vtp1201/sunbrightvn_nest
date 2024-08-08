@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { QueryDTO } from '../dtos/query.dto';
+import { QueryDto } from '../dtos/query.dto';
 import { CustomerFormService } from '../services';
 
 import { ROUTES } from '@utilities';
@@ -13,7 +13,7 @@ export class CustomerController {
   constructor(private customerFormService: CustomerFormService) {}
 
   @Get(ROUTE.QUESTIONS)
-  async getQuestion(@Query() query: QueryDTO) {
+  async getQuestion(@Query() query: QueryDto) {
     return await this.customerFormService.getQuestion({
       processId: query.processId,
       typeMemberId: query.typeMemberId,
@@ -27,7 +27,7 @@ export class CustomerController {
   }
 
   @Get(ROUTE.ANSWERS)
-  async getAnswer(@Query() query: QueryDTO) {
+  async getAnswer(@Query() query: QueryDto) {
     return await this.customerFormService.getAnswers({
       processId: query.processId,
       companyMemberId: query.companyMemberId,

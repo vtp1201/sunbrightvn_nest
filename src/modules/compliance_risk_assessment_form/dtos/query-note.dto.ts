@@ -1,7 +1,7 @@
 import { Type } from 'class-transformer';
 import { IsInt, IsOptional, Min, ValidateIf } from 'class-validator';
 
-export class QueryNoteDTO {
+export class QueryNoteDto {
   @IsOptional()
   @IsInt()
   @Min(1)
