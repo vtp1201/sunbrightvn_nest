@@ -11,4 +11,6 @@ export class OrderService extends AbstractService<MODEL_NAME.ORDER, OrderReposit
   constructor(repository: OrderRepository) {
     super(repository);
   }
+
+  updateAfterPayment = this.repository.updateAfterPayment;
 }

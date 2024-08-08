@@ -7,7 +7,7 @@ import { PrismaService } from '@databases/prisma.service';
 import { MODEL_NAME } from '@utilities';
 
 @Injectable()
-export class EmailRepository extends AbstractRepository<MODEL_NAME.EMAIL> {
+export class EmailTemplateRepository extends AbstractRepository<MODEL_NAME.EMAIL_TEMPLATE> {
   constructor(prismaService: PrismaService) {
     super(prismaService);
   }

@@ -35,3 +35,4 @@ export * from './test/test.module';
 export * from './user/user.module';
 export * from './visa2asia/v2a.module';
 export * from './website/website.module';
+export * from './xero/xero.module';
