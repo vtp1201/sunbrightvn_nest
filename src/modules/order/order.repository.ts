@@ -23,6 +23,8 @@ export class OrderRepository extends AbstractRepository<MODEL_NAME.ORDER> {
       amountCode: param.amountCode,
       amountExchangeRate: param.amountExchangeRate,
       countryCardId: param.countryCardId ?? null,
+      xeroInvoiceId: param.xeroInvoiceId,
+      xeroInvoiceNo: param.xeroInvoiceNo,
       paidTime: new Date(),
     };
     return this.update({

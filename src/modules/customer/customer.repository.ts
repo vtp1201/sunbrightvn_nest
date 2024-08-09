@@ -11,4 +11,15 @@ export class CustomerRepository extends AbstractRepository<MODEL_NAME.CUSTOMER> 
   constructor(prismaService: PrismaService) {
     super(prismaService);
   }
+
+  updateXeroContact({ id, xeroContactId }: { id: number; xeroContactId: string }) {
+    return this.update({
+      where: {
+        id,
+      },
+      data: {
+        xeroContactId,
+      },
+    });
+  }
 }

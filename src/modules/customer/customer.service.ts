@@ -11,4 +11,6 @@ export class CustomerService extends AbstractService<MODEL_NAME.CUSTOMER, Custom
   constructor(repository: CustomerRepository) {
     super(repository);
   }
+
+  updateXeroContact = this.repository.updateXeroContact;
 }

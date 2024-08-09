@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-import { AnswerService } from '@modules/answer/answer.service';
-import { NoteService } from '@modules/note/note.service';
-import { ProcessService } from '@modules/process/process.service';
-import { QuestionService } from '@modules/question/question.service';
+import { Prisma } from '@prisma/client';
 
-import { answer, Prisma } from '@prisma/client';
+import { Answer, AnswerService, NoteService, ProcessService, QuestionService } from '@types';
 
 import { FILE_TEMPLATE, LIST_QUESTION, TYPE_MEMBER } from '@utilities';
 
@@ -121,7 +118,7 @@ export class ComplianceRiskAssessmentFormService {
   }
 
   async updateOrCreateAnswersForCompanyMember(params: {
-    answersForTask: answer[];
+    answersForTask: Answer[];
     companyMemberId?: number;
     companyId?: number;
     taskId?: number;

@@ -58,8 +58,13 @@ export class AbstractRepository<M extends ModelName> implements IAbstractReposit
   }
 
   update<A extends ModelArgs<M, 'update'>>(
-    args: Prisma.SelectSubset<A, ModelArgs<M, 'update'>>,
+    args: Prisma.SelectSubset<A, ModelArgs<M, 'update'>> & {
+      transaction?: Prisma.TransactionClient;
+    },
   ): Promise<ModelResult<M, A, 'update'>> {
+    if (args.transaction) {
+      args.transaction[this._model as Prisma.ModelName].update(args);
+    }
     return this._prismaService[this._model as Prisma.ModelName].update(args);
   }
 

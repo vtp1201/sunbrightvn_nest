@@ -7,3 +7,7 @@ export const XERO_SCOPE = [
   'offline_access',
   'accounting.contacts',
 ];
+
+export const XERO_ACCOUNT_CODE_DEFAULT = '665';
+
+export const XERO_TAX_TYPE_DEFAULT = 'NONE';

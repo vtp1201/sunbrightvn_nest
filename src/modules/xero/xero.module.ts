@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 
-import { StripeModule } from '@modules';
+import { BillingModule, CompanyModule, CustomerModule } from '@modules';
 
 @Module({
-  imports: [StripeModule],
+  imports: [BillingModule, CompanyModule, CustomerModule],
 })
 export class XeroModule {}
