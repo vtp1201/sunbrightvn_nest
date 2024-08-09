@@ -12,11 +12,13 @@ export class UserService extends AbstractService<MODEL_NAME.USER, UserRepository
     super(userRepository);
   }
 
+  getUsersByRoleIds = this.repository.getUsersByRoleIds;
+
   async getUserByUsername(username: string) {
     try {
       const user = await this.findFirst({
         where: {
-          [this.repository.attributes.username]: username,
+          username,
         },
       });
       return user;

@@ -11,4 +11,6 @@ export class TaskService extends AbstractService<MODEL_NAME.TASK, TaskRepository
   constructor(repository: TaskRepository) {
     super(repository);
   }
+
+  getTaskWithSupporters = this.repository.getTaskWithSupporters;
 }

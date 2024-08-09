@@ -3,15 +3,18 @@ import { Injectable } from '@nestjs/common';
 import {
   CountryService,
   NotificationService,
+  NotificationTemplateService,
   OrderItem,
   OrderService,
   PaymentWithCardViaStripeInput,
+  RoleService,
   StripeService,
+  TaskService,
   UpdateAfterPaymentInput,
   WebsiteFullRelation,
 } from '@types';
 
-import { exchange, PAYMENT_GATEWAY } from '@utilities';
+import { exchange, NOTIFICATION_TEMPLATE, PAYMENT_GATEWAY } from '@utilities';
 
 @Injectable()
 export class PaymentService {
@@ -20,7 +23,8 @@ export class PaymentService {
     private stripeService: StripeService,
     private countryService: CountryService,
     private orderService: OrderService,
-    private notificationService: NotificationService,
+    private notificationTemplateService: NotificationTemplateService,
+    private taskService: TaskService,
   ) {}
 
   async paymentWithCardViaStripe({ cardholderName, user, order }: PaymentWithCardViaStripeInput) {
@@ -55,44 +59,33 @@ export class PaymentService {
     }
   }
 
-  async handleAfterPaymentSuccess() {
-    const orderPaySuccess = await this.orderService.updateAfterPayment({
-      id: order.id,
-      paidAmount: order.amount,
-      paymentGatewayId: PAYMENT_GATEWAY.CARD_VIA_STRIPE,
-      amountConverted: chargeStripe.amount / 100, //stripe currency unit is cent (0.01$)
-      amountCode: chargeStripe.currency,
-      amountExchangeRate: this.website.currency.exchangeRate,
-      countryCardId: country.id,
-    });
+  async handleAfterPaymentSuccess(updateOrder: UpdateAfterPaymentInput) {
+    const orderPaySuccess = await this.orderService.updateAfterPayment(updateOrder);
+    return orderPaySuccess;
   }
 
   async handleAfterPaymentFail({ user, order }: PaymentWithCardViaStripeInput) {
     // === notify Customer
     const messageParams = [order.id, user.username];
-    const task = await taskRepository.getTaskWithSupporters({ order_id: Order.id, is_deleted: 0 });
+    const task = await this.taskService.getTaskWithSupporters({ orderId: order.id });
     let supporterUsers = [];
-    const notificationTemplate = await Models.NotificationTemplate.findOne({
+    const notificationTemplate = await this.notificationTemplateService.findFirst({
       include: {
-        model: Models.NotificationTemplateHasRole,
+        roles: true,
       },
       where: {
-        id: PORTAL_PAID_FAIL,
-        is_deleted: 0,
+        id: NOTIFICATION_TEMPLATE.PORTAL_PAID_FAIL,
       },
     });
     if (notificationTemplate) {
-      if (notificationTemplate.is_notify_to_supporter) supporterUsers.push(task?.CSMember);
-      if (notificationTemplate.is_notify_to_leader) supporterUsers.push(task?.CSLeader);
+      if (notificationTemplate.isNotifyToSupporter) supporterUsers.push(task?.csMember);
+      if (notificationTemplate.isNotifyToLeader) supporterUsers.push(task?.csLeader);
 
-      const objFormatRole = NotificationService.formatSendNotifyToRole(
-        notificationTemplate.NotificationTemplateHasRoles,
-        task,
-      );
+      const objFormatRole = RoleService.formatSendNotifyToRole(notificationTemplate.roles, task);
       if (objFormatRole.notifyToUsers.length > 0)
         supporterUsers = [...supporterUsers, ...objFormatRole.notifyToUsers];
       if (objFormatRole.notifyToRoles.length >= 0)
-        notificationTemplate.NotificationTemplateHasRoles = objFormatRole.notifyToRoles;
+        notificationTemplate.roles = objFormatRole.notifyToRoles;
       const notificationImplement = new NotificationImplement(
         notificationTemplate,
         messageParams,

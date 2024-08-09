@@ -4,12 +4,10 @@ import { AbstractRepository } from '@abstracts';
 
 import { PrismaService } from '@databases/prisma.service';
 
-import { E_USER, ERRORS_DICTIONARY, MODEL_NAME, ROLE_STATUS } from '@utilities';
+import { ERRORS_DICTIONARY, MODEL_NAME, ROLE_STATUS } from '@utilities';
 
 @Injectable()
 export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
-  attributes = E_USER.ATTRIBUTE;
-  relations = E_USER.RELATION;
   constructor(private prismaService: PrismaService) {
     super(prismaService);
   }
@@ -85,37 +83,17 @@ export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
     });
   }
 
-  async test() {
+  async getUsersByRoleIds(roleIds: number[]) {
     const user = await this.prismaService.user.findFirst({
-      select: {
-        id: true,
-        username: true,
-        status: true,
-        createdTime: true,
-        personId: true,
-        customerId: true,
+      include: {
         roles: {
-          select: {
-            id: true,
-            name: true,
-            left: true,
-            right: true,
-            parentId: true,
-            permissions: {
-              select: {
-                id: true,
-                value: true,
-                name: true,
-              },
+          where: {
+            id: {
+              in: roleIds,
             },
-            limits: true,
           },
         },
       },
-      where: {
-        username: 'asd',
-      },
-      // include: {},
     });
     return user;
   }

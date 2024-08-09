@@ -16,6 +16,8 @@ export * from './order-from';
 export * from './order-status';
 export * from './payment-gateway';
 export * from './xero';
+export * from './notification-template';
+export * from './notification-type';
 
 export const ENV_PATH = '.env';
 export const LIB_VERSION = '2.0.0';
