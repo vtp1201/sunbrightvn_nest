@@ -1,0 +1,1 @@
+export const NOTIFICATION_TYPE = { NEWS: 1, MESSAGE: 2, OTHERS: 3 };
