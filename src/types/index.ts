@@ -3,7 +3,7 @@ export * from './requests.type';
 export * from '@modules/answer/types';
 export * from '@modules/auth/types';
 export * from '@modules/bank/types';
-// export * from '@modules/banking_process/types';
+export * from '@modules/banking_process/types';
 // export * from '@modules/bbcsg/types';
 export * from '@modules/billing/types';
 // export * from '@modules/business_activity/types';

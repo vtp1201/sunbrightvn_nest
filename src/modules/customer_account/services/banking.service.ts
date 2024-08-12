@@ -1,10 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
-import { BankService } from '@modules/bank/bank.service';
-import { BankingProcessService } from '@modules/banking_process/banking-process.service';
-import { FeeService } from '@modules/fee/fee.service';
-import { OrderService } from '@modules/order/order.service';
-import { TaskService } from '@modules/task/task.service';
+import { BankingProcessService, BankService, FeeService, OrderService, TaskService } from '@types';
 
 import { BANKING_PROCESS_STATUS, COUNTRY, ORDER_FROM, SERVICE_TYPE, WEBSITE } from '@utilities';
 

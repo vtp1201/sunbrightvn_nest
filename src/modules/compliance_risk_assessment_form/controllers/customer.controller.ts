@@ -1,5 +1,5 @@
-import { Controller, Get, Post, Query } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { QueryDto } from '../dtos/query.dto';
 import { CustomerFormService } from '../services';
@@ -12,6 +12,11 @@ const { ROUTE, TAG } = ROUTES.COMPLIANCE_RISK_ASSESSMENT_FORM.CUSTOMER;
 export class CustomerController {
   constructor(private customerFormService: CustomerFormService) {}
 
+  @ApiOkResponse({
+    description: 'get questions and file template id',
+    status: HttpStatus.OK,
+    isArray: true,
+  })
   @Get(ROUTE.QUESTIONS)
   async getQuestion(@Query() query: QueryDto) {
     return await this.customerFormService.getQuestion({

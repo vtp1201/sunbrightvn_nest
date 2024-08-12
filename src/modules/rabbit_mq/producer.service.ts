@@ -21,7 +21,7 @@ export class ProducerService {
         persistent: true,
       });
       Logger.log('Sent To Queue');
-    } catch (error) {
+    } catch (_error) {
       throw new HttpException('Error adding mail to queue', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }

@@ -91,26 +91,10 @@ export class ComplianceRiskAssessmentFormService {
             : '';
       }
 
-      return this.questionService.findMany({
-        select: {
-          id: true,
-          content: true,
-          questionParentId: true,
-          questionTypeId: true,
-          options: true,
-          questionPriority: true,
-          questionGroups: {
-            where: {
-              id: params.questionGroup,
-              fileTemplateId: params.fileTemplateId,
-            },
-          },
-        },
-        where: {
-          id: {
-            notIn: excludeQuestionIds,
-          },
-        },
+      return this.questionService.getQuestionsByQuestionGroup({
+        excludeQuestionIds,
+        questionGroupIds: [params.questionGroup],
+        fileTemplateId: params.fileTemplateId,
       });
     } catch (error) {
       throw error;

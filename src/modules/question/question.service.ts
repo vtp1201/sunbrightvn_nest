@@ -11,4 +11,6 @@ export class QuestionService extends AbstractService<MODEL_NAME.QUESTION, Questi
   constructor(repository: QuestionRepository) {
     super(repository);
   }
+
+  getQuestionsByQuestionGroup = this.repository.getQuestionsByQuestionGroup;
 }
