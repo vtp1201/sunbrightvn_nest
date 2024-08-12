@@ -98,10 +98,10 @@ export class PaymentService {
     }
     OrderMailService.send_fail(Order.id);
 
-    return MessageUtility.send(res, 400101, {
-      is_success: false,
-      order_id: Order.id,
-    });
+    return {
+      isSuccess: false,
+      orderId: order.id,
+    };
   }
 
   calculatePrice(orderItems: OrderItem[]) {

@@ -5,7 +5,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { jwtVerify } from '@types';
+import { JwtVerify } from '@types';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -20,7 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: jwtVerify) {
+  async validate(payload: JwtVerify) {
     const data = await this.authService.verifyAccessToken(payload.data);
     return data;
   }

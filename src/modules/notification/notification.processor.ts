@@ -1,6 +1,8 @@
 import { Injectable, Scope } from '@nestjs/common';
 
-import { NotificationService, NotificationTemplate, Role, UserService } from '@types';
+import * as moment from 'moment';
+
+import { NotificationService, NotificationTemplate, Role, User, UserService } from '@types';
 
 import { NOTIFICATION_TYPE } from '@utilities';
 
@@ -18,11 +20,14 @@ export class NotificationProcessor {
     private notificationService: NotificationService,
   ) {}
 
-  async init(notificationTemplate, messageParams, userInstances, obj = {}) {
+  async init(
+    notificationTemplate: NotificationTemplate,
+    messageParams: any,
+    userInstances: User[],
+    obj = {},
+  ) {
     this.message = notificationTemplate.message?.format(...messageParams);
     this.roles = notificationTemplate.NotificationTemplateHasRoles.map((e) => e.role_id);
-    //filter null, undefined, duplicate values
-    // !! Status required when query user
     this.userInstances = userInstances
       .filter((e) => e?.status)
       .filter((v, i, a) => a.findIndex((v2) => v2.id === v.id) === i);
