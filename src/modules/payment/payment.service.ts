@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 
 import {
   CountryService,
-  NotificationService,
   NotificationTemplateService,
   OrderItem,
   OrderService,

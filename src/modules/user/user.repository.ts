@@ -8,7 +8,7 @@ import { ERRORS_DICTIONARY, MODEL_NAME, ROLE_STATUS } from '@utilities';
 
 @Injectable()
 export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
-  constructor(private prismaService: PrismaService) {
+  constructor(prismaService: PrismaService) {
     super(prismaService);
   }
   async getUserToGeneratePassport(id?: number, username?: string) {
@@ -84,7 +84,7 @@ export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
   }
 
   async getUsersByRoleIds(roleIds: number[]) {
-    const user = await this.prismaService.user.findFirst({
+    const users = await this.findMany({
       include: {
         roles: {
           where: {
@@ -95,6 +95,6 @@ export class UserRepository extends AbstractRepository<MODEL_NAME.USER> {
         },
       },
     });
-    return user;
+    return users;
   }
 }
