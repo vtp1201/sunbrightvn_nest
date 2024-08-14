@@ -1,18 +1,19 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { Prisma, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
-import { timeout } from '@utilities';
+import { CONFIGURATION, timeout } from '@utilities';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
-  ModelName = Prisma.ModelName;
   constructor(
     private configService: ConfigService,
     private logger: Logger,
   ) {
-    super();
+    super({
+      datasourceUrl: `mysql://${encodeURI(configService.get(CONFIGURATION.MYSQL_USERNAME))}:${encodeURI(configService.get(CONFIGURATION.MYSQL_PASSWORD))}@${encodeURI(configService.get(CONFIGURATION.MYSQL_HOST))}:${encodeURI(configService.get(CONFIGURATION.MYSQL_PORT))}/${encodeURI(configService.get(CONFIGURATION.MYSQL_DATABASE))}`,
+    });
     this.$extends({
       model: {
         $allModels: {
