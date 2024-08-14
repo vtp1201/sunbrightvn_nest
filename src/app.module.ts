@@ -16,9 +16,9 @@ import {
   Visa2AsiaModule,
   WebsiteModule,
 } from '@modules';
-import { AcceptLanguageResolver, HeaderResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
-import * as path from 'path';
 
+// import { AcceptLanguageResolver, HeaderResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
+// import * as path from 'path';
 import { validate } from '@configs/config.validate';
 
 import { DatabaseModule } from '@databases/database.module';
@@ -38,18 +38,18 @@ import { ENV_PATH } from '@utilities';
     //   type: 'single',
     //   url: '',
     // }),
-    I18nModule.forRoot({
-      fallbackLanguage: 'en',
-      loaderOptions: {
-        path: path.join(__dirname, '/i18n/'),
-        watch: true,
-      },
-      resolvers: [
-        { use: QueryResolver, options: ['lang'] },
-        AcceptLanguageResolver,
-        new HeaderResolver(['x-lang']),
-      ],
-    }),
+    // I18nModule.forRoot({
+    //   fallbackLanguage: 'en',
+    //   loaderOptions: {
+    //     path: path.join(__dirname, '/i18n/'),
+    //     watch: true,
+    //   },
+    //   resolvers: [
+    //     { use: QueryResolver, options: ['lang'] },
+    //     AcceptLanguageResolver,
+    //     new HeaderResolver(['x-lang']),
+    //   ],
+    // }),
     DatabaseModule,
     AuthModule,
     BBCSGModule,

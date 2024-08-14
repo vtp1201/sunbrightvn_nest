@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 
-import { BusinessActivityModule, CountryModule } from '@modules';
+import { BusinessActivityModule } from '@modules/business_activity/business-activity.module';
+import { CountryModule } from '@modules/country/country.module';
 
 import {
   BusinessActivityController,
@@ -8,6 +9,8 @@ import {
   StaticDataController,
 } from './controllers';
 import { BusinessActivityBBCSGService } from './services';
+
+// import { BusinessActivityBBCSGService } from './services';
 
 @Module({
   imports: [BusinessActivityModule, CountryModule],

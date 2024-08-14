@@ -11,8 +11,8 @@ import { configSwagger } from '@configs/apiDocs.config';
 
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
-import './types/string';
 
+// import './types/string';
 import { APP_NAME, CONFIGURATION, LIB_VERSION, ROUTES } from '@utilities';
 
 async function bootstrap() {

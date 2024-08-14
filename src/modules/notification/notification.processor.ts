@@ -69,35 +69,35 @@ export class NotificationProcessor {
           data: paramCreate,
         });
         for (const user of this.userInstances) {
-          await newNotification.addUser(user);
-          const getCurrentDate = moment().format('YYYY-MM-DD HH:mm:ss');
-          const responseNotification = JSON.parse(JSON.stringify(newNotification));
-          responseNotification.taskId = taskId || null;
-          responseNotification.orderId = orderId || null;
-          responseNotification.targetId = targetId || null;
-          responseNotification.companyId = companyId || null;
-          responseNotification.code = code || null;
-          responseNotification.profileId = profileId || null;
-          responseNotification.supportCaseId = supportCaseId || null;
-          responseNotification.created_time = getCurrentDate;
-          if (supportCaseId) {
-            responseNotification.type_noty = 'message';
-          } else if (this.notificationTemplate.notificationTypeId === NOTIFICATION_TYPE.NEWS) {
-            //[targetId, orderId, profileId, taskId].some(e => e != null)
-            responseNotification.type_noty = 'news';
-          }
-          responseNotification.ReadNotis = [{ is_read: 0 }];
-          // event_local.emit('new-notification', {
-          //     id: user?.id,
-          //     message: 'New Notification',
-          //     notification: responseNotification
+          // await newNotification.addUser(user);
+          // const getCurrentDate = moment().format('YYYY-MM-DD HH:mm:ss');
+          // const responseNotification = JSON.parse(JSON.stringify(newNotification));
+          // responseNotification.taskId = taskId || null;
+          // responseNotification.orderId = orderId || null;
+          // responseNotification.targetId = targetId || null;
+          // responseNotification.companyId = companyId || null;
+          // responseNotification.code = code || null;
+          // responseNotification.profileId = profileId || null;
+          // responseNotification.supportCaseId = supportCaseId || null;
+          // responseNotification.created_time = getCurrentDate;
+          // if (supportCaseId) {
+          //   responseNotification.type_noty = 'message';
+          // } else if (this.notificationTemplate.notificationTypeId === NOTIFICATION_TYPE.NEWS) {
+          //   //[targetId, orderId, profileId, taskId].some(e => e != null)
+          //   responseNotification.type_noty = 'news';
+          // }
+          // responseNotification.ReadNotis = [{ is_read: 0 }];
+          // // event_local.emit('new-notification', {
+          // //     id: user?.id,
+          // //     message: 'New Notification',
+          // //     notification: responseNotification
+          // // });
+          // const socketManage = new SocketManage().getInstance();
+          // socketManage.evenPublishNotification({
+          //   id: user?.id,
+          //   message: 'New Notification',
+          //   notification: responseNotification,
           // });
-          const socketManage = new SocketManage().getInstance();
-          socketManage.evenPublishNotification({
-            id: user?.id,
-            message: 'New Notification',
-            notification: responseNotification,
-          });
         }
       }
     } catch (error) {

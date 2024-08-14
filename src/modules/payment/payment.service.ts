@@ -85,17 +85,17 @@ export class PaymentService {
         supporterUsers = [...supporterUsers, ...objFormatRole.notifyToUsers];
       if (objFormatRole.notifyToRoles.length >= 0)
         notificationTemplate.roles = objFormatRole.notifyToRoles;
-      const notificationImplement = new NotificationImplement(
-        notificationTemplate,
-        messageParams,
-        supporterUsers,
-        null,
-        {},
-      );
-      await notificationImplement.findUserByRoles();
-      notificationImplement.send();
+      // const notificationImplement = new NotificationImplement(
+      //   notificationTemplate,
+      //   messageParams,
+      //   supporterUsers,
+      //   null,
+      //   {},
+      // );
+      // await notificationImplement.findUserByRoles();
+      // notificationImplement.send();
     }
-    OrderMailService.send_fail(Order.id);
+    // OrderMailService.send_fail(Order.id);
 
     return {
       isSuccess: false,

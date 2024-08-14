@@ -3,17 +3,16 @@ import { ConfigService } from '@nestjs/config';
 
 import Stripe from 'stripe';
 
-import { WebsiteFullRelation } from '@types';
-
+// import { WebsiteFullRelation } from '@types';
 import { CONFIGURATION } from '@utilities';
 
 @Injectable()
 export class StripeService extends Stripe {
   constructor(
     configService: ConfigService,
-    private website: WebsiteFullRelation,
+    // private website: WebsiteFullRelation,
   ) {
-    super(website.stripeKey[configService.get(CONFIGURATION.NODE_ENV)]);
+    super(configService.get(CONFIGURATION.NODE_ENV));
   }
 
   createCustomer(param: { email: string; name?: string }) {
@@ -27,7 +26,7 @@ export class StripeService extends Stripe {
     return this.charges.create({
       amount: param.amount,
       description: param.description,
-      currency: this.website.currency.code,
+      currency: 'this.website.currency.code',
       customer: param.customerId,
     });
   }
